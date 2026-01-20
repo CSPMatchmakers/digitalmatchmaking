@@ -2,7 +2,7 @@
 layout: post
 title: Machine Learning with Titanic
 description: Understanding Machine Learning concepts through interactive Titanic survival prediction.
-permalink: /digital-famine/microblog/ml_titanic_interactive/
+permalink: /digital-matchmaking/matchmaking/ml/
 breadcrumb: true
 microblog: true
 author: Ethan W
@@ -17,8 +17,8 @@ author: Ethan W
     }
 
     .ml-container {
-        max-width: 1200px;
-        margin: 2em auto;
+        max-width: 1400px;
+        margin: 1em auto;
         background: rgba(30, 30, 46, 0.95);
         border-radius: 16px;
         padding: 2.5em;
@@ -27,6 +27,7 @@ author: Ethan W
         border: 1px solid rgba(102, 126, 234, 0.3);
         color: #e0e0e0;
         font-family: 'Courier New', monospace;
+        min-height: 85vh;
     }
 
     .ml-container h1 {
@@ -278,16 +279,18 @@ author: Ethan W
     .quiz-question h3 {
         color: #8b9dff;
         margin-bottom: 1em;
+        font-size: 1.4em;
     }
 
     .quiz-option {
         background: #1f1f35;
-        padding: 1em;
+        padding: 1.2em 1.5em;
         margin: 0.8em 0;
         border-radius: 8px;
         border: 2px solid #667eea;
         cursor: pointer;
         transition: all 0.3s;
+        font-size: 1.05em;
     }
 
     .quiz-option:hover {
@@ -333,7 +336,7 @@ author: Ethan W
 
     .progress-bar {
         width: 100%;
-        height: 30px;
+        height: 40px;
         background: #1f1f35;
         border-radius: 15px;
         overflow: hidden;
@@ -349,49 +352,64 @@ author: Ethan W
         justify-content: center;
         color: white;
         font-weight: bold;
+        font-size: 1.1em;
     }
 </style>
 
-## What Is Machine Learning?
 
-Machine Learning (ML) is a type of artificial intelligence that allows computers to learn patterns from data without being explicitly programmed. Instead of writing specific rules, we feed the computer examples, and it figures out the patterns on its own.
-
-**The Titanic Dataset:** This famous dataset contains information about passengers on the Titanic. We use it to predict who survived based on features like age, gender, class, and more. This is a classic **classification problem** - predicting a category (survived or not).
-
-### Key ML Concepts:
-
-- **Features:** Input variables (age, sex, class) used to make predictions
-- **Labels:** What we're trying to predict (survived or not)
-- **Training:** Teaching the model using historical data
-- **Prediction:** Using the trained model on new data
-
----
-
-## AP CSP Component A Requirements
-
-This program meets all AP Computer Science Principles Component A requirements:
-
-✅ **Input**: User actions trigger events (button clicks, dropdown selections, text input)  
-✅ **List/Collection**: Arrays store passenger data and history  
-✅ **Procedure**: `calculateSurvivalScore(passenger)` with parameters and return value  
-✅ **Algorithm**: Uses sequencing, selection (if/else), and iteration (loops) in prediction logic  
-✅ **Procedure Calls**: Multiple calls to `calculateSurvivalScore()`, `displayResult()`, `updateStats()`  
-✅ **Output**: Visual display of survival prediction, probability bars, and explanations
-
----
-
-## 🎮 Interactive Titanic ML Explorer
 
 <div class="ml-container">
     <h1>🚢 Titanic ML Explorer</h1>
     <p class="subtitle">Interactive Machine Learning with the Titanic Dataset</p>
 
     <div class="tabs">
-        <button class="tab-btn active" onclick="switchTab('learn')">📚 Learn</button>
+        <button class="tab-btn active" onclick="switchTab('personality')">🧠 Personality Quiz</button>
+        <button class="tab-btn" onclick="switchTab('learn')">📚 Learn</button>
         <button class="tab-btn" onclick="switchTab('predict')">🔮 Predict</button>
-        <button class="tab-btn" onclick="switchTab('explore')">📊 Explore Data</button>
         <button class="tab-btn" onclick="switchTab('quiz')">🎯 Quiz</button>
-        <button class="tab-btn" onclick="switchTab('personality')">🧠 Personality</button>
+    </div>
+
+    <!-- Personality Quiz Tab (Now First) -->
+    <div id="personality-tab" class="tab-content active">
+        <div class="info-box">
+            <h2>🧠 Discover Your Coder Personality</h2>
+            <p>Take this quiz to find out what type of coder you are! Your result will be saved to your profile for matchmaking.</p>
+        </div>
+
+        <div id="personality-status-container"></div>
+
+        <div id="personality-quiz-section">
+            <div class="progress-bar" style="margin-bottom: 2em;">
+                <div class="progress-fill" id="personality-progress" style="width: 0%">0%</div>
+            </div>
+
+            <div id="personality-question-container"></div>
+
+            <div style="text-align: center; margin-top: 2em;">
+                <button class="predict-btn" id="personality-next-btn" onclick="nextPersonalityQuestion()" disabled>
+                    Next Question →
+                </button>
+            </div>
+        </div>
+
+        <div id="personality-result-section" style="display: none;">
+            <div style="text-align: center;">
+                <div style="font-size: 5em; margin-bottom: 0.3em;" id="personality-result-icon">🎯</div>
+                <div style="font-size: 2.5em; color: #8b9dff; font-weight: bold; margin-bottom: 0.5em;" id="personality-result-name">Your Coder Type</div>
+                <div class="info-box" id="personality-result-description"></div>
+                
+                <div class="stats-grid" id="personality-traits-container"></div>
+
+                <div style="margin-top: 2em;">
+                    <button class="predict-btn" onclick="savePersonalityToProfile()">
+                        💾 Save to Profile
+                    </button>
+                    <button class="predict-btn" onclick="restartPersonalityQuiz()">
+                        🔄 Retake Quiz
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Learn Tab -->
@@ -654,9 +672,8 @@ This program meets all AP Computer Science Principles Component A requirements:
     let userAnswers = {};
     let quizComplete = false;
 
-    // PROCEDURE: switchTab (AP CSP Requirement: User interaction/events)
     function switchTab(tab) {
-        const tabs = ['learn', 'predict', 'explore', 'quiz', 'personality'];
+        const tabs = ['personality', 'learn', 'predict', 'explore', 'quiz'];
         for (let i = 0; i < tabs.length; i++) {
             const tabEl = document.getElementById(tabs[i] + '-tab');
             if (tabEl) tabEl.classList.remove('active');
@@ -665,14 +682,13 @@ This program meets all AP Computer Science Principles Component A requirements:
         if (activeTab) activeTab.classList.add('active');
         
         const buttons = document.querySelectorAll('.tab-btn');
-        const tabNames = ['learn', 'predict', 'explore', 'quiz', 'personality'];
+        const tabNames = ['personality', 'learn', 'predict', 'explore', 'quiz'];
         for (let i = 0; i < buttons.length; i++) {
             buttons[i].classList.remove('active');
             if (tabNames[i] === tab) buttons[i].classList.add('active');
         }
     }
 
-    // PROCEDURE: calculateSurvivalScore (AP CSP Requirement: Procedure with parameters and return)
     function calculateSurvivalScore(passenger) {
         let score = 50;
         if (passenger.sex === 'female') score += 30;
@@ -689,7 +705,6 @@ This program meets all AP Computer Science Principles Component A requirements:
         return Math.max(0, Math.min(100, score));
     }
 
-    // PROCEDURE: makePrediction (AP CSP Requirement: Algorithm with sequencing, selection)
     function makePrediction() {
         const passenger = {
             pclass: parseInt(document.getElementById('pclass').value),
@@ -708,7 +723,6 @@ This program meets all AP Computer Science Principles Component A requirements:
         });
     }
 
-    // PROCEDURE: displayResult (AP CSP Requirement: Output - visual/textual)
     function displayResult(survived, probability, factors) {
         const resultSection = document.getElementById('result-section');
         const icon = survived ? '✅' : '❌';
@@ -740,7 +754,6 @@ This program meets all AP Computer Science Principles Component A requirements:
         `;
     }
 
-    // PROCEDURE: checkAnswer (AP CSP Requirement: Algorithm with iteration and selection)
     function checkAnswer(questionNum, answer) {
         if (quizComplete) return;
         const correct = quizAnswers[questionNum] === answer;
@@ -766,7 +779,6 @@ This program meets all AP Computer Science Principles Component A requirements:
         if (Object.keys(userAnswers).length === 3) showQuizScore();
     }
 
-    // PROCEDURE: showQuizScore (AP CSP Requirement: Uses list iteration)
     function showQuizScore() {
         quizComplete = true;
         let correctCount = 0;
@@ -778,9 +790,7 @@ This program meets all AP Computer Science Principles Component A requirements:
         document.getElementById('score-display').textContent = correctCount + '/3';
     }
 
-    // ============================================
-    // PERSONALITY QUIZ SECTION
-    // ============================================
+    // Personality Quiz Section
 
     const personalityQuestions = [
         {
