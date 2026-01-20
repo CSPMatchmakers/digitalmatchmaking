@@ -1,7 +1,7 @@
 ---
 layout: page
 description: Digital Matchmaking - go through the nodes to create your profile
-permalink: /digital-matchmaking/
+permalink: /home/
 breadcrumb: true
 author: 
 ---
