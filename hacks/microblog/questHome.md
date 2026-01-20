@@ -525,21 +525,22 @@ author:
             description: 'Primary uplink relay. Repairs required to restore long-range communications.',
             tags: ['relay', 'priority-high', 'uplink']
         },
+
         {
             id: 2, 
-            label: 'Microblog', 
-            url: '/digitalmatchmaking/digital-matchmaking/matchmaking/microb/',
-            longTitle: 'Orbital Hub Gamma',
-            description: 'Orbital hub with degraded power systems. Critical for network synchronization.',
-            tags: ['orbital', 'maintenance', 'power-sys']
-        },
-        {
-            id: 3, 
             label: 'PII Quiz', 
             url: '/digitalmatchmaking/digital-matchmaking/matchmaking/mcq/',
             longTitle: 'Tactical Beacon Beta',
             description: 'Short-range beacon used for local operative coordination and security verification.',
             tags: ['beacon', 'local', 'security']
+        },
+        {
+            id: 3, 
+            label: 'Microblog', 
+            url: '/digitalmatchmaking/digital-matchmaking/matchmaking/microb/',
+            longTitle: 'Orbital Hub Gamma',
+            description: 'Orbital hub with degraded power systems. Critical for network synchronization.',
+            tags: ['orbital', 'maintenance', 'power-sys']
         },
         {
             id: 4, 
