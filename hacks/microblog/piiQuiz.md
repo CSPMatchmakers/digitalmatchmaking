@@ -401,9 +401,13 @@ breadcrumb: true
     </div>
 
     <script>
-        // Temporary config - replace with your actual Flask backend URL
         if (!window.pythonURI) {
-            window.pythonURI = "http://localhost:8401"; // Flask backend port
+            // Use production backend if we're on the production site
+            if (window.location.hostname === 'cspmatchmakers.github.io') {
+                window.pythonURI = "https://matchmakers.opencodingsociety.com";
+            } else {
+                window.pythonURI = "http://localhost:8401";
+            }
         }
         
         const questions = [
