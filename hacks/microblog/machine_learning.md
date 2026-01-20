@@ -2,7 +2,7 @@
 layout: post
 title: Machine Learning with Titanic
 description: Understanding Machine Learning concepts through interactive Titanic survival prediction.
-permalink: /digital-matchmaking/matchmaking/ml/
+permalink: /ml/
 breadcrumb: true
 microblog: true
 author: Ethan W

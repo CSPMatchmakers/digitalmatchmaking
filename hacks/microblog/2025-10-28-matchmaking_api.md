@@ -1,7 +1,7 @@
 ---
 layout: post
 title: Matchmaking
-permalink: /digital-matchmaking/matchmaking/api/
+permalink: /api/
 author: William W
 breadcrumb: false
 ---

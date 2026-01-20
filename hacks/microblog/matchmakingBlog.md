@@ -2,7 +2,7 @@
 layout: post
 title: "Digital Safety & Online Awareness"
 description: "Submodule 4 of AI Usage Mini-Quest"
-permalink: /digital-matchmaking/matchmaking/microb/
+permalink: /microb/
 submodule: 4
 categories: [CSP, Submodule, Microblogging]
 tags: [online safety, matchmaking, submodule]

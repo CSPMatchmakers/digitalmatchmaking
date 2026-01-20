@@ -2,7 +2,7 @@
 layout: post
 title: "Microblogging Multiple Choice"
 description: "Microblog Multiple Choice Quiz for Microblogging Planet"
-permalink: /digital-matchmaking/matchmaking/mcq/
+permalink: /mcq/
 parent: "AI Usage"
 team: "Unzippers"
 submodule: 1
