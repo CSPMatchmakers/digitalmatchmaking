@@ -79,15 +79,14 @@ breadcrumb: false
         }
 
         /* Step Guide Styles */
-        .step-guide {
+        .step-guide-inner {
             background: #1e3a8a;
             border: 2px solid #3b82f6;
             border-radius: 8px;
             padding: 1.5rem;
-            margin-bottom: 2rem;
         }
 
-        .step-guide h3 {
+        .step-guide-inner h3 {
             color: #dbeafe !important;
             margin-bottom: 1rem;
         }
@@ -610,20 +609,27 @@ breadcrumb: false
     </div>
 
     <!-- Step Guide -->
-    <div class="step-guide">
-        <h3>📋 Quick Start Guide</h3>
-        <div id="step-content">
-            <!-- Step content will be inserted here by JavaScript -->
+    <div class="collapsible-section">
+        <div class="collapsible-header" onclick="toggleSection(this)">
+            <h2>📋 Quick Start Guide</h2>
+            <span class="collapsible-icon">▼</span>
         </div>
-        <div class="step-navigation">
-            <button id="prevBtn" class="step-btn" onclick="changeStep(-1)">← Previous</button>
-            <div class="step-indicator">Step <span id="currentStep">1</span> of 5</div>
-            <button id="nextBtn" class="step-btn next" onclick="changeStep(1)">Next →</button>
+        <div class="collapsible-content">
+            <div class="step-guide-inner">
+                <div id="step-content">
+                    <!-- Step content will be inserted here by JavaScript -->
+                </div>
+                <div class="step-navigation">
+                    <button id="prevBtn" class="step-btn" onclick="changeStep(-1)">← Previous</button>
+                    <div class="step-indicator">Step <span id="currentStep">1</span> of 5</div>
+                    <button id="nextBtn" class="step-btn next" onclick="changeStep(1)">Next →</button>
+                </div>
+            </div>
         </div>
     </div>
 
     <!-- API Tester -->
-    <div class="api-tester-container">
+    <div class="api-tester-container" style="margin-top: 1rem;">
         <div class="api-tester-header">
             <div class="header-title">
                 <h2>
@@ -713,17 +719,24 @@ breadcrumb: false
             <pre id="headersContent" class="response-content"></pre>
         </div>
 
-        <div class="tips-section">
-            <h4>💡 Tips:</h4>
-            <ul>
-                <li>• Follow the numbered buttons in order for best results</li>
-                <li>• Start with "Setup Profile" to initialize your matchmaking profile (only once!)</li>
-                <li>• Use "Add Profile Data" to add individual fields like hobbies, interests, etc.</li>
-                <li>• Use "Save Profile JSON" to save multiple questions/answers at once</li>
-                <li>• Check your profile anytime with "GET Profile Data"</li>
-                <li>• Status 201 = Success (Created), 200 = Success, 404 = Not Found, 409 = Already Exists</li>
-                <li>• Your profile data is saved and will be used for matchmaking later!</li>
-            </ul>
+        <div class="collapsible-section" style="margin-top: 0;">
+            <div class="collapsible-header" onclick="toggleSection(this)">
+                <h2 style="font-size: 1.2rem;">💡 Tips & Info</h2>
+                <span class="collapsible-icon">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <div class="tips-section" style="margin-top: 0; background: transparent !important; border: none; padding: 0;">
+                    <ul>
+                        <li>• Follow the numbered buttons in order for best results</li>
+                        <li>• Start with "Setup Profile" to initialize your matchmaking profile (only once!)</li>
+                        <li>• Use "Add Profile Data" to add individual fields like hobbies, interests, etc.</li>
+                        <li>• Use "Save Profile JSON" to save multiple questions/answers at once</li>
+                        <li>• Check your profile anytime with "GET Profile Data"</li>
+                        <li>• Status 201 = Success (Created), 200 = Success, 404 = Not Found, 409 = Already Exists</li>
+                        <li>• Your profile data is saved and will be used for matchmaking later!</li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
 
