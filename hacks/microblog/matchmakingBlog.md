@@ -1,11 +1,11 @@
 ---
 layout: post
-title: "Digital Safety & Online Awareness"
-description: "Submodule 4 of AI Usage Mini-Quest"
-permalink: /microb/
+title: "Personality Matchmaking Quiz"
+description: "Discover your personality type for better connections"
+permalink: digital-matchmaking/matchmaking/microb/
 submodule: 4
 categories: [CSP, Submodule, Microblogging]
-tags: [online safety, matchmaking, submodule]
+tags: [matchmaking, personality, quiz, submodule]
 author: "Nicolas Diaz"
 breadcrumb: true
 ---
@@ -13,7 +13,7 @@ breadcrumb: true
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Digital Safety & Online Awareness</title>
+<title>Personality Matchmaking Quiz</title>
 
 <script>
 /* ---------- FLASK BACKEND (FORCED, SAFE) ---------- */
@@ -32,22 +32,59 @@ div[class*="content"] {
   background: transparent !important;
 }
 
+/* Hide Jekyll metadata boxes but keep title */
+.page-meta,
+.post-meta,
+[class*="breadcrumb"]:not(.progress-container):not(.quiz-card),
+[class*="Breadcrumb"]:not(.progress-container):not(.quiz-card),
+[class*="category"]:not(.progress-container):not(.quiz-card),
+[class*="Category"]:not(.progress-container):not(.quiz-card),
+[class*="categories"]:not(.progress-container):not(.quiz-card),
+[class*="Categories"]:not(.progress-container):not(.quiz-card),
+[class*="tag"]:not(.progress-container):not(.quiz-card),
+[class*="Tag"]:not(.progress-container):not(.quiz-card),
+[class*="author"]:not(.progress-container):not(.quiz-card),
+[class*="Author"]:not(.progress-container):not(.quiz-card),
+[class*="reading-time"],
+[class*="read-time"],
+.meta-info,
+.entry-meta,
+.breadcrumbs,
+.tags,
+.categories,
+nav[class*="bread"],
+.taxonomy,
+.post-info,
+.article-meta {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Only hide metadata in Jekyll-specific header containers, not our custom header */
+.page-header:not(header) > *:not(h1):not(.page-title):not([class*="title"]),
+.post-header:not(header) > *:not(h1):not(.post-title):not([class*="title"]) {
+  display: none !important;
+}
+
 :root {
-  --bg-dark: #0a0a0a;
-  --bg-darker: #050505;
-  --card-bg: #111826;
-  --card-hover: #1a2332;
-  --accent: #7ad7ff;
-  --accent-glow: rgba(122, 215, 255, 0.3);
-  --accent-dark: #0f6fa4;
-  --border: #1d3247;
-  --text: #eaeaea;
-  --text-dim: #9ca3af;
-  --success: #10b981;
+  --bg-dark: #1a1a2e;
+  --bg-darker: #0f0f1e;
+  --card-bg: #16213e;
+  --card-hover: #1f2c4a;
+  --accent: #ff6b9d;
+  --accent-glow: rgba(255, 107, 157, 0.4);
+  --accent-dark: #c2185b;
+  --accent-light: #ff8fab;
+  --border: #2d3561;
+  --text: #f0f0f0;
+  --text-dim: #a8a8b3;
+  --success: #4caf50;
   --error: #ef4444;
-  --guardian: #10b981;
-  --balanced: #7ad7ff;
-  --open: #f59e0b;
+  --guardian: #4caf50;
+  --balanced: #ff6b9d;
+  --open: #ffa726;
 }
 
 * {
@@ -57,8 +94,8 @@ div[class*="content"] {
 /* ---------- ANIMATED BACKGROUND ---------- */
 body {
   margin: 0;
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
-  background: linear-gradient(135deg, var(--bg-darker) 0%, var(--bg-dark) 50%, #0a1628 100%) !important;
+  font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  background: linear-gradient(135deg, #1a1a2e 0%, #2d1b3d 50%, #1f1635 100%) !important;
   background-attachment: fixed;
   color: var(--text);
   display: flex;
@@ -67,21 +104,24 @@ body {
   min-height: 100vh;
   position: relative;
   overflow-x: hidden;
+  overflow-y: auto;
 }
 
 body::before {
-  content: '';
+  content: '💕';
   position: fixed;
   top: -50%;
   left: -50%;
   width: 200%;
   height: 200%;
-  background: 
-    radial-gradient(circle at 20% 50%, rgba(122, 215, 255, 0.06) 0%, transparent 50%),
-    radial-gradient(circle at 80% 80%, rgba(15, 111, 164, 0.08) 0%, transparent 50%);
+  background:
+    radial-gradient(circle at 20% 50%, rgba(255, 107, 157, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 80%, rgba(194, 24, 91, 0.1) 0%, transparent 50%);
   animation: gradientFloat 20s ease-in-out infinite;
   pointer-events: none;
   z-index: 0;
+  font-size: 200px;
+  opacity: 0.02;
 }
 
 @keyframes gradientFloat {
@@ -99,43 +139,41 @@ h1, h2, h3 {
 header {
   position: relative;
   width: 100%;
-  padding: 70px 20px;
-  background: linear-gradient(135deg, #0a2a43 0%, #001119 100%) !important;
+  padding: 16px 20px 12px;
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.1) 0%, rgba(194, 24, 91, 0.05) 100%) !important;
   text-align: center;
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  border-bottom: 2px solid var(--accent);
+  box-shadow: 0 4px 20px rgba(255, 107, 157, 0.2);
   z-index: 1;
+  backdrop-filter: blur(10px);
 }
 
 header::after {
-  content: '';
+  content: '💖';
   position: absolute;
-  bottom: 0;
+  bottom: -12px;
   left: 50%;
   transform: translateX(-50%);
-  width: 70%;
-  height: 2px;
-  background: linear-gradient(90deg, transparent, var(--accent), transparent);
-  box-shadow: 0 0 25px var(--accent-glow);
+  font-size: 20px;
+  filter: drop-shadow(0 0 10px var(--accent-glow));
 }
 
 header h1 {
-  font-size: 52px;
-  font-weight: 900;
-  background: linear-gradient(135deg, var(--accent) 0%, #ffffff 100%);
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  letter-spacing: -1.5px;
-  margin-bottom: 16px;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
   animation: fadeInDown 0.8s ease-out;
-  text-shadow: 0 0 30px var(--accent-glow);
 }
 
 header p {
-  font-size: 19px;
+  font-size: 13px;
   color: var(--text-dim);
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: 0.3px;
   animation: fadeInUp 0.8s ease-out 0.2s both;
 }
@@ -166,13 +204,13 @@ header p {
 .container {
   position: relative;
   width: 100%;
-  max-width: 1100px;
-  margin: 60px auto;
+  max-width: 600px;
+  margin: 12px auto 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 36px;
-  padding: 0 24px;
+  gap: 12px;
+  padding: 0 16px;
   z-index: 1;
   background: transparent !important;
 }
@@ -183,19 +221,22 @@ header p {
 
 /* ---------- ENHANCED INFO CARDS ---------- */
 .info-card {
-  background: var(--card-bg) !important;
-  border: 1px solid var(--border) !important;
-  border-radius: 20px !important;
-  padding: 38px !important;
+  background: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 107, 157, 0.2) !important;
+  border-radius: 24px !important;
+  padding: 20px !important;
   width: 100%;
-  max-width: 700px;
+  max-width: 600px;
   text-align: center;
   cursor: pointer;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
-  overflow: hidden;
+  overflow: visible;
   animation: cardFadeIn 0.6s ease-out backwards;
-  box-shadow: none !important;
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(20px);
 }
 
 .info-card:nth-child(1) { animation-delay: 0.1s; }
@@ -218,19 +259,25 @@ header p {
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(135deg, var(--accent-glow) 0%, transparent 60%);
+  right: 0;
+  bottom: 0;
+  border-radius: 24px;
+  padding: 1px;
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.4), rgba(255, 139, 171, 0.1));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
   opacity: 0;
   transition: opacity 0.3s ease;
   pointer-events: none;
 }
 
 .info-card:hover {
-  transform: translateY(-6px) !important;
-  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 30px var(--accent-glow) !important;
-  border-color: var(--accent) !important;
-  background: var(--card-hover) !important;
+  transform: translateY(-2px) scale(1.01) !important;
+  box-shadow:
+    0 8px 32px rgba(255, 107, 157, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 107, 157, 0.4) !important;
 }
 
 .info-card:hover::before {
@@ -355,30 +402,61 @@ input::placeholder {
 
 /* ---------- ENHANCED BUTTON ---------- */
 button {
-  margin-top: 32px;
-  padding: 16px 24px;
+  margin-top: 14px;
+  padding: 13px 20px;
   width: 100%;
-  border-radius: 12px;
+  border-radius: 30px;
   border: none;
-  background: linear-gradient(135deg, var(--accent-dark) 0%, var(--accent) 100%);
+  background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
   color: white;
-  font-size: 17px;
+  font-size: 14px;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 20px rgba(122, 215, 255, 0.2);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 4px 16px rgba(255, 107, 157, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
   letter-spacing: 0.5px;
-  text-transform: uppercase;
+  position: relative;
+  overflow: hidden;
+}
+
+button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+button:hover::before {
+  left: 100%;
 }
 
 button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 12px 30px rgba(122, 215, 255, 0.4);
-  background: linear-gradient(135deg, var(--accent) 0%, var(--accent-dark) 100%);
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 8px 24px rgba(255, 107, 157, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  background: linear-gradient(135deg, #ff8fab 0%, #ffa3bb 100%);
 }
 
 button:active {
-  transform: translateY(0);
+  transform: translateY(0) scale(0.98);
+}
+
+button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+button:disabled:hover {
+  transform: none;
+  box-shadow: 0 4px 16px rgba(255, 107, 157, 0.4);
 }
 
 /* ---------- RESULT BOX ---------- */
@@ -550,22 +628,253 @@ button:active {
   background: var(--accent-dark);
 }
 
+/* ---------- PROGRESS BAR ---------- */
+.progress-container {
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 20px;
+  overflow: hidden;
+  border: none;
+  position: relative;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: var(--progress, 0%);
+  background: linear-gradient(90deg, #ff6b9d 0%, #ff8fab 50%, #ffa3bb 100%);
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow:
+    0 0 20px rgba(255, 107, 157, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+}
+
+.progress-text {
+  margin-top: 4px;
+  color: var(--accent-light);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+/* ---------- QUIZ STYLING ---------- */
+.quiz-card {
+  min-height: 280px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#quiz-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.question-slide {
+  animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.question-title {
+  font-size: 16px;
+  color: var(--accent-light);
+  margin-bottom: 12px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.4;
+}
+
+.question-options {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+
+.option-btn {
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 107, 157, 0.2);
+  border-radius: 16px;
+  color: var(--text);
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-align: left;
+  width: 100%;
+  margin: 0;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.option-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.1), transparent);
+  transition: left 0.5s ease;
+}
+
+.option-btn:hover::before {
+  left: 100%;
+}
+
+.option-btn:hover {
+  border-color: rgba(255, 107, 157, 0.5);
+  background: rgba(255, 107, 157, 0.08);
+  transform: translateX(4px);
+  box-shadow: 0 4px 16px rgba(255, 107, 157, 0.2);
+}
+
+.option-btn.selected {
+  border-color: var(--accent);
+  background: linear-gradient(135deg, rgba(255, 107, 157, 0.2) 0%, rgba(255, 139, 171, 0.15) 100%);
+  box-shadow:
+    0 4px 16px rgba(255, 107, 157, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  color: var(--accent-light);
+}
+
+.option-btn.selected::after {
+  content: '✓';
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--accent);
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* ---------- FREE RESPONSE INPUT ---------- */
+.free-response-input {
+  width: 100%;
+  padding: 16px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 107, 157, 0.2);
+  border-radius: 16px;
+  color: var(--text);
+  font-size: 14px;
+  font-family: inherit;
+  resize: vertical;
+  min-height: 120px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  line-height: 1.6;
+}
+
+.free-response-input::placeholder {
+  color: var(--text-dim);
+  opacity: 0.5;
+}
+
+.free-response-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: rgba(255, 107, 157, 0.05);
+  box-shadow: 0 4px 16px rgba(255, 107, 157, 0.2);
+}
+
+.free-response-input:hover {
+  border-color: rgba(255, 107, 157, 0.4);
+}
+
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.button-container button {
+  flex: 1;
+  margin: 0;
+}
+
+#prev-btn {
+  background: transparent;
+  border: 2px solid rgba(255, 107, 157, 0.5);
+  color: var(--accent-light);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+#prev-btn:hover {
+  background: rgba(255, 107, 157, 0.1);
+  border-color: var(--accent);
+  box-shadow: 0 4px 16px rgba(255, 107, 157, 0.3);
+}
+
+/* ---------- LOADING ANIMATION ---------- */
+.loading-dots {
+  display: inline-block;
+}
+
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s steps(4, end) infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
 /* ---------- RESPONSIVE DESIGN ---------- */
 @media (max-width: 768px) {
   header h1 {
     font-size: 36px;
   }
-  
+
   header p {
     font-size: 16px;
   }
-  
+
   .info-card {
     padding: 28px !important;
   }
-  
+
   .visual-box {
     padding: 32px;
+  }
+
+  .question-title {
+    font-size: 19px;
+  }
+
+  .option-btn {
+    padding: 16px 20px;
+    font-size: 15px;
   }
 }
 </style>
@@ -574,394 +883,569 @@ button:active {
 <body>
 
 <header>
-  <h1>Digital Safety & Online Awareness</h1>
-  <p>Learn how to protect yourself in online and matchmaking environments</p>
+  <h1>💕 Find Your Perfect Match</h1>
+  <p>Discover your unique personality type</p>
 </header>
 
+<!-- ---------- PERSONALITY QUIZ ---------- -->
 <div class="container">
-  <div class="info-card" onclick="openVisual('safety')">
-    <h3>🛡️ Understanding Online Safety</h3>
-    <p>Protect your identity and privacy online.</p>
+  <!-- Progress Bar -->
+  <div class="progress-container">
+    <div class="progress-bar" id="progress-bar"></div>
+    <p class="progress-text" id="progress-text">Question 1 of 13</p>
   </div>
 
-  <div class="info-card" onclick="openVisual('matchmaking')">
-    <h3>🔍 Why Matchmaking Safety Matters</h3>
-    <p>Recognize risks in anonymous interactions.</p>
-  </div>
-
-  <div class="info-card" onclick="openVisual('tips')">
-    <h3>💡 Practical Digital Safety Tips</h3>
-    <p>Simple habits that reduce online risk.</p>
-  </div>
-</div>
-
-<!-- ---------- MODAL ---------- -->
-<div id="visual-mode" class="visual-mode" onclick="closeVisual(event)">
-  <div class="visual-box">
-    <h2 id="visual-title"></h2>
-    <p id="visual-text"></p>
-    <button onclick="closeVisual(event)">Close</button>
-  </div>
-</div>
-
-<!-- ---------- ACTIVITY ---------- -->
-<div class="container">
-  <div class="info-card" style="cursor:default;">
-    <h3>📝 Digital Safety Reflection</h3>
-
-    <label>How would you describe your online interaction style?</label>
-    <select id="style">
-      <option value="Cautious and selective">Cautious</option>
-      <option value="Balanced and mindful">Balanced</option>
-      <option value="Open but aware">Open</option>
-    </select>
-
-    <label>Your personal safety principle</label>
-    <input id="phrase" placeholder="Example: I verify before trusting">
-
-    <label>Response to suspicious behavior</label>
-    <select id="question4">
-      <option value="Block immediately">Block immediately</option>
-      <option value="Evaluate carefully">Evaluate first</option>
-    </select>
-
-    <label>Rule for sharing information</label>
-    <select id="question5">
-      <option value="Share minimally">Share minimally</option>
-      <option value="Share selectively">Share selectively</option>
-    </select>
-
-    <label>Top digital safety habit</label>
-    <select id="question6">
-      <option value="Strong authentication">Strong authentication</option>
-      <option value="Clear boundaries">Clear boundaries</option>
-    </select>
-
-    <button onclick="submitPersona()">Submit Reflection</button>
-
-    <div id="result-box" style="display:none;">
-      <h3>Your Safety Profile</h3>
-      <p id="server-status"></p>
-      <div id="profile-display"></div>
+  <!-- Quiz Card -->
+  <div class="info-card quiz-card" style="cursor:default;">
+    <div id="quiz-container">
+      <!-- Questions will be injected here dynamically -->
     </div>
+
+    <div class="button-container">
+      <button id="prev-btn" onclick="previousQuestion()" style="display:none;">← Previous</button>
+      <button id="next-btn" onclick="nextQuestion()">Next →</button>
+      <button id="submit-btn" onclick="submitQuiz()" style="display:none;">Get My Personality Type ✨</button>
+    </div>
+  </div>
+
+  <!-- Result Display -->
+  <div id="result-box" class="info-card" style="display:none; cursor:default;">
+    <h3>🎯 Your Personality Type</h3>
+    <p id="server-status"></p>
+    <div id="profile-display"></div>
   </div>
 </div>
 
 <script>
-/* ---------- POPUP CONTENT ---------- */
-const visuals = {
-  safety: {
-    title: "Understanding Online Safety",
-    text: "Online safety protects your identity, privacy, and digital presence.\n\nIt includes avoiding scams, managing privacy, and recognizing risks."
+/* ========== PERSONALITY QUIZ QUESTIONS ========== */
+const quizQuestions = [
+  {
+    id: 1,
+    question: "At a social gathering, you typically...",
+    options: [
+      { text: "Seek out new people and enjoy being the center of attention", value: "E_high" },
+      { text: "Talk to a few close friends and enjoy smaller conversations", value: "I_moderate" },
+      { text: "Prefer observing and only engage when approached", value: "I_high" },
+      { text: "Mix between groups and one-on-one conversations", value: "E_moderate" }
+    ]
   },
-  matchmaking: {
-    title: "Why Matchmaking Safety Matters",
-    text: "Anonymous platforms can enable impersonation and manipulation.\n\nAlways verify identities and set boundaries."
+  {
+    id: 2,
+    question: "When making important decisions, you rely most on...",
+    options: [
+      { text: "Logic, facts, and objective analysis", value: "T_high" },
+      { text: "How it will affect people and relationships", value: "F_high" },
+      { text: "A balance of logic and emotional impact", value: "T_moderate" },
+      { text: "Gut feeling and personal values", value: "F_moderate" }
+    ]
   },
-  tips: {
-    title: "Practical Digital Safety Tips",
-    text: "• Strong passwords\n• Two-factor authentication\n• Verify users\n• Set boundaries\n• Trust instincts"
+  {
+    id: 3,
+    question: "Your ideal weekend involves...",
+    options: [
+      { text: "Spontaneous adventures and seeing where the day takes you", value: "P_high" },
+      { text: "A well-planned itinerary of activities", value: "J_high" },
+      { text: "A loose plan with room for flexibility", value: "P_moderate" },
+      { text: "Structured activities with some downtime built in", value: "J_moderate" }
+    ]
+  },
+  {
+    id: 4,
+    question: "When learning something new, you prefer...",
+    options: [
+      { text: "Understanding the big picture and future possibilities", value: "N_high" },
+      { text: "Hands-on practice with concrete examples", value: "S_high" },
+      { text: "Starting with theory, then applying it practically", value: "N_moderate" },
+      { text: "Step-by-step instructions with clear outcomes", value: "S_moderate" }
+    ]
+  },
+  {
+    id: 5,
+    question: "Describe your ideal date or hangout. What would you do and why?",
+    type: "freeResponse",
+    placeholder: "Share your thoughts... (e.g., coffee shop chat, adventure activity, cozy movie night)"
+  },
+  {
+    id: 6,
+    question: "After a long day, you recharge by...",
+    options: [
+      { text: "Being alone with your thoughts or hobbies", value: "I_high" },
+      { text: "Calling friends or going out", value: "E_high" },
+      { text: "Quiet time first, then maybe socializing", value: "I_moderate" },
+      { text: "Light social interaction with close ones", value: "E_moderate" }
+    ]
+  },
+  {
+    id: 7,
+    question: "When someone shares a problem with you, you typically...",
+    options: [
+      { text: "Offer solutions and practical advice", value: "T_high" },
+      { text: "Listen empathetically and validate their feelings", value: "F_high" },
+      { text: "Ask questions to understand before responding", value: "T_moderate" },
+      { text: "Share similar experiences to show understanding", value: "F_moderate" }
+    ]
+  },
+  {
+    id: 8,
+    question: "What's something you're passionate about and why does it matter to you?",
+    type: "freeResponse",
+    placeholder: "Tell us about your passion... (e.g., art, helping others, solving problems)"
+  },
+  {
+    id: 9,
+    question: "When planning a trip, you...",
+    options: [
+      { text: "Research extensively and create detailed plans", value: "J_high" },
+      { text: "Book tickets and figure out the rest as you go", value: "P_high" },
+      { text: "Plan key activities but leave room for spontaneity", value: "P_moderate" },
+      { text: "Follow recommended itineraries from others", value: "S_moderate" }
+    ]
+  },
+  {
+    id: 10,
+    question: "In conversations, you tend to focus on...",
+    options: [
+      { text: "Abstract ideas, theories, and what could be", value: "N_high" },
+      { text: "Concrete facts, experiences, and what is", value: "S_high" },
+      { text: "Both practical details and underlying meanings", value: "N_moderate" },
+      { text: "Real-world applications and examples", value: "S_moderate" }
+    ]
+  },
+  {
+    id: 11,
+    question: "When facing conflict, you're more likely to...",
+    options: [
+      { text: "Address it directly with facts and logic", value: "T_high" },
+      { text: "Consider feelings and find a harmonious solution", value: "F_high" },
+      { text: "Avoid it unless absolutely necessary", value: "I_high" },
+      { text: "Seek mediation or a third-party perspective", value: "F_moderate" }
+    ]
+  },
+  {
+    id: 12,
+    question: "If you could change one thing about the world, what would it be and why?",
+    type: "freeResponse",
+    placeholder: "Share your vision for a better world..."
+  },
+  {
+    id: 13,
+    question: "Your approach to rules and deadlines is...",
+    options: [
+      { text: "Strict - rules exist for a reason and should be followed", value: "J_high" },
+      { text: "Flexible - guidelines that can bend based on context", value: "P_high" },
+      { text: "Respectful but willing to question when needed", value: "P_moderate" },
+      { text: "Depends on whether they make logical sense", value: "T_moderate" }
+    ]
   }
-};
+];
 
-/* ---------- SAFETY PROFILE DEFINITIONS ---------- */
-const safetyProfiles = {
-  hacker: {
-    name: "Elite Hacker",
-    badge: "guardian",
-    emoji: "💀",
-    description: "You are an Elite Hacker - you've unlocked the secret profile! Your knowledge of digital security goes beyond the basics.",
-    strengths: [
-      "Deep understanding of security vulnerabilities",
-      "Advanced threat detection capabilities",
-      "Mastery of digital privacy techniques",
-      "Ability to think like an attacker to defend better"
-    ],
-    recommendations: [
-      "Use your powers for good, not evil",
-      "Consider a career in cybersecurity",
-      "Share your knowledge to help others stay safe",
-      "Stay ethical - great power requires great responsibility"
-    ]
-  },
-  ninja: {
-    name: "Privacy Ninja",
-    badge: "balanced",
-    emoji: "🥷",
-    description: "You are a Privacy Ninja - a master of staying invisible online. You move through the digital world leaving no trace.",
-    strengths: [
-      "Expert in anonymization techniques",
-      "Minimal digital footprint across platforms",
-      "Advanced understanding of tracking prevention",
-      "Mastery of privacy-focused tools and practices"
-    ],
-    recommendations: [
-      "Share your stealth techniques with friends",
-      "Remember to balance privacy with functionality",
-      "Keep learning about emerging privacy threats",
-      "Teach others the art of digital invisibility"
-    ]
-  },
-  guardian: {
-    name: "Digital Guardian",
-    badge: "guardian",
-    emoji: "🛡️",
-    description: "You are a Digital Guardian - highly cautious and security-focused. You prioritize protection above all else.",
-    strengths: [
-      "Excellent at identifying potential threats",
-      "Strong authentication practices",
-      "Minimal digital footprint",
-      "Quick to block suspicious activity"
-    ],
-    recommendations: [
-      "Consider balancing security with connectivity",
-      "Learn about legitimate networking opportunities",
-      "Stay updated on emerging social engineering tactics"
-    ]
-  },
-  balanced: {
-    name: "Balanced Navigator",
-    badge: "balanced",
-    emoji: "⚖️",
-    description: "You are a Balanced Navigator - you maintain healthy digital boundaries while staying connected. You evaluate risks thoughtfully.",
-    strengths: [
-      "Good balance between safety and openness",
-      "Thoughtful evaluation of situations",
-      "Selective information sharing",
-      "Adaptable security practices"
-    ],
-    recommendations: [
-      "Continue refining your threat assessment skills",
-      "Share your balanced approach with others",
-      "Stay vigilant during high-risk activities"
-    ]
-  },
-  open: {
-    name: "Aware Explorer",
-    badge: "open",
-    emoji: "🌐",
-    description: "You are an Aware Explorer - open to online connections while maintaining awareness. You balance accessibility with caution.",
-    strengths: [
-      "Strong social connections online",
-      "Aware of basic safety principles",
-      "Willing to engage with new opportunities",
-      "Good intuition about people"
-    ],
-    recommendations: [
-      "Strengthen your authentication methods",
-      "Review privacy settings regularly",
-      "Be more selective with personal information",
-      "Develop a quicker response to red flags"
-    ]
-  }
-};
+/* ========== QUIZ STATE ========== */
+let currentQuestion = 0;
+let answers = {};
 
-function openVisual(id) {
-  document.getElementById("visual-title").textContent = visuals[id].title;
-  document.getElementById("visual-text").textContent = visuals[id].text;
-  document.getElementById("visual-mode").style.display = "flex";
-}
+/* ========== QUIZ NAVIGATION FUNCTIONS ========== */
 
-function closeVisual(e) {
-  if (e.target.id === "visual-mode" || e.target.tagName === "BUTTON") {
-    document.getElementById("visual-mode").style.display = "none";
-  }
-}
-
-// ========== LISTS TO MANAGE PROGRAM COMPLEXITY ==========
-const formFields = ['style', 'phrase', 'question4', 'question5', 'question6'];
-const questionKeys = ['interaction_style', 'safety_principle', 'reaction', 'sharing_rule', 'priority_habit'];
-
-// ========== PROCEDURE WITH PARAMETERS, RETURN TYPE, AND ALGORITHM ==========
 /**
- * Validates and builds profile data from form fields
- * @param {Array} fieldIds - List of form field element IDs
- * @param {Array} questionNames - List of corresponding question keys
- * @returns {Array|null} - Array of profile data objects, or null if validation fails
+ * Initialize and render the quiz
  */
-function buildAndValidateProfileData(fieldIds, questionNames) {
-  const profileData = [];
-  let allValid = true;
-  
-  // ITERATION: Loop through all form fields
-  for (let i = 0; i < fieldIds.length; i++) {
-    const element = document.getElementById(fieldIds[i]);
-    const value = element ? element.value.trim() : '';
-    
-    // SELECTION: Check if field is valid
-    if (value === '') {
-      allValid = false;
-      if (element) {
-        element.classList.add('error');
-      }
+function initQuiz() {
+  renderQuestion();
+  updateProgress();
+}
+
+/**
+ * Render current question
+ */
+function renderQuestion() {
+  const question = quizQuestions[currentQuestion];
+  const container = document.getElementById('quiz-container');
+
+  let contentHTML = '';
+
+  if (question.type === 'freeResponse') {
+    // Free-response textarea
+    const savedAnswer = answers[question.id] || '';
+    contentHTML = `
+      <textarea
+        id="free-response-${question.id}"
+        class="free-response-input"
+        placeholder="${question.placeholder}"
+        oninput="saveFreeResponse(${question.id}, this.value)"
+        rows="5">${savedAnswer}</textarea>
+    `;
+  } else {
+    // Multiple choice options
+    question.options.forEach((option, index) => {
+      const isSelected = answers[question.id] === option.value;
+      contentHTML += `
+        <button class="option-btn ${isSelected ? 'selected' : ''}"
+                onclick="selectOption(${question.id}, '${option.value}', this)">
+          ${option.text}
+        </button>
+      `;
+    });
+  }
+
+  container.innerHTML = `
+    <div class="question-slide">
+      <h3 class="question-title">${question.question}</h3>
+      <div class="question-options">
+        ${contentHTML}
+      </div>
+    </div>
+  `;
+
+  updateButtons();
+}
+
+/**
+ * Select an option for current question
+ */
+function selectOption(questionId, value, element) {
+  answers[questionId] = value;
+
+  // Update UI
+  document.querySelectorAll('.option-btn').forEach(btn => {
+    btn.classList.remove('selected');
+  });
+  element.classList.add('selected');
+
+  // Enable next/submit button
+  updateButtons();
+}
+
+/**
+ * Save free-response answer
+ */
+function saveFreeResponse(questionId, value) {
+  answers[questionId] = value.trim();
+  updateButtons();
+}
+
+/**
+ * Navigate to next question
+ */
+function nextQuestion() {
+  const currentQ = quizQuestions[currentQuestion];
+  const answer = answers[currentQ.id];
+
+  // Validate answer based on question type
+  if (!answer || (currentQ.type === 'freeResponse' && answer.length < 3)) {
+    if (currentQ.type === 'freeResponse') {
+      alert('Please write at least a few words before continuing');
     } else {
-      if (element) {
-        element.classList.remove('error');
+      alert('Please select an answer before continuing');
+    }
+    return;
+  }
+
+  if (currentQuestion < quizQuestions.length - 1) {
+    currentQuestion++;
+    renderQuestion();
+    updateProgress();
+  }
+}
+
+/**
+ * Navigate to previous question
+ */
+function previousQuestion() {
+  if (currentQuestion > 0) {
+    currentQuestion--;
+    renderQuestion();
+    updateProgress();
+  }
+}
+
+/**
+ * Update button visibility and states
+ */
+function updateButtons() {
+  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-btn');
+  const submitBtn = document.getElementById('submit-btn');
+
+  const currentQ = quizQuestions[currentQuestion];
+  let hasAnswer = false;
+
+  if (currentQ.type === 'freeResponse') {
+    // For free response, check if there's text (at least 3 characters)
+    hasAnswer = answers[currentQ.id] && answers[currentQ.id].length >= 3;
+  } else {
+    // For multiple choice, just check if answered
+    hasAnswer = !!answers[currentQ.id];
+  }
+
+  // Show/hide previous button
+  prevBtn.style.display = currentQuestion > 0 ? 'block' : 'none';
+
+  // Show next or submit button
+  if (currentQuestion === quizQuestions.length - 1) {
+    nextBtn.style.display = 'none';
+    submitBtn.style.display = 'block';
+    submitBtn.disabled = !hasAnswer;
+  } else {
+    nextBtn.style.display = 'block';
+    submitBtn.style.display = 'none';
+    nextBtn.disabled = !hasAnswer;
+  }
+}
+
+/**
+ * Update progress bar
+ */
+function updateProgress() {
+  const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
+  const progressBar = document.getElementById('progress-bar');
+  const progressText = document.getElementById('progress-text');
+
+  progressBar.style.setProperty('--progress', `${progress}%`);
+  progressText.textContent = `Question ${currentQuestion + 1} of ${quizQuestions.length}`;
+}
+
+/* ========== AI PERSONALITY ANALYSIS ========== */
+
+/**
+ * Call backend API to analyze personality (proxies to Claude API)
+ */
+async function analyzePersonalityWithAI(responses) {
+  console.log('📝 Calling backend AI analysis API...');
+
+  try {
+    const response = await fetch(`${pythonURI}/api/analyze-personality`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      credentials: 'include',
+      body: JSON.stringify({
+        responses: responses
+      })
+    });
+
+    console.log('📡 Backend API Response Status:', response.status);
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      console.error('❌ API Error Details:', errorData);
+
+      // If backend returns fallback in error response, use it
+      if (errorData.fallback) {
+        console.log('✨ Using fallback from backend');
+        return errorData.fallback;
       }
-      
-      // SEQUENCING: Add valid data in order
-      profileData.push({
-        question: questionNames[i],
-        response: value
-      });
+
+      throw new Error(`API error: ${response.status} - ${JSON.stringify(errorData)}`);
     }
-  }
-  
-  // SELECTION: Return data only if all fields are valid
-  if (allValid && profileData.length === fieldIds.length) {
-    return profileData;
-  } else {
-    return null;
+
+    const result = await response.json();
+    console.log('✅ AI Response received:', result);
+    console.log('✨ Personality type:', result.type_name);
+    return result;
+
+  } catch (error) {
+    console.error('❌ AI Analysis Error:', error);
+    console.log('⚠️ Using fallback personality type');
+
+    // Return fallback personality
+    return {
+      type_name: "The Unique Individual",
+      emoji: "✨",
+      description: "You have a unique blend of traits that makes you special. Your personality combines elements of different types in interesting ways.",
+      strengths: [
+        "Adaptable to different situations",
+        "Open to new experiences",
+        "Thoughtful and reflective",
+        "Balanced perspective"
+      ],
+      recommendations: [
+        "Continue exploring what makes you unique",
+        "Connect with people who appreciate your complexity",
+        "Embrace your multifaceted nature"
+      ]
+    };
   }
 }
 
-// ========== NEW PROCEDURE: CALCULATE SAFETY PROFILE ==========
 /**
- * Calculates user's safety profile type based on their responses
- * @param {Object} responses - Object containing all user responses
- * @returns {String} - Profile type: 'guardian', 'balanced', 'open', or secret profiles
+ * Display AI-generated personality result
  */
-function calculateSafetyProfile(responses) {
-  // SECRET EASTER EGGS: Check for special keywords in safety principle
-  const principle = responses.principle.toLowerCase();
-  
-  // List of secret keywords for special profiles
-  const hackerKeywords = ['hacker', 'hack', 'exploit', 'penetration', 'pentesting', 'zero day', 'zeroday', 'pwn', 'root', 'shell'];
-  const ninjaKeywords = ['ninja', 'stealth', 'invisible', 'ghost', 'phantom', 'shadow', 'anonymous', 'incognito', 'tor', 'vpn'];
-  
-  // ITERATION: Check each hacker keyword
-  for (let i = 0; i < hackerKeywords.length; i++) {
-    if (principle.includes(hackerKeywords[i])) {
-      return 'hacker';
-    }
-  }
-  
-  // ITERATION: Check each ninja keyword
-  for (let i = 0; i < ninjaKeywords.length; i++) {
-    if (principle.includes(ninjaKeywords[i])) {
-      return 'ninja';
-    }
-  }
-  
-  // Normal scoring if no secret keywords found
-  let score = 0;
-  
-  // ITERATION: Score each response
-  // More cautious answers = higher score
-  
-  // SELECTION: Score interaction style
-  if (responses.style === "Cautious and selective") {
-    score += 3;
-  } else if (responses.style === "Balanced and mindful") {
-    score += 2;
-  } else {
-    score += 1;
-  }
-  
-  // SELECTION: Score reaction to suspicious behavior
-  if (responses.reaction === "Block immediately") {
-    score += 2;
-  } else {
-    score += 1;
-  }
-  
-  // SELECTION: Score information sharing rule
-  if (responses.sharing === "Share minimally") {
-    score += 2;
-  } else {
-    score += 1;
-  }
-  
-  // SELECTION: Score safety habit priority
-  if (responses.priority === "Strong authentication") {
-    score += 2;
-  } else {
-    score += 1;
-  }
-  
-  // SELECTION: Determine profile based on total score
-  if (score >= 8) {
-    return 'guardian';
-  } else if (score >= 6) {
-    return 'balanced';
-  } else {
-    return 'open';
-  }
-}
-
-// ========== NEW PROCEDURE: DISPLAY PROFILE RESULT ==========
-/**
- * Displays the calculated safety profile to the user
- * @param {String} profileType - The type of profile ('guardian', 'balanced', 'open')
- */
-function displayProfileResult(profileType) {
-  const profile = safetyProfiles[profileType];
+function displayPersonalityResult(personality) {
   const displayDiv = document.getElementById('profile-display');
-  
+
   let strengthsHTML = '';
-  // ITERATION: Build strengths list
-  for (let i = 0; i < profile.strengths.length; i++) {
-    strengthsHTML += `<li>${profile.strengths[i]}</li>`;
-  }
-  
+  personality.strengths.forEach(strength => {
+    strengthsHTML += `<li>${strength}</li>`;
+  });
+
   let recommendationsHTML = '';
-  // ITERATION: Build recommendations list
-  for (let i = 0; i < profile.recommendations.length; i++) {
-    recommendationsHTML += `<li>${profile.recommendations[i]}</li>`;
-  }
-  
-  // SEQUENCING: Build and display the complete profile
+  personality.recommendations.forEach(rec => {
+    recommendationsHTML += `<li>${rec}</li>`;
+  });
+
   displayDiv.innerHTML = `
     <div class="profile-result">
-      <div class="profile-badge ${profile.badge}">
-        ${profile.emoji} ${profile.name}
+      <div class="profile-badge balanced">
+        ${personality.emoji} ${personality.type_name}
       </div>
       <div class="profile-description">
-        <p><strong>${profile.description}</strong></p>
-        
+        <p><strong>${personality.description}</strong></p>
+
         <h4>Your Strengths:</h4>
         <ul>${strengthsHTML}</ul>
-        
-        <h4>Recommendations:</h4>
+
+        <h4>Perfect Matches:</h4>
         <ul>${recommendationsHTML}</ul>
       </div>
     </div>
   `;
 }
 
-// ========== ORIGINAL FUNCTION (ENHANCED WITH PROFILE CALCULATION) ==========
-function submitPersona() {
-  // CALL TO STUDENT-DEVELOPED PROCEDURE
-  const validatedProfileData = buildAndValidateProfileData(formFields, questionKeys);
-  
-  // SELECTION: Check if validation passed
-  if (validatedProfileData === null) {
-    document.getElementById("server-status").textContent = "⚠️ Please fill out all fields";
-    document.getElementById("result-box").style.display = "block";
+/**
+ * Submit quiz and get personality type
+ */
+async function submitQuiz() {
+  // Check all questions answered
+  if (Object.keys(answers).length !== quizQuestions.length) {
+    alert('Please answer all questions');
     return;
   }
-  
-  const responses = {
-    style: style.value,
-    principle: phrase.value,
-    reaction: question4.value,
-    sharing: question5.value,
-    priority: question6.value
-  };
-  
-  // CALL TO NEW PROCEDURE: Calculate safety profile
-  const profileType = calculateSafetyProfile(responses);
-  
+
+  // Show result box with loading state
   document.getElementById("result-box").style.display = "block";
-  document.getElementById("server-status").textContent = "⏳ Analyzing your profile...";
-  
-  // CALL TO NEW PROCEDURE: Display the profile result
+  document.getElementById("server-status").innerHTML = '⏳ Analyzing your personality<span class="loading-dots"></span>';
+  document.getElementById("profile-display").innerHTML = '';
+
+  // Scroll to results
+  document.getElementById("result-box").scrollIntoView({ behavior: 'smooth' });
+
+  // Prepare response data
+  const responseData = quizQuestions.map(q => {
+    if (q.type === 'freeResponse') {
+      // Free-response: send the user's text directly
+      return {
+        question: q.question,
+        answer: answers[q.id] || '',
+        type: 'freeResponse'
+      };
+    } else {
+      // Multiple choice: send the selected option text
+      return {
+        question: q.question,
+        answer: q.options.find(opt => opt.value === answers[q.id])?.text || '',
+        type: 'multipleChoice'
+      };
+    }
+  });
+
+  // Get AI analysis
+  const personality = await analyzePersonalityWithAI(responseData);
+
+  // Display result
   setTimeout(() => {
-    displayProfileResult(profileType);
-    document.getElementById("server-status").textContent = "✅ Profile generated!";
-  }, 800);
-  
-  /* ---------- MICROBLOG POST ---------- */
+    displayPersonalityResult(personality);
+    document.getElementById("server-status").textContent = "✅ Your personality type is ready!";
+  }, 500);
+
+  /* ---------- SAVE TO LOCAL STORAGE (NO AUTH REQUIRED) ---------- */
+  try {
+    localStorage.setItem('personality_data', JSON.stringify({
+      personality_type: personality.type_name,
+      personality_emoji: personality.emoji,
+      personality_description: personality.description,
+      timestamp: new Date().toISOString()
+    }));
+    console.log("✅ Personality saved to local storage");
+  } catch (err) {
+    console.error("❌ Local storage error:", err);
+  }
+
+  /* ---------- SAVE TO BACKEND (profile_setups.json) ---------- */
+  // Save personality type to profile_setups.json
+  fetch(`${pythonURI}/api/match/add`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      index: "personality_type",
+      data: personality.type_name
+    })
+  })
+  .then(res => {
+    if (res.ok) {
+      console.log("✅ Personality type saved to profile_setups.json");
+    } else {
+      console.log("ℹ️ Personality type save failed (login required)");
+    }
+  })
+  .catch(err => console.log("ℹ️ Personality type save error:", err.message));
+
+  // Save personality emoji to profile_setups.json
+  fetch(`${pythonURI}/api/match/add`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      index: "personality_emoji",
+      data: personality.emoji
+    })
+  })
+  .then(res => {
+    if (res.ok) {
+      console.log("✅ Personality emoji saved to profile_setups.json");
+    } else {
+      console.log("ℹ️ Personality emoji save failed");
+    }
+  })
+  .catch(err => console.log("ℹ️ Personality emoji save error:", err.message));
+
+  // Save full quiz responses to profile_setups.json
+  fetch(`${pythonURI}/api/match/add`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      index: "personality_quiz_responses",
+      data: responseData
+    })
+  })
+  .then(res => {
+    if (res.ok) {
+      console.log("✅ Quiz responses saved to profile_setups.json");
+    } else {
+      console.log("ℹ️ Quiz responses save failed (login required)");
+    }
+  })
+  .catch(err => console.log("ℹ️ Quiz responses save error:", err.message));
+
+  // Save personality description
+  fetch(`${pythonURI}/api/match/add`, {
+    method: "POST",
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      index: "personality_description",
+      data: personality.description
+    })
+  })
+  .then(res => {
+    if (res.ok) {
+      console.log("✅ Personality description saved to profile_setups.json");
+    } else {
+      console.log("ℹ️ Personality description save failed");
+    }
+  })
+  .catch(err => console.log("ℹ️ Personality description save error:", err.message));
+
+  /* ---------- OPTIONAL: ALSO SAVE TO MICROBLOG ---------- */
   fetch(`${pythonURI}/api/microblog`, {
     method: "POST",
     credentials: "include",
@@ -970,37 +1454,85 @@ function submitPersona() {
       "X-Origin": "client"
     },
     body: JSON.stringify({
-      content: "Digital Safety Reflection",
-      data: responses,
-      topicPath: "/digital-famine/microblog/microb/"
-    })
-  })
-  .catch(err => console.error("Microblog error:", err));
-  
-  /* ---------- MATCHMAKING SAVE (JWT REQUIRED) ---------- */
-  fetch(`${pythonURI}/api/match/save-profile-json`, {
-    method: "POST",
-    credentials: "include",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      profile_data: validatedProfileData
+      content: `Personality Quiz: ${personality.type_name}`,
+      data: { personality_type: personality.type_name },
+      topicPath: "/digital-matchmaking/matchmaking/microb/"
     })
   })
   .then(res => {
-    if (!res.ok) {
-      throw new Error(`HTTP error! status: ${res.status}`);
-    }
-    return res.json();
+    if (res.ok) console.log("✅ Microblog post created");
+    else console.log("ℹ️ Microblog post failed (login required)");
   })
-  .then(data => {
-    console.log("Save response:", data);
-  })
-  .catch(err => {
-    console.error("Save error:", err);
-  });
+  .catch(err => console.log("ℹ️ Microblog error:", err.message));
 }
+
+/* ========== REMOVE JEKYLL METADATA TEXT ========== */
+function removeJekyllMetadata() {
+  // Find and remove any text nodes or elements containing metadata keywords
+  const keywords = ['Categories:', 'Breadcrumb:', 'Author:', 'Tags:', 'Reading time:', 'min read'];
+
+  function removeTextNodes(element) {
+    const walker = document.createTreeWalker(
+      element,
+      NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+      null
+    );
+
+    const nodesToRemove = [];
+    let node;
+
+    while (node = walker.nextNode()) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        const text = node.textContent.trim();
+        if (keywords.some(keyword => text.includes(keyword))) {
+          nodesToRemove.push(node.parentElement || node);
+        }
+      } else if (node.nodeType === Node.ELEMENT_NODE) {
+        const text = node.textContent.trim();
+        // Only remove if it's a small element (likely metadata) and contains keywords
+        if (text.length < 200 && keywords.some(keyword => text.includes(keyword))) {
+          // Don't remove if it's our custom content
+          if (!node.closest('.container') && !node.closest('header') && !node.id) {
+            nodesToRemove.push(node);
+          }
+        }
+      }
+    }
+
+    nodesToRemove.forEach(node => {
+      if (node && node.parentNode) {
+        node.parentNode.removeChild(node);
+      }
+    });
+  }
+
+  // Remove from body but not our custom elements
+  const body = document.body;
+  const customContent = document.querySelector('.container');
+  const customHeader = document.querySelector('header');
+
+  // Process all elements before our custom content
+  if (customContent) {
+    let sibling = body.firstChild;
+    while (sibling && sibling !== customContent && sibling !== customHeader) {
+      const next = sibling.nextSibling;
+      removeTextNodes(sibling);
+      sibling = next;
+    }
+  }
+}
+
+/* ========== INITIALIZE QUIZ ON PAGE LOAD ========== */
+window.addEventListener('DOMContentLoaded', () => {
+  // Remove Jekyll metadata first
+  removeJekyllMetadata();
+  // Then initialize quiz
+  initQuiz();
+
+  // Also run metadata removal after a short delay in case Jekyll loads it dynamically
+  setTimeout(removeJekyllMetadata, 100);
+  setTimeout(removeJekyllMetadata, 500);
+});
 </script>
 
 </body>
