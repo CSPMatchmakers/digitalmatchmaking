@@ -502,7 +502,7 @@ breadcrumb: true
             const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
             const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
 
-            const endpoint = pythonURI ? `${pythonURI}/api/pii/profile` : '/api/pii/profile';
+            const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
 
             console.log('=== PROFILE CHECK DEBUG ===');
             console.log('pythonURI:', pythonURI);
@@ -827,7 +827,7 @@ breadcrumb: true
             const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
             const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
 
-            const endpoint = pythonURI ? `${pythonURI}/api/pii/profile` : '/api/pii/profile';
+            const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
 
             // Merge headers but don't mutate globalFetchOptions
             const mergedHeaders = Object.assign({}, (globalFetchOptions.headers || {}), {
