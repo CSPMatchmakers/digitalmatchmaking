@@ -544,7 +544,7 @@ author:
         },
         {
             id: 4, 
-            label: 'DNS Sendoff', 
+            label: 'Machine Learning', 
             url: '/digitalmatchmaking/ml/',
             longTitle: 'Backup Array Epsilon',
             description: 'Cold backup array. Bring spare modules to reactivate routing protocols.',
@@ -552,7 +552,7 @@ author:
         },
         {
             id: 5, 
-            label: 'Matchmaking', 
+            label: 'DNS', 
             url: '/digitalmatchmaking/dns/',
             longTitle: 'Integration Module Zeta',
             description: 'Final integration module. Complete sequence to restore full network functionality.',
