@@ -400,15 +400,12 @@ breadcrumb: true
         </div>
     </div>
 
-    <script>
-        if (!window.pythonURI) {
-            // Use production backend if we're on the production site
-            if (window.location.hostname === 'cspmatchmakers.github.io') {
-                window.pythonURI = "https://matchmakers.opencodingsociety.com";
-            } else {
-                window.pythonURI = "http://localhost:8401";
-            }
-        }
+    <script type="module">
+        import { pythonURI, fetchOptions } from '/digitalmatchmaking/assets/js/api/config.js';
+        // Populate window._piiImportedConfig so the rest of the script can prefer the imported pythonURI and fetch options.
+        window._piiImportedConfig = window._piiImportedConfig || {};
+        if (pythonURI) window._piiImportedConfig.pythonURI = pythonURI;
+        if (fetchOptions) window._piiImportedConfig.fetchOptions = fetchOptions;
         
         const questions = [
             {
