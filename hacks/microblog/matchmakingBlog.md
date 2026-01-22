@@ -2,7 +2,7 @@
 layout: post
 title: "Personality Matchmaking Quiz"
 description: "Discover your personality type for better connections"
-permalink: /microb
+permalink: /microb/
 submodule: 4
 categories: [CSP, Submodule, Microblogging]
 tags: [matchmaking, personality, quiz, submodule]
