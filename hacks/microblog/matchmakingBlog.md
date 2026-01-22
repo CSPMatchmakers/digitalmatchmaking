@@ -2,7 +2,7 @@
 layout: post
 title: "Personality Matchmaking Quiz"
 description: "Discover your personality type for better connections"
-permalink: /microb/
+permalink: /microb
 submodule: 4
 categories: [CSP, Submodule, Microblogging]
 tags: [matchmaking, personality, quiz, submodule]
@@ -1361,89 +1361,37 @@ async function submitQuiz() {
   }
 
   /* ---------- SAVE TO BACKEND (profile_setups.json) ---------- */
-  // Save personality type to profile_setups.json
+  // Save personality_type
   fetch(`${pythonURI}/api/match/add`, {
     method: "POST",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      index: "personality_type",
-      data: personality.type_name
-    })
-  })
-  .then(res => {
-    if (res.ok) {
-      console.log("✅ Personality type saved to profile_setups.json");
-    } else {
-      console.log("ℹ️ Personality type save failed (login required)");
-    }
-  })
-  .catch(err => console.log("ℹ️ Personality type save error:", err.message));
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ index: "personality_type", data: personality.type_name })
+  }).then(res => res.ok ? console.log("✅ personality_type saved") : console.log("ℹ️ personality_type save failed"));
 
-  // Save personality emoji to profile_setups.json
+  // Save personality_emoji
   fetch(`${pythonURI}/api/match/add`, {
     method: "POST",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      index: "personality_emoji",
-      data: personality.emoji
-    })
-  })
-  .then(res => {
-    if (res.ok) {
-      console.log("✅ Personality emoji saved to profile_setups.json");
-    } else {
-      console.log("ℹ️ Personality emoji save failed");
-    }
-  })
-  .catch(err => console.log("ℹ️ Personality emoji save error:", err.message));
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ index: "personality_emoji", data: personality.emoji })
+  }).then(res => res.ok ? console.log("✅ personality_emoji saved") : console.log("ℹ️ personality_emoji save failed"));
 
-  // Save full quiz responses to profile_setups.json
+  // Save personality_description
   fetch(`${pythonURI}/api/match/add`, {
     method: "POST",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      index: "personality_quiz_responses",
-      data: responseData
-    })
-  })
-  .then(res => {
-    if (res.ok) {
-      console.log("✅ Quiz responses saved to profile_setups.json");
-    } else {
-      console.log("ℹ️ Quiz responses save failed (login required)");
-    }
-  })
-  .catch(err => console.log("ℹ️ Quiz responses save error:", err.message));
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ index: "personality_description", data: personality.description })
+  }).then(res => res.ok ? console.log("✅ personality_description saved") : console.log("ℹ️ personality_description save failed"));
 
-  // Save personality description
+  // Save personality_quiz_responses
   fetch(`${pythonURI}/api/match/add`, {
     method: "POST",
     credentials: "include",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      index: "personality_description",
-      data: personality.description
-    })
-  })
-  .then(res => {
-    if (res.ok) {
-      console.log("✅ Personality description saved to profile_setups.json");
-    } else {
-      console.log("ℹ️ Personality description save failed");
-    }
-  })
-  .catch(err => console.log("ℹ️ Personality description save error:", err.message));
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ index: "personality_quiz_responses", data: responseData })
+  }).then(res => res.ok ? console.log("✅ personality_quiz_responses saved") : console.log("ℹ️ personality_quiz_responses save failed"));
 
   /* ---------- OPTIONAL: ALSO SAVE TO MICROBLOG ---------- */
   fetch(`${pythonURI}/api/microblog`, {
