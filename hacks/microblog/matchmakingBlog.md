@@ -15,11 +15,6 @@ breadcrumb: true
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Personality Matchmaking Quiz</title>
 
-<script>
-/* ---------- FLASK BACKEND (FORCED, SAFE) ---------- */
-const pythonURI = "http://localhost:8401";
-</script> 
-
 <style>
 /* ---------- OVERRIDE JEKYLL THEME ---------- */
 main, article, .content, .post-content {
@@ -911,12 +906,15 @@ button:disabled:hover {
   <!-- Result Display -->
   <div id="result-box" class="info-card" style="display:none; cursor:default;">
     <h3>🎯 Your Personality Type</h3>
-    <p id="server-status"></p>
+    <p id="server-status">
+    </p>
     <div id="profile-display"></div>
   </div>
 </div>
 
-<script>
+<script type="module">
+import { pythonURI } from '{{site.baseurl}}/assets/js/api/config.js';
+
 /* ========== PERSONALITY QUIZ QUESTIONS ========== */
 const quizQuestions = [
   {
@@ -1360,38 +1358,14 @@ async function submitQuiz() {
     console.error("❌ Local storage error:", err);
   }
 
-  /* ---------- SAVE TO BACKEND (profile_setups.json) ---------- */
-  // Save personality_type
+  /* ---------- SAVE TO BACKEND ---------- */
+  // Save personality_type only
   fetch(`${pythonURI}/api/match/add`, {
     method: "POST",
     credentials: "include",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ index: "personality_type", data: personality.type_name })
   }).then(res => res.ok ? console.log("✅ personality_type saved") : console.log("ℹ️ personality_type save failed"));
-
-  // Save personality_emoji
-  fetch(`${pythonURI}/api/match/add`, {
-    method: "POST",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ index: "personality_emoji", data: personality.emoji })
-  }).then(res => res.ok ? console.log("✅ personality_emoji saved") : console.log("ℹ️ personality_emoji save failed"));
-
-  // Save personality_description
-  fetch(`${pythonURI}/api/match/add`, {
-    method: "POST",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ index: "personality_description", data: personality.description })
-  }).then(res => res.ok ? console.log("✅ personality_description saved") : console.log("ℹ️ personality_description save failed"));
-
-  // Save personality_quiz_responses
-  fetch(`${pythonURI}/api/match/add`, {
-    method: "POST",
-    credentials: "include",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ index: "personality_quiz_responses", data: responseData })
-  }).then(res => res.ok ? console.log("✅ personality_quiz_responses saved") : console.log("ℹ️ personality_quiz_responses save failed"));
 
   /* ---------- OPTIONAL: ALSO SAVE TO MICROBLOG ---------- */
   fetch(`${pythonURI}/api/microblog`, {
@@ -1469,6 +1443,13 @@ function removeJekyllMetadata() {
     }
   }
 }
+
+/* ========== EXPOSE FUNCTIONS FOR ONCLICK HANDLERS ========== */
+window.selectOption = selectOption;
+window.saveFreeResponse = saveFreeResponse;
+window.nextQuestion = nextQuestion;
+window.previousQuestion = previousQuestion;
+window.submitQuiz = submitQuiz;
 
 /* ========== INITIALIZE QUIZ ON PAGE LOAD ========== */
 window.addEventListener('DOMContentLoaded', () => {
