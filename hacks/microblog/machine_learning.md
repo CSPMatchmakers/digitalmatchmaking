@@ -2,7 +2,7 @@
 layout: post
 title: Bio Builder
 description: Create your matchmaking profile with AI-powered safety checking
-permalink: /bio/
+permalink: /bio_create/
 breadcrumb: true
 microblog: true
 author: Ethan W
