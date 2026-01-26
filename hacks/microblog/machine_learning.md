@@ -419,7 +419,9 @@ author: Ethan W
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        import { pythonURI } from '{{ site.baseurl }}/assets/js/api/config.js';
+        
         // Enhanced Safety Classifier
         class SafetyClassifier {
             constructor() {
@@ -587,7 +589,7 @@ author: Ethan W
             try {
                 showStatus('💾 Saving your bio...', 'success');
 
-                const response = await fetch('http://localhost:8401/api/match/add', {
+                const response = await fetch(`${pythonURI}/api/match/add`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
