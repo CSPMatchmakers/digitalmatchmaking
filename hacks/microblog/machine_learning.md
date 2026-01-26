@@ -4,7 +4,7 @@ title: Bio Builder
 description: Create your matchmaking profile with AI-powered safety checking
 permalink: /bio_create/
 breadcrumb: true
-microblog: true
+microblog: false
 author: Ethan W
 ---
 
