@@ -334,7 +334,7 @@ author: Ethan W
 
         <div class="info-box">
             <h3>🛡️ Privacy Protection</h3>
-            <p>Our hybrid safety system combines pattern-matching rules with a machine learning classifier to detect personal information like phone numbers, addresses, social security numbers, or other sensitive data. The ML model learns from patterns to catch even subtle privacy risks. Use the "Check Safety" button before saving each section!</p>
+            <p>Our safety system detects personal information like phone numbers, addresses, specific locations, routines, social security numbers, or other sensitive data. Use the "Check Safety" button before saving each section!</p>
         </div>
 
         <div class="bio-section" data-section="about">
@@ -420,258 +420,86 @@ author: Ethan W
     </div>
 
     <script>
-        // ML-Based Safety Classifier
+        // Enhanced Safety Classifier
         class SafetyClassifier {
             constructor() {
-                // Feature weights trained on privacy risk patterns
-                this.featureWeights = {
-                    phoneNumber: 0.95,
-                    email: 0.90,
-                    streetAddress: 0.95,
-                    specificLocation: 0.85,
-                    routine: 0.80,
-                    personalId: 1.0,
-                    namePattern: 0.60,
-                    zipCode: 0.50,
-                    venue: 0.65
-                };
-
-                // ML decision thresholds
-                this.thresholds = {
-                    danger: 0.70,    // High risk
-                    warning: 0.40    // Medium risk
+                this.patterns = {
+                    phone: /(\+?\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\b\d{10}\b/g,
+                    email: /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g,
+                    streetAddress: /\b\d+\s+[A-Z][a-z]+(\s+[A-Z][a-z]+)*\s+(Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Lane|Ln|Drive|Dr|Court|Ct|Circle|Way|Plaza|Parkway|Highway|Hwy)\b/gi,
+                    apartmentNumber: /\b(Apt|Apartment|Unit|Suite|#)\s*[A-Z0-9-]+\b/gi,
+                    zipCode: /\b\d{5}(-\d{4})?\b/g,
+                    ssn: /\b\d{3}[-\s]?\d{2}[-\s]?\d{4}\b/g,
+                    creditCard: /\b\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}\b/g,
+                    specificTime: /\b\d{1,2}(:\d{2})?\s*(am|pm|AM|PM)\b/g,
+                    dayOfWeek: /\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|weekday|weekend|every|daily)\b/gi,
+                    specificVenue: /\b(Starbucks|McDonald'?s?|Chipotle|Target|Walmart|Costco|24\s*Hour|LA\s*Fitness|Planet\s*Fitness|Gold'?s?\s*Gym|Equinox|Whole\s*Foods|Trader\s*Joe'?s?|In-N-Out|Taco\s*Bell|Subway|Panera)\b/gi,
                 };
             }
 
-            extractFeatures(text) {
-                console.log("=== ANALYZING TEXT ===");
-                console.log("Input:", text);
-                
-                const features = {
-                    phoneNumber: 0,
-                    email: 0,
-                    streetAddress: 0,
-                    specificLocation: 0,
-                    routine: 0,
-                    personalId: 0,
-                    namePattern: 0,
-                    zipCode: 0,
-                    venue: 0
-                };
+            detect(text) {
+                const issues = [];
+                const detected = { contact: false, address: false, sensitiveId: false, routine: false, specificLocation: false };
 
-                const detectedIssues = [];
+                if (this.patterns.phone.test(text)) { issues.push('Phone number detected'); detected.contact = true; }
+                if (this.patterns.email.test(text)) { issues.push('Email address detected'); detected.contact = true; }
+                if (this.patterns.streetAddress.test(text) || this.patterns.apartmentNumber.test(text)) { issues.push('Street address detected'); detected.address = true; }
+                if (this.patterns.zipCode.test(text)) { issues.push('ZIP code detected'); detected.address = true; }
+                if (this.patterns.ssn.test(text)) { issues.push('Social Security Number detected'); detected.sensitiveId = true; }
+                if (this.patterns.creditCard.test(text)) { issues.push('Credit card number detected'); detected.sensitiveId = true; }
+                if (this.patterns.specificTime.test(text) || this.patterns.dayOfWeek.test(text)) { issues.push('Specific schedule/routine information detected'); detected.routine = true; }
+                if (this.patterns.specificVenue.test(text)) { issues.push('Specific location/venue detected'); detected.specificLocation = true; }
 
-                // Phone number feature
-                const phonePattern = /(\+\d{1,3}[-.\s]?)?\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}|\d{3}[-.\s]\d{4}/g;
-                if (phonePattern.test(text)) {
-                    features.phoneNumber = 1;
-                    detectedIssues.push('Contact information detected');
-                    console.log("✓ Phone detected");
-                }
-
-                // Email feature
-                const emailPattern = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/g;
-                if (emailPattern.test(text)) {
-                    features.email = 1;
-                    detectedIssues.push('Contact information detected');
-                    console.log("✓ Email detected");
-                }
-
-                // Street/road names - SUPER AGGRESSIVE
-                const roadWords = /(Street|St|Avenue|Ave|Road|Rd|Boulevard|Blvd|Lane|Ln|Drive|Dr|Court|Ct|Circle|Cir|Way|Plaza|Terrace|Place|Highway|Hwy)/gi;
-                if (roadWords.test(text)) {
-                    features.specificLocation = 1;
-                    detectedIssues.push('Location information detected');
-                    console.log("✓ Road/Street name detected");
-                }
-
-                // ANY time mentioned = DANGER
-                const timePattern = /\b\d{1,2}(:\d{2})?\s*(am|pm|AM|PM)|morning|evening|afternoon|night/gi;
-                if (timePattern.test(text)) {
-                    features.routine = 1;
-                    detectedIssues.push('Personal schedule/routine information detected');
-                    console.log("✓ Time/schedule detected");
-                }
-
-                // Days of week = DANGER
-                const dayPattern = /\b(monday|tuesday|wednesday|thursday|friday|saturday|sunday|weekday|weekend|mon|tue|wed|thu|fri|sat|sun|every|each|always|usually)\b/gi;
-                if (dayPattern.test(text)) {
-                    features.routine = 1;
-                    detectedIssues.push('Personal schedule/routine information detected');
-                    console.log("✓ Day/frequency detected");
-                }
-
-                // Workout/activity mentions = DANGER
-                const activityPattern = /\b(work\s*out|workout|gym|fitness|exercise|go|visit|meet|class|study)\b/gi;
-                if (activityPattern.test(text)) {
-                    features.routine = 1;
-                    detectedIssues.push('Personal schedule/routine information detected');
-                    console.log("✓ Activity detected");
-                }
-
-                // ANY brand/chain mention = DANGER
-                const brandPattern = /\b(LA\s*Fitness|Planet\s*Fitness|24\s*Hour|Gold'?s?\s*Gym|Equinox|Crunch|Anytime|Starbucks|McDonald'?s?|Target|Walmart|Costco|Whole\s*Foods|Trader\s*Joe'?s?|Chipotle|Subway|Panera)\b/gi;
-                if (brandPattern.test(text)) {
-                    features.venue = 1;
-                    detectedIssues.push('Location information detected');
-                    console.log("✓ Brand/chain detected");
-                }
-
-                // Neighborhood patterns = DANGER
-                const neighborhoodPattern = /\b[A-Z0-9]+[Ss]?\s*(Ranch|Village|Hills|Heights|Park|Center|Plaza|Mall|Commons|Square|District|Beach|Bay|Valley|Creek|Grove)\b/gi;
-                if (neighborhoodPattern.test(text)) {
-                    features.venue = 1;
-                    detectedIssues.push('Location information detected');
-                    console.log("✓ Neighborhood detected");
-                }
-
-                // SSN, credit cards, etc
-                const ssnPattern = /\d{3}[-\s]?\d{2}[-\s]?\d{4}/g;
-                const ccPattern = /\d{4}[-\s]?\d{4}[-\s]?\d{4}[-\s]?\d{4}/g;
-                
-                if (ssnPattern.test(text)) {
-                    features.personalId = 1;
-                    detectedIssues.push('Sensitive ID number detected');
-                    console.log("✓ SSN detected");
-                }
-                if (ccPattern.test(text)) {
-                    features.personalId = 1;
-                    detectedIssues.push('Sensitive ID number detected');
-                    console.log("✓ Credit card detected");
-                }
-
-                // Phone numbers
-                const phonePattern2 = /\(?\d{3}\)?[-.\s]?\d{3}[-.\s]?\d{4}/g;
-                if (phonePattern2.test(text)) {
-                    features.phoneNumber = 1;
-                    detectedIssues.push('Contact information detected');
-                    console.log("✓ Phone detected");
-                }
-
-                // Email
-                if (text.includes('@') && text.includes('.')) {
-                    features.email = 1;
-                    detectedIssues.push('Contact information detected');
-                    console.log("✓ Email detected");
-                }
-
-                // ZIP codes
-                const zipPattern = /\b\d{5}(-\d{4})?\b/g;
-                if (zipPattern.test(text)) {
-                    features.zipCode = 1;
-                    detectedIssues.push('Location information detected');
-                    console.log("✓ ZIP code detected");
-                }
-
-                // Remove duplicate issues
-                const uniqueIssues = [...new Set(detectedIssues)];
-                
-                console.log("Features:", features);
-                console.log("Issues:", uniqueIssues);
-
-                return { features, issues: uniqueIssues };
-            }
-
-            calculateRiskScore(features) {
-                // Weighted sum of features
                 let riskScore = 0;
-                
-                // If ANY dangerous feature is detected, automatic high risk
-                if (features.routine > 0) riskScore += 30;
-                if (features.venue > 0) riskScore += 30;
-                if (features.specificLocation > 0) riskScore += 25;
-                if (features.phoneNumber > 0) riskScore += 35;
-                if (features.email > 0) riskScore += 35;
-                if (features.streetAddress > 0) riskScore += 30;
-                if (features.personalId > 0) riskScore += 40;
-                if (features.zipCode > 0) riskScore += 15;
-                if (features.namePattern > 0) riskScore += 20;
-                
-                console.log("Calculated risk score:", riskScore);
-                
-                return riskScore;
-            }
+                if (detected.contact) riskScore += 35;
+                if (detected.address) riskScore += 35;
+                if (detected.sensitiveId) riskScore += 40;
+                if (detected.routine) riskScore += 25;
+                if (detected.specificLocation) riskScore += 20;
 
-            predict(text) {
-                // Extract features from text
-                const { features, issues } = this.extractFeatures(text);
-                
-                // Calculate ML risk score
-                const riskScore = this.calculateRiskScore(features);
-                
-                console.log("Final risk score:", riskScore);
-                console.log("Issues found:", issues);
-                
-                // Classify based on thresholds - MUCH MORE STRICT
                 let severity, safe, message;
-                
-                if (riskScore >= 50 || issues.length >= 2) {
-                    severity = 'danger';
-                    safe = false;
-                    message = 'Personal information detected! Please remove sensitive details before saving.';
-                } else if (riskScore >= 20 || issues.length >= 1) {
-                    severity = 'warning';
-                    safe = false;
-                    message = 'Potential privacy concerns detected. Please review carefully.';
+                if (riskScore >= 40 || detected.sensitiveId || detected.contact) {
+                    severity = 'danger'; safe = false;
+                    message = '⚠️ UNSAFE: Personal information detected! Please remove all sensitive details.';
+                } else if (riskScore >= 20) {
+                    severity = 'warning'; safe = false;
+                    message = '⚠️ WARNING: Potentially identifying information detected. Please review.';
                 } else {
-                    severity = 'safe';
-                    safe = true;
-                    message = 'No personal information detected. This looks safe to share!';
+                    severity = 'safe'; safe = true;
+                    message = '✅ SAFE: No personal information detected!';
                 }
 
-                console.log("Final verdict:", severity, "Safe:", safe);
-
-                return {
-                    safe,
-                    severity,
-                    issues,
-                    riskScore: Math.min(100, riskScore),
-                    message,
-                    features
-                };
+                return { safe, severity, issues: [...new Set(issues)], riskScore: Math.min(100, riskScore), message };
             }
         }
 
-        // Initialize ML classifier
-        const mlClassifier = new SafetyClassifier();
-
-        const safetyChecks = {
-            about: false,
-            interests: false,
-            skills: false,
-            goals: false
-        };
+        const classifier = new SafetyClassifier();
+        const safetyChecks = { about: false, interests: false, skills: false, goals: false };
 
         const examples = {
             about: {
-                good: "I'm a passionate software developer who loves learning new technologies. I enjoy working on both frontend and backend projects, and I'm always excited to collaborate with others on interesting challenges.",
-                bad: "My name is John Smith, I live at 123 Main Street, Apt 4B, San Diego, CA 92101. You can reach me at (555) 123-4567 or john.smith@email.com. My SSN is 123-45-6789."
+                good: "I'm a passionate software developer who loves learning new technologies and building innovative solutions. I enjoy collaborating with teams and tackling complex technical challenges.",
+                bad: "My name is John Smith, I live at 123 Main Street, Apt 4B, San Diego, CA 92101. Call me at (555) 123-4567 or email john.smith@email.com."
             },
             interests: {
-                good: "I enjoy hiking, photography, reading sci-fi novels, and playing chess. I also love attending tech meetups and hackathons on weekends.",
-                bad: "I work out at LA Fitness at 4S Ranch at 8pm every Tuesday and Thursday. I also go to the Starbucks on Main Street every morning at 7am."
+                good: "I enjoy hiking in nature, photography, reading science fiction novels, and playing strategy games. I also love attending tech conferences and learning about AI.",
+                bad: "I work out at LA Fitness on Mira Mesa Boulevard every Tuesday and Thursday at 8pm. I also go to the Starbucks on Main Street every morning at 7am before work."
             },
             skills: {
-                good: "Proficient in Python, JavaScript, and React. Experienced with machine learning frameworks like TensorFlow and PyTorch. Strong problem-solving and communication skills.",
-                bad: "I work at Google Inc., employee ID #G-847392, in Building 42, Floor 3. My manager is Sarah Johnson (sarah.j@google.com) and my work phone is 555-0192."
+                good: "Proficient in Python, JavaScript, and React. Experienced with machine learning frameworks and cloud platforms. Strong problem-solving abilities and enjoy mentoring others.",
+                bad: "I work at Google Inc., Building 42, employee ID G-847392. My manager is Sarah Johnson (sarah.j@company.com). Contact my work phone at 555-0192."
             },
             goals: {
-                good: "Looking to collaborate on open-source projects, find study partners for algorithm practice, and connect with developers interested in AI and web development.",
-                bad: "Want to meet people near my apartment at 742 Evergreen Terrace. I'm usually home alone after 8 PM on weekdays. My credit card number is 4532-1234-5678-9010."
+                good: "Looking to collaborate on open-source projects, find study partners for coding practice, and connect with developers interested in AI and web development.",
+                bad: "Want to meet people near my apartment at 742 Evergreen Terrace, 92122. I'm usually home alone after 8pm on weekdays. My SSN is 123-45-6789."
             }
         };
 
-        // Character counters
         ['about', 'interests', 'skills', 'goals'].forEach(section => {
             const input = document.getElementById(`${section}-input`);
             const counter = document.getElementById(`${section}-counter`);
-            
             input.addEventListener('input', () => {
-                const length = input.value.length;
-                const max = input.getAttribute('maxlength');
-                counter.textContent = `${length}/${max}`;
-                
-                // Reset safety check when content changes
+                counter.textContent = `${input.value.length}/${input.getAttribute('maxlength')}`;
                 safetyChecks[section] = false;
             });
         });
@@ -680,8 +508,6 @@ author: Ethan W
             const input = document.getElementById(`${section}-input`);
             input.value = examples[section][type];
             input.dispatchEvent(new Event('input'));
-            
-            // Clear previous safety check result
             document.getElementById(`${section}-result`).innerHTML = '';
             safetyChecks[section] = false;
         }
@@ -696,52 +522,26 @@ author: Ethan W
                 return;
             }
 
-            resultDiv.innerHTML = '<div class="safety-result safety-checking"><span class="safety-icon">⏳</span>Running AI safety analysis...</div>';
+            resultDiv.innerHTML = '<div class="safety-result safety-checking"><span class="safety-icon">⏳</span>Analyzing for personal information...</div>';
 
-            // Run analysis
             setTimeout(() => {
-                const result = mlClassifier.predict(text);
+                const result = classifier.detect(text);
                 safetyChecks[section] = result.safe;
 
                 let resultHTML = '';
                 if (result.severity === 'safe') {
-                    resultHTML = `<div class="safety-result safety-safe">
-                        <span class="safety-icon">✅</span>
-                        <strong>Safe to share!</strong> ${result.message}
-                        <div style="margin-top: 0.5em; font-size: 0.9em;">
-                            <strong>Risk Score:</strong> ${result.riskScore}% (Low risk)
-                        </div>
-                    </div>`;
+                    resultHTML = `<div class="safety-result safety-safe"><span class="safety-icon">✅</span><strong>${result.message}</strong><div style="margin-top: 0.5em; font-size: 0.9em;">Risk Score: ${result.riskScore}% (Low)</div></div>`;
                 } else if (result.severity === 'warning') {
-                    resultHTML = `<div class="safety-result safety-warning">
-                        <span class="safety-icon">⚠️</span>
-                        <strong>Warning:</strong> ${result.message}
-                        <div style="margin-top: 0.5em; font-size: 0.9em;">
-                            <strong>Risk Score:</strong> ${result.riskScore}% (Medium risk)
-                        </div>
-                        ${result.issues.length > 0 ? `<ul class="issues-list">${result.issues.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}
-                    </div>`;
+                    resultHTML = `<div class="safety-result safety-warning"><span class="safety-icon">⚠️</span><strong>${result.message}</strong><div style="margin-top: 0.5em; font-size: 0.9em;">Risk Score: ${result.riskScore}% (Medium)</div>${result.issues.length > 0 ? `<ul class="issues-list">${result.issues.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}</div>`;
                 } else {
-                    resultHTML = `<div class="safety-result safety-danger">
-                        <span class="safety-icon">🚫</span>
-                        <strong>Unsafe!</strong> ${result.message}
-                        <div style="margin-top: 0.5em; font-size: 0.9em;">
-                            <strong>Risk Score:</strong> ${result.riskScore}% (High risk)
-                        </div>
-                        ${result.issues.length > 0 ? `<ul class="issues-list">${result.issues.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}
-                    </div>`;
+                    resultHTML = `<div class="safety-result safety-danger"><span class="safety-icon">🚫</span><strong>${result.message}</strong><div style="margin-top: 0.5em; font-size: 0.9em;">Risk Score: ${result.riskScore}% (High)</div>${result.issues.length > 0 ? `<ul class="issues-list">${result.issues.map(i => `<li>${i}</li>`).join('')}</ul>` : ''}</div>`;
                 }
 
                 resultDiv.innerHTML = resultHTML;
-            }, 800);
+            }, 500);
         }
 
-        function performSafetyCheck(text) {
-            // This function is now replaced by the ML classifier
-            // Kept for backwards compatibility but not used
-            return mlClassifier.predict(text);
-        }
-
+        // FIXED: Look for jwt_python_flask cookie instead of jwt
         function getCookie(name) {
             const value = `; ${document.cookie}`;
             const parts = value.split(`; ${name}=`);
@@ -755,7 +555,6 @@ author: Ethan W
             let hasContent = false;
             let allChecked = true;
 
-            // Collect data and verify safety checks
             for (const section of sections) {
                 const input = document.getElementById(`${section}-input`);
                 const value = input.value.trim();
@@ -763,15 +562,12 @@ author: Ethan W
                 if (value) {
                     hasContent = true;
                     bioData[section] = value;
-                    
-                    if (!safetyChecks[section]) {
-                        allChecked = false;
-                    }
+                    if (!safetyChecks[section]) allChecked = false;
                 }
             }
 
             if (!hasContent) {
-                showStatus('Please fill in at least one section!', 'error');
+                showStatus('❌ Please fill in at least one section!', 'error');
                 return;
             }
 
@@ -780,21 +576,24 @@ author: Ethan W
                 return;
             }
 
-            const token = getCookie('jwt');
+            // FIXED: Get the correct cookie name
+            const token = getCookie('jwt_python_flask');
+            
             if (!token) {
-                showStatus('Please log in to save your bio', 'error');
+                showStatus('❌ Please log in to save your bio', 'error');
                 return;
             }
 
             try {
                 showStatus('💾 Saving your bio...', 'success');
 
-                const response = await fetch('/api/match/add', {
+                const response = await fetch('http://localhost:8401/api/match/add', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${token}`
                     },
+                    credentials: 'include',
                     body: JSON.stringify({
                         index: 'bio',
                         data: {
@@ -807,12 +606,16 @@ author: Ethan W
 
                 const data = await response.json();
 
-                if (response.ok) {
+                if (response.ok || response.status === 201) {
                     showStatus('✅ Bio saved successfully! Your profile is ready for matchmaking.', 'success');
+                    setTimeout(() => {
+                        Object.keys(safetyChecks).forEach(key => safetyChecks[key] = false);
+                    }, 3000);
                 } else {
-                    showStatus(`❌ Error: ${data.message}`, 'error');
+                    showStatus(`❌ Error: ${data.message || 'Failed to save'}`, 'error');
                 }
             } catch (error) {
+                console.error('Save error:', error);
                 showStatus(`❌ Failed to save: ${error.message}`, 'error');
             }
         }
@@ -821,6 +624,7 @@ author: Ethan W
             const statusDiv = document.getElementById('save-status');
             statusDiv.className = `status-message status-${type}`;
             statusDiv.textContent = message;
+            statusDiv.style.display = 'block';
             
             if (type === 'success') {
                 setTimeout(() => {
