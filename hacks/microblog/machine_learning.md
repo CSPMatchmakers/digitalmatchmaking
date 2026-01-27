@@ -344,15 +344,15 @@ author: Ethan W
                     About Me
                 </div>
                 <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" onclick="autofillSection('about', 'good')">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" onclick="autofillSection('about', 'bad')">⚠️ Bad Example</button>
+                    <button class="autofill-btn autofill-good" data-action="autofill" data-section="about" data-type="good">✅ Good Example</button>
+                    <button class="autofill-btn autofill-bad" data-action="autofill" data-section="about" data-type="bad">⚠️ Bad Example</button>
                 </div>
             </div>
             <div class="input-container">
                 <textarea class="bio-input" id="about-input" rows="4" maxlength="500" placeholder="Tell others about yourself..."></textarea>
                 <span class="char-counter" id="about-counter">0/500</span>
             </div>
-            <button class="ai-check-btn" onclick="checkSafety('about')">🔍 Check Safety</button>
+            <button class="ai-check-btn" data-action="check" data-section="about">🔍 Check Safety</button>
             <div id="about-result"></div>
         </div>
 
@@ -363,15 +363,15 @@ author: Ethan W
                     Interests & Hobbies
                 </div>
                 <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" onclick="autofillSection('interests', 'good')">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" onclick="autofillSection('interests', 'bad')">⚠️ Bad Example</button>
+                    <button class="autofill-btn autofill-good" data-action="autofill" data-section="interests" data-type="good">✅ Good Example</button>
+                    <button class="autofill-btn autofill-bad" data-action="autofill" data-section="interests" data-type="bad">⚠️ Bad Example</button>
                 </div>
             </div>
             <div class="input-container">
                 <textarea class="bio-input" id="interests-input" rows="3" maxlength="300" placeholder="What are your hobbies and interests?"></textarea>
                 <span class="char-counter" id="interests-counter">0/300</span>
             </div>
-            <button class="ai-check-btn" onclick="checkSafety('interests')">🔍 Check Safety</button>
+            <button class="ai-check-btn" data-action="check" data-section="interests">🔍 Check Safety</button>
             <div id="interests-result"></div>
         </div>
 
@@ -382,15 +382,15 @@ author: Ethan W
                     Skills & Expertise
                 </div>
                 <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" onclick="autofillSection('skills', 'good')">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" onclick="autofillSection('skills', 'bad')">⚠️ Bad Example</button>
+                    <button class="autofill-btn autofill-good" data-action="autofill" data-section="skills" data-type="good">✅ Good Example</button>
+                    <button class="autofill-btn autofill-bad" data-action="autofill" data-section="skills" data-type="bad">⚠️ Bad Example</button>
                 </div>
             </div>
             <div class="input-container">
                 <textarea class="bio-input" id="skills-input" rows="3" maxlength="300" placeholder="What skills or expertise do you have?"></textarea>
                 <span class="char-counter" id="skills-counter">0/300</span>
             </div>
-            <button class="ai-check-btn" onclick="checkSafety('skills')">🔍 Check Safety</button>
+            <button class="ai-check-btn" data-action="check" data-section="skills">🔍 Check Safety</button>
             <div id="skills-result"></div>
         </div>
 
@@ -401,20 +401,20 @@ author: Ethan W
                     Goals & Looking For
                 </div>
                 <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" onclick="autofillSection('goals', 'good')">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" onclick="autofillSection('goals', 'bad')">⚠️ Bad Example</button>
+                    <button class="autofill-btn autofill-good" data-action="autofill" data-section="goals" data-type="good">✅ Good Example</button>
+                    <button class="autofill-btn autofill-bad" data-action="autofill" data-section="goals" data-type="bad">⚠️ Bad Example</button>
                 </div>
             </div>
             <div class="input-container">
                 <textarea class="bio-input" id="goals-input" rows="3" maxlength="300" placeholder="What are you hoping to achieve or find?"></textarea>
                 <span class="char-counter" id="goals-counter">0/300</span>
             </div>
-            <button class="ai-check-btn" onclick="checkSafety('goals')">🔍 Check Safety</button>
+            <button class="ai-check-btn" data-action="check" data-section="goals">🔍 Check Safety</button>
             <div id="goals-result"></div>
         </div>
 
         <div class="submit-section">
-            <button class="submit-btn" id="save-btn" onclick="saveBio()">💾 Save Bio to Profile</button>
+            <button class="submit-btn" id="save-btn" data-action="save">💾 Save Bio to Profile</button>
             <div id="save-status"></div>
         </div>
     </div>
@@ -634,6 +634,22 @@ author: Ethan W
                 }, 5000);
             }
         }
+
+        // Set up event listeners for all data-action buttons
+        document.addEventListener('click', (e) => {
+            const action = e.target.dataset.action;
+            
+            if (action === 'autofill') {
+                const section = e.target.dataset.section;
+                const type = e.target.dataset.type;
+                autofillSection(section, type);
+            } else if (action === 'check') {
+                const section = e.target.dataset.section;
+                checkSafety(section);
+            } else if (action === 'save') {
+                saveBio();
+            }
+        });
     </script>
 </body>
 </html>
