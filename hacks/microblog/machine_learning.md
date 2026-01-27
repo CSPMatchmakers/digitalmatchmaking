@@ -543,12 +543,24 @@ author: Ethan W
             }, 500);
         }
 
-        // FIXED: Look for jwt_python_flask cookie instead of jwt
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
+        // Check authentication by calling /api/id
+        async function checkAuthentication() {
+            try {
+                const response = await fetch(`${pythonURI}/api/id`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    return true;
+                }
+                
+                return false;
+            } catch (error) {
+                console.error('Authentication check failed:', error);
+                return false;
+            }
         }
 
         async function saveBio() {
@@ -578,10 +590,10 @@ author: Ethan W
                 return;
             }
 
-            // FIXED: Get the correct cookie name
-            const token = getCookie('jwt_python_flask');
+            // Check authentication via API
+            const isAuthenticated = await checkAuthentication();
             
-            if (!token) {
+            if (!isAuthenticated) {
                 showStatus('❌ Please log in to save your bio', 'error');
                 return;
             }
@@ -592,8 +604,7 @@ author: Ethan W
                 const response = await fetch(`${pythonURI}/api/match/add`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
+                        'Content-Type': 'application/json'
                     },
                     credentials: 'include',
                     body: JSON.stringify({
