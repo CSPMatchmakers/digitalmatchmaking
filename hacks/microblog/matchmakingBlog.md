@@ -16,6 +16,29 @@ breadcrumb: true
 <title>Personality Matchmaking Quiz</title>
 
 <style>
+.back-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border: none;
+    border-radius: 50px;
+    color: white;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    margin: 1rem;
+    position: relative;
+    z-index: 1000;
+}
+
+.back-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+}
+
 /* ---------- OVERRIDE JEKYLL THEME ---------- */
 main, article, .content, .post-content {
   background: transparent !important;
@@ -876,6 +899,8 @@ button:disabled:hover {
 </head>
 
 <body>
+
+<a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
 
 <header>
   <h1>💕 Find Your Perfect Match</h1>

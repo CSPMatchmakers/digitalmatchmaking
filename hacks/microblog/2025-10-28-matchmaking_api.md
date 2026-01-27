@@ -1,6 +1,6 @@
 ---
-layout: post
-title: Login Port
+layout: page
+title: Account Port
 permalink: /api/
 author: William W
 breadcrumb: false
@@ -10,7 +10,7 @@ breadcrumb: false
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Port</title>
+    <title>Account Port</title>
     <style>
         * {
             margin: 0;
@@ -608,8 +608,12 @@ breadcrumb: false
     <!-- Header -->
     <div class="header">
         <div class="header-left">
+            <a href="/digitalmatchmaking/home/" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; margin-right: 2rem; transition: all 0.2s ease;">
+                <span style="font-size: 1.2rem;">←</span>
+                <span style="font-size: 0.9rem; color: #71717a;">Back</span>
+            </a>
             <div class="header-icon">🔐</div>
-            <div class="header-title">Login Port</div>
+            <div class="header-title">Account Port</div>
         </div>
         <div class="auth-indicator">
             <div class="status-light" id="statusLight"></div>
@@ -621,7 +625,7 @@ breadcrumb: false
     <div class="container">
         <!-- Request/Response Section -->
         <div class="section">
-            <div class="section-title">Account Port</div>
+           
             
             <!-- Main Tabs -->
             <div class="main-tabs">
@@ -726,7 +730,7 @@ breadcrumb: false
                 </div>
                 <div class="collapsible-content">
                     <div class="collapsible-body">
-                        <p>Login Port is an API testing interface for the Matchmaking service. It allows you to interact with backend endpoints in real-time.</p>
+                        <p>Account Port is an API testing interface for the Matchmaking service. It allows you to interact with backend endpoints in real-time.</p>
 
                         <h4>Key Features</h4>
                         <ul>

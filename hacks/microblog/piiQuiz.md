@@ -23,6 +23,27 @@ breadcrumb: true
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Security Protocol Training</title>
     <style>
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #161b22;
+            border: 1px solid #30363d;
+            border-radius: 6px;
+            color: #8b949e;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            margin-bottom: 1rem;
+        }
+
+        .back-button:hover {
+            background: #21262d;
+            border-color: #30363d;
+            color: #c9d1d9;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -349,6 +370,7 @@ breadcrumb: true
     </style>
 </head>
 <body>
+    <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
     <div class="mission-header">
         <h1 class="glitch-text">SECURITY PROTOCOL TRAINING</h1>
         <p class="mission-brief">Complete this security assessment to verify your understanding of Personally Identifiable Information (PII) protocols. Operatives must demonstrate knowledge of data protection standards before accessing the network.</p>

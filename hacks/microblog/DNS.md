@@ -23,6 +23,27 @@ backend_api: "/api"
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <style>
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: #1f2937;
+            border: 1px solid #374151;
+            border-radius: 0.375rem;
+            color: #9ca3af;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.2s ease;
+            margin: 1rem;
+        }
+
+        .back-button:hover {
+            background: #111827;
+            border-color: #4b5563;
+            color: #e5e7eb;
+        }
+
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
         body { font-family: 'Inter', sans-serif; }
         .server-box { transition: all 0.5s ease; }
@@ -68,6 +89,8 @@ backend_api: "/api"
     </script>
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
+    
+    <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
 
     <!-- Header -->
     <header class="bg-slate-800 border-b border-slate-700 p-4 shadow-lg sticky top-0 z-50">
