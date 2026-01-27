@@ -1543,13 +1543,19 @@ async function submitQuiz() {
 
 
  /* ---------- SAVE TO BACKEND ---------- */
- // Save personality_type only
+ // Save personality_type AND quiz responses together
  fetch(`${pythonURI}/api/match/add`, {
    method: "POST",
    credentials: "include",
    headers: { "Content-Type": "application/json" },
-   body: JSON.stringify({ index: "personality_type", data: personality.type_name })
- }).then(res => res.ok ? console.log("✅ personality_type saved") : console.log("ℹ️ personality_type save failed"));
+   body: JSON.stringify({
+     index: "personality_quiz_responses",
+     data: {
+       personality_type: personality.type_name,
+       quiz_responses: responseData
+     }
+   })
+ }).then(res => res.ok ? console.log("✅ personality data saved") : console.log("ℹ️ personality save failed"));
 
 
  /* ---------- OPTIONAL: ALSO SAVE TO MICROBLOG ---------- */
