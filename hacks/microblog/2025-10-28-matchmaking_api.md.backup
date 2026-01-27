@@ -1,0 +1,1299 @@
+---
+layout: post
+title: Login Port
+permalink: /api_backup/
+author: William W
+breadcrumb: false
+---
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Port - Account Management</title>
+    <style>
+        /* Clean, minimalistic design for easy use */
+        body {
+            background: #f5f7fa !important;
+            color: #2c3e50 !important;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Main container - everything centered and compact */
+        .login-port-container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            padding: 2rem;
+        }
+
+        /* Header section */
+        .port-header {
+            text-align: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #e8edf2;
+        }
+
+        .port-header h1 {
+            font-size: 2rem;
+            color: #2c3e50 !important;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .port-header p {
+            font-size: 1.1rem;
+            color: #7f8c8d !important;
+            margin: 0;
+        }
+
+        /* Account status indicator */
+        .account-status {
+            background: #ecf5ff;
+            border: 2px solid #3498db;
+            border-radius: 12px;
+            padding: 1.25rem;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .account-status h3 {
+            color: #2c3e50 !important;
+            margin: 0 0 0.75rem 0;
+            font-size: 1.2rem;
+        }
+
+        .status-indicator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .status-icon {
+            font-size: 2rem;
+        }
+
+        .status-icon.created {
+            color: #27ae60;
+        }
+
+        .status-icon.not-created {
+            color: #e74c3c;
+        }
+
+        .status-text {
+            color: #34495e !important;
+        }
+
+        /* Action buttons - large and easy to click */
+        .action-section {
+            margin-bottom: 2rem;
+        }
+
+        .action-section h3 {
+            color: #2c3e50 !important;
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            padding: 1.5rem 2rem;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .action-btn:active {
+            transform: translateY(0);
+        }
+
+        .action-btn.primary {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            color: white !important;
+        }
+
+        .action-btn.secondary {
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white !important;
+        }
+
+        .action-btn.tertiary {
+            background: linear-gradient(135deg, #9b59b6 0%, #8e44ad 100%);
+            color: white !important;
+        }
+
+        .btn-icon {
+            font-size: 1.5rem;
+        }
+
+        .btn-content {
+            flex: 1;
+            margin: 0 1rem;
+        }
+
+        .btn-title {
+            display: block;
+            font-size: 1.2rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .btn-desc {
+            display: block;
+            font-size: 0.9rem;
+            opacity: 0.9;
+            font-weight: normal;
+        }
+
+        /* Response display */
+        .response-section {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #e8edf2;
+        }
+
+        .response-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .response-header h3 {
+            color: #2c3e50 !important;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .status-badge {
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .status-badge.success {
+            background: #d5f4e6;
+            color: #27ae60 !important;
+        }
+
+        .status-badge.error {
+            background: #fadbd8;
+            color: #e74c3c !important;
+        }
+
+        .response-content {
+            background: #f8f9fa;
+            color: #2c3e50 !important;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            max-height: 300px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border: 1px solid #e8edf2;
+        }
+
+        /* Collapsible help section at bottom */
+        .help-section {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 3px solid #e8edf2;
+        }
+
+        .collapsible-header {
+            background: #f8f9fa;
+            padding: 1.25rem;
+            cursor: pointer;
+            border-radius: 8px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+            margin-bottom: 0.5rem;
+        }
+
+        .collapsible-header:hover {
+            background: #ecf0f1;
+        }
+
+        .collapsible-header h3 {
+            color: #2c3e50 !important;
+            margin: 0;
+            font-size: 1.1rem;
+        }
+
+        .collapsible-icon {
+            font-size: 1.25rem;
+            transition: transform 0.3s;
+            color: #7f8c8d;
+        }
+
+        .collapsible-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 1.25rem;
+        }
+
+        .collapsible-content.open {
+            max-height: 2000px;
+            padding: 1.25rem;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .help-content {
+            background: white;
+            padding: 1rem;
+            border-radius: 8px;
+            color: #34495e !important;
+        }
+
+        .help-content h4 {
+            color: #2c3e50 !important;
+            margin-top: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .help-content ul {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+        }
+
+        .help-content li {
+            margin-bottom: 0.5rem;
+            color: #34495e !important;
+        }
+
+        .help-content p {
+            color: #34495e !important;
+            margin: 0.75rem 0;
+        }
+
+        .help-content code {
+            background: #f8f9fa;
+            color: #e74c3c !important;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.9em;
+        }
+
+        /* Loading state */
+        .loading {
+            opacity: 0.6;
+            pointer-events: none;
+        }
+
+        /* Hidden URL input (for backend) */
+        #urlInput {
+            display: none;
+        }
+
+        /* Auth banner */
+        #auth-check-banner {
+            background: #fadbd8 !important;
+            color: #c0392b !important;
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+            border: 2px solid #e74c3c;
+            display: none;
+        }
+
+        #auth-check-banner h3 {
+            color: #c0392b !important;
+            margin-bottom: 0.5rem;
+        }
+
+        #auth-check-banner p {
+            color: #c0392b !important;
+            margin-bottom: 1rem;
+        }
+
+        #login-redirect-btn {
+            display: inline-block;
+            background: #e74c3c !important;
+            color: white !important;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        #login-redirect-btn:hover {
+            background: #c0392b !important;
+        }
+    </style>
+        
+        .examples-section h3 {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #cbd5e1 !important;
+            margin-bottom: 0.5rem;
+        }
+        
+        .examples-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+        }
+        
+        .example-btn {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 0.375rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+        
+        .example-btn.get {
+            background: #1e40af !important;
+            color: #dbeafe !important;
+        }
+        
+        .example-btn.get:hover {
+            background: #1e3a8a !important;
+        }
+        
+        .example-btn.post {
+            background: #065f46 !important;
+            color: #d1fae5 !important;
+        }
+        
+        .example-btn.post:hover {
+            background: #064e3b !important;
+        }
+        
+        .request-section {
+            margin-bottom: 1rem;
+        }
+        
+        .request-label {
+            display: block;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: #cbd5e1 !important;
+            margin-bottom: 0.5rem;
+        }
+        
+        .request-controls {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        
+        .method-select {
+            padding: 0.5rem 1rem;
+            border: 2px solid #4a5568 !important;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            font-size: 1rem;
+            background: #2d3748 !important;
+            color: #e2e8f0 !important;
+            cursor: pointer;
+        }
+        
+        .method-select:focus {
+            outline: none;
+            border-color: #3b82f6 !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .url-input {
+            flex: 1;
+            min-width: 300px;
+            padding: 0.5rem 1rem;
+            border: 2px solid #4a5568 !important;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            background: #2d3748 !important;
+            color: #e2e8f0 !important;
+        }
+        
+        .url-input:focus {
+            outline: none;
+            border-color: #3b82f6 !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .send-btn {
+            padding: 0.5rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            color: #ffffff !important;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .send-btn.GET {
+            background: #3b82f6 !important;
+        }
+        
+        .send-btn.GET:hover {
+            background: #2563eb !important;
+        }
+        
+        .send-btn.POST {
+            background: #10b981 !important;
+        }
+        
+        .send-btn.POST:hover {
+            background: #059669 !important;
+        }
+        
+        .send-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .clear-btn {
+            padding: 0.5rem 1rem;
+            background: #64748b !important;
+            color: #ffffff !important;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .clear-btn:hover {
+            background: #475569 !important;
+        }
+        
+        .body-section {
+            margin-top: 1rem;
+        }
+        
+        .body-textarea {
+            width: 100%;
+            height: 160px;
+            padding: 1rem;
+            border: 2px solid #4a5568 !important;
+            border-radius: 0.5rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            background: #2d3748 !important;
+            color: #e2e8f0 !important;
+            resize: vertical;
+        }
+        
+        .body-textarea:focus {
+            outline: none;
+            border-color: #3b82f6 !important;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+        
+        .response-container {
+            background: #16213e !important;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #2d3748;
+        }
+        
+        .response-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        
+        .response-header h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #e2e8f0 !important;
+            margin: 0;
+        }
+        
+        .status-badge {
+            padding: 0.25rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 600;
+        }
+        
+        .status-badge.success {
+            color: #6ee7b7 !important;
+            background: #064e3b !important;
+            border: 1px solid #059669;
+        }
+        
+        .status-badge.error {
+            color: #fca5a5 !important;
+            background: #7f1d1d !important;
+            border: 1px solid #dc2626;
+        }
+        
+        .status-badge.auth {
+            color: #fcd34d !important;
+            background: #422006 !important;
+            border: 1px solid #ca8a04;
+        }
+        
+        .response-content {
+            background: #0f172a !important;
+            color: #cbd5e1 !important;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 0.875rem;
+            max-height: 400px;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            border: 1px solid #1e293b;
+        }
+        
+        .tips-section {
+            background: #1e3a8a !important;
+            border: 1px solid #2563eb;
+            border-radius: 0.5rem;
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+        
+        .tips-section h4 {
+            font-weight: 600;
+            color: #dbeafe !important;
+            margin-bottom: 0.5rem;
+        }
+        
+        .tips-section ul {
+            font-size: 0.875rem;
+            color: #bfdbfe !important;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .tips-section li {
+            margin-bottom: 0.25rem;
+        }
+
+        /* Collapsible Section Styles */
+        .collapsible-section {
+            background: #1e293b !important;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border: 1px solid #334155;
+            overflow: hidden;
+        }
+
+        .collapsible-header {
+            background: linear-gradient(135deg, #334155 0%, #475569 100%);
+            padding: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        .collapsible-header:hover {
+            background: linear-gradient(135deg, #475569 0%, #64748b 100%);
+        }
+
+        .collapsible-header h2 {
+            color: #e2e8f0 !important;
+            margin: 0;
+            font-size: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .collapsible-icon {
+            font-size: 1.5rem;
+            transition: transform 0.3s;
+            color: #94a3b8;
+        }
+
+        .collapsible-icon.open {
+            transform: rotate(180deg);
+        }
+
+        .collapsible-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 1.5rem;
+        }
+
+        .collapsible-content.open {
+            max-height: 5000px;
+            padding: 1.5rem;
+            transition: max-height 0.5s ease-in;
+        }
+
+        .section-card {
+            background: transparent !important;
+            padding: 0;
+            margin: 0;
+            border: none;
+            box-shadow: none;
+        }
+
+        .section-card p, .section-card li, .section-card em, .section-card strong {
+            color: #cbd5e1 !important;
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .info-box {
+            background: linear-gradient(135deg, #4338ca 0%, #6366f1 100%) !important;
+            color: #ffffff !important;
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-box h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: #ffffff !important;
+        }
+
+        .info-box p {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: #e2e8f0 !important;
+        }
+
+        code {
+            background: #0f172a !important;
+            color: #cbd5e1 !important;
+            padding: 0.25rem 0.5rem !important;
+            border-radius: 4px !important;
+            font-family: 'Courier New', monospace;
+            border: 1px solid #1e293b;
+            font-size: 0.9em !important;
+        }
+
+        pre code {
+            display: block !important;
+            padding: 1.5rem !important;
+            margin: 1rem 0 !important;
+            border-radius: 8px !important;
+            overflow-x: auto;
+        }
+
+        .step-card {
+            background: #334155 !important;
+            border-left: 4px solid #6366f1;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 0 8px 8px 0;
+            color: #e2e8f0 !important;
+        }
+
+        .step-card h4 {
+            color: #818cf8 !important;
+            margin-bottom: 0.5rem;
+        }
+
+        .step-card p, .step-card em {
+            color: #cbd5e1 !important;
+        }
+
+        .tips-banner {
+            background: #1e3a8a !important;
+            border: 2px solid #3b82f6;
+            border-radius: 8px;
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            color: #bfdbfe !important;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="auth-check-banner">
+        <h3>🔒 Authentication Required</h3>
+        <p>You must be logged in to use the Login Port. Please log in first.</p>
+        <a id="login-redirect-btn" href="#">Login Now →</a>
+    </div>
+
+    <!-- Main Login Port Container -->
+    <div class="login-port-container">
+        <!-- Header -->
+        <div class="port-header">
+            <h1>
+                <span>🔐</span>
+                Login Port
+            </h1>
+            <p>Simple Account Management</p>
+        </div>
+
+        <!-- Account Status -->
+        <div class="account-status">
+            <h3>Account Status</h3>
+            <div class="status-indicator">
+                <span class="status-icon" id="accountStatusIcon">⏳</span>
+                <span class="status-text" id="accountStatusText">Checking...</span>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-section">
+            <h3>What would you like to do?</h3>
+            <div class="action-buttons">
+                <button class="action-btn primary" onclick="setupProfile()">
+                    <span class="btn-icon">🆕</span>
+                    <div class="btn-content">
+                        <span class="btn-title">Create Account</span>
+                        <span class="btn-desc">Set up your profile for the first time</span>
+                    </div>
+                    <span class="btn-icon">→</span>
+                </button>
+                
+                <button class="action-btn secondary" onclick="addData()">
+                    <span class="btn-icon">➕</span>
+                    <div class="btn-content">
+                        <span class="btn-title">Add Data</span>
+                        <span class="btn-desc">Add information to your profile</span>
+                    </div>
+                    <span class="btn-icon">→</span>
+                </button>
+                
+                <button class="action-btn tertiary" onclick="seeAllData()">
+                    <span class="btn-icon">👁️</span>
+                    <div class="btn-content">
+                        <span class="btn-title">See All Data</span>
+                        <span class="btn-desc">View your complete profile</span>
+                    </div>
+                    <span class="btn-icon">→</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- Hidden URL input for backend -->
+        <input type="text" id="urlInput" />
+
+        <!-- Response Section -->
+        <div class="response-section" id="responseSection" style="display: none;">
+            <div class="response-header">
+                <h3>Result</h3>
+                <span id="statusBadge" class="status-badge" style="display: none;"></span>
+            </div>
+            <pre id="responseContent" class="response-content">Response will appear here...</pre>
+        </div>
+
+        <!-- Help Section (Collapsible at bottom) -->
+        <div class="help-section">
+            <div class="collapsible-header" onclick="toggleHelp(this)">
+                <h3>📖 Help & Information</h3>
+                <span class="collapsible-icon">▼</span>
+            </div>
+            <div class="collapsible-content">
+                <div class="help-content">
+                    <h4>Getting Started</h4>
+                    <p>Follow these simple steps:</p>
+                    <ul>
+                        <li><strong>Step 1:</strong> Click "Create Account" to set up your profile (do this only once)</li>
+                        <li><strong>Step 2:</strong> Click "Add Data" to add information to your profile</li>
+                        <li><strong>Step 3:</strong> Click "See All Data" to view your complete profile</li>
+                    </ul>
+
+                    <h4>What Each Button Does</h4>
+                    <ul>
+                        <li><strong>🆕 Create Account:</strong> Creates your initial profile. Only click this once! If you already have an account, you'll see an error.</li>
+                        <li><strong>➕ Add Data:</strong> Lets you add new information to your existing profile.</li>
+                        <li><strong>👁️ See All Data:</strong> Shows all the information you've saved in your profile.</li>
+                    </ul>
+
+                    <h4>Understanding the Status</h4>
+                    <ul>
+                        <li><strong>✅ (Green Check):</strong> Your account is created and ready</li>
+                        <li><strong>❌ (Red X):</strong> No account found yet - click "Create Account" first</li>
+                        <li><strong>⏳ (Hourglass):</strong> Still checking your account status</li>
+                    </ul>
+
+                    <h4>Response Messages</h4>
+                    <ul>
+                        <li><code>Status: 200</code> - Success! Everything worked</li>
+                        <li><code>Status: 201</code> - Success! Something new was created</li>
+                        <li><code>Status: 404</code> - Not found - you may need to create your account first</li>
+                        <li><code>Status: 409</code> - Already exists - you already have an account</li>
+                    </ul>
+
+                    <h4>Tips</h4>
+                    <ul>
+                        <li>Always create your account first before adding data</li>
+                        <li>You can add data as many times as you want</li>
+                        <li>Check "See All Data" anytime to view your profile</li>
+                        <li>If you see an error, read the message carefully - it will tell you what to do</li>
+                    </ul>
+
+                    <h4>Need Help?</h4>
+                    <p>If something isn't working, make sure you're logged in. The "Login Port" requires you to be logged in to work properly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        // Import from config.js
+        import { pythonURI, fetchOptions } from '/digitalmatchmaking/assets/js/api/config.js';
+
+        console.log('[DEBUG] Imported pythonURI:', pythonURI);
+        console.log('[DEBUG] Imported fetchOptions:', fetchOptions);
+
+        // Check authentication by calling /api/id
+        async function checkAuthentication(retries = 3, delay = 1000) {
+            console.log('[DEBUG] ========================================');
+            console.log('[DEBUG] Starting authentication check...');
+            console.log('[DEBUG] Current URL:', window.location.href);
+            console.log('[DEBUG] Current domain:', window.location.hostname);
+            console.log('[DEBUG] Python URI:', pythonURI);
+            console.log('[DEBUG] Will attempt', retries, 'times with', delay, 'ms delay');
+            console.log('[DEBUG] ========================================');
+            
+            for (let attempt = 1; attempt <= retries; attempt++) {
+                console.log(`[DEBUG] Authentication attempt ${attempt}/${retries}`);
+                
+                try {
+                    const response = await fetch(`${pythonURI}/api/id`, {
+                        ...fetchOptions,
+                        credentials: 'include'
+                    });
+                    
+                    console.log(`[DEBUG] Response status: ${response.status}`);
+                    console.log(`[DEBUG] Response ok: ${response.ok}`);
+                    
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('[DEBUG] ✅ Authentication SUCCESSFUL!');
+                        console.log('[DEBUG] User data:', data);
+                        console.log('[DEBUG] ========================================');
+                        return true;
+                    } else {
+                        console.log(`[DEBUG] ❌ Response not OK (status: ${response.status})`);
+                        
+                        // If not the last attempt, wait before retrying
+                        if (attempt < retries) {
+                            console.log(`[DEBUG] Waiting ${delay}ms before retry...`);
+                            await new Promise(resolve => setTimeout(resolve, delay));
+                        }
+                    }
+                } catch (error) {
+                    console.log(`[DEBUG] ❌ Fetch error:`, error.message);
+                    
+                    // If not the last attempt, wait before retrying
+                    if (attempt < retries) {
+                        console.log(`[DEBUG] Waiting ${delay}ms before retry...`);
+                        await new Promise(resolve => setTimeout(resolve, delay));
+                    }
+                }
+            }
+            
+            console.log('[DEBUG] ❌ Authentication FAILED after all attempts');
+            console.log('[DEBUG] ❌ Authentication FAILED after all attempts');
+            console.log('[DEBUG] ========================================');
+            
+            // Disable everything
+            methodSelect.disabled = true;
+            urlInput.disabled = true;
+            requestBodyTextarea.disabled = true;
+            sendBtn.disabled = true;
+                
+            responseContent.innerHTML = `<div style="color: #fbbf24; font-weight: bold; font-size: 1.2rem; text-align: center; padding: 2rem;">
+                🔒 Authentication Required
+                
+                <div style="color: #cbd5e1; font-size: 0.9rem; margin-top: 1rem; font-weight: normal;">
+                    You must be logged in to use the API tester.
+                    
+                    Please log in to your account first, then refresh this page.
+                </div>
+            </div>`;
+            
+            const exampleButtons = document.querySelectorAll('.example-btn');
+            exampleButtons.forEach(btn => {
+                btn.disabled = true;
+                btn.style.opacity = '0.5';
+                btn.style.cursor = 'not-allowed';
+            });
+                
+            return false;
+        }
+
+        // Quick initial check (no retry needed for banner)
+        async function quickAuthCheck() {
+            console.log('[DEBUG] Running quick auth check for banner...');
+            
+            try {
+                const response = await fetch(`${pythonURI}/api/id`, {
+                    ...fetchOptions,
+                    credentials: 'include'
+                });
+                
+                const isAuth = response.ok;
+                console.log('[DEBUG] Quick check result:', isAuth ? 'Authenticated' : 'Not authenticated');
+                return isAuth;
+            } catch (error) {
+                console.log('[DEBUG] Quick check failed:', error.message);
+                return false;
+            }
+        }
+
+        // Authentication banner check (runs immediately)
+        (async function() {
+            console.log('[DEBUG] Running immediate banner check...');
+            const isAuth = await quickAuthCheck();
+            
+            if (!isAuth) {
+                const banner = document.getElementById('auth-check-banner');
+                if (banner) {
+                    console.log('[DEBUG] Showing auth banner');
+                    banner.style.display = 'block';
+                }
+                
+                const loginBtn = document.getElementById('login-redirect-btn');
+                if (loginBtn) {
+                    const protocol = window.location.protocol;
+                    const hostname = window.location.hostname;
+                    const port = window.location.port;
+                    
+                    let baseUrl;
+                    if (hostname === 'localhost' || hostname === '127.0.0.1') {
+                        baseUrl = `${protocol}//${hostname}:${port}`;
+                    } else {
+                        baseUrl = `${protocol}//${hostname}`;
+                    }
+                    
+                    loginBtn.href = `${baseUrl}/digitalmatchmaking/login`;
+                    console.log('[DEBUG] Login redirect URL:', loginBtn.href);
+                }
+            } else {
+                console.log('[DEBUG] Already authenticated - no banner needed');
+            }
+        })();
+
+        // Step Guide
+        let currentStepIndex = 0;
+
+        const steps = [
+            {
+                title: "Step 1: Initialize Your Profile",
+                content: "Click <strong>\"POST Setup Profile\"</strong> to create your matchmaking profile. You should see a success message with status 201. ⚠️ <strong>Only do this once!</strong> If you already have a profile, you'll get a 409 error (profile already exists)."
+            },
+            {
+                title: "Step 2: Add Your Information",
+                content: "Click <strong>\"POST Add Profile Data\"</strong> to add information like your favorite hobbies, interests, etc. Edit the JSON body to add different data fields. You can call this multiple times to add more data."
+            },
+            {
+                title: "Step 3: View Your Profile",
+                content: "Click <strong>\"GET Profile Data\"</strong> to see all your saved information. This shows everything you've added to your profile."
+            },
+            {
+                title: "Step 4: Save Quiz Results",
+                content: "Click <strong>\"POST Save Profile JSON\"</strong> to save multiple questions and answers at once (like from a quiz or form). This is useful for bulk updates to your profile."
+            },
+            {
+                title: "Step 5: View All Users",
+                content: "Click <strong>\"GET All Users Data\"</strong> to see everyone's profile data (useful for matching algorithms and seeing what others have shared)."
+            }
+        ];
+
+        function showStep(index) {
+            const stepContent = document.getElementById('step-content');
+            const currentStepDisplay = document.getElementById('currentStep');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            stepContent.innerHTML = `
+                <h4>${steps[index].title}</h4>
+                <p>${steps[index].content}</p>
+            `;
+
+            currentStepDisplay.textContent = index + 1;
+
+            prevBtn.disabled = index === 0;
+            nextBtn.disabled = index === steps.length - 1;
+
+            prevBtn.style.opacity = index === 0 ? '0.5' : '1';
+            prevBtn.style.cursor = index === 0 ? 'not-allowed' : 'pointer';
+
+            nextBtn.style.opacity = index === steps.length - 1 ? '0.5' : '1';
+            nextBtn.style.cursor = index === steps.length - 1 ? 'not-allowed' : 'pointer';
+        }
+
+        function changeStep(direction) {
+            currentStepIndex += direction;
+            if (currentStepIndex < 0) currentStepIndex = 0;
+            if (currentStepIndex >= steps.length) currentStepIndex = steps.length - 1;
+            showStep(currentStepIndex);
+        }
+
+        showStep(0);
+
+        // Collapsible sections
+        function toggleSection(header) {
+            const content = header.nextElementSibling;
+            const icon = header.querySelector('.collapsible-icon');
+            
+            content.classList.toggle('open');
+            icon.classList.toggle('open');
+        }
+
+        // API Tester functionality
+        const methodSelect = document.getElementById('method');
+        const urlInput = document.getElementById('url');
+        const requestBodyTextarea = document.getElementById('requestBody');
+        const bodySection = document.getElementById('bodySection');
+        const sendBtn = document.getElementById('sendBtn');
+        const btnText = document.getElementById('btnText');
+        const responseContent = document.getElementById('responseContent');
+        const statusBadge = document.getElementById('statusBadge');
+        const headersSection = document.getElementById('headersSection');
+        const headersContent = document.getElementById('headersContent');
+
+        // Set the default URL based on environment
+        urlInput.value = `${pythonURI}/api/match/`;
+        console.log('[DEBUG] Default URL set to:', urlInput.value);
+
+        // Main authentication check for API tester (waits for cookie)
+        let isAuthenticated = false;
+
+        (async function() {
+            console.log('[DEBUG] Starting main authentication process...');
+            isAuthenticated = await checkAuthentication();
+            
+            console.log('[DEBUG] Final isAuthenticated value:', isAuthenticated);
+            
+            if (isAuthenticated) {
+                // Hide the auth banner if cookie was found
+                const banner = document.getElementById('auth-check-banner');
+                if (banner) {
+                    console.log('[DEBUG] Hiding auth banner');
+                    banner.style.display = 'none';
+                }
+            } else {
+                console.log('[DEBUG] Keeping auth banner visible');
+            }
+            
+            console.log('[DEBUG] Authentication process complete');
+        })();
+
+        methodSelect.addEventListener('change', function() {
+            if (!isAuthenticated) return;
+            
+            const method = this.value;
+            sendBtn.className = `send-btn ${method}`;
+            
+            if (method === 'POST' || method === 'PUT') {
+                bodySection.style.display = 'block';
+            } else {
+                bodySection.style.display = 'none';
+            }
+        });
+
+        function loadExample(example) {
+            if (!isAuthenticated) {
+                alert('Please log in to use the API tester.');
+                return;
+            }
+            
+            switch(example) {
+                case 'setupProfile':
+                    methodSelect.value = 'POST';
+                    urlInput.value = `${pythonURI}/api/match/setup`;
+                    requestBodyTextarea.value = '{}';
+                    break;
+                case 'addProfileData':
+                    methodSelect.value = 'POST';
+                    urlInput.value = `${pythonURI}/api/match/add`;
+                    requestBodyTextarea.value = '{\n  "index": "favorite_hobby",\n  "data": "Reading and coding"\n}';
+                    break;
+                case 'getProfile':
+                    methodSelect.value = 'GET';
+                    urlInput.value = `${pythonURI}/api/match/data`;
+                    requestBodyTextarea.value = '{}';
+                    break;
+                case 'saveProfileJSON':
+                    methodSelect.value = 'POST';
+                    urlInput.value = `${pythonURI}/api/match/save-profile-json`;
+                    requestBodyTextarea.value = '{\n  "profile_data": [\n    {\n      "question": "What is your favorite hobby?",\n      "response": "Reading"\n    },\n    {\n      "question": "What is your preferred study time?",\n      "response": "Morning"\n    },\n    {\n      "question": "What type of projects do you enjoy?",\n      "response": "Web development"\n    },\n    {\n      "question": "What programming language do you prefer?",\n      "response": "Python"\n    }\n  ]\n}';
+                    break;
+                case 'getAllData':
+                    methodSelect.value = 'GET';
+                    urlInput.value = `${pythonURI}/api/match/all-data`;
+                    requestBodyTextarea.value = '{}';
+                    break;
+            }
+            
+            methodSelect.dispatchEvent(new Event('change'));
+        }
+
+        async function sendRequest() {
+            if (!isAuthenticated) {
+                alert('Please log in to use the API tester.');
+                return;
+            }
+            
+            const method = methodSelect.value;
+            const url = urlInput.value;
+            const requestBody = requestBodyTextarea.value;
+
+            btnText.textContent = 'Sending...';
+            sendBtn.disabled = true;
+            responseContent.textContent = '';
+            statusBadge.style.display = 'none';
+            headersSection.style.display = 'none';
+
+            try {
+                const options = {
+                    method: method,
+                    mode: 'cors',
+                    credentials: 'include',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-Origin': 'client'
+                    }
+                };
+
+                if (method === 'POST' || method === 'PUT' || method === 'DELETE') {
+                    try {
+                        JSON.parse(requestBody);
+                        options.body = requestBody;
+                    } catch (e) {
+                        responseContent.textContent = 'Invalid JSON in request body';
+                        btnText.textContent = 'Send';
+                        sendBtn.disabled = false;
+                        return;
+                    }
+                }
+
+                const startTime = Date.now();
+                const response = await fetch(url, options);
+                const duration = Date.now() - startTime;
+
+                statusBadge.textContent = `Status: ${response.status}`;
+                statusBadge.style.display = 'inline-block';
+                
+                if (response.status === 401 || response.status === 403) {
+                    statusBadge.className = 'status-badge auth';
+                } else if (response.status >= 200 && response.status < 300) {
+                    statusBadge.className = 'status-badge success';
+                } else {
+                    statusBadge.className = 'status-badge error';
+                }
+
+                const responseHeaders = {};
+                response.headers.forEach((value, key) => {
+                    responseHeaders[key] = value;
+                });
+                headersContent.textContent = JSON.stringify(responseHeaders, null, 2);
+                headersSection.style.display = 'block';
+
+                let data;
+                const contentType = response.headers.get('content-type');
+                if (contentType && contentType.includes('application/json')) {
+                    data = await response.json();
+                } else {
+                    data = await response.text();
+                }
+
+                const responseObj = {
+                    status: response.status,
+                    statusText: response.statusText,
+                    duration: `${duration}ms`,
+                    data: data
+                };
+
+                if (response.status === 401 || response.status === 403) {
+                    responseObj.authMessage = '⚠️ Authentication required. Please log in to access this endpoint.';
+                }
+
+                responseContent.textContent = JSON.stringify(responseObj, null, 2);
+
+            } catch (error) {
+                responseContent.textContent = `Error: ${error.message}\n\nPlease check:\n- Is the server running?\n- Is the URL correct?\n- Are you logged in?`;
+                statusBadge.style.display = 'none';
+            }
+
+            btnText.textContent = 'Send';
+            sendBtn.disabled = false;
+        }
+
+        function clearAll() {
+            if (!isAuthenticated) {
+                alert('Please log in to use the API tester.');
+                return;
+            }
+            
+            urlInput.value = `${pythonURI}/api/match/`;
+            requestBodyTextarea.value = '{}';
+            responseContent.textContent = 'Response will appear here...';
+            statusBadge.style.display = 'none';
+            headersSection.style.display = 'none';
+        }
+
+        // Make functions available globally since we're using module type
+        window.changeStep = changeStep;
+        window.toggleSection = toggleSection;
+        window.loadExample = loadExample;
+        window.sendRequest = sendRequest;
+        window.clearAll = clearAll;
+    </script>
+</body>
+</html>
