@@ -11,12 +11,13 @@ author: Ethan W
 <style>
         body {
             min-height: 100vh;
-            background: url('{{ site.baseurl }}/images/code.png') no-repeat center center fixed;
-            background-size: cover;
-            background-color: #0f2027;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
             margin: 0;
-            padding: 0;
+            padding: 2em 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         * {
@@ -24,8 +25,8 @@ author: Ethan W
         }
 
         .container {
-            max-width: 900px;
-            margin: 2em auto;
+            max-width: 800px;
+            width: 90%;
             background: #2d3748;
             border-radius: 20px;
             padding: 2.5em;
@@ -44,7 +45,7 @@ author: Ethan W
         }
 
         .header p {
-            color: #666;
+            color: #d1d5db;
             font-size: 1.1em;
         }
 
@@ -58,29 +59,52 @@ author: Ethan W
             margin-top: 0.5em;
         }
 
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #374151;
+            border-radius: 10px;
+            margin-bottom: 2em;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.5s ease;
+            border-radius: 10px;
+        }
+
+        .progress-text {
+            text-align: center;
+            color: #9ca3af;
+            font-size: 0.9em;
+            margin-bottom: 1em;
+        }
+
         .bio-section {
             background: #374151;
             border-radius: 12px;
-            padding: 1.5em;
-            margin-bottom: 1.5em;
+            padding: 2em;
             border: 2px solid #4b5563;
             transition: all 0.3s ease;
+            display: none;
         }
 
-        .bio-section:hover {
-            border-color: #667eea;
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.1);
+        .bio-section.active {
+            display: block;
+            animation: slideIn 0.5s ease;
         }
 
         .section-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1em;
+            margin-bottom: 1.5em;
         }
 
         .section-title {
-            font-size: 1.3em;
+            font-size: 1.8em;
             color: #f3f4f6;
             font-weight: 600;
             display: flex;
@@ -89,7 +113,7 @@ author: Ethan W
         }
 
         .section-icon {
-            font-size: 1.5em;
+            font-size: 1.3em;
         }
 
         .autofill-buttons {
@@ -129,19 +153,21 @@ author: Ethan W
 
         .input-container {
             position: relative;
+            margin-bottom: 1.5em;
         }
 
         .bio-input {
             width: 100%;
-            padding: 1em;
+            padding: 1.2em;
             border: 2px solid #4b5563;
             border-radius: 8px;
-            font-size: 1em;
+            font-size: 1.1em;
             font-family: inherit;
             resize: vertical;
             transition: all 0.3s ease;
             background: #1f2937;
             color: #f3f4f6;
+            min-height: 120px;
         }
 
         .bio-input:focus {
@@ -158,9 +184,15 @@ author: Ethan W
             color: #9ca3af;
         }
 
+        .button-group {
+            display: flex;
+            gap: 1em;
+            justify-content: center;
+            margin-top: 1.5em;
+        }
+
         .ai-check-btn {
-            margin-top: 0.8em;
-            padding: 0.7em 1.5em;
+            padding: 0.9em 2em;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
@@ -168,6 +200,7 @@ author: Ethan W
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
+            font-size: 1em;
         }
 
         .ai-check-btn:hover:not(:disabled) {
@@ -176,6 +209,33 @@ author: Ethan W
         }
 
         .ai-check-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .next-btn {
+            padding: 0.9em 2em;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            display: none;
+        }
+
+        .next-btn.visible {
+            display: inline-block;
+        }
+
+        .next-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(39, 174, 96, 0.4);
+        }
+
+        .next-btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
@@ -259,15 +319,14 @@ author: Ethan W
             color: #1f2937 !important;
         }
 
-        .suggestions-list li {
-            margin-bottom: 0.3em;
+        .submit-section {
+            display: none;
+            text-align: center;
+            animation: slideIn 0.5s ease;
         }
 
-        .submit-section {
-            text-align: center;
-            margin-top: 2em;
-            padding-top: 2em;
-            border-top: 2px solid #e0e0e0;
+        .submit-section.visible {
+            display: block;
         }
 
         .submit-btn {
@@ -276,7 +335,7 @@ author: Ethan W
             color: white;
             border: none;
             border-radius: 12px;
-            font-size: 1.2em;
+            font-size: 1.3em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -334,7 +393,7 @@ author: Ethan W
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(10px);
+                transform: translateY(20px);
             }
             to {
                 opacity: 1;
@@ -344,7 +403,6 @@ author: Ethan W
 
         @media (max-width: 768px) {
             .container {
-                margin: 1em;
                 padding: 1.5em;
             }
 
@@ -361,6 +419,10 @@ author: Ethan W
             .autofill-btn {
                 flex: 1;
             }
+
+            .button-group {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
@@ -368,16 +430,20 @@ author: Ethan W
     <div class="container">
         <div class="header">
             <h1>✨ Bio Builder</h1>
-            <div class="ai-badge">🤖 AI-Powered Safety Checker (Groq)</div>
             <p>Create your matchmaking profile safely</p>
+        </div>
+
+        <div class="progress-text" id="progress-text">Question 1 of 4</div>
+        <div class="progress-bar">
+            <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
         </div>
 
         <div class="info-box">
             <h3>🛡️ AI Privacy Protection</h3>
-            <p>Our advanced AI system detects personal information like phone numbers, addresses, specific locations, routines, and sensitive data. Click "AI Safety Check" before saving each section!</p>
+            <p>Our advanced AI system detects personal information like phone numbers, addresses, specific locations, routines, and sensitive data. Click "AI Safety Check" and pass the check to continue!</p>
         </div>
 
-        <div class="bio-section" data-section="about">
+        <div class="bio-section active" data-section="about" data-question="1">
             <div class="section-header">
                 <div class="section-title">
                     <span class="section-icon">👤</span>
@@ -392,11 +458,14 @@ author: Ethan W
                 <textarea class="bio-input" id="about-input" rows="4" maxlength="500" placeholder="Tell others about yourself..."></textarea>
                 <span class="char-counter" id="about-counter">0/500</span>
             </div>
-            <button class="ai-check-btn" onclick="checkSafetyWithAI('about')">🤖 AI Safety Check</button>
             <div id="about-result"></div>
+            <div class="button-group">
+                <button class="ai-check-btn" onclick="checkSafetyWithAI('about')">🤖 AI Safety Check</button>
+                <button class="next-btn" id="about-next" onclick="nextQuestion('about')">Next Question →</button>
+            </div>
         </div>
 
-        <div class="bio-section" data-section="interests">
+        <div class="bio-section" data-section="interests" data-question="2">
             <div class="section-header">
                 <div class="section-title">
                     <span class="section-icon">🎯</span>
@@ -411,11 +480,14 @@ author: Ethan W
                 <textarea class="bio-input" id="interests-input" rows="3" maxlength="300" placeholder="What are your hobbies and interests?"></textarea>
                 <span class="char-counter" id="interests-counter">0/300</span>
             </div>
-            <button class="ai-check-btn" onclick="checkSafetyWithAI('interests')">🤖 AI Safety Check</button>
             <div id="interests-result"></div>
+            <div class="button-group">
+                <button class="ai-check-btn" onclick="checkSafetyWithAI('interests')">🤖 AI Safety Check</button>
+                <button class="next-btn" id="interests-next" onclick="nextQuestion('interests')">Next Question →</button>
+            </div>
         </div>
 
-        <div class="bio-section" data-section="skills">
+        <div class="bio-section" data-section="skills" data-question="3">
             <div class="section-header">
                 <div class="section-title">
                     <span class="section-icon">💻</span>
@@ -430,11 +502,14 @@ author: Ethan W
                 <textarea class="bio-input" id="skills-input" rows="3" maxlength="300" placeholder="What skills or expertise do you have?"></textarea>
                 <span class="char-counter" id="skills-counter">0/300</span>
             </div>
-            <button class="ai-check-btn" onclick="checkSafetyWithAI('skills')">🤖 AI Safety Check</button>
             <div id="skills-result"></div>
+            <div class="button-group">
+                <button class="ai-check-btn" onclick="checkSafetyWithAI('skills')">🤖 AI Safety Check</button>
+                <button class="next-btn" id="skills-next" onclick="nextQuestion('skills')">Next Question →</button>
+            </div>
         </div>
 
-        <div class="bio-section" data-section="goals">
+        <div class="bio-section" data-section="goals" data-question="4">
             <div class="section-header">
                 <div class="section-title">
                     <span class="section-icon">🎓</span>
@@ -449,24 +524,32 @@ author: Ethan W
                 <textarea class="bio-input" id="goals-input" rows="3" maxlength="300" placeholder="What are you hoping to achieve or find?"></textarea>
                 <span class="char-counter" id="goals-counter">0/300</span>
             </div>
-            <button class="ai-check-btn" onclick="checkSafetyWithAI('goals')">🤖 AI Safety Check</button>
             <div id="goals-result"></div>
+            <div class="button-group">
+                <button class="ai-check-btn" onclick="checkSafetyWithAI('goals')">🤖 AI Safety Check</button>
+                <button class="next-btn" id="goals-next" onclick="nextQuestion('goals')">Finish →</button>
+            </div>
         </div>
 
-        <div class="submit-section">
+        <div class="submit-section" id="submit-section">
+            <h2 style="color: #667eea; margin-bottom: 1em;">✅ All Questions Complete!</h2>
             <button class="submit-btn" id="save-btn" onclick="saveBio()">💾 Save Bio to Profile</button>
             <div id="save-status"></div>
         </div>
     </div>
 
     <script>
-        // Track safety checks
+        // Track safety checks and current question
         const safetyChecks = {
             about: false,
             interests: false,
             skills: false,
             goals: false
         };
+
+        let currentQuestion = 1;
+        const totalQuestions = 4;
+        const questionOrder = ['about', 'interests', 'skills', 'goals'];
 
         // Examples
         const examples = {
@@ -498,6 +581,7 @@ author: Ethan W
                 const max = input.getAttribute('maxlength');
                 counter.textContent = `${length}/${max}`;
                 safetyChecks[section] = false;
+                document.getElementById(`${section}-next`).classList.remove('visible');
             });
         });
 
@@ -507,9 +591,39 @@ author: Ethan W
             input.dispatchEvent(new Event('input'));
             document.getElementById(`${section}-result`).innerHTML = '';
             safetyChecks[section] = false;
+            document.getElementById(`${section}-next`).classList.remove('visible');
         }
 
-        // NEW: AI-powered safety check using Groq API
+        function updateProgress() {
+            const progressFill = document.getElementById('progress-fill');
+            const progressText = document.getElementById('progress-text');
+            const percentage = (currentQuestion / totalQuestions) * 100;
+            progressFill.style.width = percentage + '%';
+            progressText.textContent = `Question ${currentQuestion} of ${totalQuestions}`;
+        }
+
+        function nextQuestion(currentSection) {
+            // Hide current section
+            const currentSectionEl = document.querySelector(`[data-section="${currentSection}"]`);
+            currentSectionEl.classList.remove('active');
+
+            // Move to next question
+            currentQuestion++;
+            updateProgress();
+
+            if (currentQuestion <= totalQuestions) {
+                // Show next section
+                const nextSection = questionOrder[currentQuestion - 1];
+                const nextSectionEl = document.querySelector(`[data-section="${nextSection}"]`);
+                nextSectionEl.classList.add('active');
+            } else {
+                // Show submit section
+                document.getElementById('submit-section').classList.add('visible');
+                document.getElementById('progress-text').textContent = 'All Questions Complete!';
+            }
+        }
+
+        // AI-powered safety check using Groq API
         async function checkSafetyWithAI(section) {
             const input = document.getElementById(`${section}-input`);
             const resultDiv = document.getElementById(`${section}-result`);
@@ -523,7 +637,6 @@ author: Ethan W
             resultDiv.innerHTML = '<div class="safety-result safety-checking"><span class="safety-icon">🤖</span>AI is analyzing for personal information<span class="loading-dots">...</span></div>';
 
             try {
-                // Call Groq AI API (same pattern as personality quiz)
                 const response = await fetch('http://localhost:8401/api/analyze-bio-safety', {
                     method: 'POST',
                     headers: {
@@ -542,19 +655,16 @@ author: Ethan W
                 if (data.success && data.analysis) {
                     const analysis = data.analysis;
                     
-                    // Map severity to CSS class
                     const severityClass = {
                         'safe': 'safety-safe',
                         'warning': 'safety-warning',
                         'danger': 'safety-danger'
                     }[analysis.severity] || 'safety-safe';
 
-                    // Update safety check status
                     safetyChecks[section] = (analysis.severity === 'safe');
 
                     let resultHTML = `<div class="safety-result ${severityClass}">`;
                     
-                    // Icon based on severity
                     if (analysis.severity === 'safe') {
                         resultHTML += '<span class="safety-icon">✅</span>';
                     } else if (analysis.severity === 'warning') {
@@ -568,7 +678,6 @@ author: Ethan W
                     resultHTML += `AI Risk Score: ${analysis.risk_score}%`;
                     resultHTML += `</div>`;
 
-                    // Show issues if any
                     if (analysis.issues_found && analysis.issues_found.length > 0) {
                         resultHTML += '<ul class="issues-list">';
                         analysis.issues_found.forEach(issue => {
@@ -577,7 +686,6 @@ author: Ethan W
                         resultHTML += '</ul>';
                     }
 
-                    // Show suggestions if any
                     if (analysis.suggestions && analysis.suggestions.length > 0) {
                         resultHTML += '<div style="margin-top:0.8em;"><strong>💡 Suggestions:</strong></div>';
                         resultHTML += '<ul class="suggestions-list">';
@@ -589,6 +697,11 @@ author: Ethan W
 
                     resultHTML += '</div>';
                     resultDiv.innerHTML = resultHTML;
+
+                    // Show next button if safe
+                    if (analysis.severity === 'safe') {
+                        document.getElementById(`${section}-next`).classList.add('visible');
+                    }
                 } else {
                     throw new Error('Invalid response from AI');
                 }
@@ -597,8 +710,8 @@ author: Ethan W
                 console.error('AI Safety Check Error:', error);
                 resultDiv.innerHTML = '<div class="safety-result safety-warning"><span class="safety-icon">⚠️</span>AI analysis unavailable. Using basic safety check...</div>';
                 
-                // Fallback to basic check
                 safetyChecks[section] = true;
+                document.getElementById(`${section}-next`).classList.add('visible');
             }
         }
 
@@ -613,7 +726,6 @@ author: Ethan W
             const sections = ['about', 'interests', 'skills', 'goals'];
             const bioData = {};
             let hasContent = false;
-            let allChecked = true;
 
             for (const section of sections) {
                 const input = document.getElementById(`${section}-input`);
@@ -622,17 +734,11 @@ author: Ethan W
                 if (value) {
                     hasContent = true;
                     bioData[section] = value;
-                    if (!safetyChecks[section]) allChecked = false;
                 }
             }
 
             if (!hasContent) {
                 showStatus('❌ Please fill in at least one section!', 'error');
-                return;
-            }
-
-            if (!allChecked) {
-                showStatus('⚠️ Please run AI safety checks on all filled sections before saving!', 'error');
                 return;
             }
 
@@ -668,9 +774,6 @@ author: Ethan W
 
                 if (response.ok || response.status === 201) {
                     showStatus('✅ Bio saved successfully! Your profile is ready for matchmaking.', 'success');
-                    setTimeout(() => {
-                        Object.keys(safetyChecks).forEach(key => safetyChecks[key] = false);
-                    }, 3000);
                 } else {
                     showStatus(`❌ Error: ${data.message || 'Failed to save'}`, 'error');
                 }
@@ -702,7 +805,7 @@ author: Ethan W
             }
             @keyframes dots {
                 0%, 20% { content: ''; }
-                40% { content = '.'; }
+                40% { content: '.'; }
                 60% { content: '..'; }
                 80%, 100% { content: '...'; }
             }
