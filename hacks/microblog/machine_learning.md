@@ -49,16 +49,6 @@ author: Ethan W
             font-size: 1.1em;
         }
 
-        .ai-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 0.5em 1.5em;
-            border-radius: 25px;
-            font-size: 0.9em;
-            margin-top: 0.5em;
-        }
-
         .progress-bar {
             width: 100%;
             height: 8px;
@@ -450,8 +440,8 @@ author: Ethan W
                     About Me
                 </div>
                 <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" onclick="autofillSection('about', 'good')">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" onclick="autofillSection('about', 'bad')">⚠️ Bad Example</button>
+                    <button class="autofill-btn autofill-good" id="about-good-btn">✅ Good Example</button>
+                    <button class="autofill-btn autofill-bad" id="about-bad-btn">⚠️ Bad Example</button>
                 </div>
             </div>
             <div class="input-container">
@@ -460,8 +450,8 @@ author: Ethan W
             </div>
             <div id="about-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" onclick="checkSafetyWithAI('about')">🤖 AI Safety Check</button>
-                <button class="next-btn" id="about-next" onclick="nextQuestion('about')">Next Question →</button>
+                <button class="ai-check-btn" id="about-check-btn">🤖 AI Safety Check</button>
+                <button class="next-btn" id="about-next">Next Question →</button>
             </div>
         </div>
 
@@ -472,8 +462,8 @@ author: Ethan W
                     Interests & Hobbies
                 </div>
                 <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" onclick="autofillSection('interests', 'good')">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" onclick="autofillSection('interests', 'bad')">⚠️ Bad Example</button>
+                    <button class="autofill-btn autofill-good" id="interests-good-btn">✅ Good Example</button>
+                    <button class="autofill-btn autofill-bad" id="interests-bad-btn">⚠️ Bad Example</button>
                 </div>
             </div>
             <div class="input-container">
@@ -482,8 +472,8 @@ author: Ethan W
             </div>
             <div id="interests-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" onclick="checkSafetyWithAI('interests')">🤖 AI Safety Check</button>
-                <button class="next-btn" id="interests-next" onclick="nextQuestion('interests')">Next Question →</button>
+                <button class="ai-check-btn" id="interests-check-btn">🤖 AI Safety Check</button>
+                <button class="next-btn" id="interests-next">Next Question →</button>
             </div>
         </div>
 
@@ -494,8 +484,8 @@ author: Ethan W
                     Skills & Expertise
                 </div>
                 <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" onclick="autofillSection('skills', 'good')">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" onclick="autofillSection('skills', 'bad')">⚠️ Bad Example</button>
+                    <button class="autofill-btn autofill-good" id="skills-good-btn">✅ Good Example</button>
+                    <button class="autofill-btn autofill-bad" id="skills-bad-btn">⚠️ Bad Example</button>
                 </div>
             </div>
             <div class="input-container">
@@ -504,8 +494,8 @@ author: Ethan W
             </div>
             <div id="skills-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" onclick="checkSafetyWithAI('skills')">🤖 AI Safety Check</button>
-                <button class="next-btn" id="skills-next" onclick="nextQuestion('skills')">Next Question →</button>
+                <button class="ai-check-btn" id="skills-check-btn">🤖 AI Safety Check</button>
+                <button class="next-btn" id="skills-next">Next Question →</button>
             </div>
         </div>
 
@@ -516,8 +506,8 @@ author: Ethan W
                     Goals & Looking For
                 </div>
                 <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" onclick="autofillSection('goals', 'good')">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" onclick="autofillSection('goals', 'bad')">⚠️ Bad Example</button>
+                    <button class="autofill-btn autofill-good" id="goals-good-btn">✅ Good Example</button>
+                    <button class="autofill-btn autofill-bad" id="goals-bad-btn">⚠️ Bad Example</button>
                 </div>
             </div>
             <div class="input-container">
@@ -526,14 +516,14 @@ author: Ethan W
             </div>
             <div id="goals-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" onclick="checkSafetyWithAI('goals')">🤖 AI Safety Check</button>
-                <button class="next-btn" id="goals-next" onclick="nextQuestion('goals')">Finish →</button>
+                <button class="ai-check-btn" id="goals-check-btn">🤖 AI Safety Check</button>
+                <button class="next-btn" id="goals-next">Finish →</button>
             </div>
         </div>
 
         <div class="submit-section" id="submit-section">
             <h2 style="color: #667eea; margin-bottom: 1em;">✅ All Questions Complete!</h2>
-            <button class="submit-btn" id="save-btn" onclick="saveBio()">💾 Save Bio to Profile</button>
+            <button class="submit-btn" id="save-btn">💾 Save Bio to Profile</button>
             <div id="save-status"></div>
         </div>
     </div>
@@ -606,27 +596,22 @@ author: Ethan W
         }
 
         function nextQuestion(currentSection) {
-            // Hide current section
             const currentSectionEl = document.querySelector(`[data-section="${currentSection}"]`);
             currentSectionEl.classList.remove('active');
 
-            // Move to next question
             currentQuestion++;
             updateProgress();
 
             if (currentQuestion <= totalQuestions) {
-                // Show next section
                 const nextSection = questionOrder[currentQuestion - 1];
                 const nextSectionEl = document.querySelector(`[data-section="${nextSection}"]`);
                 nextSectionEl.classList.add('active');
             } else {
-                // Show submit section
                 document.getElementById('submit-section').classList.add('visible');
                 document.getElementById('progress-text').textContent = 'All Questions Complete!';
             }
         }
 
-        // AI-powered safety check using Groq API
         async function checkSafetyWithAI(section) {
             const input = document.getElementById(`${section}-input`);
             const resultDiv = document.getElementById(`${section}-result`);
@@ -701,7 +686,6 @@ author: Ethan W
                     resultHTML += '</div>';
                     resultDiv.innerHTML = resultHTML;
 
-                    // Show next button if safe
                     if (analysis.severity === 'safe') {
                         document.getElementById(`${section}-next`).classList.add('visible');
                     }
@@ -798,6 +782,16 @@ author: Ethan W
                 }, 5000);
             }
         }
+
+        // Event listeners for buttons
+        questionOrder.forEach(section => {
+            document.getElementById(`${section}-good-btn`).addEventListener('click', () => autofillSection(section, 'good'));
+            document.getElementById(`${section}-bad-btn`).addEventListener('click', () => autofillSection(section, 'bad'));
+            document.getElementById(`${section}-check-btn`).addEventListener('click', () => checkSafetyWithAI(section));
+            document.getElementById(`${section}-next`).addEventListener('click', () => nextQuestion(section));
+        });
+
+        document.getElementById('save-btn').addEventListener('click', saveBio);
 
         // Add loading dots animation
         const style = document.createElement('style');
