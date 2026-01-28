@@ -373,7 +373,7 @@ breadcrumb: true
     <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
     <div class="mission-header">
         <h1 class="glitch-text">SECURITY PROTOCOL TRAINING</h1>
-        <p class="mission-brief">Complete this security assessment to verify your understanding of Personally Identifiable Information (PII) protocols. Operatives must demonstrate knowledge of data protection standards before accessing the network.</p>
+        <p class="mission-brief">Personally Identifiable Information (PII)</p>
     </div>
 
     <div class="quiz-container">
@@ -386,7 +386,7 @@ breadcrumb: true
             <div class="breather-container">
                 <div class="breather-message">EXISTING PROFILE DETECTED</div>
                 <p style="color: #6e7681; margin: 20px 0; font-family: 'Courier New', monospace;">
-                    We found your previous security clearance records in the system. Would you like to review your existing profile or retake the assessment?
+                    Would you like to review your existing profile or retake the assessment?
                 </p>
                 <div class="breather-buttons">
                     <button id="loadExistingProfile" class="option-button">Load Existing Profile</button>
