@@ -156,7 +156,8 @@ author:
         background: rgba(10, 14, 39, 0.95);
         border-radius: 8px;
         border: 1px solid #00d9ff;
-        z-index: 10;
+        /* Raise above network-legend (which uses z-index:10) so help opens on top */
+        z-index: 10001;
         backdrop-filter: blur(10px);
         max-width: 280px;
         box-shadow: 0 5px 20px rgba(0, 217, 255, 0.3);
