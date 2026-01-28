@@ -538,7 +538,10 @@ author: Ethan W
         </div>
     </div>
 
-    <script>
+    <script type="module">
+        // Import API configuration
+        import { pythonURI } from '{{ site.baseurl }}/assets/js/api/config.js';
+
         // Track safety checks and current question
         const safetyChecks = {
             about: false,
@@ -637,7 +640,7 @@ author: Ethan W
             resultDiv.innerHTML = '<div class="safety-result safety-checking"><span class="safety-icon">🤖</span>AI is analyzing for personal information<span class="loading-dots">...</span></div>';
 
             try {
-                const response = await fetch('http://localhost:8401/api/analyze-bio-safety', {
+                const response = await fetch(`${pythonURI}/api/analyze-bio-safety`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -752,7 +755,7 @@ author: Ethan W
             try {
                 showStatus('💾 Saving your bio...', 'success');
 
-                const response = await fetch('http://localhost:8401/api/match/add', {
+                const response = await fetch(`${pythonURI}/api/match/add`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
