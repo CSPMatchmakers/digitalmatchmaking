@@ -2,7 +2,7 @@
 layout: post
 title: Matchmade
 description: The final module where the additions to your profile link you up to people with similar tastes.
-permalink: /digital-matchmaking/matchmaking/matchmade
+permalink: /matchmade/
 breadcrumb: true
 microblog: true
 author: Adhav S

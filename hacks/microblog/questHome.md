@@ -552,8 +552,8 @@ author:
         },
         {
             id: 5, 
-            label: 'DNS', 
-            url: '/digitalmatchmaking/dns/',
+            label: 'Matchmade', 
+            url: '/digitalmatchmaking/matchmade/',
             longTitle: 'Integration Module Zeta',
             description: 'Final integration module. Complete sequence to restore full network functionality.',
             tags: ['integration', 'final-stage', 'critical']
