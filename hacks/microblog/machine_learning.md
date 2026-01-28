@@ -702,13 +702,6 @@ author: Ethan W
             }
         }
 
-        function getCookie(name) {
-            const value = `; ${document.cookie}`;
-            const parts = value.split(`; ${name}=`);
-            if (parts.length === 2) return parts.pop().split(';').shift();
-            return null;
-        }
-
         async function saveBio() {
             const sections = ['about', 'interests', 'skills', 'goals'];
             const bioData = {};
@@ -729,9 +722,26 @@ author: Ethan W
                 return;
             }
 
-            const token = getCookie('jwt_python_flask');
-            
-            if (!token) {
+            // Check if user is logged in by calling the API
+            try {
+                const idResponse = await fetch(`${pythonURI}/api/id`, {
+                    method: 'GET',
+                    credentials: 'include'
+                });
+
+                if (!idResponse.ok) {
+                    showStatus('❌ Please log in to save your bio', 'error');
+                    return;
+                }
+
+                const userData = await idResponse.json();
+                
+                if (!userData || !userData.id) {
+                    showStatus('❌ Please log in to save your bio', 'error');
+                    return;
+                }
+            } catch (error) {
+                console.error('Authentication check error:', error);
                 showStatus('❌ Please log in to save your bio', 'error');
                 return;
             }
@@ -742,8 +752,7 @@ author: Ethan W
                 const response = await fetch(`${pythonURI}/api/match/add`, {
                     method: 'POST',
                     headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${token}`
+                        'Content-Type': 'application/json'
                     },
                     credentials: 'include',
                     body: JSON.stringify({
