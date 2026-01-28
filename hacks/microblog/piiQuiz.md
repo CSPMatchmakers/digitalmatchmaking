@@ -78,15 +78,21 @@ breadcrumb: true
         }
 
         .mission-header {
-            text-align: center;
-            padding: 40px 20px;
+            /* Align header to match the quiz container left edge */
+            text-align: left;
+            /* Reduce padding so the header box is shorter and fits the short mission brief text */
+            padding: 14px 18px;
             background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
             border-bottom: 1px solid #30363d;
-            margin-bottom: 30px;
+            margin: 0 auto 16px auto; /* center block horizontally while matching quiz container width */
             position: relative;
             overflow: hidden;
             border-radius: 6px;
             z-index: 2;
+            display: block;
+            max-width: 800px; /* match .quiz-container max-width so left edges align */
+            width: 100%;
+            box-sizing: border-box;
         }
 
         .mission-header::before {
@@ -119,13 +125,14 @@ breadcrumb: true
         }
 
         .mission-brief {
-            max-width: 800px;
-            margin: 15px auto;
-            line-height: 1.8;
+            max-width: 420px;
+            margin: 6px 0 0 0; /* left-align inside the header */
+            line-height: 1.4;
             color: #6e7681;
             position: relative;
             z-index: 1;
             font-family: 'Courier New', monospace;
+            font-size: 0.95em;
         }
 
         .quiz-container {
