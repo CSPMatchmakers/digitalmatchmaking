@@ -9,11 +9,11 @@ author: Ethan W
 ---
 
 <style>
-        body {
+    body {
             min-height: 100vh;
             background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
             margin: 0;
-            padding: 2em 0;
+            padding: 1em 0;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             display: flex;
             align-items: center;
@@ -25,36 +25,36 @@ author: Ethan W
         }
 
         .container {
-            max-width: 800px;
+            max-width: 700px;
             width: 90%;
             background: #2d3748;
             border-radius: 20px;
-            padding: 2.5em;
+            padding: 1.5em;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
         }
 
         .header {
             text-align: center;
-            margin-bottom: 2em;
+            margin-bottom: 1em;
         }
 
         .header h1 {
-            font-size: 2.5em;
+            font-size: 2em;
             color: #667eea;
-            margin-bottom: 0.3em;
+            margin-bottom: 0.2em;
         }
 
         .header p {
             color: #d1d5db;
-            font-size: 1.1em;
+            font-size: 0.95em;
         }
 
         .progress-bar {
             width: 100%;
-            height: 8px;
+            height: 6px;
             background: #374151;
             border-radius: 10px;
-            margin-bottom: 2em;
+            margin-bottom: 1em;
             overflow: hidden;
         }
 
@@ -68,14 +68,14 @@ author: Ethan W
         .progress-text {
             text-align: center;
             color: #9ca3af;
-            font-size: 0.9em;
-            margin-bottom: 1em;
+            font-size: 0.85em;
+            margin-bottom: 0.5em;
         }
 
         .bio-section {
             background: #374151;
             border-radius: 12px;
-            padding: 2em;
+            padding: 1.2em;
             border: 2px solid #4b5563;
             transition: all 0.3s ease;
             display: none;
@@ -90,11 +90,11 @@ author: Ethan W
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.5em;
+            margin-bottom: 1em;
         }
 
         .section-title {
-            font-size: 1.8em;
+            font-size: 1.4em;
             color: #f3f4f6;
             font-weight: 600;
             display: flex;
@@ -103,7 +103,7 @@ author: Ethan W
         }
 
         .section-icon {
-            font-size: 1.3em;
+            font-size: 1.1em;
         }
 
         .autofill-buttons {
@@ -143,21 +143,21 @@ author: Ethan W
 
         .input-container {
             position: relative;
-            margin-bottom: 1.5em;
+            margin-bottom: 1em;
         }
 
         .bio-input {
             width: 100%;
-            padding: 1.2em;
+            padding: 0.9em;
             border: 2px solid #4b5563;
             border-radius: 8px;
-            font-size: 1.1em;
+            font-size: 1em;
             font-family: inherit;
             resize: vertical;
             transition: all 0.3s ease;
             background: #1f2937;
             color: #f3f4f6;
-            min-height: 120px;
+            min-height: 90px;
         }
 
         .bio-input:focus {
@@ -178,7 +178,7 @@ author: Ethan W
             display: flex;
             gap: 1em;
             justify-content: center;
-            margin-top: 1.5em;
+            margin-top: 1em;
         }
 
         .ai-check-btn {
@@ -320,12 +320,12 @@ author: Ethan W
         }
 
         .submit-btn {
-            padding: 1.2em 3em;
+            padding: 0.8em 2em;
             background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
             color: white;
             border: none;
-            border-radius: 12px;
-            font-size: 1.3em;
+            border-radius: 10px;
+            font-size: 1em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -363,21 +363,23 @@ author: Ethan W
         .info-box {
             background: #374151;
             border-left: 4px solid #667eea;
-            padding: 1.5em;
+            padding: 1em;
             border-radius: 8px;
-            margin-bottom: 2em;
+            margin-bottom: 1em;
         }
 
         .info-box h3 {
             color: #667eea;
             margin-top: 0;
-            margin-bottom: 0.5em;
+            margin-bottom: 0.3em;
+            font-size: 1em;
         }
 
         .info-box p {
             color: #d1d5db;
-            line-height: 1.6;
+            line-height: 1.4;
             margin: 0;
+            font-size: 0.9em;
         }
 
         @keyframes slideIn {
@@ -414,10 +416,10 @@ author: Ethan W
                 flex-direction: column;
             }
         }
-    </style>
-</head>
-<body>
-    <div class="container">
+    }
+</style>
+
+<div class="container">
         <div class="header">
             <h1>✨ Bio Builder</h1>
             <p>Create your matchmaking profile safely</p>
@@ -525,10 +527,10 @@ author: Ethan W
             <h2 style="color: #667eea; margin-bottom: 1em;">✅ All Questions Complete!</h2>
             <button class="submit-btn" id="save-btn">💾 Save Bio to Profile</button>
             <div id="save-status"></div>
-        </div>
     </div>
+</div>
 
-    <script type="module">
+<script type="module">
         // Import API configuration
         import { pythonURI } from '{{ site.baseurl }}/assets/js/api/config.js';
 
@@ -817,6 +819,4 @@ author: Ethan W
             }
         `;
         document.head.appendChild(style);
-    </script>
-</body>
-</html>
+</script>
