@@ -25,8 +25,8 @@ author: Ethan W
         }
 
         .container {
-            max-width: 700px;
-            width: 90%;
+            max-width: 1000px;
+            width: 95%;
             background: #2d3748;
             border-radius: 20px;
             padding: 1.5em;
@@ -35,13 +35,13 @@ author: Ethan W
 
         .header {
             text-align: center;
-            margin-bottom: 1em;
+            margin-bottom: 1.5em;
         }
 
         .header h1 {
             font-size: 2em;
             color: #667eea;
-            margin-bottom: 0.2em;
+            margin-bottom: 0.3em;
         }
 
         .header p {
@@ -51,10 +51,10 @@ author: Ethan W
 
         .progress-bar {
             width: 100%;
-            height: 6px;
+            height: 8px;
             background: #374151;
             border-radius: 10px;
-            margin-bottom: 1em;
+            margin-bottom: 1.2em;
             overflow: hidden;
         }
 
@@ -68,8 +68,8 @@ author: Ethan W
         .progress-text {
             text-align: center;
             color: #9ca3af;
-            font-size: 0.85em;
-            margin-bottom: 0.5em;
+            font-size: 1em;
+            margin-bottom: 0.8em;
         }
 
         .bio-section {
@@ -90,11 +90,11 @@ author: Ethan W
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1em;
+            margin-bottom: 1.5em;
         }
 
         .section-title {
-            font-size: 1.4em;
+            font-size: 1.6em;
             color: #f3f4f6;
             font-weight: 600;
             display: flex;
@@ -103,20 +103,20 @@ author: Ethan W
         }
 
         .section-icon {
-            font-size: 1.1em;
+            font-size: 1.2em;
         }
 
         .autofill-buttons {
             display: flex;
-            gap: 0.5em;
+            gap: 0.8em;
         }
 
         .autofill-btn {
-            padding: 0.5em 1em;
+            padding: 0.6em 1.3em;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.85em;
+            font-size: 0.95em;
             font-weight: 600;
             transition: all 0.3s ease;
         }
@@ -143,14 +143,14 @@ author: Ethan W
 
         .input-container {
             position: relative;
-            margin-bottom: 1em;
+            margin-bottom: 1.2em;
         }
 
         .madlib-template {
             background: #1f2937;
-            padding: 1.2em;
-            border-radius: 8px;
-            margin-bottom: 1em;
+            padding: 1.8em;
+            border-radius: 10px;
+            margin-bottom: 1.5em;
             line-height: 2.2;
         }
 
@@ -163,13 +163,13 @@ author: Ethan W
         .madlib-input {
             background: #374151;
             border: 2px solid #4b5563;
-            border-radius: 4px;
-            padding: 0.3em 0.6em;
+            border-radius: 6px;
+            padding: 0.4em 0.8em;
             color: #667eea;
-            font-size: 0.95em;
+            font-size: 1em;
             font-weight: 600;
             transition: all 0.3s ease;
-            min-width: 120px;
+            min-width: 140px;
         }
 
         .madlib-input:focus {
@@ -188,15 +188,16 @@ author: Ethan W
         .madlib-select {
             background: #374151;
             border: 2px solid #4b5563;
-            border-radius: 4px;
+            border-radius: 6px;
             padding: 0.4em 0.8em;
             color: #667eea;
             font-size: 0.95em;
             font-weight: 600;
             transition: all 0.3s ease;
             cursor: pointer;
-            min-width: 150px;
-            max-width: 250px;
+            min-width: 140px;
+            max-width: 220px;
+            display: inline-block;
         }
 
         .madlib-select:hover {
@@ -230,16 +231,16 @@ author: Ethan W
 
         .bio-input {
             width: 100%;
-            padding: 0.9em;
+            padding: 1em;
             border: 2px solid #4b5563;
             border-radius: 8px;
-            font-size: 1em;
+            font-size: 1.05em;
             font-family: inherit;
             resize: vertical;
             transition: all 0.3s ease;
             background: #1f2937;
             color: #f3f4f6;
-            min-height: 90px;
+            min-height: 100px;
         }
 
         .bio-input:focus {
@@ -252,27 +253,27 @@ author: Ethan W
             position: absolute;
             bottom: 0.5em;
             right: 0.5em;
-            font-size: 0.85em;
+            font-size: 0.9em;
             color: #9ca3af;
         }
 
         .button-group {
             display: flex;
-            gap: 1em;
+            gap: 1.2em;
             justify-content: center;
-            margin-top: 1em;
+            margin-top: 1.5em;
         }
 
         .ai-check-btn {
-            padding: 0.9em 2em;
+            padding: 1em 2.5em;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
-            font-size: 1em;
+            font-size: 1.05em;
         }
 
         .ai-check-btn:hover:not(:disabled) {
@@ -286,15 +287,15 @@ author: Ethan W
         }
 
         .next-btn {
-            padding: 0.9em 2em;
+            padding: 1em 2.5em;
             background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s ease;
-            font-size: 1em;
+            font-size: 1.05em;
             display: none;
         }
 
@@ -313,11 +314,12 @@ author: Ethan W
         }
 
         .safety-result {
-            margin-top: 1em;
-            padding: 1em;
-            border-radius: 8px;
+            margin-top: 1.5em;
+            padding: 1.3em;
+            border-radius: 10px;
             animation: slideIn 0.3s ease;
             color: #1f2937 !important;
+            font-size: 1.05em;
         }
 
         .safety-result * {
@@ -365,29 +367,29 @@ author: Ethan W
         }
 
         .safety-icon {
-            font-size: 1.2em;
+            font-size: 1.3em;
             margin-right: 0.5em;
         }
 
         .issues-list {
-            margin-top: 0.8em;
-            padding-left: 1.5em;
+            margin-top: 1em;
+            padding-left: 1.8em;
             color: #1f2937 !important;
         }
 
         .issues-list li {
-            margin-bottom: 0.3em;
+            margin-bottom: 0.4em;
             color: #1f2937 !important;
         }
 
         .suggestions-list {
-            margin-top: 0.8em;
-            padding-left: 1.5em;
+            margin-top: 1em;
+            padding-left: 1.8em;
             color: #1f2937 !important;
         }
 
         .suggestions-list li {
-            margin-bottom: 0.3em;
+            margin-bottom: 0.4em;
             color: #1f2937 !important;
         }
 
@@ -402,12 +404,12 @@ author: Ethan W
         }
 
         .submit-btn {
-            padding: 0.8em 2em;
+            padding: 1em 2.5em;
             background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 1em;
+            border-radius: 12px;
+            font-size: 1.1em;
             font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -424,10 +426,11 @@ author: Ethan W
         }
 
         .status-message {
-            margin-top: 1em;
-            padding: 1em;
-            border-radius: 8px;
+            margin-top: 1.2em;
+            padding: 1.2em;
+            border-radius: 10px;
             animation: slideIn 0.3s ease;
+            font-size: 1.05em;
         }
 
         .status-success {
@@ -444,24 +447,24 @@ author: Ethan W
 
         .info-box {
             background: #374151;
-            border-left: 4px solid #667eea;
-            padding: 1em;
-            border-radius: 8px;
-            margin-bottom: 1em;
+            border-left: 5px solid #667eea;
+            padding: 1.3em;
+            border-radius: 10px;
+            margin-bottom: 1.5em;
         }
 
         .info-box h3 {
             color: #667eea;
             margin-top: 0;
-            margin-bottom: 0.3em;
-            font-size: 1em;
+            margin-bottom: 0.5em;
+            font-size: 1.15em;
         }
 
         .info-box p {
             color: #d1d5db;
-            line-height: 1.4;
+            line-height: 1.6;
             margin: 0;
-            font-size: 0.9em;
+            font-size: 1em;
         }
 
         @keyframes slideIn {
@@ -477,7 +480,12 @@ author: Ethan W
 
         @media (max-width: 768px) {
             .container {
+                width: 90%;
                 padding: 1.5em;
+            }
+
+            .header h1 {
+                font-size: 2em;
             }
 
             .section-header {
@@ -496,6 +504,14 @@ author: Ethan W
 
             .button-group {
                 flex-direction: column;
+            }
+
+            .madlib-template p {
+                font-size: 1em;
+            }
+
+            .madlib-select {
+                max-width: 100%;
             }
         }
     }
