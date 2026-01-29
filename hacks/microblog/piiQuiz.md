@@ -79,9 +79,9 @@ breadcrumb: true
 
         .mission-header {
             text-align: center;
-            padding: 16px 24px;
+            padding: 4px 24px;
             background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
-            border: 1px solid #30363d;
+            border: 2px solid transparent;
             margin: 0 auto;
             position: relative;
             border-radius: 6px;
@@ -89,39 +89,50 @@ breadcrumb: true
             display: inline-block;
             cursor: help;
             min-width: 100px;
+            background-clip: padding-box;
         }
 
         .mission-header::before {
             content: '';
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, 
-                transparent 0%, 
-                rgba(139, 148, 158, 0.3) 25%, 
-                transparent 50%, 
-                rgba(139, 148, 158, 0.3) 75%, 
-                transparent 100%);
+            inset: -2px;
             border-radius: 6px;
+            padding: 2px;
+            background: conic-gradient(
+                from var(--angle),
+                transparent 0deg 70deg,
+                rgba(139, 148, 158, 0.6) 70deg 110deg,
+                transparent 110deg 360deg
+            );
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
             animation: rotate-border 3s linear infinite;
-            z-index: -1;
+            pointer-events: none;
+        }
+
+        @property --angle {
+            syntax: '<angle>';
+            initial-value: 0deg;
+            inherits: false;
         }
 
         @keyframes rotate-border {
             0% {
-                transform: rotate(0deg);
+                --angle: 0deg;
             }
             100% {
-                transform: rotate(360deg);
+                --angle: 360deg;
             }
         }
 
         .mission-header-container {
-            text-align: center;
+            text-align: left;
             margin-bottom: 20px;
             position: relative;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         @keyframes scan {
