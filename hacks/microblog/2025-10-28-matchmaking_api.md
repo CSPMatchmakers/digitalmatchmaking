@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: opencs
 title: Account Port
 permalink: /api/
 author: William W
@@ -86,20 +86,20 @@ breadcrumb: false
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 1.5rem;
         }
 
         /* Sections */
         .section {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
 
         .section-title {
             font-size: 1.2rem;
             font-weight: 700;
             color: #fafafa;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.75rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
             border-bottom: 2px solid #262626;
         }
 
@@ -107,8 +107,8 @@ breadcrumb: false
         .help-sidebar {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
-            margin-top: 2rem;
+            gap: 1rem;
+            margin-top: 1.5rem;
         }
 
         .card {
@@ -123,7 +123,7 @@ breadcrumb: false
             color: #3b82f6;
             text-transform: uppercase;
             letter-spacing: 0.05em;
-            margin-bottom: 1rem;
+            margin-bottom: 0.6rem;
         }
 
         /* Quick Actions */
@@ -131,7 +131,7 @@ breadcrumb: false
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            padding: 0.75rem 1.25rem;
+            padding: 0.6rem 1rem;
             background: #1a1a1a;
             border: 1px solid #3b82f6;
             border-radius: 6px;
@@ -139,8 +139,8 @@ breadcrumb: false
             transition: all 0.2s ease;
             color: #e4e4e7;
             text-decoration: none;
-            margin-right: 1rem;
-            margin-bottom: 1rem;
+            margin-right: 0.8rem;
+            margin-bottom: 0.8rem;
             font-size: 0.9rem;
             font-weight: 500;
             user-select: none;
@@ -160,7 +160,7 @@ breadcrumb: false
             background: #0d0d0d;
             border: 1px solid #262626;
             border-radius: 6px;
-            padding: 2rem 1rem;
+            padding: 1.5rem 1rem;
             text-align: center;
         }
 
@@ -178,7 +178,7 @@ breadcrumb: false
         .main-content {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 1.5rem;
         }
 
         .request-section {
@@ -189,10 +189,10 @@ breadcrumb: false
         }
 
         .request-controls {
-            padding: 1.25rem 1.5rem;
+            padding: 1rem 1.25rem;
             border-bottom: 1px solid #262626;
             display: flex;
-            gap: 0.75rem;
+            gap: 0.6rem;
             flex-wrap: wrap;
             background: #141414;
         }
@@ -275,14 +275,14 @@ breadcrumb: false
         /* Main Tabs (Request/Response) */
         .main-tabs {
             display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
             border-bottom: 2px solid #262626;
             padding-bottom: 0;
         }
 
         .main-tab {
-            padding: 0.75rem 1rem;
+            padding: 0.6rem 0.8rem;
             color: #71717a;
             font-size: 0.9rem;
             font-weight: 600;
@@ -328,7 +328,7 @@ breadcrumb: false
         }
 
         .input-area {
-            padding: 1.5rem;
+            padding: 1.2rem;
             overflow: auto;
             display: none;
         }
@@ -366,7 +366,7 @@ breadcrumb: false
         }
 
         .response-header {
-            padding: 1.5rem;
+            padding: 1.2rem;
             border-bottom: 1px solid #262626;
             display: flex;
             justify-content: space-between;
@@ -419,14 +419,14 @@ breadcrumb: false
         }
 
         .response-body {
-            padding: 1.5rem;
+            padding: 1.2rem;
             background: #0d0d0d;
             overflow-y: auto;
             font-family: 'Monaco', 'Courier New', monospace;
             font-size: 0.85rem;
             line-height: 1.5;
             color: #93c5fd;
-            min-height: 300px;
+            min-height: 250px;
         }
 
         .response-body::-webkit-scrollbar {
@@ -466,7 +466,7 @@ breadcrumb: false
         .right-sidebar {
             display: flex;
             flex-direction: column;
-            gap: 1.5rem;
+            gap: 1rem;
         }
 
         .collapsible {
@@ -477,7 +477,7 @@ breadcrumb: false
         }
 
         .collapsible-header {
-            padding: 1rem 1.5rem;
+            padding: 0.8rem 1.2rem;
             cursor: pointer;
             display: flex;
             justify-content: space-between;
@@ -567,6 +567,128 @@ breadcrumb: false
             border: 1px solid #262626;
         }
 
+        /* Help Modal */
+        .help-btn {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            border: 2px solid #3b82f6;
+            background: #0d0d0d;
+            color: #3b82f6;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .help-btn:hover {
+            background: #3b82f6;
+            color: #0d0d0d;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: #1a1a1a;
+            border: 1px solid #262626;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 700px;
+            max-height: 85vh;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            padding: 1.5rem;
+            border-bottom: 1px solid #262626;
+            background: #141414;
+            flex-shrink: 0;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fafafa;
+        }
+
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 6px;
+            border: 2px solid #3b82f6;
+            background: #0d0d0d;
+            color: #3b82f6;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            padding: 0;
+            flex-shrink: 0;
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+        }
+
+        .modal-close:hover {
+            background: #3b82f6;
+            color: #0d0d0d;
+        }
+
+        .modal-body {
+            overflow-y: auto;
+            padding: 1.5rem;
+            flex: 1;
+        }
+
+        .modal-body .section-title {
+            display: none;
+        }
+
+        .modal-body::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .modal-body::-webkit-scrollbar-track {
+            background: #0d0d0d;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb {
+            background: #262626;
+            border-radius: 4px;
+        }
+
+        .modal-body::-webkit-scrollbar-thumb:hover {
+            background: #3b82f6;
+        }
+
         /* Responsive */
         @media (max-width: 1400px) {
             .container {
@@ -589,7 +711,104 @@ breadcrumb: false
             }
         }
 
+        /* Navigation Nodes */
+        .section-nav {
+            background: #1a1a1a;
+            border-bottom: 1px solid #262626;
+            padding: 0.75rem 2rem;
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            align-items: center;
+            overflow-x: auto;
+            scrollbar-width: none;
+            flex-wrap: wrap;
+        }
+
+        .section-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .nav-node {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+            position: relative;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: white;
+            border: 2px solid;
+        }
+
+        .nav-node.locked {
+            background: rgba(42, 42, 42, 0.4);
+            border-color: rgba(68, 68, 68, 0.6);
+            color: #71717a;
+            cursor: not-allowed;
+        }
+
+        .nav-node.unlocked {
+            background: rgba(0, 217, 255, 0.15);
+            border-color: rgba(0, 217, 255, 0.8);
+            color: #00d9ff;
+            box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+        }
+
+        .nav-node.unlocked:hover {
+            background: rgba(0, 217, 255, 0.25);
+            transform: scale(1.1);
+        }
+
+        .nav-node.visited {
+            background: rgba(76, 175, 80, 0.2);
+            border-color: rgba(102, 187, 106, 0.8);
+            color: #4caf50;
+            box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+        }
+
+        .nav-node.current {
+            background: #3b82f6;
+            border-color: #3b82f6;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+            transform: scale(1.15);
+        }
+
+        .nav-connector {
+            width: 20px;
+            height: 2px;
+            background: #262626;
+            flex-shrink: 0;
+            transition: background 0.3s ease;
+        }
+
+        .nav-connector.visited {
+            background: rgba(102, 187, 106, 0.5);
+        }
+
         @media (max-width: 768px) {
+            .section-nav {
+                padding: 0.6rem 1rem;
+                gap: 0.3rem;
+            }
+
+            .nav-node {
+                width: 38px;
+                height: 38px;
+                font-size: 0.7rem;
+            }
+
+            .nav-connector {
+                width: 15px;
+            }
+
             .header {
                 padding: 1rem;
             }
@@ -605,19 +824,49 @@ breadcrumb: false
     </style>
 </head>
 <body>
+    <!-- Section Navigation -->
+    <div class="section-nav" id="sectionNav">
+        <a class="nav-node unlocked" href="/digitalmatchmaking/api/" data-page="1" data-url="/digitalmatchmaking/api/" title="API Blog">1</a>
+        <div class="nav-connector"></div>
+        <a class="nav-node locked" href="javascript:void(0)" data-page="2" data-url="/digitalmatchmaking/mcq/" title="PII Quiz">2</a>
+        <div class="nav-connector"></div>
+        <a class="nav-node locked" href="javascript:void(0)" data-page="3" data-url="/digitalmatchmaking/microb/" title="Microblog">3</a>
+        <div class="nav-connector"></div>
+        <a class="nav-node locked" href="javascript:void(0)" data-page="4" data-url="/digitalmatchmaking/bio_create/" title="Bio Creation">4</a>
+        <div class="nav-connector"></div>
+        <a class="nav-node locked" href="javascript:void(0)" data-page="5" data-url="/digitalmatchmaking/matchmade/" title="Matchmade">5</a>
+    </div>
+
     <!-- Header -->
     <div class="header">
         <div class="header-left">
-            <a href="/digitalmatchmaking/home/" style="display: flex; align-items: center; gap: 0.75rem; text-decoration: none; color: inherit; margin-right: 2rem; transition: all 0.2s ease;">
-                <span style="font-size: 1.2rem;">←</span>
-                <span style="font-size: 0.9rem; color: #71717a;">Back</span>
+            <a href="/digitalmatchmaking/home/" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; transition: all 0.2s ease;">
+                <span style="font-size: 1rem;">←</span>
+                <span style="font-size: 0.85rem; color: #71717a; white-space: nowrap;">Back</span>
             </a>
-            <div class="header-icon">🔐</div>
-            <div class="header-title">Account Port</div>
+            <div style="display: inline-flex; align-items: center; gap: 0.75rem; margin-left: 1.5rem;">
+                <div class="header-icon">🔐</div>
+                <div class="header-title">Account Port</div>
+            </div>
         </div>
-        <div class="auth-indicator">
-            <div class="status-light" id="statusLight"></div>
-            <span id="authStatus">Checking...</span>
+        <div style="display: flex; align-items: center; gap: 1rem;">
+            <button class="help-btn" onclick="openHelpModal()" title="Help Documentation">?</button>
+            <div class="auth-indicator">
+                <div class="status-light" id="statusLight"></div>
+                <span id="authStatus">Checking...</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Help Modal -->
+    <div class="modal" id="helpModal" onclick="if(event.target === this) closeHelpModal()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="modal-close" onclick="closeHelpModal()">✕</button>
+            </div>
+            <div class="modal-body" id="modalDocumentation">
+                <!-- Documentation will be populated here -->
+            </div>
         </div>
     </div>
 
@@ -692,78 +941,80 @@ breadcrumb: false
         </div>
 
         <!-- Help Documentation -->
-        <div class="section help-sidebar">
-            <div class="section-title">Documentation</div>
-            <!-- Getting Started -->
-            <div class="collapsible">
-                <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                    <div class="collapsible-title">📖 Getting Started</div>
-                    <div class="collapsible-icon">▼</div>
-                </div>
-                <div class="collapsible-content open">
-                    <div class="collapsible-body">
-                        <h4>Step 1: Create Account</h4>
-                        <p>Click "Create Account" to initialize your profile. Expect status 201.</p>
+        <div id="documentationContent" style="display: none;">
+            <div class="section help-sidebar">
+                <div class="section-title">Documentation</div>
+                <!-- Getting Started -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <div class="collapsible-title">📖 Getting Started</div>
+                        <div class="collapsible-icon">▼</div>
+                    </div>
+                    <div class="collapsible-content open">
+                        <div class="collapsible-body">
+                            <h4>Step 1: Create Account</h4>
+                            <p>Click "Create Account" to initialize your profile. Expect status 201.</p>
 
-                        <h4>Step 2: Add Data</h4>
-                        <p>Use "Add Profile Data" to add information like hobbies, interests, skills, etc.</p>
+                            <h4>Step 2: Add Data</h4>
+                            <p>Use "Add Profile Data" to add information like hobbies, interests, skills, etc.</p>
 
-                        <h4>Step 3: View Profile</h4>
-                        <p>Click "View Profile" to see all saved data.</p>
+                            <h4>Step 3: View Profile</h4>
+                            <p>Click "View Profile" to see all saved data.</p>
 
-                        <h4>Status Codes</h4>
-                        <ul>
-                            <li><code>200</code> - Success</li>
-                            <li><code>201</code> - Created</li>
-                            <li><code>404</code> - Not Found</li>
-                            <li><code>409</code> - Conflict</li>
-                        </ul>
+                            <h4>Status Codes</h4>
+                            <ul>
+                                <li><code>200</code> - Success</li>
+                                <li><code>201</code> - Created</li>
+                                <li><code>404</code> - Not Found</li>
+                                <li><code>409</code> - Conflict</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- API Overview -->
-            <div class="collapsible">
-                <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                    <div class="collapsible-title">🎯 What is This?</div>
-                    <div class="collapsible-icon">▼</div>
-                </div>
-                <div class="collapsible-content">
-                    <div class="collapsible-body">
-                        <p>Account Port is an API testing interface for the Matchmaking service. It allows you to interact with backend endpoints in real-time.</p>
+                <!-- API Overview -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <div class="collapsible-title">🎯 What is This?</div>
+                        <div class="collapsible-icon">▼</div>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-body">
+                            <p>Account Port is an API testing interface for the Matchmaking service. It allows you to interact with backend endpoints in real-time.</p>
 
-                        <h4>Key Features</h4>
-                        <ul>
-                            <li>Test API endpoints</li>
-                            <li>Manage user profiles</li>
-                            <li>Save profile data</li>
-                            <li>View responses in real-time</li>
-                        </ul>
+                            <h4>Key Features</h4>
+                            <ul>
+                                <li>Test API endpoints</li>
+                                <li>Manage user profiles</li>
+                                <li>Save profile data</li>
+                                <li>View responses in real-time</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- How It Works -->
-            <div class="collapsible">
-                <div class="collapsible-header" onclick="toggleCollapsible(this)">
-                    <div class="collapsible-title">💡 How It Works</div>
-                    <div class="collapsible-icon">▼</div>
-                </div>
-                <div class="collapsible-content">
-                    <div class="collapsible-body">
-                        <p>This tool communicates directly with the backend API using HTTP requests.</p>
+                <!-- How It Works -->
+                <div class="collapsible">
+                    <div class="collapsible-header" onclick="toggleCollapsible(this)">
+                        <div class="collapsible-title">💡 How It Works</div>
+                        <div class="collapsible-icon">▼</div>
+                    </div>
+                    <div class="collapsible-content">
+                        <div class="collapsible-body">
+                            <p>This tool communicates directly with the backend API using HTTP requests.</p>
 
-                        <h4>The Process</h4>
-                        <ul>
-                            <li>Select HTTP method (GET, POST, PUT, DELETE)</li>
-                            <li>Enter the API endpoint URL</li>
-                            <li>Add request body (for POST/PUT)</li>
-                            <li>Click Send to execute request</li>
-                            <li>View response with status code</li>
-                        </ul>
+                            <h4>The Process</h4>
+                            <ul>
+                                <li>Select HTTP method (GET, POST, PUT, DELETE)</li>
+                                <li>Enter the API endpoint URL</li>
+                                <li>Add request body (for POST/PUT)</li>
+                                <li>Click Send to execute request</li>
+                                <li>View response with status code</li>
+                            </ul>
 
-                        <h4>Authentication</h4>
-                        <p>Your session is automatically authenticated. You must be logged in to use this tool.</p>
+                            <h4>Authentication</h4>
+                            <p>Your session is automatically authenticated. You must be logged in to use this tool.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -802,7 +1053,7 @@ breadcrumb: false
                 if (response.ok) {
                     isAuthenticated = true;
                     statusLight.classList.add('active');
-                    checkAccountStatus();
+                    await checkAccountStatus();
                     return;
                 }
             } catch (error) {
@@ -810,8 +1061,10 @@ breadcrumb: false
             }
 
             isAuthenticated = false;
+            hasAccount = false;
             statusLight.classList.remove('active');
             authStatus.textContent = 'Not Logged In';
+            updateNavigation();
         }
 
         // Check Account Status
@@ -835,9 +1088,12 @@ breadcrumb: false
                     hasAccount = false;
                     authStatus.textContent = '❌ No Account';
                 }
+                updateNavigation();
             } catch (error) {
                 console.error('Account check failed:', error);
+                hasAccount = false;
                 authStatus.textContent = '❌ No Account';
+                updateNavigation();
             }
         }
 
@@ -1000,6 +1256,132 @@ breadcrumb: false
             content.classList.toggle('open');
             icon.classList.toggle('open');
         };
+
+        // Help Modal Functions
+        window.openHelpModal = function() {
+            const modal = document.getElementById('helpModal');
+            const docContent = document.getElementById('documentationContent');
+            const modalBody = document.getElementById('modalDocumentation');
+            
+            // Clone the documentation into the modal
+            modalBody.innerHTML = docContent.innerHTML;
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        };
+
+        window.closeHelpModal = function() {
+            const modal = document.getElementById('helpModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        // Close modal when pressing Escape
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeHelpModal();
+            }
+        });
+
+        // Page Navigation System
+        const VISITED_KEY = 'api_visited_pages';
+        let visitedPages = {};
+
+        const pages = [
+            { id: 1, url: '/digitalmatchmaking/api/' },
+            { id: 2, url: '/digitalmatchmaking/mcq/' },
+            { id: 3, url: '/digitalmatchmaking/microb/' },
+            { id: 4, url: '/digitalmatchmaking/bio_create/' },
+            { id: 5, url: '/digitalmatchmaking/matchmade/' }
+        ];
+
+        function loadVisitedPages() {
+            try {
+                return JSON.parse(localStorage.getItem(VISITED_KEY)) || {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function saveVisitedPages() {
+            try {
+                localStorage.setItem(VISITED_KEY, JSON.stringify(visitedPages));
+            } catch (e) {}
+        }
+
+        function isPageUnlocked(pageId) {
+            if (pageId === 1) return true;
+            // Pages 2+ require account to be created
+            if (!hasAccount) return false;
+            return visitedPages[pageId - 1];
+        }
+
+        function markPageVisited(pageId) {
+            visitedPages[pageId] = true;
+            saveVisitedPages();
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            const navNodes = document.querySelectorAll('.nav-node');
+            const navConnectors = document.querySelectorAll('.nav-connector');
+            
+            navNodes.forEach((node, idx) => {
+                const pageId = idx + 1;
+                node.classList.remove('locked', 'unlocked', 'visited', 'current');
+                
+                if (visitedPages[pageId]) {
+                    node.classList.add('visited');
+                    node.href = node.dataset.url;
+                    node.style.cursor = 'pointer';
+                    node.onclick = function() {
+                        window.location.href = this.dataset.url;
+                    };
+                } else if (isPageUnlocked(pageId)) {
+                    node.classList.add('unlocked');
+                    node.href = node.dataset.url;
+                    node.style.cursor = 'pointer';
+                    node.onclick = function() {
+                        markPageVisited(pageId);
+                        window.location.href = this.dataset.url;
+                    };
+                } else {
+                    node.classList.add('locked');
+                    node.style.cursor = 'not-allowed';
+                    node.href = 'javascript:void(0)';
+                    node.onclick = null;
+                }
+            });
+
+            // Update connectors
+            navConnectors.forEach((conn, idx) => {
+                if (visitedPages[idx + 1]) {
+                    conn.classList.add('visited');
+                } else {
+                    conn.classList.remove('visited');
+                }
+            });
+
+            // Highlight current page
+            const currentUrl = window.location.pathname;
+            navNodes.forEach((node, idx) => {
+                if (node.dataset.url === currentUrl) {
+                    node.classList.add('current');
+                }
+            });
+        }
+
+        // Initialize navigation on page load
+        visitedPages = loadVisitedPages();
+        
+        // Mark current page as visited
+        const currentUrl = window.location.pathname;
+        pages.forEach((page, idx) => {
+            if (page.url === currentUrl) {
+                markPageVisited(page.id);
+            }
+        });
+
+        updateNavigation();
 
         // Initialize
         checkAuth();
