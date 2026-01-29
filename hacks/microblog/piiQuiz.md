@@ -78,19 +78,17 @@ breadcrumb: true
         }
 
         .mission-header {
-            /* Align header to match the quiz container left edge */
             text-align: left;
-            /* Reduce padding so the header box is shorter and fits the short mission brief text */
             padding: 14px 18px;
             background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
             border-bottom: 1px solid #30363d;
-            margin: 0 auto 16px auto; /* center block horizontally while matching quiz container width */
+            margin: 0 auto 16px auto;
             position: relative;
             overflow: hidden;
             border-radius: 6px;
             z-index: 2;
             display: block;
-            max-width: 800px; /* match .quiz-container max-width so left edges align */
+            max-width: 800px;
             width: 100%;
             box-sizing: border-box;
         }
@@ -126,7 +124,7 @@ breadcrumb: true
 
         .mission-brief {
             max-width: 420px;
-            margin: 6px 0 0 0; /* left-align inside the header */
+            margin: 6px 0 0 0;
             line-height: 1.4;
             color: #6e7681;
             position: relative;
@@ -431,7 +429,6 @@ breadcrumb: true
 
     <script type="module">
         import { pythonURI, fetchOptions } from '/digitalmatchmaking/assets/js/api/config.js';
-        // Populate window._piiImportedConfig so the rest of the script can prefer the imported pythonURI and fetch options.
         window._piiImportedConfig = window._piiImportedConfig || {};
         if (pythonURI) window._piiImportedConfig.pythonURI = pythonURI;
         if (fetchOptions) window._piiImportedConfig.fetchOptions = fetchOptions;
@@ -522,7 +519,6 @@ breadcrumb: true
         const loadExistingProfileBtn = document.getElementById('loadExistingProfile');
         const retakeFromStartBtn = document.getElementById('retakeFromStart');
 
-        // Check for existing profile on page load
         async function checkExistingProfile() {
             const importedCfg = window._piiImportedConfig || {};
             const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
@@ -555,8 +551,7 @@ breadcrumb: true
                 if (response.ok) {
                     const data = JSON.parse(responseText);
                     console.log('Parsed response data:', data);
-                    if (data && data.profile_data && Array.isArray(data.profile_data) && data.profile_data.length > 0) {
-                        // Profile exists in backend
+                    if (data && data.profile_data && typeof data.profile_data === 'object' && Object.keys(data.profile_data).length > 0) {
                         loadingCheckEl.style.display = 'none';
                         existingProfilePromptEl.style.display = 'block';
                         return data.profile_data;
@@ -565,7 +560,6 @@ breadcrumb: true
                     console.log('404 - Profile not found (expected for new users)');
                 }
                 
-                // No profile found or error, start quiz normally
                 console.log('No existing profile, starting quiz');
                 loadingCheckEl.style.display = 'none';
                 quizEl.style.display = 'block';
@@ -602,33 +596,17 @@ breadcrumb: true
             reviewEl.style.display = 'block';
 
             profileDataEl.innerHTML = '';
-            const allowedKeywords = ['favorite color', 'favorite animal', 'genre of music', 'favorite genre', 'favorite subject', 'subject', 'username', 'favorite band', 'band', 'musical artist', 'favorite artist'];
-
-            const usernameResponses = [];
-            const otherResponses = [];
             
-            for (let resp of profileData) {
-                const qLower = (resp.question || '').toLowerCase();
-                const matches = allowedKeywords.some(k => qLower.includes(k));
-                if (!matches) continue;
-
-                if (qLower.includes('username')) {
-                    usernameResponses.push(resp);
-                } else {
-                    otherResponses.push(resp);
-                }
-            }
-
-            const orderedResponses = [...usernameResponses, ...otherResponses];
-            for (let resp of orderedResponses) {
+            // profileData is now an object with question-response pairs
+            for (let [question, response] of Object.entries(profileData)) {
                 const profileItem = document.createElement('div');
                 profileItem.className = 'profile-item';
                 const label = document.createElement('div');
                 label.className = 'profile-item-label';
-                label.textContent = resp.question;
+                label.textContent = question;
                 const value = document.createElement('div');
                 value.className = 'profile-item-value';
-                value.textContent = resp.response !== null ? resp.response : '(Not provided)';
+                value.textContent = response;
                 profileItem.appendChild(label);
                 profileItem.appendChild(value);
                 profileDataEl.appendChild(profileItem);
@@ -744,24 +722,33 @@ breadcrumb: true
             resultsEl.style.display = 'none';
             reviewEl.style.display = 'none';
             
-            const userDataResponses = [];
+            // MODIFIED: Collect only non-personal, non-null responses
+            const userDataResponses = {};
             const startIndex = 3;
+            
+            // Define which questions are safe to save (by index relative to startIndex)
+            const safeQuestionIndices = [0, 1, 2, 4, 5, 8]; // favorite color, username, favorite animal, genre, band/artist, favorite subject
             
             for (let i = startIndex; i < questions.length; i++) {
                 const q = questions[i];
                 const response = q.userResponse !== undefined ? q.userResponse : null;
-                userDataResponses.push({
-                    question: q.question,
-                    response: response,
-                    type: q.allowTextEntry ? 'text' : 'multiple-choice'
-                });
+                const relativeIndex = i - startIndex;
+                
+                // Only save if it's a safe question and response is not null
+                if (safeQuestionIndices.includes(relativeIndex) && response !== null && response !== undefined && String(response).trim() !== '') {
+                    userDataResponses[q.question] = response;
+                }
             }
 
+            // Check for PII leaks by examining sensitive questions
             let leakCount = 0;
-            for (let resp of userDataResponses) {
-                const qLower = (resp.question || '').toLowerCase();
-                const val = resp.response;
-                if (val !== null && val !== undefined && String(val).trim() !== '') {
+            
+            for (let i = startIndex; i < questions.length; i++) {
+                const q = questions[i];
+                const response = q.userResponse !== undefined ? q.userResponse : null;
+                const qLower = (q.question || '').toLowerCase();
+                
+                if (response !== null && response !== undefined && String(response).trim() !== '') {
                     if (qLower.includes('full name') || qLower.includes('ssn') || qLower.includes('where do you live') || qLower.includes('ip')) {
                         leakCount++;
                     }
@@ -788,33 +775,19 @@ breadcrumb: true
             leakBreatherEl.style.display = 'none';
             leakContinueBtn.disabled = false;
 
+            // Display profile data with questions for review (but only responses will be saved)
             profileDataEl.innerHTML = '';
-            const allowedKeywords = ['favorite color', 'favorite animal', 'genre of music', 'favorite genre', 'favorite subject', 'subject', 'username', 'favorite band', 'band', 'musical artist', 'favorite artist'];
-
-            const usernameResponses = [];
-            const otherResponses = [];
-            for (let resp of userDataResponses) {
-                const qLower = (resp.question || '').toLowerCase();
-                const matches = allowedKeywords.some(k => qLower.includes(k));
-                if (!matches) continue;
-
-                if (qLower.includes('username')) {
-                    usernameResponses.push(resp);
-                } else {
-                    otherResponses.push(resp);
-                }
-            }
-
-            const orderedResponses = [...usernameResponses, ...otherResponses];
-            for (let resp of orderedResponses) {
+            
+            // Display the saved data
+            for (let [question, response] of Object.entries(userDataResponses)) {
                 const profileItem = document.createElement('div');
                 profileItem.className = 'profile-item';
                 const label = document.createElement('div');
                 label.className = 'profile-item-label';
-                label.textContent = resp.question;
+                label.textContent = question;
                 const value = document.createElement('div');
                 value.className = 'profile-item-value';
-                value.textContent = resp.response !== null ? resp.response : '(Not provided)';
+                value.textContent = response;
                 profileItem.appendChild(label);
                 profileItem.appendChild(value);
                 profileDataEl.appendChild(profileItem);
@@ -848,18 +821,17 @@ breadcrumb: true
                 return;
             }
 
-            // Prefer config imported by a module script, fall back to window globals
             const importedCfg = window._piiImportedConfig || {};
             const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
             const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
 
             const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
 
-            // Merge headers but don't mutate globalFetchOptions
             const mergedHeaders = Object.assign({}, (globalFetchOptions.headers || {}), {
                 'Content-Type': 'application/json'
             });
 
+            // MODIFIED: Send only the array of responses
             const payload = { profile_data: profileData };
             let bodyStr;
             try {
@@ -882,7 +854,6 @@ breadcrumb: true
                 body: bodyStr
             });
 
-            // Prefer configured credentials (config.js default is 'include')
             if (!options.credentials) options.credentials = (globalFetchOptions && globalFetchOptions.credentials) ? globalFetchOptions.credentials : 'include';
 
             console.log('piiQuiz: Full request options:', options);
@@ -930,7 +901,6 @@ breadcrumb: true
         submitBtn.onclick = submitAnswer;
         restartBtn.onclick = restartQuiz;
 
-        // Initialize - check for existing profile first
         (async () => {
             existingProfileData = await checkExistingProfile();
         })();
