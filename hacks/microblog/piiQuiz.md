@@ -78,30 +78,50 @@ breadcrumb: true
         }
 
         .mission-header {
-            text-align: left;
-            padding: 14px 18px;
+            text-align: center;
+            padding: 16px 24px;
             background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
-            border-bottom: 1px solid #30363d;
-            margin: 0 auto 16px auto;
+            border: 1px solid #30363d;
+            margin: 0 auto;
             position: relative;
-            overflow: hidden;
             border-radius: 6px;
             z-index: 2;
-            display: block;
-            max-width: 800px;
-            width: 100%;
-            box-sizing: border-box;
+            display: inline-block;
+            cursor: help;
+            min-width: 100px;
         }
 
         .mission-header::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(100, 120, 130, 0.05), transparent);
-            animation: scan 4s infinite;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                rgba(139, 148, 158, 0.3) 25%, 
+                transparent 50%, 
+                rgba(139, 148, 158, 0.3) 75%, 
+                transparent 100%);
+            border-radius: 6px;
+            animation: rotate-border 3s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate-border {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .mission-header-container {
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
         }
 
         @keyframes scan {
@@ -111,26 +131,55 @@ breadcrumb: true
 
         .glitch-text {
             font-size: 2.5em;
-            font-weight: 400;
-            color: #7d8590;
+            font-weight: 700;
+            color: #c9d1d9;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            text-shadow: 0 0 10px rgba(125, 133, 144, 0.3);
-            margin-bottom: 20px;
+            letter-spacing: 8px;
+            text-shadow: 0 0 15px rgba(201, 209, 217, 0.4);
+            margin: 0;
+            padding: 0;
+            line-height: 1.2;
             position: relative;
             z-index: 1;
             font-family: 'Courier New', monospace;
+            display: block;
         }
 
-        .mission-brief {
-            max-width: 420px;
-            margin: 6px 0 0 0;
-            line-height: 1.4;
-            color: #6e7681;
-            position: relative;
-            z-index: 1;
+        .mission-header-tooltip {
+            visibility: hidden;
+            opacity: 0;
+            position: absolute;
+            bottom: calc(100% + 12px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(22, 27, 34, 0.98);
+            color: #c9d1d9;
+            padding: 10px 16px;
+            border-radius: 6px;
+            border: 1px solid #30363d;
+            white-space: nowrap;
+            font-size: 0.9em;
+            font-weight: 400;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 100;
             font-family: 'Courier New', monospace;
-            font-size: 0.95em;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            pointer-events: none;
+        }
+
+        .mission-header-tooltip::after {
+            content: '';
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 7px solid transparent;
+            border-top-color: #30363d;
+        }
+
+        .mission-header:hover .mission-header-tooltip {
+            visibility: visible;
+            opacity: 1;
         }
 
         .quiz-container {
@@ -266,6 +315,32 @@ breadcrumb: true
             color: #484f58;
         }
 
+        .select-input {
+            padding: 14px;
+            font-size: 16px;
+            border: 1px solid #30363d;
+            border-radius: 4px;
+            width: 100%;
+            box-sizing: border-box;
+            margin: 10px 0;
+            background: rgba(13, 17, 23, 0.8);
+            color: #8b949e;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+        }
+
+        .select-input:focus {
+            outline: none;
+            border-color: #485662;
+            box-shadow: 0 0 8px rgba(72, 86, 98, 0.3);
+            background: rgba(13, 17, 23, 0.95);
+        }
+
+        .select-input option {
+            background: #0d1117;
+            color: #8b949e;
+        }
+
         .profile-item {
             background: rgba(22, 27, 34, 0.6);
             padding: 15px;
@@ -376,9 +451,11 @@ breadcrumb: true
 </head>
 <body>
     <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
-    <div class="mission-header">
-        <h1 class="glitch-text">SECURITY PROTOCOL TRAINING</h1>
-        <p class="mission-brief">Personally Identifiable Information (PII)</p>
+    <div class="mission-header-container">
+        <div class="mission-header">
+            <div class="mission-header-tooltip">Personally Identifiable Information</div>
+            <h1 class="glitch-text">PII</h1>
+        </div>
     </div>
 
     <div class="quiz-container">
@@ -451,7 +528,8 @@ breadcrumb: true
             {
                 question: "What is your favorite color?",
                 options: ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "White"],
-                correct: null 
+                correct: null,
+                allowDropdown: true
             },
             {
                 question: "What do you want your username to be?",
@@ -663,6 +741,36 @@ breadcrumb: true
                 submitBtn.style.display = 'block';
                 submitBtn.disabled = true;
                 questions[currentQuestion].textInputElement = textInput;
+            } else if (question.allowDropdown) {
+                // Create dropdown menu for this question
+                const selectInput = document.createElement('select');
+                selectInput.className = 'select-input';
+                
+                // Add default/placeholder option
+                const defaultOption = document.createElement('option');
+                defaultOption.value = '';
+                defaultOption.textContent = 'Select a color...';
+                defaultOption.disabled = true;
+                defaultOption.selected = true;
+                selectInput.appendChild(defaultOption);
+                
+                // Add all color options
+                question.options.forEach((option, index) => {
+                    const optionEl = document.createElement('option');
+                    optionEl.value = index;
+                    optionEl.textContent = option;
+                    selectInput.appendChild(optionEl);
+                });
+                
+                selectInput.onchange = () => {
+                    selectedOption = parseInt(selectInput.value);
+                    submitBtn.disabled = false;
+                };
+                
+                optionsEl.appendChild(selectInput);
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = true;
+                questions[currentQuestion].selectElement = selectInput;
             } else {
                 submitBtn.style.display = 'block';
                 question.options.forEach((option, index) => {
@@ -693,6 +801,14 @@ breadcrumb: true
                 const textInput = question.textInputElement || document.querySelector('.text-input');
                 if (textInput && textInput.value.trim() !== '') {
                     question.userResponse = textInput.value.trim();
+                } else if (question.userResponse === undefined) {
+                    question.userResponse = null;
+                }
+            } else if (question.allowDropdown) {
+                const selectInput = question.selectElement || document.querySelector('.select-input');
+                if (selectInput && selectInput.value !== '') {
+                    const index = parseInt(selectInput.value);
+                    question.userResponse = question.options[index];
                 } else if (question.userResponse === undefined) {
                     question.userResponse = null;
                 }
