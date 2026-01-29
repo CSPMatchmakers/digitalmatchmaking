@@ -406,13 +406,12 @@ author: Adhav S
     </div>
 </div>
 
-<script>
-    const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-        ? 'http://localhost:8401'
-        : 'https://digitalfamine.stu.nighthawkcodingsociety.com';
+<script type="module">
+    import { pythonURI } from '{{site.baseurl}}/assets/js/api/config.js';
 
     let state = {
         currentUserProfile: null,
+        currentUserUID: null,
         allProfiles: [],
         currentIndex: 0,
         matches: [],
@@ -423,7 +422,7 @@ author: Adhav S
     async function initMatchmaking() {
         try {
             // Get current user's profile
-            const userResponse = await fetch(`${API_URL}/api/match/data`, {
+            const userResponse = await fetch(`${pythonURI}/api/match/data`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' }
@@ -434,13 +433,12 @@ author: Adhav S
             }
 
             const userData = await userResponse.json();
-            if (!userData.setup || !userData.setup.data) {
+            if (!userData.data) {
                 throw new Error('No profile data found');
             }
-            state.currentUserProfile = userData.setup.data;
-
+            state.currentUserProfile = userData.data;            state.currentUserUID = userData.uid || 'current_user';
             // Get all other profiles
-            const allResponse = await fetch(`${API_URL}/all-data`, {
+            const allResponse = await fetch(`${pythonURI}/api/match/all-data`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' }
@@ -452,13 +450,13 @@ author: Adhav S
 
             const allData = await allResponse.json();
             
-            if (!allData.setups || !Array.isArray(allData.setups)) {
+            if (!allData.users || !Array.isArray(allData.users)) {
                 throw new Error('Invalid profile data format');
             }
             
             // Filter out current user and any empty profiles
-            state.allProfiles = allData.setups
-                .filter(p => p.uid !== userData.setup.uid && p.data && Object.keys(p.data).length > 0)
+            state.allProfiles = allData.users
+                .filter(p => p.uid !== state.currentUserUID && p.data && Object.keys(p.data).length > 0)
                 .map(p => ({ ...p, uid: p.uid }));
 
             if (state.allProfiles.length === 0) {
@@ -658,7 +656,7 @@ author: Adhav S
                 updated.push(profile.uid);
             }
 
-            await fetch(`${API_URL}/add`, {
+            await fetch(`${pythonURI}/api/match/add`, {
                 method: 'POST',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' },
