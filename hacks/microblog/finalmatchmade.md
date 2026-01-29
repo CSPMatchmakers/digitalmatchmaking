@@ -3,8 +3,6 @@ layout: post
 title: Matchmade
 description: The final module where the additions to your profile link you up to people with similar tastes.
 permalink: /matchmade/
-breadcrumb: true
-microblog: true
 author: Adhav S
 ---
 <style>
@@ -425,7 +423,7 @@ author: Adhav S
     async function initMatchmaking() {
         try {
             // Get current user's profile
-            const userResponse = await fetch(`${API_URL}/data`, {
+            const userResponse = await fetch(`${API_URL}/api/match/data`, {
                 method: 'GET',
                 credentials: 'include',
                 headers: { 'Content-Type': 'application/json' }
