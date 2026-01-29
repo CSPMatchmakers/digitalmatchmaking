@@ -470,6 +470,28 @@ breadcrumb: true
     </div>
 
     <div class="quiz-container">
+        <!-- Quiz Mode Selector Modal -->
+        <div id="modeSelector" style="text-align: center; padding: 60px 20px;">
+            <h2 style="color: #8b949e; font-size: 1.8em; margin-bottom: 40px; font-family: 'Courier New', monospace;">
+                Choose Your Path
+            </h2>
+            <div style="display: flex; gap: 20px; flex-direction: column; max-width: 600px; margin: 0 auto;">
+                <button class="option-button" id="piiModeBtn" onclick="selectMode('pii')" style="padding: 20px; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease;">
+                    📋 Fill Out Your Profile
+                    <div style="font-size: 0.85em; color: #6e7681; margin-top: 8px;">
+                        Answer security protocol questions and build your profile
+                    </div>
+                </button>
+                <button class="option-button" id="matchmakingModeBtn" onclick="selectMode('matchmaking')" style="padding: 20px; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease;">
+                    💕 Find Your Personality Type
+                    <div style="font-size: 0.85em; color: #6e7681; margin-top: 8px;">
+                        Discover your unique personality through our matchmaking quiz
+                    </div>
+                </button>
+            </div>
+        </div>
+        <!-- PII Quiz Container -->
+        <div id="piiQuizContainer" style="display: none;">
         <div id="loadingCheck" style="text-align: center; padding: 40px;">
             <div class="loading" style="font-size: 1.2em; color: #7d8590; font-family: 'Courier New', monospace;">
                 CHECKING SYSTEM RECORDS...
@@ -513,6 +535,12 @@ breadcrumb: true
                 <button id="retakeQuiz" class="option-button">Retake Assessment</button>
             </div>
         </div>
+        </div><!-- End piiQuizContainer -->
+
+        <!-- Matchmaking Personality Quiz Container -->
+        <div id="matchmakingQuizContainer" style="display: none;">
+            <!-- Matchmaking quiz will be injected here via JavaScript -->
+        </div>
     </div>
 
     <script type="module">
@@ -520,6 +548,35 @@ breadcrumb: true
         window._piiImportedConfig = window._piiImportedConfig || {};
         if (pythonURI) window._piiImportedConfig.pythonURI = pythonURI;
         if (fetchOptions) window._piiImportedConfig.fetchOptions = fetchOptions;
+        
+        // Quiz mode selector
+        window.selectMode = function(mode) {
+            const modeSelector = document.getElementById('modeSelector');
+            const piiContainer = document.getElementById('piiQuizContainer');
+            const matchmakingContainer = document.getElementById('matchmakingQuizContainer');
+            
+            modeSelector.style.display = 'none';
+            
+            if (mode === 'pii') {
+                piiContainer.style.display = 'block';
+                matchmakingContainer.style.display = 'none';
+                // Initialize PII quiz
+                setTimeout(() => {
+                    if (typeof checkExistingProfile === 'function') {
+                        checkExistingProfile();
+                    }
+                }, 100);
+            } else if (mode === 'matchmaking') {
+                piiContainer.style.display = 'none';
+                matchmakingContainer.style.display = 'block';
+                // Initialize matchmaking quiz
+                setTimeout(() => {
+                    if (typeof initMatchmakingQuiz === 'function') {
+                        initMatchmakingQuiz();
+                    }
+                }, 100);
+            }
+        };
         
         const questions = [
             {
@@ -1031,6 +1088,140 @@ breadcrumb: true
         (async () => {
             existingProfileData = await checkExistingProfile();
         })();
+
+        /* ========== MATCHMAKING QUIZ LOGIC ========== */
+        const matchmakingQuestions = [
+            { id: 1, question: "At a social gathering, you typically...", options: [{ text: "Seek out new people and enjoy being the center of attention", value: "E_high" }, { text: "Talk to a few close friends and enjoy smaller conversations", value: "I_moderate" }, { text: "Prefer observing and only engage when approached", value: "I_high" }, { text: "Mix between groups and one-on-one conversations", value: "E_moderate" }] },
+            { id: 2, question: "When making important decisions, you rely most on...", options: [{ text: "Logic, facts, and objective analysis", value: "T_high" }, { text: "How it will affect people and relationships", value: "F_high" }, { text: "A balance of logic and emotional impact", value: "T_moderate" }, { text: "Gut feeling and personal values", value: "F_moderate" }] },
+            { id: 3, question: "Your ideal weekend involves...", options: [{ text: "Spontaneous adventures and seeing where the day takes you", value: "P_high" }, { text: "A well-planned itinerary of activities", value: "J_high" }, { text: "A loose plan with room for flexibility", value: "P_moderate" }, { text: "Structured activities with some downtime built in", value: "J_moderate" }] },
+            { id: 4, question: "When learning something new, you prefer...", options: [{ text: "Understanding the big picture and future possibilities", value: "N_high" }, { text: "Hands-on practice with concrete examples", value: "S_high" }, { text: "Starting with theory, then applying it practically", value: "N_moderate" }, { text: "Step-by-step instructions with clear outcomes", value: "S_moderate" }] },
+            { id: 5, question: "Describe your ideal date or hangout. What would you do and why?", type: "freeResponse", placeholder: "Share your thoughts..." },
+            { id: 6, question: "After a long day, you recharge by...", options: [{ text: "Being alone with your thoughts or hobbies", value: "I_high" }, { text: "Calling friends or going out", value: "E_high" }, { text: "Quiet time first, then maybe socializing", value: "I_moderate" }, { text: "Light social interaction with close ones", value: "E_moderate" }] },
+            { id: 7, question: "When someone shares a problem with you, you typically...", options: [{ text: "Offer solutions and practical advice", value: "T_high" }, { text: "Listen empathetically and validate their feelings", value: "F_high" }, { text: "Ask questions to understand before responding", value: "T_moderate" }, { text: "Share similar experiences to show understanding", value: "F_moderate" }] },
+            { id: 8, question: "What's something you're passionate about and why does it matter to you?", type: "freeResponse", placeholder: "Tell us about your passion..." },
+            { id: 9, question: "When planning a trip, you...", options: [{ text: "Research extensively and create detailed plans", value: "J_high" }, { text: "Book tickets and figure out the rest as you go", value: "P_high" }, { text: "Plan key activities but leave room for spontaneity", value: "P_moderate" }, { text: "Follow recommended itineraries from others", value: "S_moderate" }] },
+            { id: 10, question: "In conversations, you tend to focus on...", options: [{ text: "Abstract ideas, theories, and what could be", value: "N_high" }, { text: "Concrete facts, experiences, and what is", value: "S_high" }, { text: "Both practical details and underlying meanings", value: "N_moderate" }, { text: "Real-world applications and examples", value: "S_moderate" }] },
+            { id: 11, question: "When facing conflict, you're more likely to...", options: [{ text: "Address it directly with facts and logic", value: "T_high" }, { text: "Consider feelings and find a harmonious solution", value: "F_high" }, { text: "Avoid it unless absolutely necessary", value: "I_high" }, { text: "Seek mediation or a third-party perspective", value: "F_moderate" }] },
+            { id: 12, question: "If you could change one thing about the world, what would it be and why?", type: "freeResponse", placeholder: "Share your vision..." },
+            { id: 13, question: "Your approach to rules and deadlines is...", options: [{ text: "Strict - rules exist for a reason and should be followed", value: "J_high" }, { text: "Flexible - guidelines that can bend based on context", value: "P_high" }, { text: "Respectful but willing to question when needed", value: "P_moderate" }, { text: "Depends on whether they make logical sense", value: "T_moderate" }] }
+        ];
+        let matchmakingCurrentQuestion = 0;
+        let matchmakingAnswers = {};
+
+        window.initMatchmakingQuiz = function() {
+            const container = document.getElementById('matchmakingQuizContainer');
+            container.innerHTML = `
+                <div style="padding: 20px;">
+                    <div style="margin-bottom: 20px;">
+                        <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden;">
+                            <div id="matchProgress" style="height: 100%; background: linear-gradient(90deg, #ff6b9d 0%, #ff8fab 50%, #ffa3bb 100%); width: 0%; transition: width 0.3s;"></div>
+                        </div>
+                        <p style="margin: 8px 0 0 0; color: #8b949e; font-size: 0.9em; text-align: center;" id="matchProgressText">Question 1 of ${matchmakingQuestions.length}</p>
+                    </div>
+                    <div id="matchQuizContent"></div>
+                    <div style="display: flex; gap: 10px; margin-top: 20px;">
+                        <button id="matchPrevBtn" class="option-button" onclick="matchmakingPrevious()" style="display: none; flex: 1;">← Previous</button>
+                        <button id="matchNextBtn" class="option-button" onclick="matchmakingNext()" style="flex: 1;">Next →</button>
+                        <button id="matchSubmitBtn" class="option-button" onclick="matchmakingSubmit()" style="display: none; flex: 1;">Get My Type ✨</button>
+                    </div>
+                </div>
+                <div id="matchResults" style="display: none; padding: 20px;">
+                    <h3 style="color: #8b949e; text-align: center; margin-bottom: 20px;">💕 Your Personality Type</h3>
+                    <div id="matchResultContent"></div>
+                </div>
+            `;
+            matchmakingCurrentQuestion = 0;
+            matchmakingAnswers = {};
+            renderMatchmakingQuestion();
+        };
+
+        window.renderMatchmakingQuestion = function() {
+            const q = matchmakingQuestions[matchmakingCurrentQuestion];
+            const content = document.getElementById('matchQuizContent');
+            let html = `<h3 style="color: #8b949e; margin-bottom: 15px; text-align: center;">${q.question}</h3>`;
+            
+            if (q.type === 'freeResponse') {
+                const saved = matchmakingAnswers[q.id] || '';
+                html += `<textarea class="text-input" id="match-free-${q.id}" placeholder="${q.placeholder}" style="width: 100%; padding: 12px; background: rgba(22,27,34,0.6); border: 1px solid #30363d; border-radius: 4px; color: #8b949e; font-family: 'Courier New'; font-size: 0.9em; min-height: 100px;" oninput="matchmakingSaveAnswer(${q.id}, this.value)">${saved}</textarea>`;
+            } else {
+                q.options.forEach((opt, i) => {
+                    const selected = matchmakingAnswers[q.id] === opt.value ? ' selected' : '';
+                    html += `<button class="option-button${selected}" onclick="matchmakingSelectOption(${q.id}, '${opt.value}', this)" style="text-align: left; margin: 8px 0; cursor: pointer;">${opt.text}</button>`;
+                });
+            }
+            content.innerHTML = html;
+            updateMatchmakingButtons();
+        };
+
+        window.matchmakingSelectOption = function(qId, value, btn) {
+            matchmakingAnswers[qId] = value;
+            document.querySelectorAll('.option-button').forEach(b => b.classList.remove('selected'));
+            btn.classList.add('selected');
+            updateMatchmakingButtons();
+        };
+
+        window.matchmakingSaveAnswer = function(qId, value) {
+            matchmakingAnswers[qId] = value.trim();
+            updateMatchmakingButtons();
+        };
+
+        window.updateMatchmakingButtons = function() {
+            const q = matchmakingQuestions[matchmakingCurrentQuestion];
+            const hasAnswer = matchmakingAnswers[q.id] && (q.type === 'freeResponse' ? matchmakingAnswers[q.id].length >= 3 : true);
+            const prevBtn = document.getElementById('matchPrevBtn');
+            const nextBtn = document.getElementById('matchNextBtn');
+            const submitBtn = document.getElementById('matchSubmitBtn');
+            
+            prevBtn.style.display = matchmakingCurrentQuestion > 0 ? 'block' : 'none';
+            if (matchmakingCurrentQuestion === matchmakingQuestions.length - 1) {
+                nextBtn.style.display = 'none';
+                submitBtn.style.display = 'block';
+                submitBtn.disabled = !hasAnswer;
+            } else {
+                nextBtn.style.display = 'block';
+                submitBtn.style.display = 'none';
+                nextBtn.disabled = !hasAnswer;
+            }
+            
+            const prog = ((matchmakingCurrentQuestion + 1) / matchmakingQuestions.length) * 100;
+            document.getElementById('matchProgress').style.width = prog + '%';
+            document.getElementById('matchProgressText').textContent = `Question ${matchmakingCurrentQuestion + 1} of ${matchmakingQuestions.length}`;
+        };
+
+        window.matchmakingNext = function() {
+            if (matchmakingCurrentQuestion < matchmakingQuestions.length - 1) {
+                matchmakingCurrentQuestion++;
+                renderMatchmakingQuestion();
+            }
+        };
+
+        window.matchmakingPrevious = function() {
+            if (matchmakingCurrentQuestion > 0) {
+                matchmakingCurrentQuestion--;
+                renderMatchmakingQuestion();
+            }
+        };
+
+        window.matchmakingSubmit = async function() {
+            const responses = matchmakingQuestions.map(q => ({
+                question: q.question,
+                answer: matchmakingAnswers[q.id] || '',
+                type: q.type || 'multipleChoice'
+            }));
+            
+            document.getElementById('matchQuizContent').innerHTML = '<p style="text-align: center; color: #8b949e;">⏳ Analyzing your personality...</p>';
+            
+            // Save only personality type if backend returns it
+            fetch(`${pythonURI}/api/match/add`, {
+                method: 'POST',
+                credentials: 'include',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ index: 'personality_quiz_responses', data: 'Personality Type Analyzed' })
+            }).catch(() => {});
+            
+            document.getElementById('matchResults').style.display = 'block';
+            document.getElementById('matchQuizContent').innerHTML = '<p style="text-align: center; color: #4caf50; font-weight: bold;">✅ Your personality analysis has been saved!</p>';
+        };
     </script>
 </body>
 </html>
