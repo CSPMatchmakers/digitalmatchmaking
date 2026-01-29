@@ -542,8 +542,8 @@ author: Ethan W
                         <option value="entrepreneur">entrepreneur</option>
                         <option value="researcher">researcher</option>
                         <option value="data scientist">data scientist</option>
-                        <option value="BAD: John Smith at 123 Main St" class="bad-option">BAD: John Smith at 123 Main St</option>
-                        <option value="BAD: employee at Google Building 42" class="bad-option">BAD: employee at Google Building 42</option>
+                        <option value="John Smith at 123 Main St" class="bad-option">John Smith at 123 Main St</option>
+                        <option value="employee at Google Building 42" class="bad-option">employee at Google Building 42</option>
                     </select>
                     who loves 
                     <select class="madlib-select" id="about-hobby1">
@@ -556,8 +556,8 @@ author: Ethan W
                         <option value="building things">building things</option>
                         <option value="helping others">helping others</option>
                         <option value="discovering new things">discovering new things</option>
-                        <option value="BAD: going to LA Fitness on Tuesdays" class="bad-option">BAD: going to LA Fitness on Tuesdays</option>
-                        <option value="BAD: visiting 742 Evergreen Terrace" class="bad-option">BAD: visiting 742 Evergreen Terrace</option>
+                        <option value="going to LA Fitness on Tuesdays" class="bad-option">going to LA Fitness on Tuesdays</option>
+                        <option value="visiting 742 Evergreen Terrace" class="bad-option">visiting 742 Evergreen Terrace</option>
                     </select>
                     and 
                     <select class="madlib-select" id="about-hobby2">
@@ -569,8 +569,8 @@ author: Ethan W
                         <option value="trying new experiences">trying new experiences</option>
                         <option value="making a difference">making a difference</option>
                         <option value="continuous learning">continuous learning</option>
-                        <option value="BAD: visiting Starbucks at 7am daily" class="bad-option">BAD: visiting Starbucks at 7am daily</option>
-                        <option value="BAD: sharing my phone (555) 123-4567" class="bad-option">BAD: sharing my phone (555) 123-4567</option>
+                        <option value="visiting Starbucks at 7am daily" class="bad-option">visiting Starbucks at 7am daily</option>
+                        <option value="sharing my phone (555) 123-4567" class="bad-option">sharing my phone (555) 123-4567</option>
                     </select>
                     . I enjoy 
                     <select class="madlib-select" id="about-activity">
@@ -582,8 +582,8 @@ author: Ethan W
                         <option value="creative problem solving">creative problem solving</option>
                         <option value="deep focused work">deep focused work</option>
                         <option value="brainstorming sessions">brainstorming sessions</option>
-                        <option value="BAD: calling (555) 123-4567" class="bad-option">BAD: calling (555) 123-4567</option>
-                        <option value="BAD: being home alone after 8pm" class="bad-option">BAD: being home alone after 8pm</option>
+                        <option value="calling (555) 123-4567" class="bad-option">calling (555) 123-4567</option>
+                        <option value="being home alone after 8pm" class="bad-option">being home alone after 8pm</option>
                     </select>
                     and believe in 
                     <select class="madlib-select" id="about-value">
@@ -595,8 +595,8 @@ author: Ethan W
                         <option value="collaboration">collaboration</option>
                         <option value="authenticity">authenticity</option>
                         <option value="perseverance">perseverance</option>
-                        <option value="BAD: my SSN 123-45-6789" class="bad-option">BAD: my SSN 123-45-6789</option>
-                        <option value="BAD: my email john.smith@email.com" class="bad-option">BAD: my email john.smith@email.com</option>
+                        <option value="my SSN 123-45-6789" class="bad-option">my SSN 123-45-6789</option>
+                        <option value="my email john.smith@email.com" class="bad-option">my email john.smith@email.com</option>
                     </select>
                     .</p>
             </div>
@@ -631,8 +631,8 @@ author: Ethan W
                         <option value="exercising">exercising</option>
                         <option value="drawing">drawing</option>
                         <option value="traveling">traveling</option>
-                        <option value="BAD: working out at Mira Mesa Blvd gym" class="bad-option">BAD: working out at Mira Mesa Blvd gym</option>
-                        <option value="BAD: going to 123 Main Street" class="bad-option">BAD: going to 123 Main Street</option>
+                        <option value="working out at Mira Mesa Blvd gym" class="bad-option">working out at Mira Mesa Blvd gym</option>
+                        <option value="going to 123 Main Street" class="bad-option">going to 123 Main Street</option>
                     </select>
                     , 
                     <select class="madlib-select" id="interests-hobby2">
@@ -645,8 +645,8 @@ author: Ethan W
                         <option value="meditation">meditation</option>
                         <option value="cycling">cycling</option>
                         <option value="dancing">dancing</option>
-                        <option value="BAD: visiting specific locations weekly" class="bad-option">BAD: visiting specific locations weekly</option>
-                        <option value="BAD: going to my gym on Tuesdays at 8pm" class="bad-option">BAD: going to my gym on Tuesdays at 8pm</option>
+                        <option value="visiting specific locations weekly" class="bad-option">visiting specific locations weekly</option>
+                        <option value="going to my gym on Tuesdays at 8pm" class="bad-option">going to my gym on Tuesdays at 8pm</option>
                     </select>
                     , and 
                     <select class="madlib-select" id="interests-hobby3">
@@ -658,8 +658,8 @@ author: Ethan W
                         <option value="exploring museums">exploring museums</option>
                         <option value="playing board games">playing board games</option>
                         <option value="practicing yoga">practicing yoga</option>
-                        <option value="BAD: being home alone after 8pm" class="bad-option">BAD: being home alone after 8pm</option>
-                        <option value="BAD: my daily routine at specific times" class="bad-option">BAD: my daily routine at specific times</option>
+                        <option value="being home alone after 8pm" class="bad-option">being home alone after 8pm</option>
+                        <option value="my daily routine at specific times" class="bad-option">my daily routine at specific times</option>
                     </select>
                     . I'm also interested in learning more about 
                     <select class="madlib-select" id="interests-topic">
@@ -673,8 +673,8 @@ author: Ethan W
                         <option value="technology">technology</option>
                         <option value="art and design">art and design</option>
                         <option value="health and wellness">health and wellness</option>
-                        <option value="BAD: my home address and routine" class="bad-option">BAD: my home address and routine</option>
-                        <option value="BAD: where I live specifically" class="bad-option">BAD: where I live specifically</option>
+                        <option value="my home address and routine" class="bad-option">my home address and routine</option>
+                        <option value="where I live specifically" class="bad-option">where I live specifically</option>
                     </select>
                     .</p>
             </div>
@@ -709,8 +709,8 @@ author: Ethan W
                         <option value="data analysis">data analysis</option>
                         <option value="video editing">video editing</option>
                         <option value="photography">photography</option>
-                        <option value="BAD: working at Google Building 42" class="bad-option">BAD: working at Google Building 42</option>
-                        <option value="BAD: employee ID G-847392" class="bad-option">BAD: employee ID G-847392</option>
+                        <option value="working at Google Building 42" class="bad-option">working at Google Building 42</option>
+                        <option value="employee ID G-847392" class="bad-option">employee ID G-847392</option>
                     </select>
                     , 
                     <select class="madlib-select" id="skills-skill2">
@@ -723,8 +723,8 @@ author: Ethan W
                         <option value="problem solving">problem solving</option>
                         <option value="research">research</option>
                         <option value="marketing">marketing</option>
-                        <option value="BAD: calling 555-0192" class="bad-option">BAD: calling 555-0192</option>
-                        <option value="BAD: contacting my work phone" class="bad-option">BAD: contacting my work phone</option>
+                        <option value="calling 555-0192" class="bad-option">calling 555-0192</option>
+                        <option value="contacting my work phone" class="bad-option">contacting my work phone</option>
                     </select>
                     , and 
                     <select class="madlib-select" id="skills-skill3">
@@ -736,8 +736,8 @@ author: Ethan W
                         <option value="time management">time management</option>
                         <option value="creative thinking">creative thinking</option>
                         <option value="strategic planning">strategic planning</option>
-                        <option value="BAD: emailing sarah.j@company.com" class="bad-option">BAD: emailing sarah.j@company.com</option>
-                        <option value="BAD: my manager's contact info" class="bad-option">BAD: my manager's contact info</option>
+                        <option value="emailing sarah.j@company.com" class="bad-option">emailing sarah.j@company.com</option>
+                        <option value="my manager's contact info" class="bad-option">my manager's contact info</option>
                     </select>
                     . I have 
                     <select class="madlib-select" id="skills-experience">
@@ -750,8 +750,8 @@ author: Ethan W
                         <option value="intermediate level">intermediate level</option>
                         <option value="advanced level">advanced level</option>
                         <option value="expert level">expert level</option>
-                        <option value="BAD: manager Sarah Johnson" class="bad-option">BAD: manager Sarah Johnson</option>
-                        <option value="BAD: working at specific company" class="bad-option">BAD: working at specific company</option>
+                        <option value="manager Sarah Johnson" class="bad-option">manager Sarah Johnson</option>
+                        <option value="working at specific company" class="bad-option">working at specific company</option>
                     </select>
                     of experience and enjoy 
                     <select class="madlib-select" id="skills-aspect">
@@ -763,8 +763,8 @@ author: Ethan W
                         <option value="working on challenging projects">working on challenging projects</option>
                         <option value="collaborating with others">collaborating with others</option>
                         <option value="pushing boundaries">pushing boundaries</option>
-                        <option value="BAD: sharing my employee details" class="bad-option">BAD: sharing my employee details</option>
-                        <option value="BAD: giving out work contact info" class="bad-option">BAD: giving out work contact info</option>
+                        <option value="sharing my employee details" class="bad-option">sharing my employee details</option>
+                        <option value="giving out work contact info" class="bad-option">giving out work contact info</option>
                     </select>
                     .</p>
             </div>
@@ -799,8 +799,8 @@ author: Ethan W
                         <option value="the arts">the arts</option>
                         <option value="technology">technology</option>
                         <option value="learning together">learning together</option>
-                        <option value="BAD: meeting near 742 Evergreen Terrace" class="bad-option">BAD: meeting near 742 Evergreen Terrace</option>
-                        <option value="BAD: visiting my apartment at 92122" class="bad-option">BAD: visiting my apartment at 92122</option>
+                        <option value="meeting near 742 Evergreen Terrace" class="bad-option">meeting near 742 Evergreen Terrace</option>
+                        <option value="visiting my apartment at 92122" class="bad-option">visiting my apartment at 92122</option>
                     </select>
                     . My goal is to 
                     <select class="madlib-select" id="goals-goal">
@@ -813,8 +813,8 @@ author: Ethan W
                         <option value="make new connections">make new connections</option>
                         <option value="find study partners">find study partners</option>
                         <option value="start a creative venture">start a creative venture</option>
-                        <option value="BAD: share my SSN 123-45-6789" class="bad-option">BAD: share my SSN 123-45-6789</option>
-                        <option value="BAD: give out personal documents" class="bad-option">BAD: give out personal documents</option>
+                        <option value="share my SSN 123-45-6789" class="bad-option">share my SSN 123-45-6789</option>
+                        <option value="give out personal documents" class="bad-option">give out personal documents</option>
                     </select>
                     and I'd love to 
                     <select class="madlib-select" id="goals-activity">
@@ -826,8 +826,8 @@ author: Ethan W
                         <option value="collaborate on creative work">collaborate on creative work</option>
                         <option value="practice and learn together">practice and learn together</option>
                         <option value="build something meaningful">build something meaningful</option>
-                        <option value="BAD: meet at my apartment" class="bad-option">BAD: meet at my apartment</option>
-                        <option value="BAD: share when I'm home alone" class="bad-option">BAD: share when I'm home alone</option>
+                        <option value="meet at my apartment" class="bad-option">meet at my apartment</option>
+                        <option value="share when I'm home alone" class="bad-option">share when I'm home alone</option>
                     </select>
                     .</p>
             </div>
@@ -872,25 +872,25 @@ author: Ethan W
                     value: "continuous improvement"
                 },
                 bad: {
-                    profession: "BAD: John Smith at 123 Main St",
-                    hobby1: "BAD: going to LA Fitness on Tuesdays",
-                    hobby2: "BAD: visiting Starbucks at 7am daily",
-                    activity: "BAD: calling (555) 123-4567",
-                    value: "BAD: my SSN 123-45-6789"
+                    profession: "John Smith at 123 Main St",
+                    hobby1: "going to LA Fitness on Tuesdays",
+                    hobby2: "visiting Starbucks at 7am daily",
+                    activity: "calling (555) 123-4567",
+                    value: "my SSN 123-45-6789"
                 }
             },
             interests: {
                 good: {
                     hobby1: "hiking in nature",
-                    hobby2: "photography",
+                    hobby2: "watching movies",
                     hobby3: "reading science fiction",
                     topic: "artificial intelligence"
                 },
                 bad: {
-                    hobby1: "BAD: working out at Mira Mesa Blvd gym",
-                    hobby2: "BAD: visiting specific locations weekly",
-                    hobby3: "BAD: being home alone after 8pm",
-                    topic: "BAD: my home address and routine"
+                    hobby1: "working out at Mira Mesa Blvd gym",
+                    hobby2: "visiting specific locations weekly",
+                    hobby3: "being home alone after 8pm",
+                    topic: "my home address and routine"
                 }
             },
             skills: {
@@ -902,11 +902,11 @@ author: Ethan W
                     aspect: "solving complex problems"
                 },
                 bad: {
-                    skill1: "BAD: working at Google Building 42",
-                    skill2: "BAD: calling 555-0192",
-                    skill3: "BAD: emailing sarah.j@company.com",
-                    experience: "BAD: manager Sarah Johnson",
-                    aspect: "BAD: sharing my employee details"
+                    skill1: "working at Google Building 42",
+                    skill2: "calling 555-0192",
+                    skill3: "emailing sarah.j@company.com",
+                    experience: "manager Sarah Johnson",
+                    aspect: "sharing my employee details"
                 }
             },
             goals: {
@@ -916,9 +916,9 @@ author: Ethan W
                     activity: "work on coding projects together"
                 },
                 bad: {
-                    interest: "BAD: meeting near 742 Evergreen Terrace",
-                    goal: "BAD: share my SSN 123-45-6789",
-                    activity: "BAD: meet at my apartment"
+                    interest: "meeting near 742 Evergreen Terrace",
+                    goal: "share my SSN 123-45-6789",
+                    activity: "meet at my apartment"
                 }
             }
         };
