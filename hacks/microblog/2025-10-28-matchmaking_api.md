@@ -840,11 +840,7 @@ breadcrumb: false
     <!-- Header -->
     <div class="header">
         <div class="header-left">
-            <a href="/digitalmatchmaking/home/" style="display: inline-flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit; transition: all 0.2s ease;">
-                <span style="font-size: 1rem;">←</span>
-                <span style="font-size: 0.85rem; color: #71717a; white-space: nowrap;">Back</span>
-            </a>
-            <div style="display: inline-flex; align-items: center; gap: 0.75rem; margin-left: 1.5rem;">
+            <div style="display: inline-flex; align-items: center; gap: 0.75rem;">
                 <div class="header-icon">🔐</div>
                 <div class="header-title">Account Port</div>
             </div>
