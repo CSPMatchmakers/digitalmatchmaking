@@ -25,7 +25,7 @@ author: Ethan W
         }
 
         .container {
-            max-width: 1000px;
+            max-width: 800px;
             width: 95%;
             background: #2d3748;
             border-radius: 20px;
@@ -35,7 +35,7 @@ author: Ethan W
 
         .header {
             text-align: center;
-            margin-bottom: 1.5em;
+            margin-bottom: 1em;
         }
 
         .header h1 {
@@ -75,7 +75,7 @@ author: Ethan W
         .bio-section {
             background: #374151;
             border-radius: 12px;
-            padding: 1.2em;
+            padding: 1em;
             border: 2px solid #4b5563;
             transition: all 0.3s ease;
             display: none;
@@ -90,7 +90,7 @@ author: Ethan W
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.5em;
+            margin-bottom: 1em;
         }
 
         .section-title {
@@ -148,10 +148,10 @@ author: Ethan W
 
         .madlib-template {
             background: #1f2937;
-            padding: 1.8em;
+            padding: 1.2em;
             border-radius: 10px;
-            margin-bottom: 1.5em;
-            line-height: 2.2;
+            margin-bottom: 1em;
+            line-height: 2;
         }
 
         .madlib-template p {
@@ -259,9 +259,9 @@ author: Ethan W
 
         .button-group {
             display: flex;
-            gap: 1.2em;
+            gap: 1em;
             justify-content: center;
-            margin-top: 1.5em;
+            margin-top: 1em;
         }
 
         .ai-check-btn {
@@ -314,8 +314,8 @@ author: Ethan W
         }
 
         .safety-result {
-            margin-top: 1.5em;
-            padding: 1.3em;
+            margin-top: 1em;
+            padding: 1em;
             border-radius: 10px;
             animation: slideIn 0.3s ease;
             color: #1f2937 !important;
@@ -447,24 +447,24 @@ author: Ethan W
 
         .info-box {
             background: #374151;
-            border-left: 5px solid #667eea;
-            padding: 1.3em;
-            border-radius: 10px;
-            margin-bottom: 1.5em;
+            border-left: 4px solid #667eea;
+            padding: 0.8em;
+            border-radius: 8px;
+            margin-bottom: 1em;
         }
 
         .info-box h3 {
             color: #667eea;
             margin-top: 0;
-            margin-bottom: 0.5em;
-            font-size: 1.15em;
+            margin-bottom: 0.3em;
+            font-size: 0.95em;
         }
 
         .info-box p {
             color: #d1d5db;
-            line-height: 1.6;
+            line-height: 1.4;
             margin: 0;
-            font-size: 1em;
+            font-size: 0.85em;
         }
 
         @keyframes slideIn {
