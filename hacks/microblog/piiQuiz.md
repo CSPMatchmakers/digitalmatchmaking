@@ -424,7 +424,7 @@ breadcrumb: true
         if (fetchOptions) window._piiImportedConfig.fetchOptions = fetchOptions;
         
         // Quiz mode selector
-        window.selectMode = function(mode) {
+        window.selectMode = async function(mode) {
             const modeSelector = document.getElementById('modeSelector');
             const piiContainer = document.getElementById('piiQuizContainer');
             const matchmakingContainer = document.getElementById('matchmakingQuizContainer');
@@ -434,12 +434,9 @@ breadcrumb: true
             if (mode === 'pii') {
                 piiContainer.style.display = 'block';
                 matchmakingContainer.style.display = 'none';
-                // Initialize PII quiz
-                setTimeout(() => {
-                    if (typeof checkExistingProfile === 'function') {
-                        checkExistingProfile();
-                    }
-                }, 100);
+                // Initialize PII quiz - directly call checkExistingProfile
+                console.log('PII mode selected, checking for existing profile...');
+                await checkExistingProfile();
             } else if (mode === 'matchmaking') {
                 piiContainer.style.display = 'none';
                 matchmakingContainer.style.display = 'block';
@@ -539,12 +536,15 @@ breadcrumb: true
         const loadExistingProfileBtn = document.getElementById('loadExistingProfile');
         const retakeFromStartBtn = document.getElementById('retakeFromStart');
 
+        let existingProfileData = null;
+
         async function checkExistingProfile() {
             const importedCfg = window._piiImportedConfig || {};
             const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
             const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
 
-            const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
+            // Use /api/match/data instead of /api/match/save since it supports GET
+            const endpoint = pythonURI ? `${pythonURI}/api/match/data` : '/api/match/data';
 
             console.log('=== PROFILE CHECK DEBUG ===');
             console.log('pythonURI:', pythonURI);
@@ -571,13 +571,35 @@ breadcrumb: true
                 if (response.ok) {
                     const data = JSON.parse(responseText);
                     console.log('Parsed response data:', data);
-                    if (data && data.profile_data && typeof data.profile_data === 'object' && Object.keys(data.profile_data).length > 0) {
+                    console.log('Type of data:', typeof data);
+                    
+                    // The /data endpoint returns { message: ..., data: { profile: {...}, personality_quiz_responses: ... } }
+                    // We need to check if data.data.profile.profile_quiz exists
+                    const profileSection = data.data && data.data.profile;
+                    const profileQuiz = profileSection && profileSection.profile_quiz;
+                    
+                    console.log('data.data:', data.data);
+                    console.log('profileSection:', profileSection);
+                    console.log('profileQuiz:', profileQuiz);
+                    
+                    if (profileQuiz && typeof profileQuiz === 'object' && Object.keys(profileQuiz).length > 0) {
+                        // Store the profile data
+                        existingProfileData = profileQuiz;
+                        console.log('✅ PROFILE FOUND! Stored existing profile data:', existingProfileData);
+                        console.log('Hiding loading, showing prompt...');
+                        
                         loadingCheckEl.style.display = 'none';
                         existingProfilePromptEl.style.display = 'block';
-                        return data.profile_data;
+                        console.log('loadingCheckEl display:', loadingCheckEl.style.display);
+                        console.log('existingProfilePromptEl display:', existingProfilePromptEl.style.display);
+                        return profileQuiz;
+                    } else {
+                        console.log('❌ Profile quiz not found in response');
                     }
                 } else if (response.status === 404) {
                     console.log('404 - Profile not found (expected for new users)');
+                } else {
+                    console.log(`Unexpected status code: ${response.status}`);
                 }
                 
                 console.log('No existing profile, starting quiz');
@@ -596,17 +618,22 @@ breadcrumb: true
             }
         }
 
-        let existingProfileData = null;
-
         loadExistingProfileBtn.onclick = () => {
+            console.log('Load existing profile clicked, data:', existingProfileData);
             if (existingProfileData) {
                 displayExistingProfile(existingProfileData);
+            } else {
+                console.error('No existing profile data available');
+                alert('Error: Profile data not found');
             }
         };
 
         retakeFromStartBtn.onclick = () => {
             existingProfilePromptEl.style.display = 'none';
             quizEl.style.display = 'block';
+            currentQuestion = 0;
+            score = 0;
+            selectedOption = null;
             displayQuestion();
         };
 
@@ -958,10 +985,6 @@ breadcrumb: true
 
         submitBtn.onclick = submitAnswer;
         restartBtn.onclick = restartQuiz;
-
-        (async () => {
-            existingProfileData = await checkExistingProfile();
-        })();
 
         /* ========== MATCHMAKING QUIZ LOGIC ========== */
         const matchmakingQuestions = [
