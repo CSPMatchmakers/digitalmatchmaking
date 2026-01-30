@@ -371,6 +371,18 @@ breadcrumb: true
                 CHECKING SYSTEM RECORDS...
             </div>
         </div>
+        <div id="newUserPrompt" style="display: none;">
+            <div class="breather-container">
+                <div class="breather-message">NEW USER DETECTED</div>
+                <p style="color: #6e7681; margin: 20px 0; font-family: 'Courier New', monospace;">
+                    Would you like to fill out your profile manually or use autofill for testing?
+                </p>
+                <div class="breather-buttons">
+                    <button id="fillManually" class="option-button">Fill Out Manually</button>
+                    <button id="useAutofill" class="option-button">Use Autofill (Random)</button>
+                </div>
+            </div>
+        </div>
         <div id="existingProfilePrompt" style="display: none;">
             <div class="breather-container">
                 <div class="breather-message">EXISTING PROFILE DETECTED</div>
@@ -448,6 +460,80 @@ breadcrumb: true
                 }, 100);
             }
         };
+        
+        // Autofill profile variations
+        const autofillProfiles = [
+            {
+                "What is your favorite color?": "Red",
+                "What do you want your username to be?": "ilovecompsci",
+                "What's your favorite animal?": "Dogs",
+                "What is your favorite genre of music?": "Rock",
+                "What is your favorite band/musical artist?": "Radiohead",
+                "What is your favorite subject?": "English"
+            },
+            {
+                "What is your favorite color?": "Blue",
+                "What do you want your username to be?": "codingwizard42",
+                "What's your favorite animal?": "Cats",
+                "What is your favorite genre of music?": "Pop",
+                "What is your favorite band/musical artist?": "Taylor Swift",
+                "What is your favorite subject?": "Math"
+            },
+            {
+                "What is your favorite color?": "Green",
+                "What do you want your username to be?": "techsavvy2025",
+                "What's your favorite animal?": "Birds",
+                "What is your favorite genre of music?": "Rap",
+                "What is your favorite band/musical artist?": "Kendrick Lamar",
+                "What is your favorite subject?": "Science"
+            },
+            {
+                "What is your favorite color?": "Purple",
+                "What do you want your username to be?": "datanerd101",
+                "What's your favorite animal?": "Fish",
+                "What is your favorite genre of music?": "Rock",
+                "What is your favorite band/musical artist?": "The Beatles",
+                "What is your favorite subject?": "History"
+            }
+        ];
+        
+        function getRandomAutofillProfile() {
+            const randomIndex = Math.floor(Math.random() * autofillProfiles.length);
+            return autofillProfiles[randomIndex];
+        }
+        
+        function applyAutofill() {
+            const autofillData = getRandomAutofillProfile();
+            console.log('Applying autofill with profile:', autofillData);
+            
+            // Store in session storage
+            const userDataJSON = JSON.stringify(autofillData, null, 2);
+            sessionStorage.setItem('userQuizResponses', userDataJSON);
+            window.userQuizData = userDataJSON;
+            
+            // Display the autofilled profile
+            profileDataEl.innerHTML = '';
+            for (let [question, response] of Object.entries(autofillData)) {
+                const profileItem = document.createElement('div');
+                profileItem.className = 'profile-item';
+                const label = document.createElement('div');
+                label.className = 'profile-item-label';
+                label.textContent = question;
+                const value = document.createElement('div');
+                value.className = 'profile-item-value';
+                value.textContent = response;
+                profileItem.appendChild(label);
+                profileItem.appendChild(value);
+                profileDataEl.appendChild(profileItem);
+            }
+            
+            // Show review section
+            loadingCheckEl.style.display = 'none';
+            newUserPromptEl.style.display = 'none';
+            existingProfilePromptEl.style.display = 'none';
+            quizEl.style.display = 'none';
+            reviewEl.style.display = 'block';
+        }
         
         const questions = [
             {
@@ -532,9 +618,12 @@ breadcrumb: true
         const leakRetakeBtn = document.getElementById('leakRetake');
         const leakContinueBtn = document.getElementById('leakContinue');
         const loadingCheckEl = document.getElementById('loadingCheck');
+        const newUserPromptEl = document.getElementById('newUserPrompt');
         const existingProfilePromptEl = document.getElementById('existingProfilePrompt');
         const loadExistingProfileBtn = document.getElementById('loadExistingProfile');
         const retakeFromStartBtn = document.getElementById('retakeFromStart');
+        const fillManuallyBtn = document.getElementById('fillManually');
+        const useAutofillBtn = document.getElementById('useAutofill');
 
         let existingProfileData = null;
 
@@ -543,8 +632,8 @@ breadcrumb: true
             const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
             const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
 
-            // Use /api/match/data instead of /api/match/save since it supports GET
-            const endpoint = pythonURI ? `${pythonURI}/api/match/data` : '/api/match/data';
+            // Use /api/match/save which now has GET method
+            const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
 
             console.log('=== PROFILE CHECK DEBUG ===');
             console.log('pythonURI:', pythonURI);
@@ -572,19 +661,18 @@ breadcrumb: true
                     const data = JSON.parse(responseText);
                     console.log('Parsed response data:', data);
                     console.log('Type of data:', typeof data);
+                    console.log('data.profile_quiz:', data.profile_quiz);
+                    console.log('Type of data.profile_quiz:', typeof data.profile_quiz);
                     
-                    // The /data endpoint returns { message: ..., data: { profile: {...}, personality_quiz_responses: ... } }
-                    // We need to check if data.data.profile.profile_quiz exists
-                    const profileSection = data.data && data.data.profile;
-                    const profileQuiz = profileSection && profileSection.profile_quiz;
+                    if (data.profile_quiz) {
+                        console.log('Keys in profile_quiz:', Object.keys(data.profile_quiz));
+                        console.log('Number of keys:', Object.keys(data.profile_quiz).length);
+                    }
                     
-                    console.log('data.data:', data.data);
-                    console.log('profileSection:', profileSection);
-                    console.log('profileQuiz:', profileQuiz);
-                    
-                    if (profileQuiz && typeof profileQuiz === 'object' && Object.keys(profileQuiz).length > 0) {
+                    // Check for profile_quiz (returned by the GET /api/match/save endpoint)
+                    if (data && data.profile_quiz && typeof data.profile_quiz === 'object' && Object.keys(data.profile_quiz).length > 0) {
                         // Store the profile data
-                        existingProfileData = profileQuiz;
+                        existingProfileData = data.profile_quiz;
                         console.log('✅ PROFILE FOUND! Stored existing profile data:', existingProfileData);
                         console.log('Hiding loading, showing prompt...');
                         
@@ -592,28 +680,34 @@ breadcrumb: true
                         existingProfilePromptEl.style.display = 'block';
                         console.log('loadingCheckEl display:', loadingCheckEl.style.display);
                         console.log('existingProfilePromptEl display:', existingProfilePromptEl.style.display);
-                        return profileQuiz;
+                        return data.profile_quiz;
                     } else {
-                        console.log('❌ Profile quiz not found in response');
+                        console.log('❌ Profile quiz not found or empty');
+                        console.log('  - data exists?', !!data);
+                        console.log('  - data.profile_quiz exists?', !!data.profile_quiz);
+                        console.log('  - is object?', data.profile_quiz ? typeof data.profile_quiz === 'object' : 'N/A');
+                        console.log('  - has keys?', data.profile_quiz ? Object.keys(data.profile_quiz).length > 0 : 'N/A');
                     }
                 } else if (response.status === 404) {
                     console.log('404 - Profile not found (expected for new users)');
+                    // Show new user prompt with autofill option
+                    loadingCheckEl.style.display = 'none';
+                    newUserPromptEl.style.display = 'block';
+                    return null;
                 } else {
                     console.log(`Unexpected status code: ${response.status}`);
                 }
                 
-                console.log('No existing profile, starting quiz');
+                console.log('No existing profile, showing new user prompt');
                 loadingCheckEl.style.display = 'none';
-                quizEl.style.display = 'block';
-                displayQuestion();
+                newUserPromptEl.style.display = 'block';
                 return null;
             } catch (err) {
                 console.error('Error checking profile:', err);
                 console.error('Error stack:', err.stack);
-                console.log('Starting fresh assessment');
+                console.log('Error occurred, showing new user prompt');
                 loadingCheckEl.style.display = 'none';
-                quizEl.style.display = 'block';
-                displayQuestion();
+                newUserPromptEl.style.display = 'block';
                 return null;
             }
         }
@@ -635,6 +729,21 @@ breadcrumb: true
             score = 0;
             selectedOption = null;
             displayQuestion();
+        };
+
+        fillManuallyBtn.onclick = () => {
+            console.log('User chose to fill manually');
+            newUserPromptEl.style.display = 'none';
+            quizEl.style.display = 'block';
+            currentQuestion = 0;
+            score = 0;
+            selectedOption = null;
+            displayQuestion();
+        };
+
+        useAutofillBtn.onclick = () => {
+            console.log('User chose autofill');
+            applyAutofill();
         };
 
         function displayExistingProfile(profileData) {
