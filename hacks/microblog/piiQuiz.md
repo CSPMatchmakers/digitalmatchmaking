@@ -77,122 +77,6 @@ breadcrumb: true
             z-index: 1;
         }
 
-        .mission-header {
-            text-align: center;
-            padding: 4px 24px;
-            background: linear-gradient(135deg, #161b22 0%, #0d1117 100%);
-            border: 2px solid transparent;
-            margin: 0 auto;
-            position: relative;
-            border-radius: 6px;
-            z-index: 2;
-            display: inline-block;
-            cursor: help;
-            min-width: 100px;
-            background-clip: padding-box;
-        }
-
-        .mission-header::before {
-            content: '';
-            position: absolute;
-            inset: -2px;
-            border-radius: 6px;
-            padding: 2px;
-            background: conic-gradient(
-                from var(--angle),
-                transparent 0deg 70deg,
-                rgba(139, 148, 158, 0.6) 70deg 110deg,
-                transparent 110deg 360deg
-            );
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: rotate-border 3s linear infinite;
-            pointer-events: none;
-        }
-
-        @property --angle {
-            syntax: '<angle>';
-            initial-value: 0deg;
-            inherits: false;
-        }
-
-        @keyframes rotate-border {
-            0% {
-                --angle: 0deg;
-            }
-            100% {
-                --angle: 360deg;
-            }
-        }
-
-        .mission-header-container {
-            text-align: left;
-            margin-bottom: 20px;
-            position: relative;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        @keyframes scan {
-            0% { left: -100%; }
-            100% { left: 100%; }
-        }
-
-        .glitch-text {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: #c9d1d9;
-            text-transform: uppercase;
-            letter-spacing: 8px;
-            text-shadow: 0 0 15px rgba(201, 209, 217, 0.4);
-            margin: 0;
-            padding: 0;
-            line-height: 1.2;
-            position: relative;
-            z-index: 1;
-            font-family: 'Courier New', monospace;
-            display: block;
-        }
-
-        .mission-header-tooltip {
-            visibility: hidden;
-            opacity: 0;
-            position: absolute;
-            bottom: calc(100% + 12px);
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(22, 27, 34, 0.98);
-            color: #c9d1d9;
-            padding: 10px 16px;
-            border-radius: 6px;
-            border: 1px solid #30363d;
-            white-space: nowrap;
-            font-size: 0.9em;
-            font-weight: 400;
-            transition: opacity 0.3s ease, visibility 0.3s ease;
-            z-index: 100;
-            font-family: 'Courier New', monospace;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            pointer-events: none;
-        }
-
-        .mission-header-tooltip::after {
-            content: '';
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            transform: translateX(-50%);
-            border: 7px solid transparent;
-            border-top-color: #30363d;
-        }
-
-        .mission-header:hover .mission-header-tooltip {
-            visibility: visible;
-            opacity: 1;
-        }
-
         .quiz-container {
             max-width: 800px;
             margin: 0 auto;
@@ -433,10 +317,6 @@ breadcrumb: true
         }
 
         @media (max-width: 768px) {
-            .glitch-text {
-                font-size: 1.8em;
-            }
-
             .quiz-container {
                 padding: 20px;
             }
@@ -462,12 +342,6 @@ breadcrumb: true
 </head>
 <body>
     <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
-    <div class="mission-header-container">
-        <div class="mission-header">
-            <div class="mission-header-tooltip">Personally Identifiable Information</div>
-            <h1 class="glitch-text">PII</h1>
-        </div>
-    </div>
 
     <div class="quiz-container">
         <!-- Quiz Mode Selector Modal -->
