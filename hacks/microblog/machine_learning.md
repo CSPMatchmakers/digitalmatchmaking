@@ -3,8 +3,8 @@ layout: post
 title: Bio Builder
 description: Create your matchmaking profile with AI-powered safety checking
 permalink: /bio_create/
-breadcrumb: true
-microblog: true
+breadcrumb: false
+microblog: false
 author: Ethan W
 ---
 
