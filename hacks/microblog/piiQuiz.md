@@ -13,1221 +13,1645 @@ date: 2025-10-21
 breadcrumb: true
 ---
 
+
 # Submodule 1
+
 
 # Learn about PII!
 
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Security Protocol Training</title>
-    <style>
-        .back-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: #161b22;
-            border: 1px solid #30363d;
-            border-radius: 6px;
-            color: #8b949e;
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: all 0.2s ease;
-            margin-bottom: 1rem;
-        }
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Security Protocol Training</title>
+   <style>
+       .back-button {
+           display: inline-flex;
+           align-items: center;
+           gap: 0.5rem;
+           padding: 0.5rem 1rem;
+           background: #161b22;
+           border: 1px solid #30363d;
+           border-radius: 6px;
+           color: #8b949e;
+           text-decoration: none;
+           font-size: 0.9rem;
+           transition: all 0.2s ease;
+           margin-bottom: 1rem;
+       }
 
-        .back-button:hover {
-            background: #21262d;
-            border-color: #30363d;
-            color: #c9d1d9;
-        }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+       .back-button:hover {
+           background: #21262d;
+           border-color: #30363d;
+           color: #c9d1d9;
+       }
 
-        body {
-            font-family: 'Courier New', monospace;
-            background: #0d1117;
-            color: #8b949e;
-            padding: 20px;
-            min-height: 100vh;
-            position: relative;
-        }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: repeating-linear-gradient(
-                0deg,
-                rgba(100, 120, 130, 0.03) 0px,
-                transparent 1px,
-                transparent 2px,
-                rgba(100, 120, 130, 0.03) 3px
-            );
-            pointer-events: none;
-            z-index: 1;
-        }
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+       }
 
-        .quiz-container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: rgba(22, 27, 34, 0.85);
-            padding: 30px;
-            border-radius: 6px;
-            border: 1px solid #30363d;
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
-            backdrop-filter: blur(10px);
-            position: relative;
-            z-index: 2;
-        }
 
-        #question {
-            color: #8b949e;
-            font-size: 1.3em;
-            font-weight: 400;
-            margin-bottom: 25px;
-            text-shadow: 0 0 8px rgba(139, 148, 158, 0.2);
-            font-family: 'Courier New', monospace;
-        }
+       body {
+           font-family: 'Courier New', monospace;
+           background: #0d1117;
+           color: #8b949e;
+           padding: 20px;
+           min-height: 100vh;
+           position: relative;
+       }
 
-        .options {
-            display: grid;
-            gap: 12px;
-            margin: 20px 0;
-        }
 
-        button {
-            padding: 14px 20px;
-            cursor: pointer;
-            border: 1px solid #30363d;
-            border-radius: 4px;
-            background: rgba(48, 54, 61, 0.2);
-            color: #8b949e;
-            font-size: 16px;
-            font-weight: 400;
-            transition: all 0.2s ease;
-            position: relative;
-            overflow: hidden;
-            font-family: 'Courier New', monospace;
-        }
+       body::before {
+           content: '';
+           position: fixed;
+           top: 0;
+           left: 0;
+           width: 100%;
+           height: 100%;
+           background: repeating-linear-gradient(
+               0deg,
+               rgba(100, 120, 130, 0.03) 0px,
+               transparent 1px,
+               transparent 2px,
+               rgba(100, 120, 130, 0.03) 3px
+           );
+           pointer-events: none;
+           z-index: 1;
+       }
 
-        button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(100, 120, 130, 0.1), transparent);
-            transition: left 0.6s;
-        }
 
-        button:hover::before {
-            left: 100%;
-        }
+       .quiz-container {
+           max-width: 800px;
+           margin: 0 auto;
+           background: rgba(22, 27, 34, 0.85);
+           padding: 30px;
+           border-radius: 6px;
+           border: 1px solid #30363d;
+           box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+           backdrop-filter: blur(10px);
+           position: relative;
+           z-index: 2;
+       }
 
-        button:hover {
-            background: rgba(48, 54, 61, 0.4);
-            border-color: #485662;
-            box-shadow: 0 0 10px rgba(100, 120, 130, 0.2);
-        }
 
-        button:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-            transform: none;
-        }
+       #question {
+           color: #8b949e;
+           font-size: 1.3em;
+           font-weight: 400;
+           margin-bottom: 25px;
+           text-shadow: 0 0 8px rgba(139, 148, 158, 0.2);
+           font-family: 'Courier New', monospace;
+       }
 
-        button:disabled:hover {
-            background: rgba(48, 54, 61, 0.2);
-            box-shadow: none;
-            border-color: #30363d;
-        }
 
-        .option-button {
-            text-align: left;
-        }
+       .options {
+           display: grid;
+           gap: 12px;
+           margin: 20px 0;
+       }
 
-        .option-button.selected {
-            background: rgba(72, 86, 98, 0.3);
-            border-color: #6e7681;
-            box-shadow: 0 0 8px rgba(110, 118, 129, 0.3);
-        }
 
-        #submit {
-            width: 100%;
-            margin-top: 10px;
-            background: rgba(48, 54, 61, 0.3);
-            font-weight: 400;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
+       button {
+           padding: 14px 20px;
+           cursor: pointer;
+           border: 1px solid #30363d;
+           border-radius: 4px;
+           background: rgba(48, 54, 61, 0.2);
+           color: #8b949e;
+           font-size: 16px;
+           font-weight: 400;
+           transition: all 0.2s ease;
+           position: relative;
+           overflow: hidden;
+           font-family: 'Courier New', monospace;
+       }
 
-        #submit:hover:not(:disabled) {
-            background: rgba(48, 54, 61, 0.5);
-        }
 
-        .result {
-            margin-top: 20px;
-            font-weight: 400;
-            font-size: 1.5em;
-            color: #7d8590;
-            text-align: center;
-            text-shadow: 0 0 8px rgba(125, 133, 144, 0.2);
-            font-family: 'Courier New', monospace;
-        }
+       button::before {
+           content: '';
+           position: absolute;
+           top: 0;
+           left: -100%;
+           width: 100%;
+           height: 100%;
+           background: linear-gradient(90deg, transparent, rgba(100, 120, 130, 0.1), transparent);
+           transition: left 0.6s;
+       }
 
-        .text-input {
-            padding: 14px;
-            font-size: 16px;
-            border: 1px solid #30363d;
-            border-radius: 4px;
-            width: 100%;
-            box-sizing: border-box;
-            margin: 10px 0;
-            background: rgba(13, 17, 23, 0.8);
-            color: #8b949e;
-            font-family: 'Courier New', monospace;
-        }
 
-        .text-input:focus {
-            outline: none;
-            border-color: #485662;
-            box-shadow: 0 0 8px rgba(72, 86, 98, 0.3);
-            background: rgba(13, 17, 23, 0.95);
-        }
+       button:hover::before {
+           left: 100%;
+       }
 
-        .text-input::placeholder {
-            color: #484f58;
-        }
 
-        .select-input {
-            padding: 14px;
-            font-size: 16px;
-            border: 1px solid #30363d;
-            border-radius: 4px;
-            width: 100%;
-            box-sizing: border-box;
-            margin: 10px 0;
-            background: rgba(13, 17, 23, 0.8);
-            color: #8b949e;
-            font-family: 'Courier New', monospace;
-            cursor: pointer;
-        }
+       button:hover {
+           background: rgba(48, 54, 61, 0.4);
+           border-color: #485662;
+           box-shadow: 0 0 10px rgba(100, 120, 130, 0.2);
+       }
 
-        .select-input:focus {
-            outline: none;
-            border-color: #485662;
-            box-shadow: 0 0 8px rgba(72, 86, 98, 0.3);
-            background: rgba(13, 17, 23, 0.95);
-        }
 
-        .select-input option {
-            background: #0d1117;
-            color: #8b949e;
-        }
+       button:disabled {
+           opacity: 0.4;
+           cursor: not-allowed;
+           transform: none;
+       }
 
-        .profile-item {
-            background: rgba(22, 27, 34, 0.6);
-            padding: 15px;
-            margin: 12px 0;
-            border-radius: 4px;
-            border-left: 2px solid #30363d;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-        }
 
-        .profile-item-label {
-            font-weight: 400;
-            color: #7d8590;
-            margin-bottom: 8px;
-            font-size: 0.85em;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-family: 'Courier New', monospace;
-        }
+       button:disabled:hover {
+           background: rgba(48, 54, 61, 0.2);
+           box-shadow: none;
+           border-color: #30363d;
+       }
 
-        .profile-item-value {
-            color: #8b949e;
-            word-break: break-word;
-            font-size: 1em;
-            font-family: 'Courier New', monospace;
-        }
 
-        .breather-container {
-            text-align: center;
-            padding: 30px;
-            margin: 20px 0;
-            background: rgba(22, 27, 34, 0.8);
-            border-radius: 4px;
-            border: 1px solid #30363d;
-            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-        }
+       .option-button {
+           text-align: left;
+       }
 
-        .breather-message {
-            color: #8b949e;
-            font-size: 1.2em;
-            margin-bottom: 20px;
-            font-weight: 400;
-            text-shadow: 0 0 8px rgba(139, 148, 158, 0.2);
-            line-height: 1.6;
-            font-family: 'Courier New', monospace;
-        }
 
-        .breather-buttons {
-            display: flex;
-            gap: 15px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
+       .option-button.selected {
+           background: rgba(72, 86, 98, 0.3);
+           border-color: #6e7681;
+           box-shadow: 0 0 8px rgba(110, 118, 129, 0.3);
+       }
 
-        .warning-message {
-            background: rgba(60, 30, 30, 0.3);
-            border: 1px solid #6e4040;
-            border-radius: 4px;
-            padding: 20px;
-            margin: 20px 0;
-            color: #b58181;
-            font-weight: 400;
-            text-align: center;
-            box-shadow: 0 0 12px rgba(110, 64, 64, 0.2);
-        }
 
-        #leakContinue:disabled {
-            background: rgba(30, 35, 40, 0.2);
-            border-color: #30363d;
-            color: #484f58;
-        }
+       #submit {
+           width: 100%;
+           margin-top: 10px;
+           background: rgba(48, 54, 61, 0.3);
+           font-weight: 400;
+           text-transform: uppercase;
+           letter-spacing: 2px;
+       }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
 
-        .loading {
-            animation: pulse 1.5s infinite;
-        }
+       #submit:hover:not(:disabled) {
+           background: rgba(48, 54, 61, 0.5);
+       }
 
-        @media (max-width: 768px) {
-            .quiz-container {
-                padding: 20px;
-            }
 
-            #question {
-                font-size: 1.1em;
-            }
+       .result {
+           margin-top: 20px;
+           font-weight: 400;
+           font-size: 1.5em;
+           color: #7d8590;
+           text-align: center;
+           text-shadow: 0 0 8px rgba(125, 133, 144, 0.2);
+           font-family: 'Courier New', monospace;
+       }
 
-            button {
-                padding: 12px 16px;
-                font-size: 14px;
-            }
 
-            .breather-buttons {
-                flex-direction: column;
-            }
+       .text-input {
+           padding: 14px;
+           font-size: 16px;
+           border: 1px solid #30363d;
+           border-radius: 4px;
+           width: 100%;
+           box-sizing: border-box;
+           margin: 10px 0;
+           background: rgba(13, 17, 23, 0.8);
+           color: #8b949e;
+           font-family: 'Courier New', monospace;
+       }
 
-            .breather-buttons button {
-                width: 100%;
-            }
-        }
-    </style>
+
+       .text-input:focus {
+           outline: none;
+           border-color: #485662;
+           box-shadow: 0 0 8px rgba(72, 86, 98, 0.3);
+           background: rgba(13, 17, 23, 0.95);
+       }
+
+
+       .text-input::placeholder {
+           color: #484f58;
+       }
+
+
+       .select-input {
+           padding: 14px;
+           font-size: 16px;
+           border: 1px solid #30363d;
+           border-radius: 4px;
+           width: 100%;
+           box-sizing: border-box;
+           margin: 10px 0;
+           background: rgba(13, 17, 23, 0.8);
+           color: #8b949e;
+           font-family: 'Courier New', monospace;
+           cursor: pointer;
+       }
+
+
+       .select-input:focus {
+           outline: none;
+           border-color: #485662;
+           box-shadow: 0 0 8px rgba(72, 86, 98, 0.3);
+           background: rgba(13, 17, 23, 0.95);
+       }
+
+
+       .select-input option {
+           background: #0d1117;
+           color: #8b949e;
+       }
+
+
+       .profile-item {
+           background: rgba(22, 27, 34, 0.6);
+           padding: 15px;
+           margin: 12px 0;
+           border-radius: 4px;
+           border-left: 2px solid #30363d;
+           box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+       }
+
+
+       .profile-item-label {
+           font-weight: 400;
+           color: #7d8590;
+           margin-bottom: 8px;
+           font-size: 0.85em;
+           text-transform: uppercase;
+           letter-spacing: 1px;
+           font-family: 'Courier New', monospace;
+       }
+
+
+       .profile-item-value {
+           color: #8b949e;
+           word-break: break-word;
+           font-size: 1em;
+           font-family: 'Courier New', monospace;
+       }
+
+
+       .breather-container {
+           text-align: center;
+           padding: 30px;
+           margin: 20px 0;
+           background: rgba(22, 27, 34, 0.8);
+           border-radius: 4px;
+           border: 1px solid #30363d;
+           box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+       }
+
+
+       .breather-message {
+           color: #8b949e;
+           font-size: 1.2em;
+           margin-bottom: 20px;
+           font-weight: 400;
+           text-shadow: 0 0 8px rgba(139, 148, 158, 0.2);
+           line-height: 1.6;
+           font-family: 'Courier New', monospace;
+       }
+
+
+       .breather-buttons {
+           display: flex;
+           gap: 15px;
+           justify-content: center;
+           flex-wrap: wrap;
+       }
+
+
+       .warning-message {
+           background: rgba(60, 30, 30, 0.3);
+           border: 1px solid #6e4040;
+           border-radius: 4px;
+           padding: 20px;
+           margin: 20px 0;
+           color: #b58181;
+           font-weight: 400;
+           text-align: center;
+           box-shadow: 0 0 12px rgba(110, 64, 64, 0.2);
+       }
+
+
+       #leakContinue:disabled {
+           background: rgba(30, 35, 40, 0.2);
+           border-color: #30363d;
+           color: #484f58;
+       }
+
+
+       @keyframes pulse {
+           0%, 100% { opacity: 1; }
+           50% { opacity: 0.6; }
+       }
+
+
+       .loading {
+           animation: pulse 1.5s infinite;
+       }
+
+
+       /* Stats Table Styling */
+       .stats-table {
+           width: 100%;
+           border-collapse: collapse;
+           margin: 15px 0;
+           background: rgba(22, 27, 34, 0.6);
+           border-radius: 4px;
+           overflow: hidden;
+       }
+
+
+       .stats-table th,
+       .stats-table td {
+           padding: 12px 15px;
+           text-align: left;
+           border-bottom: 1px solid #30363d;
+           font-family: 'Courier New', monospace;
+       }
+
+
+       .stats-table th {
+           background: rgba(48, 54, 61, 0.4);
+           color: #8b949e;
+           font-weight: 600;
+           text-transform: uppercase;
+           font-size: 0.85em;
+           letter-spacing: 1px;
+       }
+
+
+       .stats-table td {
+           color: #8b949e;
+       }
+
+
+       .stats-table tr:hover {
+           background: rgba(48, 54, 61, 0.3);
+       }
+
+
+       .stats-category {
+           margin: 20px 0;
+           padding: 15px;
+           background: rgba(22, 27, 34, 0.4);
+           border-radius: 4px;
+           border-left: 2px solid #485662;
+       }
+
+
+       .stats-category-title {
+           color: #8b949e;
+           font-size: 1.1em;
+           margin-bottom: 10px;
+           font-weight: 600;
+           font-family: 'Courier New', monospace;
+       }
+
+
+       .stats-bar {
+           display: flex;
+           align-items: center;
+           margin: 8px 0;
+       }
+
+
+       .stats-bar-label {
+           width: 120px;
+           color: #6e7681;
+           font-size: 0.9em;
+           font-family: 'Courier New', monospace;
+       }
+
+
+       .stats-bar-fill {
+           height: 20px;
+           background: linear-gradient(90deg, #485662, #6e7681);
+           border-radius: 3px;
+           transition: width 0.5s ease;
+           min-width: 2px;
+       }
+
+
+       .stats-bar-count {
+           margin-left: 10px;
+           color: #8b949e;
+           font-size: 0.9em;
+           font-family: 'Courier New', monospace;
+       }
+
+
+       .stats-total {
+           text-align: center;
+           padding: 20px;
+           background: rgba(48, 54, 61, 0.3);
+           border-radius: 4px;
+           margin-bottom: 20px;
+       }
+
+
+       .stats-total-number {
+           font-size: 2.5em;
+           color: #8b949e;
+           font-weight: bold;
+           font-family: 'Courier New', monospace;
+       }
+
+
+       .stats-total-label {
+           color: #6e7681;
+           font-size: 0.9em;
+           margin-top: 5px;
+           font-family: 'Courier New', monospace;
+       }
+
+
+       @media (max-width: 768px) {
+           .quiz-container {
+               padding: 20px;
+           }
+
+
+           #question {
+               font-size: 1.1em;
+           }
+
+
+           button {
+               padding: 12px 16px;
+               font-size: 14px;
+           }
+
+
+           .breather-buttons {
+               flex-direction: column;
+           }
+
+
+           .breather-buttons button {
+               width: 100%;
+           }
+
+
+           .stats-bar-label {
+               width: 80px;
+               font-size: 0.8em;
+           }
+       }
+   </style>
 </head>
 <body>
-    <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
+   <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
 
-    <div class="quiz-container">
-        <!-- Quiz Mode Selector Modal -->
-        <div id="modeSelector" style="text-align: center; padding: 60px 20px;">
-            <h2 style="color: #8b949e; font-size: 1.8em; margin-bottom: 40px; font-family: 'Courier New', monospace;">
-                Choose Your Path
-            </h2>
-            <div style="display: flex; gap: 20px; flex-direction: column; max-width: 600px; margin: 0 auto;">
-                <button class="option-button" id="piiModeBtn" onclick="selectMode('pii')" style="padding: 20px; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease;">
-                    📋 Fill Out Your Profile
-                    <div style="font-size: 0.85em; color: #6e7681; margin-top: 8px;">
-                        Answer security protocol questions and build your profile
-                    </div>
-                </button>
-                <button class="option-button" id="matchmakingModeBtn" onclick="selectMode('matchmaking')" style="padding: 20px; font-size: 1.1em; cursor: pointer; transition: all 0.3s ease;">
-                    💕 Find Your Personality Type
-                    <div style="font-size: 0.85em; color: #6e7681; margin-top: 8px;">
-                        Discover your unique personality through our matchmaking quiz
-                    </div>
-                </button>
-            </div>
-        </div>
-        <!-- PII Quiz Container -->
-        <div id="piiQuizContainer" style="display: none;">
-        <div id="loadingCheck" style="text-align: center; padding: 40px;">
-            <div class="loading" style="font-size: 1.2em; color: #7d8590; font-family: 'Courier New', monospace;">
-                CHECKING SYSTEM RECORDS...
-            </div>
-        </div>
-        <div id="newUserPrompt" style="display: none;">
-            <div class="breather-container">
-                <div class="breather-message">NEW USER DETECTED</div>
-                <p style="color: #6e7681; margin: 20px 0; font-family: 'Courier New', monospace;">
-                    Would you like to fill out your profile manually or use autofill for testing?
-                </p>
-                <div class="breather-buttons">
-                    <button id="fillManually" class="option-button">Fill Out Manually</button>
-                    <button id="useAutofill" class="option-button">Use Autofill (Random)</button>
-                </div>
-            </div>
-        </div>
-        <div id="existingProfilePrompt" style="display: none;">
-            <div class="breather-container">
-                <div class="breather-message">EXISTING PROFILE DETECTED</div>
-                <p style="color: #6e7681; margin: 20px 0; font-family: 'Courier New', monospace;">
-                    Would you like to review your existing profile or retake the assessment?
-                </p>
-                <div class="breather-buttons">
-                    <button id="loadExistingProfile" class="option-button">Load Existing Profile</button>
-                    <button id="retakeFromStart" class="option-button">Retake Assessment</button>
-                </div>
-            </div>
-        </div>
-        <div id="quiz" style="display: none;">
-            <div id="question"></div>
-            <div class="options" id="options"></div>
-            <button id="submit" type="button">Submit Answer</button>
-        </div>
-        <div id="results" style="display: none;">
-            <div class="result">Assessment Complete: <span id="score">0</span>/10</div>
-            <button id="restart">Restart Assessment</button>
-        </div>
-        <div id="leakBreather" style="display: none;">
-            <div class="breather-container warning-message">
-                <div class="breather-message" id="leakMessage"></div>
-                <div class="breather-buttons">
-                    <button id="leakRetake" class="option-button">Retake Assessment</button>
-                    <button id="leakContinue" class="option-button">Continue to Profile</button>
-                </div>
-            </div>
-        </div>
-        <div id="review" style="display: none;">
-            <div class="result">Profile Data Summary</div>
-            <div id="profileData"></div>
-            <div class="options">
-                <button id="saveProfile" class="option-button">Save Profile</button>
-                <button id="retakeQuiz" class="option-button">Retake Assessment</button>
-            </div>
-        </div>
-        </div><!-- End piiQuizContainer -->
 
-        <!-- Matchmaking Personality Quiz Container -->
-        <div id="matchmakingQuizContainer" style="display: none;">
-            <!-- Matchmaking quiz will be injected here via JavaScript -->
-        </div>
-    </div>
+   <div class="quiz-container">
+       <!-- PII Quiz Container - Krishna's Section -->
+       <div id="loadingCheck" style="text-align: center; padding: 40px;">
+           <div class="loading" style="font-size: 1.2em; color: #7d8590; font-family: 'Courier New', monospace;">
+               CHECKING SYSTEM RECORDS...
+           </div>
+       </div>
+       <div id="newUserPrompt" style="display: none;">
+           <div class="breather-container">
+               <div class="breather-message">NEW USER DETECTED</div>
+               <p style="color: #6e7681; margin: 20px 0; font-family: 'Courier New', monospace;">
+                   Would you like to fill out your profile manually or use autofill for testing?
+               </p>
+               <div class="breather-buttons">
+                   <button id="fillManually" class="option-button">Fill Out Manually</button>
+                   <button id="useAutofill" class="option-button">Use Autofill (Random)</button>
+               </div>
+           </div>
+       </div>
+       <div id="existingProfilePrompt" style="display: none;">
+           <div class="breather-container">
+               <div class="breather-message">EXISTING PROFILE DETECTED</div>
+               <p style="color: #6e7681; margin: 20px 0; font-family: 'Courier New', monospace;">
+                   Would you like to review your existing profile or retake the assessment?
+               </p>
+               <div class="breather-buttons">
+                   <button id="loadExistingProfile" class="option-button">Load Existing Profile</button>
+                   <button id="retakeFromStart" class="option-button">Retake Assessment</button>
+               </div>
+           </div>
+       </div>
+       <div id="quiz" style="display: none;">
+           <div id="question"></div>
+           <div class="options" id="options"></div>
+           <button id="submit" type="button">Submit Answer</button>
+       </div>
+       <div id="results" style="display: none;">
+           <div class="result">Assessment Complete: <span id="score">0</span>/10</div>
+           <button id="restart">Restart Assessment</button>
+       </div>
+       <div id="leakBreather" style="display: none;">
+           <div class="breather-container warning-message">
+               <div class="breather-message" id="leakMessage"></div>
+               <div class="breather-buttons">
+                   <button id="leakRetake" class="option-button">Retake Assessment</button>
+                   <button id="leakContinue" class="option-button">Continue to Profile</button>
+               </div>
+           </div>
+       </div>
+       <div id="review" style="display: none;">
+           <div class="result">Profile Data Summary</div>
+           <div id="profileData"></div>
+           <div class="options">
+               <button id="saveProfile" class="option-button">Save Profile</button>
+               <button id="retakeQuiz" class="option-button">Retake Assessment</button>
+           </div>
+           <!-- Personality Quiz Option (shown after save) -->
+           <div id="personalityQuizPrompt" style="display: none; margin-top: 20px; padding-top: 20px; border-top: 1px solid #30363d;">
+               <div class="breather-message" style="color: #7d8590; font-size: 1em; margin-bottom: 15px;">
+                   Profile saved! Ready for the next step?
+               </div>
+               <button id="startPersonalityQuizBtn" class="option-button">Take Personality Quiz →</button>
+           </div>
+       </div>
+   </div>
 
-    <script type="module">
-        import { pythonURI, fetchOptions } from '/digitalmatchmaking/assets/js/api/config.js';
-        window._piiImportedConfig = window._piiImportedConfig || {};
-        if (pythonURI) window._piiImportedConfig.pythonURI = pythonURI;
-        if (fetchOptions) window._piiImportedConfig.fetchOptions = fetchOptions;
-        
-        // Quiz mode selector
-        window.selectMode = async function(mode) {
-            const modeSelector = document.getElementById('modeSelector');
-            const piiContainer = document.getElementById('piiQuizContainer');
-            const matchmakingContainer = document.getElementById('matchmakingQuizContainer');
-            
-            modeSelector.style.display = 'none';
-            
-            if (mode === 'pii') {
-                piiContainer.style.display = 'block';
-                matchmakingContainer.style.display = 'none';
-                // Initialize PII quiz - directly call checkExistingProfile
-                console.log('PII mode selected, checking for existing profile...');
-                await checkExistingProfile();
-            } else if (mode === 'matchmaking') {
-                piiContainer.style.display = 'none';
-                matchmakingContainer.style.display = 'block';
-                // Initialize matchmaking quiz
-                setTimeout(() => {
-                    if (typeof initMatchmakingQuiz === 'function') {
-                        initMatchmakingQuiz();
-                    }
-                }, 100);
-            }
-        };
-        
-        // Autofill profile variations
-        const autofillProfiles = [
-            {
-                "What is your favorite color?": "Red",
-                "What do you want your username to be?": "ilovecompsci",
-                "What's your favorite animal?": "Dogs",
-                "What is your favorite genre of music?": "Rock",
-                "What is your favorite band/musical artist?": "Radiohead",
-                "What is your favorite subject?": "English"
-            },
-            {
-                "What is your favorite color?": "Blue",
-                "What do you want your username to be?": "codingwizard42",
-                "What's your favorite animal?": "Cats",
-                "What is your favorite genre of music?": "Pop",
-                "What is your favorite band/musical artist?": "Taylor Swift",
-                "What is your favorite subject?": "Math"
-            },
-            {
-                "What is your favorite color?": "Green",
-                "What do you want your username to be?": "techsavvy2025",
-                "What's your favorite animal?": "Birds",
-                "What is your favorite genre of music?": "Rap",
-                "What is your favorite band/musical artist?": "Kendrick Lamar",
-                "What is your favorite subject?": "Science"
-            },
-            {
-                "What is your favorite color?": "Purple",
-                "What do you want your username to be?": "datanerd101",
-                "What's your favorite animal?": "Fish",
-                "What is your favorite genre of music?": "Rock",
-                "What is your favorite band/musical artist?": "The Beatles",
-                "What is your favorite subject?": "History"
-            }
-        ];
-        
-        function getRandomAutofillProfile() {
-            const randomIndex = Math.floor(Math.random() * autofillProfiles.length);
-            return autofillProfiles[randomIndex];
-        }
-        
-        function applyAutofill() {
-            const autofillData = getRandomAutofillProfile();
-            console.log('Applying autofill with profile:', autofillData);
-            
-            // Store in session storage
-            const userDataJSON = JSON.stringify(autofillData, null, 2);
-            sessionStorage.setItem('userQuizResponses', userDataJSON);
-            window.userQuizData = userDataJSON;
-            
-            // Display the autofilled profile
-            profileDataEl.innerHTML = '';
-            for (let [question, response] of Object.entries(autofillData)) {
-                const profileItem = document.createElement('div');
-                profileItem.className = 'profile-item';
-                const label = document.createElement('div');
-                label.className = 'profile-item-label';
-                label.textContent = question;
-                const value = document.createElement('div');
-                value.className = 'profile-item-value';
-                value.textContent = response;
-                profileItem.appendChild(label);
-                profileItem.appendChild(value);
-                profileDataEl.appendChild(profileItem);
-            }
-            
-            // Show review section
-            loadingCheckEl.style.display = 'none';
-            newUserPromptEl.style.display = 'none';
-            existingProfilePromptEl.style.display = 'none';
-            quizEl.style.display = 'none';
-            reviewEl.style.display = 'block';
-        }
-        
-        const questions = [
-            {
-                question: "What does PII stand for?",
-                options: ["Peer Investigation Information", "Personally Identifiable Information", "Please Invert Intestine", "Personal Identifying Infirmary"],
-                correct: 1
-            },
-            {
-                question: "Why do we protect PII?",
-                options: ["Because mean people want to stop us from making friends", "Because we're mysterious and nonchalant, sharing PII would diminish that", "To prevent hackers, scammers, and others with ill intent from harming us", "Because Kai Cenat told us to"],
-                correct: 2
-            },
-            {
-                isBreather: true,
-                message: "Protocol acknowledged. Now proceed with profile registration to establish your network identity."
-            },
-            {
-                question: "What is your favorite color?",
-                options: ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "White"],
-                correct: null,
-                allowDropdown: true
-            },
-            {
-                question: "What do you want your username to be?",
-                allowTextEntry: true,
-                correct: null 
-            },
-            {
-                question: "What's your favorite animal?",
-                options: ["Dogs", "Cats", "Birds", "Fish", "Reptiles"],
-                correct: null
-            },
-            {
-                question: "What is your full name?",
-                allowTextEntry: true,
-                correct: null
-            },
-            {
-                question: "What is your favorite genre of music?",
-                options: ["Rock", "Pop", "Rap"],
-                correct: null
-            },
-            {
-                question: "What is your favorite band/musical artist?",
-                allowTextEntry: true,
-                correct: null 
-            },
-            {
-                question: "What is your SSN?",
-                allowTextEntry: true,
-                correct: null
-            },
-            {
-                question: "Where do you live?",
-                allowTextEntry: true,
-                correct: null
-            },
-            {
-                question: "What is your favorite subject?",
-                options: ["Math", "Science", "English", "History"],
-                correct: null
-            },
-        ];
 
-        let currentQuestion = 0;
-        let score = 0;
-        let selectedOption = null;
+   <script type="module">
+       import { pythonURI, fetchOptions } from '/digitalmatchmaking/assets/js/api/config.js';
+       window._piiImportedConfig = window._piiImportedConfig || {};
+       if (pythonURI) window._piiImportedConfig.pythonURI = pythonURI;
+       if (fetchOptions) window._piiImportedConfig.fetchOptions = fetchOptions;
+      
+       // Autofill profile variations
+       const autofillProfiles = [
+           {
+               "What is your favorite color?": "Red",
+               "What do you want your username to be?": "ilovecompsci",
+               "What's your favorite animal?": "Dogs",
+               "What is your favorite genre of music?": "Rock",
+               "What is your favorite band/musical artist?": "Radiohead",
+               "What is your favorite subject?": "English"
+           },
+           {
+               "What is your favorite color?": "Blue",
+               "What do you want your username to be?": "codingwizard42",
+               "What's your favorite animal?": "Cats",
+               "What is your favorite genre of music?": "Pop",
+               "What is your favorite band/musical artist?": "Taylor Swift",
+               "What is your favorite subject?": "Math"
+           },
+           {
+               "What is your favorite color?": "Green",
+               "What do you want your username to be?": "techsavvy2025",
+               "What's your favorite animal?": "Birds",
+               "What is your favorite genre of music?": "Rap",
+               "What is your favorite band/musical artist?": "Kendrick Lamar",
+               "What is your favorite subject?": "Science"
+           },
+           {
+               "What is your favorite color?": "Purple",
+               "What do you want your username to be?": "datanerd101",
+               "What's your favorite animal?": "Fish",
+               "What is your favorite genre of music?": "Rock",
+               "What is your favorite band/musical artist?": "The Beatles",
+               "What is your favorite subject?": "History"
+           }
+       ];
+      
+       function getRandomAutofillProfile() {
+           const randomIndex = Math.floor(Math.random() * autofillProfiles.length);
+           return autofillProfiles[randomIndex];
+       }
+      
+       function applyAutofill() {
+           const autofillData = getRandomAutofillProfile();
+           console.log('Applying autofill with profile:', autofillData);
+          
+           // Store in session storage
+           const userDataJSON = JSON.stringify(autofillData, null, 2);
+           sessionStorage.setItem('userQuizResponses', userDataJSON);
+           window.userQuizData = userDataJSON;
+          
+           // Display the autofilled profile
+           profileDataEl.innerHTML = '';
+           for (let [question, response] of Object.entries(autofillData)) {
+               const profileItem = document.createElement('div');
+               profileItem.className = 'profile-item';
+               const label = document.createElement('div');
+               label.className = 'profile-item-label';
+               label.textContent = question;
+               const value = document.createElement('div');
+               value.className = 'profile-item-value';
+               value.textContent = response;
+               profileItem.appendChild(label);
+               profileItem.appendChild(value);
+               profileDataEl.appendChild(profileItem);
+           }
+          
+           // Show review section
+           loadingCheckEl.style.display = 'none';
+           newUserPromptEl.style.display = 'none';
+           existingProfilePromptEl.style.display = 'none';
+           quizEl.style.display = 'none';
+           reviewEl.style.display = 'block';
+       }
+      
+       const questions = [
+           {
+               question: "What does PII stand for?",
+               options: ["Peer Investigation Information", "Personally Identifiable Information", "Please Invert Intestine", "Personal Identifying Infirmary"],
+               correct: 1
+           },
+           {
+               question: "Why do we protect PII?",
+               options: ["Because mean people want to stop us from making friends", "Because we're mysterious and nonchalant, sharing PII would diminish that", "To prevent hackers, scammers, and others with ill intent from harming us", "Because Kai Cenat told us to"],
+               correct: 2
+           },
+           {
+               isBreather: true,
+               message: "Protocol acknowledged. Now proceed with profile registration to establish your network identity."
+           },
+           {
+               question: "What is your favorite color?",
+               options: ["Red", "Orange", "Yellow", "Green", "Blue", "Purple", "Black", "White"],
+               correct: null,
+               allowDropdown: true
+           },
+           {
+               question: "What do you want your username to be?",
+               allowTextEntry: true,
+               correct: null
+           },
+           {
+               question: "What's your favorite animal?",
+               options: ["Dogs", "Cats", "Birds", "Fish", "Reptiles"],
+               correct: null
+           },
+           {
+               question: "What is your full name?",
+               allowTextEntry: true,
+               correct: null
+           },
+           {
+               question: "What is your favorite genre of music?",
+               options: ["Rock", "Pop", "Rap"],
+               correct: null
+           },
+           {
+               question: "What is your favorite band/musical artist?",
+               allowTextEntry: true,
+               correct: null
+           },
+           {
+               question: "What is your SSN?",
+               allowTextEntry: true,
+               correct: null
+           },
+           {
+               question: "Where do you live?",
+               allowTextEntry: true,
+               correct: null
+           },
+           {
+               question: "What is your favorite subject?",
+               options: ["Math", "Science", "English", "History"],
+               correct: null
+           },
+       ];
 
-        const questionEl = document.getElementById('question');
-        const optionsEl = document.getElementById('options');
-        const submitBtn = document.getElementById('submit');
-        const quizEl = document.getElementById('quiz');
-        const resultsEl = document.getElementById('results');
-        const scoreEl = document.getElementById('score');
-        const restartBtn = document.getElementById('restart');
-        const reviewEl = document.getElementById('review');
-        const profileDataEl = document.getElementById('profileData');
-        const saveProfileBtn = document.getElementById('saveProfile');
-        const retakeQuizBtn = document.getElementById('retakeQuiz');
-        const leakBreatherEl = document.getElementById('leakBreather');
-        const leakMessageEl = document.getElementById('leakMessage');
-        const leakRetakeBtn = document.getElementById('leakRetake');
-        const leakContinueBtn = document.getElementById('leakContinue');
-        const loadingCheckEl = document.getElementById('loadingCheck');
-        const newUserPromptEl = document.getElementById('newUserPrompt');
-        const existingProfilePromptEl = document.getElementById('existingProfilePrompt');
-        const loadExistingProfileBtn = document.getElementById('loadExistingProfile');
-        const retakeFromStartBtn = document.getElementById('retakeFromStart');
-        const fillManuallyBtn = document.getElementById('fillManually');
-        const useAutofillBtn = document.getElementById('useAutofill');
 
-        let existingProfileData = null;
+       let currentQuestion = 0;
+       let score = 0;
+       let selectedOption = null;
 
-        async function checkExistingProfile() {
-            const importedCfg = window._piiImportedConfig || {};
-            const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
-            const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
 
-            // Use /api/match/save which now has GET method
-            const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
+       const questionEl = document.getElementById('question');
+       const optionsEl = document.getElementById('options');
+       const submitBtn = document.getElementById('submit');
+       const quizEl = document.getElementById('quiz');
+       const resultsEl = document.getElementById('results');
+       const scoreEl = document.getElementById('score');
+       const restartBtn = document.getElementById('restart');
+       const reviewEl = document.getElementById('review');
+       const profileDataEl = document.getElementById('profileData');
+       const saveProfileBtn = document.getElementById('saveProfile');
+       const retakeQuizBtn = document.getElementById('retakeQuiz');
+       const leakBreatherEl = document.getElementById('leakBreather');
+       const leakMessageEl = document.getElementById('leakMessage');
+       const leakRetakeBtn = document.getElementById('leakRetake');
+       const leakContinueBtn = document.getElementById('leakContinue');
+       const loadingCheckEl = document.getElementById('loadingCheck');
+       const newUserPromptEl = document.getElementById('newUserPrompt');
+       const existingProfilePromptEl = document.getElementById('existingProfilePrompt');
+       const loadExistingProfileBtn = document.getElementById('loadExistingProfile');
+       const retakeFromStartBtn = document.getElementById('retakeFromStart');
+       const fillManuallyBtn = document.getElementById('fillManually');
+       const useAutofillBtn = document.getElementById('useAutofill');
 
-            console.log('=== PROFILE CHECK DEBUG ===');
-            console.log('pythonURI:', pythonURI);
-            console.log('Full endpoint:', endpoint);
-            console.log('Fetch options:', globalFetchOptions);
 
-            const options = Object.assign({}, globalFetchOptions, {
-                method: 'GET',
-                credentials: (globalFetchOptions && globalFetchOptions.credentials) ? globalFetchOptions.credentials : 'include'
-            });
+       let existingProfileData = null;
 
-            console.log('Request options:', options);
 
-            try {
-                console.log('Sending GET request to:', endpoint);
-                const response = await fetch(endpoint, options);
-                console.log('Response status:', response.status);
-                console.log('Response statusText:', response.statusText);
-                console.log('Response headers:', Object.fromEntries([...response.headers.entries()]));
-                
-                const responseText = await response.text();
-                console.log('Response body (raw):', responseText);
-                
-                if (response.ok) {
-                    const data = JSON.parse(responseText);
-                    console.log('Parsed response data:', data);
-                    console.log('Type of data:', typeof data);
-                    console.log('data.profile_quiz:', data.profile_quiz);
-                    console.log('Type of data.profile_quiz:', typeof data.profile_quiz);
-                    
-                    if (data.profile_quiz) {
-                        console.log('Keys in profile_quiz:', Object.keys(data.profile_quiz));
-                        console.log('Number of keys:', Object.keys(data.profile_quiz).length);
-                    }
-                    
-                    // Check for profile_quiz (returned by the GET /api/match/save endpoint)
-                    if (data && data.profile_quiz && typeof data.profile_quiz === 'object' && Object.keys(data.profile_quiz).length > 0) {
-                        // Store the profile data
-                        existingProfileData = data.profile_quiz;
-                        console.log('✅ PROFILE FOUND! Stored existing profile data:', existingProfileData);
-                        console.log('Hiding loading, showing prompt...');
-                        
-                        loadingCheckEl.style.display = 'none';
-                        existingProfilePromptEl.style.display = 'block';
-                        console.log('loadingCheckEl display:', loadingCheckEl.style.display);
-                        console.log('existingProfilePromptEl display:', existingProfilePromptEl.style.display);
-                        return data.profile_quiz;
-                    } else {
-                        console.log('❌ Profile quiz not found or empty');
-                        console.log('  - data exists?', !!data);
-                        console.log('  - data.profile_quiz exists?', !!data.profile_quiz);
-                        console.log('  - is object?', data.profile_quiz ? typeof data.profile_quiz === 'object' : 'N/A');
-                        console.log('  - has keys?', data.profile_quiz ? Object.keys(data.profile_quiz).length > 0 : 'N/A');
-                    }
-                } else if (response.status === 404) {
-                    console.log('404 - Profile not found (expected for new users)');
-                    // Show new user prompt with autofill option
-                    loadingCheckEl.style.display = 'none';
-                    newUserPromptEl.style.display = 'block';
-                    return null;
-                } else {
-                    console.log(`Unexpected status code: ${response.status}`);
-                }
-                
-                console.log('No existing profile, showing new user prompt');
-                loadingCheckEl.style.display = 'none';
-                newUserPromptEl.style.display = 'block';
-                return null;
-            } catch (err) {
-                console.error('Error checking profile:', err);
-                console.error('Error stack:', err.stack);
-                console.log('Error occurred, showing new user prompt');
-                loadingCheckEl.style.display = 'none';
-                newUserPromptEl.style.display = 'block';
-                return null;
-            }
-        }
+       async function checkExistingProfile() {
+           const importedCfg = window._piiImportedConfig || {};
+           const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
+           const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
 
-        loadExistingProfileBtn.onclick = () => {
-            console.log('Load existing profile clicked, data:', existingProfileData);
-            if (existingProfileData) {
-                displayExistingProfile(existingProfileData);
-            } else {
-                console.error('No existing profile data available');
-                alert('Error: Profile data not found');
-            }
-        };
 
-        retakeFromStartBtn.onclick = () => {
-            existingProfilePromptEl.style.display = 'none';
-            quizEl.style.display = 'block';
-            currentQuestion = 0;
-            score = 0;
-            selectedOption = null;
-            displayQuestion();
-        };
+           // Use /api/match/save which now has GET method
+           const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
 
-        fillManuallyBtn.onclick = () => {
-            console.log('User chose to fill manually');
-            newUserPromptEl.style.display = 'none';
-            quizEl.style.display = 'block';
-            currentQuestion = 0;
-            score = 0;
-            selectedOption = null;
-            displayQuestion();
-        };
 
-        useAutofillBtn.onclick = () => {
-            console.log('User chose autofill');
-            applyAutofill();
-        };
+           console.log('=== PROFILE CHECK DEBUG ===');
+           console.log('pythonURI:', pythonURI);
+           console.log('Full endpoint:', endpoint);
+           console.log('Fetch options:', globalFetchOptions);
 
-        function displayExistingProfile(profileData) {
-            existingProfilePromptEl.style.display = 'none';
-            quizEl.style.display = 'none';
-            reviewEl.style.display = 'block';
 
-            profileDataEl.innerHTML = '';
-            
-            // profileData is now an object with question-response pairs
-            for (let [question, response] of Object.entries(profileData)) {
-                const profileItem = document.createElement('div');
-                profileItem.className = 'profile-item';
-                const label = document.createElement('div');
-                label.className = 'profile-item-label';
-                label.textContent = question;
-                const value = document.createElement('div');
-                value.className = 'profile-item-value';
-                value.textContent = response;
-                profileItem.appendChild(label);
-                profileItem.appendChild(value);
-                profileDataEl.appendChild(profileItem);
-            }
-        }
+           const options = Object.assign({}, globalFetchOptions, {
+               method: 'GET',
+               credentials: (globalFetchOptions && globalFetchOptions.credentials) ? globalFetchOptions.credentials : 'include'
+           });
 
-        function displayQuestion() {
-            const question = questions[currentQuestion];
-            questionEl.textContent = question.question;
-            questionEl.style.textAlign = '';
-            questionEl.style.fontSize = '';
-            questionEl.style.marginBottom = '';
-            submitBtn.style.display = 'block';
-            
-            optionsEl.innerHTML = '';
-            
-            if (question.isBreather) {
-                questionEl.textContent = question.message;
-                questionEl.style.textAlign = 'center';
-                questionEl.style.fontSize = '1.2em';
-                questionEl.style.marginBottom = '30px';
-                
-                const continueBtn = document.createElement('button');
-                continueBtn.className = 'option-button';
-                continueBtn.textContent = 'Continue';
-                continueBtn.onclick = () => {
-                    currentQuestion++;
-                    selectedOption = null;
-                    displayQuestion();
-                };
-                optionsEl.appendChild(continueBtn);
-                submitBtn.style.display = 'none';
-            } else if (question.allowTextEntry) {
-                const textInput = document.createElement('input');
-                textInput.type = 'text';
-                textInput.className = 'text-input';
-                textInput.placeholder = "Enter your response or decline to answer";
-                textInput.oninput = () => {
-                    submitBtn.disabled = textInput.value.trim() === '';
-                };
-                optionsEl.appendChild(textInput);
-                
-                const declineBtn = document.createElement('button');
-                declineBtn.className = 'option-button';
-                declineBtn.textContent = "I'd rather not answer";
-                declineBtn.onclick = () => {
-                    textInput.value = '';
-                    question.userResponse = null;
-                    submitBtn.disabled = false;
-                    declineBtn.classList.add('selected');
-                };
-                optionsEl.appendChild(declineBtn);
-                
-                submitBtn.style.display = 'block';
-                submitBtn.disabled = true;
-                questions[currentQuestion].textInputElement = textInput;
-            } else if (question.allowDropdown) {
-                // Create dropdown menu for this question
-                const selectInput = document.createElement('select');
-                selectInput.className = 'select-input';
-                
-                // Add default/placeholder option
-                const defaultOption = document.createElement('option');
-                defaultOption.value = '';
-                defaultOption.textContent = 'Select a color...';
-                defaultOption.disabled = true;
-                defaultOption.selected = true;
-                selectInput.appendChild(defaultOption);
-                
-                // Add all color options
-                question.options.forEach((option, index) => {
-                    const optionEl = document.createElement('option');
-                    optionEl.value = index;
-                    optionEl.textContent = option;
-                    selectInput.appendChild(optionEl);
-                });
-                
-                selectInput.onchange = () => {
-                    selectedOption = parseInt(selectInput.value);
-                    submitBtn.disabled = false;
-                };
-                
-                optionsEl.appendChild(selectInput);
-                submitBtn.style.display = 'block';
-                submitBtn.disabled = true;
-                questions[currentQuestion].selectElement = selectInput;
-            } else {
-                submitBtn.style.display = 'block';
-                question.options.forEach((option, index) => {
-                    const button = document.createElement('button');
-                    button.className = 'option-button';
-                    button.textContent = option;
-                    button.onclick = () => selectOption(index);
-                    optionsEl.appendChild(button);
-                });
-                submitBtn.disabled = true;
-            }
-        }
 
-        function selectOption(index) {
-            const buttons = optionsEl.getElementsByClassName('option-button');
-            for (let button of buttons) {
-                button.classList.remove('selected');
-            }
-            buttons[index].classList.add('selected');
-            selectedOption = index;
-            submitBtn.disabled = false;
-        }
+           console.log('Request options:', options);
 
-        function submitAnswer() {
-            const question = questions[currentQuestion];
-            
-            if (question.allowTextEntry) {
-                const textInput = question.textInputElement || document.querySelector('.text-input');
-                if (textInput && textInput.value.trim() !== '') {
-                    question.userResponse = textInput.value.trim();
-                } else if (question.userResponse === undefined) {
-                    question.userResponse = null;
-                }
-            } else if (question.allowDropdown) {
-                const selectInput = question.selectElement || document.querySelector('.select-input');
-                if (selectInput && selectInput.value !== '') {
-                    const index = parseInt(selectInput.value);
-                    question.userResponse = question.options[index];
-                } else if (question.userResponse === undefined) {
-                    question.userResponse = null;
-                }
-            } else {
-                if (selectedOption !== null && question.options && question.options[selectedOption] !== undefined) {
-                    question.userResponse = question.options[selectedOption];
-                } else if (question.userResponse === undefined) {
-                    question.userResponse = null;
-                }
 
-                if (typeof question.correct === 'number' && selectedOption === question.correct) {
-                    score++;
-                }
-            }
-            
-            currentQuestion++;
-            if (currentQuestion < questions.length) {
-                selectedOption = null;
-                displayQuestion();
-            } else {
-                showResults();
-            }
-        }
+           try {
+               console.log('Sending GET request to:', endpoint);
+               const response = await fetch(endpoint, options);
+               console.log('Response status:', response.status);
+               console.log('Response statusText:', response.statusText);
+               console.log('Response headers:', Object.fromEntries([...response.headers.entries()]));
+              
+               const responseText = await response.text();
+               console.log('Response body (raw):', responseText);
+              
+               if (response.ok) {
+                   const data = JSON.parse(responseText);
+                   console.log('Parsed response data:', data);
+                   console.log('Type of data:', typeof data);
+                   console.log('data.profile_quiz:', data.profile_quiz);
+                   console.log('Type of data.profile_quiz:', typeof data.profile_quiz);
+                  
+                   if (data.profile_quiz) {
+                       console.log('Keys in profile_quiz:', Object.keys(data.profile_quiz));
+                       console.log('Number of keys:', Object.keys(data.profile_quiz).length);
+                   }
+                  
+                   // Check for profile_quiz (returned by the GET /api/match/save endpoint)
+                   if (data && data.profile_quiz && typeof data.profile_quiz === 'object' && Object.keys(data.profile_quiz).length > 0) {
+                       // Store the profile data
+                       existingProfileData = data.profile_quiz;
+                       console.log('✅ PROFILE FOUND! Stored existing profile data:', existingProfileData);
+                       console.log('Hiding loading, showing prompt...');
+                      
+                       loadingCheckEl.style.display = 'none';
+                       existingProfilePromptEl.style.display = 'block';
+                       console.log('loadingCheckEl display:', loadingCheckEl.style.display);
+                       console.log('existingProfilePromptEl display:', existingProfilePromptEl.style.display);
+                       return data.profile_quiz;
+                   } else {
+                       console.log('❌ Profile quiz not found or empty');
+                       console.log('  - data exists?', !!data);
+                       console.log('  - data.profile_quiz exists?', !!data.profile_quiz);
+                       console.log('  - is object?', data.profile_quiz ? typeof data.profile_quiz === 'object' : 'N/A');
+                       console.log('  - has keys?', data.profile_quiz ? Object.keys(data.profile_quiz).length > 0 : 'N/A');
+                   }
+               } else if (response.status === 404 || response.status === 405) {
+                   console.log(`${response.status} - Profile not found or GET not supported (expected for new users)`);
+                   // Show new user prompt with autofill option
+                   loadingCheckEl.style.display = 'none';
+                   newUserPromptEl.style.display = 'block';
+                   return null;
+               } else {
+                   console.log(`Unexpected status code: ${response.status}`);
+               }
+              
+               console.log('No existing profile, showing new user prompt');
+               loadingCheckEl.style.display = 'none';
+               newUserPromptEl.style.display = 'block';
+               return null;
+           } catch (err) {
+               console.error('Error checking profile:', err);
+               console.error('Error stack:', err.stack);
+               console.log('Error occurred, showing new user prompt');
+               loadingCheckEl.style.display = 'none';
+               newUserPromptEl.style.display = 'block';
+               return null;
+           }
+       }
 
-        function showResults() {
-            quizEl.style.display = 'none';
-            resultsEl.style.display = 'none';
-            reviewEl.style.display = 'none';
-            
-            // MODIFIED: Collect only non-personal, non-null responses
-            const userDataResponses = {};
-            const startIndex = 3;
-            
-            // Define which questions are safe to save (by index relative to startIndex)
-            const safeQuestionIndices = [0, 1, 2, 4, 5, 8]; // favorite color, username, favorite animal, genre, band/artist, favorite subject
-            
-            for (let i = startIndex; i < questions.length; i++) {
-                const q = questions[i];
-                const response = q.userResponse !== undefined ? q.userResponse : null;
-                const relativeIndex = i - startIndex;
-                
-                // Only save if it's a safe question and response is not null
-                if (safeQuestionIndices.includes(relativeIndex) && response !== null && response !== undefined && String(response).trim() !== '') {
-                    userDataResponses[q.question] = response;
-                }
-            }
 
-            // Check for PII leaks by examining sensitive questions
-            let leakCount = 0;
-            
-            for (let i = startIndex; i < questions.length; i++) {
-                const q = questions[i];
-                const response = q.userResponse !== undefined ? q.userResponse : null;
-                const qLower = (q.question || '').toLowerCase();
-                
-                if (response !== null && response !== undefined && String(response).trim() !== '') {
-                    if (qLower.includes('full name') || qLower.includes('ssn') || qLower.includes('where do you live') || qLower.includes('ip')) {
-                        leakCount++;
-                    }
-                }
-            }
+       loadExistingProfileBtn.onclick = () => {
+           console.log('Load existing profile clicked, data:', existingProfileData);
+           if (existingProfileData) {
+               displayExistingProfile(existingProfileData);
+           } else {
+               console.error('No existing profile data available');
+               alert('Error: Profile data not found');
+           }
+       };
 
-            const userDataJSON = JSON.stringify(userDataResponses, null, 2);
-            sessionStorage.setItem('userQuizResponses', userDataJSON);
-            window.userQuizData = userDataJSON;
 
-            if (leakCount > 0) {
-                leakMessageEl.textContent = `⚠️ SECURITY BREACH DETECTED ⚠️\n\nYou exposed ${leakCount} piece${leakCount>1? 's' : ''} of sensitive personal information! This data could be exploited by hostile actors. Retake the assessment and demonstrate proper security protocols.`;
-                leakBreatherEl.style.display = 'block';
-                reviewEl.style.display = 'none';
-                leakContinueBtn.disabled = true;
+       retakeFromStartBtn.onclick = () => {
+           existingProfilePromptEl.style.display = 'none';
+           quizEl.style.display = 'block';
+           currentQuestion = 0;
+           score = 0;
+           selectedOption = null;
+           displayQuestion();
+       };
 
-                leakRetakeBtn.onclick = () => {
-                    leakBreatherEl.style.display = 'none';
-                    restartQuiz();
-                };
-                return;
-            }
 
-            leakBreatherEl.style.display = 'none';
-            leakContinueBtn.disabled = false;
+       fillManuallyBtn.onclick = () => {
+           console.log('User chose to fill manually');
+           newUserPromptEl.style.display = 'none';
+           quizEl.style.display = 'block';
+           currentQuestion = 0;
+           score = 0;
+           selectedOption = null;
+           displayQuestion();
+       };
 
-            // Display profile data with questions for review (but only responses will be saved)
-            profileDataEl.innerHTML = '';
-            
-            // Display the saved data
-            for (let [question, response] of Object.entries(userDataResponses)) {
-                const profileItem = document.createElement('div');
-                profileItem.className = 'profile-item';
-                const label = document.createElement('div');
-                label.className = 'profile-item-label';
-                label.textContent = question;
-                const value = document.createElement('div');
-                value.className = 'profile-item-value';
-                value.textContent = response;
-                profileItem.appendChild(label);
-                profileItem.appendChild(value);
-                profileDataEl.appendChild(profileItem);
-            }
-            reviewEl.style.display = 'block';
-        }
 
-        function restartQuiz() {
-            currentQuestion = 0;
-            score = 0;
-            selectedOption = null;
-            quizEl.style.display = 'block';
-            resultsEl.style.display = 'none';
-            reviewEl.style.display = 'none';
-            displayQuestion();
-        }
+       useAutofillBtn.onclick = () => {
+           console.log('User chose autofill');
+           applyAutofill();
+       };
 
-        saveProfileBtn.onclick = async () => {
-            const userDataJSON = sessionStorage.getItem('userQuizResponses');
-            if (!userDataJSON) {
-                alert("No profile data found to save.");
-                return;
-            }
 
-            let profileData;
-            try {
-                profileData = JSON.parse(userDataJSON);
-            } catch (err) {
-                console.error('piiQuiz: invalid JSON in sessionStorage userQuizResponses', err, userDataJSON);
-                alert('Saved responses are not valid JSON. Please retake quiz.');
-                return;
-            }
+       function displayExistingProfile(profileData) {
+           existingProfilePromptEl.style.display = 'none';
+           quizEl.style.display = 'none';
+           reviewEl.style.display = 'block';
 
-            const importedCfg = window._piiImportedConfig || {};
-            const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
-            const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
 
-            const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
+           profileDataEl.innerHTML = '';
+          
+           // profileData is now an object with question-response pairs
+           for (let [question, response] of Object.entries(profileData)) {
+               const profileItem = document.createElement('div');
+               profileItem.className = 'profile-item';
+               const label = document.createElement('div');
+               label.className = 'profile-item-label';
+               label.textContent = question;
+               const value = document.createElement('div');
+               value.className = 'profile-item-value';
+               value.textContent = response;
+               profileItem.appendChild(label);
+               profileItem.appendChild(value);
+               profileDataEl.appendChild(profileItem);
+           }
+       }
 
-            const mergedHeaders = Object.assign({}, (globalFetchOptions.headers || {}), {
-                'Content-Type': 'application/json'
-            });
 
-            // MODIFIED: Send only the array of responses
-            const payload = { profile_data: profileData };
-            let bodyStr;
-            try {
-                bodyStr = JSON.stringify(payload);
-            } catch (err) {
-                console.error('piiQuiz: failed to stringify payload', err);
-                alert('Failed to prepare profile JSON: ' + (err && err.message ? err.message : String(err)));
-                return;
-            }
+       function displayQuestion() {
+           const question = questions[currentQuestion];
+           questionEl.textContent = question.question;
+           questionEl.style.textAlign = '';
+           questionEl.style.fontSize = '';
+           questionEl.style.marginBottom = '';
+           submitBtn.style.display = 'block';
+          
+           optionsEl.innerHTML = '';
+          
+           if (question.isBreather) {
+               questionEl.textContent = question.message;
+               questionEl.style.textAlign = 'center';
+               questionEl.style.fontSize = '1.2em';
+               questionEl.style.marginBottom = '30px';
+              
+               const continueBtn = document.createElement('button');
+               continueBtn.className = 'option-button';
+               continueBtn.textContent = 'Continue';
+               continueBtn.onclick = () => {
+                   currentQuestion++;
+                   selectedOption = null;
+                   displayQuestion();
+               };
+               optionsEl.appendChild(continueBtn);
+               submitBtn.style.display = 'none';
+           } else if (question.allowTextEntry) {
+               const textInput = document.createElement('input');
+               textInput.type = 'text';
+               textInput.className = 'text-input';
+               textInput.placeholder = "Enter your response or decline to answer";
+               textInput.oninput = () => {
+                   submitBtn.disabled = textInput.value.trim() === '';
+               };
+               optionsEl.appendChild(textInput);
+              
+               const declineBtn = document.createElement('button');
+               declineBtn.className = 'option-button';
+               declineBtn.textContent = "I'd rather not answer";
+               declineBtn.onclick = () => {
+                   textInput.value = '';
+                   question.userResponse = null;
+                   submitBtn.disabled = false;
+                   declineBtn.classList.add('selected');
+               };
+               optionsEl.appendChild(declineBtn);
+              
+               submitBtn.style.display = 'block';
+               submitBtn.disabled = true;
+               questions[currentQuestion].textInputElement = textInput;
+           } else if (question.allowDropdown) {
+               // Create dropdown menu for this question
+               const selectInput = document.createElement('select');
+               selectInput.className = 'select-input';
+              
+               // Add default/placeholder option
+               const defaultOption = document.createElement('option');
+               defaultOption.value = '';
+               defaultOption.textContent = 'Select a color...';
+               defaultOption.disabled = true;
+               defaultOption.selected = true;
+               selectInput.appendChild(defaultOption);
+              
+               // Add all color options
+               question.options.forEach((option, index) => {
+                   const optionEl = document.createElement('option');
+                   optionEl.value = index;
+                   optionEl.textContent = option;
+                   selectInput.appendChild(optionEl);
+               });
+              
+               selectInput.onchange = () => {
+                   selectedOption = parseInt(selectInput.value);
+                   submitBtn.disabled = false;
+               };
+              
+               optionsEl.appendChild(selectInput);
+               submitBtn.style.display = 'block';
+               submitBtn.disabled = true;
+               questions[currentQuestion].selectElement = selectInput;
+           } else {
+               submitBtn.style.display = 'block';
+               question.options.forEach((option, index) => {
+                   const button = document.createElement('button');
+                   button.className = 'option-button';
+                   button.textContent = option;
+                   button.onclick = () => selectOption(index);
+                   optionsEl.appendChild(button);
+               });
+               submitBtn.disabled = true;
+           }
+       }
 
-            console.log('=== SAVE PROFILE DEBUG ===');
-            console.log('piiQuiz: Saving to endpoint:', endpoint);
-            console.log('piiQuiz: Payload:', payload);
-            console.log('piiQuiz: Profile data length:', bodyStr.length);
-            console.log('piiQuiz: Headers:', mergedHeaders);
 
-            const options = Object.assign({}, globalFetchOptions, {
-                method: 'POST',
-                headers: mergedHeaders,
-                body: bodyStr
-            });
+       function selectOption(index) {
+           const buttons = optionsEl.getElementsByClassName('option-button');
+           for (let button of buttons) {
+               button.classList.remove('selected');
+           }
+           buttons[index].classList.add('selected');
+           selectedOption = index;
+           submitBtn.disabled = false;
+       }
 
-            if (!options.credentials) options.credentials = (globalFetchOptions && globalFetchOptions.credentials) ? globalFetchOptions.credentials : 'include';
 
-            console.log('piiQuiz: Full request options:', options);
+       function submitAnswer() {
+           const question = questions[currentQuestion];
+          
+           if (question.allowTextEntry) {
+               const textInput = question.textInputElement || document.querySelector('.text-input');
+               if (textInput && textInput.value.trim() !== '') {
+                   question.userResponse = textInput.value.trim();
+               } else if (question.userResponse === undefined) {
+                   question.userResponse = null;
+               }
+           } else if (question.allowDropdown) {
+               const selectInput = question.selectElement || document.querySelector('.select-input');
+               if (selectInput && selectInput.value !== '') {
+                   const index = parseInt(selectInput.value);
+                   question.userResponse = question.options[index];
+               } else if (question.userResponse === undefined) {
+                   question.userResponse = null;
+               }
+           } else {
+               if (selectedOption !== null && question.options && question.options[selectedOption] !== undefined) {
+                   question.userResponse = question.options[selectedOption];
+               } else if (question.userResponse === undefined) {
+                   question.userResponse = null;
+               }
 
-            try {
-                console.log('piiQuiz: Sending POST request...');
-                const response = await fetch(endpoint, options);
-                console.log('piiQuiz: Response status:', response.status);
-                console.log('piiQuiz: Response statusText:', response.statusText);
-                console.log('piiQuiz: Response headers:', Object.fromEntries([...response.headers.entries()]));
-                
-                const responseText = await response.text();
-                console.log('piiQuiz: Response body (raw text):', responseText);
-                
-                let data = null;
-                if (responseText) {
-                    try {
-                        data = JSON.parse(responseText);
-                        console.log('piiQuiz: Response data (parsed):', data);
-                    } catch (parseErr) {
-                        console.error('piiQuiz: Failed to parse response as JSON:', parseErr);
-                        console.log('piiQuiz: Response was:', responseText);
-                    }
-                }
 
-                if (!response.ok) {
-                    alert("Failed to save profile: " + (data && data.message ? data.message : `Status ${response.status}`));
-                    console.error("Backend response:", data);
-                    return;
-                }
+               if (typeof question.correct === 'number' && selectedOption === question.correct) {
+                   score++;
+               }
+           }
+          
+           currentQuestion++;
+           if (currentQuestion < questions.length) {
+               selectedOption = null;
+               displayQuestion();
+           } else {
+               showResults();
+           }
+       }
 
-                console.log("Profile saved successfully:", data);
-                alert("Profile saved successfully! Data is now in database");
-            } catch (err) {
-                console.error("Error saving profile:", err);
-                console.error("Error stack:", err.stack);
-                alert("Failed to save profile. Check console for details. Error: " + err.message);
-            }
-        };
 
-        retakeQuizBtn.onclick = () => {
-            restartQuiz();
-        };
+       function showResults() {
+           quizEl.style.display = 'none';
+           resultsEl.style.display = 'none';
+           reviewEl.style.display = 'none';
+          
+           // MODIFIED: Collect only non-personal, non-null responses
+           const userDataResponses = {};
+           const startIndex = 3;
+          
+           // Define which questions are safe to save (by index relative to startIndex)
+           const safeQuestionIndices = [0, 1, 2, 4, 5, 8]; // favorite color, username, favorite animal, genre, band/artist, favorite subject
+          
+           for (let i = startIndex; i < questions.length; i++) {
+               const q = questions[i];
+               const response = q.userResponse !== undefined ? q.userResponse : null;
+               const relativeIndex = i - startIndex;
+              
+               // Only save if it's a safe question and response is not null
+               if (safeQuestionIndices.includes(relativeIndex) && response !== null && response !== undefined && String(response).trim() !== '') {
+                   userDataResponses[q.question] = response;
+               }
+           }
 
-        submitBtn.onclick = submitAnswer;
-        restartBtn.onclick = restartQuiz;
 
-        /* ========== MATCHMAKING QUIZ LOGIC ========== */
-        const matchmakingQuestions = [
-            { id: 1, question: "At a social gathering, you typically...", options: [{ text: "Seek out new people and enjoy being the center of attention", value: "E_high" }, { text: "Talk to a few close friends and enjoy smaller conversations", value: "I_moderate" }, { text: "Prefer observing and only engage when approached", value: "I_high" }, { text: "Mix between groups and one-on-one conversations", value: "E_moderate" }] },
-            { id: 2, question: "When making important decisions, you rely most on...", options: [{ text: "Logic, facts, and objective analysis", value: "T_high" }, { text: "How it will affect people and relationships", value: "F_high" }, { text: "A balance of logic and emotional impact", value: "T_moderate" }, { text: "Gut feeling and personal values", value: "F_moderate" }] },
-            { id: 3, question: "Your ideal weekend involves...", options: [{ text: "Spontaneous adventures and seeing where the day takes you", value: "P_high" }, { text: "A well-planned itinerary of activities", value: "J_high" }, { text: "A loose plan with room for flexibility", value: "P_moderate" }, { text: "Structured activities with some downtime built in", value: "J_moderate" }] },
-            { id: 4, question: "When learning something new, you prefer...", options: [{ text: "Understanding the big picture and future possibilities", value: "N_high" }, { text: "Hands-on practice with concrete examples", value: "S_high" }, { text: "Starting with theory, then applying it practically", value: "N_moderate" }, { text: "Step-by-step instructions with clear outcomes", value: "S_moderate" }] },
-            { id: 5, question: "Describe your ideal date or hangout. What would you do and why?", type: "freeResponse", placeholder: "Share your thoughts..." },
-            { id: 6, question: "After a long day, you recharge by...", options: [{ text: "Being alone with your thoughts or hobbies", value: "I_high" }, { text: "Calling friends or going out", value: "E_high" }, { text: "Quiet time first, then maybe socializing", value: "I_moderate" }, { text: "Light social interaction with close ones", value: "E_moderate" }] },
-            { id: 7, question: "When someone shares a problem with you, you typically...", options: [{ text: "Offer solutions and practical advice", value: "T_high" }, { text: "Listen empathetically and validate their feelings", value: "F_high" }, { text: "Ask questions to understand before responding", value: "T_moderate" }, { text: "Share similar experiences to show understanding", value: "F_moderate" }] },
-            { id: 8, question: "What's something you're passionate about and why does it matter to you?", type: "freeResponse", placeholder: "Tell us about your passion..." },
-            { id: 9, question: "When planning a trip, you...", options: [{ text: "Research extensively and create detailed plans", value: "J_high" }, { text: "Book tickets and figure out the rest as you go", value: "P_high" }, { text: "Plan key activities but leave room for spontaneity", value: "P_moderate" }, { text: "Follow recommended itineraries from others", value: "S_moderate" }] },
-            { id: 10, question: "In conversations, you tend to focus on...", options: [{ text: "Abstract ideas, theories, and what could be", value: "N_high" }, { text: "Concrete facts, experiences, and what is", value: "S_high" }, { text: "Both practical details and underlying meanings", value: "N_moderate" }, { text: "Real-world applications and examples", value: "S_moderate" }] },
-            { id: 11, question: "When facing conflict, you're more likely to...", options: [{ text: "Address it directly with facts and logic", value: "T_high" }, { text: "Consider feelings and find a harmonious solution", value: "F_high" }, { text: "Avoid it unless absolutely necessary", value: "I_high" }, { text: "Seek mediation or a third-party perspective", value: "F_moderate" }] },
-            { id: 12, question: "If you could change one thing about the world, what would it be and why?", type: "freeResponse", placeholder: "Share your vision..." },
-            { id: 13, question: "Your approach to rules and deadlines is...", options: [{ text: "Strict - rules exist for a reason and should be followed", value: "J_high" }, { text: "Flexible - guidelines that can bend based on context", value: "P_high" }, { text: "Respectful but willing to question when needed", value: "P_moderate" }, { text: "Depends on whether they make logical sense", value: "T_moderate" }] }
-        ];
-        let matchmakingCurrentQuestion = 0;
-        let matchmakingAnswers = {};
+           // Check for PII leaks by examining sensitive questions
+           let leakCount = 0;
+          
+           for (let i = startIndex; i < questions.length; i++) {
+               const q = questions[i];
+               const response = q.userResponse !== undefined ? q.userResponse : null;
+               const qLower = (q.question || '').toLowerCase();
+              
+               if (response !== null && response !== undefined && String(response).trim() !== '') {
+                   if (qLower.includes('full name') || qLower.includes('ssn') || qLower.includes('where do you live') || qLower.includes('ip')) {
+                       leakCount++;
+                   }
+               }
+           }
 
-        window.initMatchmakingQuiz = function() {
-            const container = document.getElementById('matchmakingQuizContainer');
-            container.innerHTML = `
-                <div style="padding: 20px;">
-                    <div style="margin-bottom: 20px;">
-                        <div style="width: 100%; height: 8px; background: rgba(255,255,255,0.05); border-radius: 20px; overflow: hidden;">
-                            <div id="matchProgress" style="height: 100%; background: linear-gradient(90deg, #ff6b9d 0%, #ff8fab 50%, #ffa3bb 100%); width: 0%; transition: width 0.3s;"></div>
-                        </div>
-                        <p style="margin: 8px 0 0 0; color: #8b949e; font-size: 0.9em; text-align: center;" id="matchProgressText">Question 1 of ${matchmakingQuestions.length}</p>
-                    </div>
-                    <div id="matchQuizContent"></div>
-                    <div style="display: flex; gap: 10px; margin-top: 20px;">
-                        <button id="matchPrevBtn" class="option-button" onclick="matchmakingPrevious()" style="display: none; flex: 1;">← Previous</button>
-                        <button id="matchNextBtn" class="option-button" onclick="matchmakingNext()" style="flex: 1;">Next →</button>
-                        <button id="matchSubmitBtn" class="option-button" onclick="matchmakingSubmit()" style="display: none; flex: 1;">Get My Type ✨</button>
-                    </div>
-                </div>
-                <div id="matchResults" style="display: none; padding: 20px;">
-                    <h3 style="color: #8b949e; text-align: center; margin-bottom: 20px;">💕 Your Personality Type</h3>
-                    <div id="matchResultContent"></div>
-                </div>
-            `;
-            matchmakingCurrentQuestion = 0;
-            matchmakingAnswers = {};
-            renderMatchmakingQuestion();
-        };
 
-        window.renderMatchmakingQuestion = function() {
-            const q = matchmakingQuestions[matchmakingCurrentQuestion];
-            const content = document.getElementById('matchQuizContent');
-            let html = `<h3 style="color: #8b949e; margin-bottom: 15px; text-align: center;">${q.question}</h3>`;
-            
-            if (q.type === 'freeResponse') {
-                const saved = matchmakingAnswers[q.id] || '';
-                html += `<textarea class="text-input" id="match-free-${q.id}" placeholder="${q.placeholder}" style="width: 100%; padding: 12px; background: rgba(22,27,34,0.6); border: 1px solid #30363d; border-radius: 4px; color: #8b949e; font-family: 'Courier New'; font-size: 0.9em; min-height: 100px;" oninput="matchmakingSaveAnswer(${q.id}, this.value)">${saved}</textarea>`;
-            } else {
-                q.options.forEach((opt, i) => {
-                    const selected = matchmakingAnswers[q.id] === opt.value ? ' selected' : '';
-                    html += `<button class="option-button${selected}" onclick="matchmakingSelectOption(${q.id}, '${opt.value}', this)" style="text-align: left; margin: 8px 0; cursor: pointer;">${opt.text}</button>`;
-                });
-            }
-            content.innerHTML = html;
-            updateMatchmakingButtons();
-        };
+           const userDataJSON = JSON.stringify(userDataResponses, null, 2);
+           sessionStorage.setItem('userQuizResponses', userDataJSON);
+           window.userQuizData = userDataJSON;
 
-        window.matchmakingSelectOption = function(qId, value, btn) {
-            matchmakingAnswers[qId] = value;
-            document.querySelectorAll('.option-button').forEach(b => b.classList.remove('selected'));
-            btn.classList.add('selected');
-            updateMatchmakingButtons();
-        };
 
-        window.matchmakingSaveAnswer = function(qId, value) {
-            matchmakingAnswers[qId] = value.trim();
-            updateMatchmakingButtons();
-        };
+           if (leakCount > 0) {
+               leakMessageEl.textContent = `⚠️ SECURITY BREACH DETECTED ⚠️\n\nYou exposed ${leakCount} piece${leakCount>1? 's' : ''} of sensitive personal information! This data could be exploited by hostile actors. Retake the assessment and demonstrate proper security protocols.`;
+               leakBreatherEl.style.display = 'block';
+               reviewEl.style.display = 'none';
+               leakContinueBtn.disabled = true;
 
-        window.updateMatchmakingButtons = function() {
-            const q = matchmakingQuestions[matchmakingCurrentQuestion];
-            const hasAnswer = matchmakingAnswers[q.id] && (q.type === 'freeResponse' ? matchmakingAnswers[q.id].length >= 3 : true);
-            const prevBtn = document.getElementById('matchPrevBtn');
-            const nextBtn = document.getElementById('matchNextBtn');
-            const submitBtn = document.getElementById('matchSubmitBtn');
-            
-            prevBtn.style.display = matchmakingCurrentQuestion > 0 ? 'block' : 'none';
-            if (matchmakingCurrentQuestion === matchmakingQuestions.length - 1) {
-                nextBtn.style.display = 'none';
-                submitBtn.style.display = 'block';
-                submitBtn.disabled = !hasAnswer;
-            } else {
-                nextBtn.style.display = 'block';
-                submitBtn.style.display = 'none';
-                nextBtn.disabled = !hasAnswer;
-            }
-            
-            const prog = ((matchmakingCurrentQuestion + 1) / matchmakingQuestions.length) * 100;
-            document.getElementById('matchProgress').style.width = prog + '%';
-            document.getElementById('matchProgressText').textContent = `Question ${matchmakingCurrentQuestion + 1} of ${matchmakingQuestions.length}`;
-        };
 
-        window.matchmakingNext = function() {
-            if (matchmakingCurrentQuestion < matchmakingQuestions.length - 1) {
-                matchmakingCurrentQuestion++;
-                renderMatchmakingQuestion();
-            }
-        };
+               leakRetakeBtn.onclick = () => {
+                   leakBreatherEl.style.display = 'none';
+                   restartQuiz();
+               };
+               return;
+           }
 
-        window.matchmakingPrevious = function() {
-            if (matchmakingCurrentQuestion > 0) {
-                matchmakingCurrentQuestion--;
-                renderMatchmakingQuestion();
-            }
-        };
 
-        window.matchmakingSubmit = async function() {
-            const responses = matchmakingQuestions.map(q => ({
-                question: q.question,
-                answer: matchmakingAnswers[q.id] || '',
-                type: q.type || 'multipleChoice'
-            }));
-            
-            document.getElementById('matchQuizContent').innerHTML = '<p style="text-align: center; color: #8b949e;">⏳ Analyzing your personality...</p>';
-            
-            // Save only personality type if backend returns it
-            fetch(`${pythonURI}/api/match/add`, {
-                method: 'POST',
-                credentials: 'include',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ index: 'personality_quiz_responses', data: 'Personality Type Analyzed' })
-            }).catch(() => {});
-            
-            document.getElementById('matchResults').style.display = 'block';
-            document.getElementById('matchQuizContent').innerHTML = '<p style="text-align: center; color: #4caf50; font-weight: bold;">✅ Your personality analysis has been saved!</p>';
-        };
-    </script>
+           leakBreatherEl.style.display = 'none';
+           leakContinueBtn.disabled = false;
+
+
+           // Display profile data with questions for review (but only responses will be saved)
+           profileDataEl.innerHTML = '';
+          
+           // Display the saved data
+           for (let [question, response] of Object.entries(userDataResponses)) {
+               const profileItem = document.createElement('div');
+               profileItem.className = 'profile-item';
+               const label = document.createElement('div');
+               label.className = 'profile-item-label';
+               label.textContent = question;
+               const value = document.createElement('div');
+               value.className = 'profile-item-value';
+               value.textContent = response;
+               profileItem.appendChild(label);
+               profileItem.appendChild(value);
+               profileDataEl.appendChild(profileItem);
+           }
+           reviewEl.style.display = 'block';
+       }
+
+
+       function restartQuiz() {
+           currentQuestion = 0;
+           score = 0;
+           selectedOption = null;
+           quizEl.style.display = 'block';
+           resultsEl.style.display = 'none';
+           reviewEl.style.display = 'none';
+           displayQuestion();
+       }
+
+
+       saveProfileBtn.onclick = async () => {
+           const userDataJSON = sessionStorage.getItem('userQuizResponses');
+           if (!userDataJSON) {
+               alert("No profile data found to save.");
+               return;
+           }
+
+
+           let profileData;
+           try {
+               profileData = JSON.parse(userDataJSON);
+           } catch (err) {
+               console.error('piiQuiz: invalid JSON in sessionStorage userQuizResponses', err, userDataJSON);
+               alert('Saved responses are not valid JSON. Please retake quiz.');
+               return;
+           }
+
+
+           const importedCfg = window._piiImportedConfig || {};
+           const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
+           const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
+
+
+           const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
+
+
+           const mergedHeaders = Object.assign({}, (globalFetchOptions.headers || {}), {
+               'Content-Type': 'application/json'
+           });
+
+
+           // MODIFIED: Send only the array of responses
+           const payload = { profile_data: profileData };
+           let bodyStr;
+           try {
+               bodyStr = JSON.stringify(payload);
+           } catch (err) {
+               console.error('piiQuiz: failed to stringify payload', err);
+               alert('Failed to prepare profile JSON: ' + (err && err.message ? err.message : String(err)));
+               return;
+           }
+
+
+           console.log('=== SAVE PROFILE DEBUG ===');
+           console.log('piiQuiz: Saving to endpoint:', endpoint);
+           console.log('piiQuiz: Payload:', payload);
+           console.log('piiQuiz: Profile data length:', bodyStr.length);
+           console.log('piiQuiz: Headers:', mergedHeaders);
+
+
+           const options = Object.assign({}, globalFetchOptions, {
+               method: 'POST',
+               headers: mergedHeaders,
+               body: bodyStr
+           });
+
+
+           if (!options.credentials) options.credentials = (globalFetchOptions && globalFetchOptions.credentials) ? globalFetchOptions.credentials : 'include';
+
+
+           console.log('piiQuiz: Full request options:', options);
+
+
+           try {
+               console.log('piiQuiz: Sending POST request...');
+               const response = await fetch(endpoint, options);
+               console.log('piiQuiz: Response status:', response.status);
+               console.log('piiQuiz: Response statusText:', response.statusText);
+               console.log('piiQuiz: Response headers:', Object.fromEntries([...response.headers.entries()]));
+              
+               const responseText = await response.text();
+               console.log('piiQuiz: Response body (raw text):', responseText);
+              
+               let data = null;
+               if (responseText) {
+                   try {
+                       data = JSON.parse(responseText);
+                       console.log('piiQuiz: Response data (parsed):', data);
+                   } catch (parseErr) {
+                       console.error('piiQuiz: Failed to parse response as JSON:', parseErr);
+                       console.log('piiQuiz: Response was:', responseText);
+                   }
+               }
+
+
+               if (!response.ok) {
+                   alert("Failed to save profile: " + (data && data.message ? data.message : `Status ${response.status}`));
+                   console.error("Backend response:", data);
+                   return;
+               }
+
+
+               console.log("Profile saved successfully:", data);
+               alert("Profile saved successfully!");
+
+
+               // Show the personality quiz prompt after successful save
+               const personalityPrompt = document.getElementById('personalityQuizPrompt');
+               if (personalityPrompt) {
+                   personalityPrompt.style.display = 'block';
+               }
+
+
+               // Hide the save button since it's done
+               saveProfileBtn.style.display = 'none';
+           } catch (err) {
+               console.error("Error saving profile:", err);
+               console.error("Error stack:", err.stack);
+               alert("Failed to save profile. Check console for details. Error: " + err.message);
+           }
+       };
+
+
+       retakeQuizBtn.onclick = () => {
+           restartQuiz();
+       };
+
+
+       submitBtn.onclick = submitAnswer;
+       restartBtn.onclick = restartQuiz;
+
+
+       /* ========== PERSONALITY QUIZ (KRISHNA'S SECTION) ========== */
+
+
+       // Personality quiz elements
+       const personalityQuizSection = document.createElement('div');
+       personalityQuizSection.id = 'personalityQuizSection';
+       personalityQuizSection.style.display = 'none';
+
+
+       // Personality quiz questions
+       const personalityQuestions = [
+           {
+               id: 1,
+               question: "At a social gathering, you typically...",
+               options: [
+                   { text: "Seek out new people and enjoy being the center of attention", value: "E_high" },
+                   { text: "Talk to a few close friends and enjoy smaller conversations", value: "I_moderate" },
+                   { text: "Prefer observing and only engage when approached", value: "I_high" },
+                   { text: "Mix between groups and one-on-one conversations", value: "E_moderate" }
+               ]
+           },
+           {
+               id: 2,
+               question: "When making important decisions, you rely most on...",
+               options: [
+                   { text: "Logic, facts, and objective analysis", value: "T_high" },
+                   { text: "How it will affect people and relationships", value: "F_high" },
+                   { text: "A balance of logic and emotional impact", value: "T_moderate" },
+                   { text: "Gut feeling and personal values", value: "F_moderate" }
+               ]
+           },
+           {
+               id: 3,
+               question: "Your ideal weekend involves...",
+               options: [
+                   { text: "Spontaneous adventures and seeing where the day takes you", value: "P_high" },
+                   { text: "A well-planned itinerary of activities", value: "J_high" },
+                   { text: "A loose plan with room for flexibility", value: "P_moderate" },
+                   { text: "Structured activities with some downtime built in", value: "J_moderate" }
+               ]
+           },
+           {
+               id: 4,
+               question: "When learning something new, you prefer...",
+               options: [
+                   { text: "Understanding the big picture and future possibilities", value: "N_high" },
+                   { text: "Hands-on practice with concrete examples", value: "S_high" },
+                   { text: "Starting with theory, then applying it practically", value: "N_moderate" },
+                   { text: "Step-by-step instructions with clear outcomes", value: "S_moderate" }
+               ]
+           },
+           {
+               id: 5,
+               question: "Your ideal date or hangout would be...",
+               options: [
+                   { text: "An exciting adventure like hiking, exploring, or trying something new", value: "E_high" },
+                   { text: "A cozy night in with movies, games, or deep conversations", value: "I_high" },
+                   { text: "A nice dinner or coffee shop where you can talk and connect", value: "E_moderate" },
+                   { text: "Something creative like a museum, concert, or art class", value: "N_high" }
+               ]
+           },
+           {
+               id: 6,
+               question: "After a long day, you recharge by...",
+               options: [
+                   { text: "Being alone with your thoughts or hobbies", value: "I_high" },
+                   { text: "Calling friends or going out", value: "E_high" },
+                   { text: "Quiet time first, then maybe socializing", value: "I_moderate" },
+                   { text: "Light social interaction with close ones", value: "E_moderate" }
+               ]
+           },
+           {
+               id: 7,
+               question: "When someone shares a problem with you, you typically...",
+               options: [
+                   { text: "Offer solutions and practical advice", value: "T_high" },
+                   { text: "Listen empathetically and validate their feelings", value: "F_high" },
+                   { text: "Ask questions to understand before responding", value: "T_moderate" },
+                   { text: "Share similar experiences to show understanding", value: "F_moderate" }
+               ]
+           },
+           {
+               id: 8,
+               question: "What's something you're passionate about?",
+               options: [
+                   { text: "Creative pursuits like art, music, or writing", value: "N_high" },
+                   { text: "Helping others and making a positive difference", value: "F_high" },
+                   { text: "Learning new things and solving problems", value: "T_high" },
+                   { text: "Sports, fitness, or outdoor adventures", value: "S_high" }
+               ]
+           },
+           {
+               id: 9,
+               question: "When planning a trip, you...",
+               options: [
+                   { text: "Research extensively and create detailed plans", value: "J_high" },
+                   { text: "Book tickets and figure out the rest as you go", value: "P_high" },
+                   { text: "Plan key activities but leave room for spontaneity", value: "P_moderate" },
+                   { text: "Follow recommended itineraries from others", value: "S_moderate" }
+               ]
+           },
+           {
+               id: 10,
+               question: "In conversations, you tend to focus on...",
+               options: [
+                   { text: "Abstract ideas, theories, and what could be", value: "N_high" },
+                   { text: "Concrete facts, experiences, and what is", value: "S_high" },
+                   { text: "Both practical details and underlying meanings", value: "N_moderate" },
+                   { text: "Real-world applications and examples", value: "S_moderate" }
+               ]
+           },
+           {
+               id: 11,
+               question: "When facing conflict, you're more likely to...",
+               options: [
+                   { text: "Address it directly with facts and logic", value: "T_high" },
+                   { text: "Consider feelings and find a harmonious solution", value: "F_high" },
+                   { text: "Avoid it unless absolutely necessary", value: "I_high" },
+                   { text: "Seek mediation or a third-party perspective", value: "F_moderate" }
+               ]
+           },
+           {
+               id: 12,
+               question: "If you could change one thing about the world, what would it be?",
+               options: [
+                   { text: "End poverty and inequality for everyone", value: "F_high" },
+                   { text: "Protect the environment and fight climate change", value: "N_high" },
+                   { text: "Improve education and access to knowledge", value: "T_high" },
+                   { text: "Bring people together and reduce conflict", value: "F_moderate" }
+               ]
+           },
+           {
+               id: 13,
+               question: "Your approach to rules and deadlines is...",
+               options: [
+                   { text: "Strict - rules exist for a reason and should be followed", value: "J_high" },
+                   { text: "Flexible - guidelines that can bend based on context", value: "P_high" },
+                   { text: "Respectful but willing to question when needed", value: "P_moderate" },
+                   { text: "Depends on whether they make logical sense", value: "T_moderate" }
+               ]
+           }
+       ];
+
+
+       let currentPersonalityQuestion = 0;
+       let personalityAnswers = {};
+
+
+       function startPersonalityQuiz() {
+           // Hide review section and show personality quiz
+           reviewEl.style.display = 'none';
+           const quizContainer = document.querySelector('.quiz-container');
+
+
+           // Create personality quiz UI
+           personalityQuizSection.innerHTML = `
+               <div class="breather-container">
+                   <div class="breather-message">PERSONALITY ASSESSMENT</div>
+                   <p style="color: #6e7681; margin: 20px 0; font-family: 'Courier New', monospace;">
+                       Now let's understand your personality traits for better matchmaking
+                   </p>
+               </div>
+               <div id="personalityQuizContent" style="margin-top: 20px;">
+                   <div id="personalityQuestion"></div>
+                   <div class="options" id="personalityOptions"></div>
+                   <button id="personalitySubmit" type="button">Submit Answer</button>
+               </div>
+           `;
+
+
+           quizContainer.appendChild(personalityQuizSection);
+           personalityQuizSection.style.display = 'block';
+
+
+           currentPersonalityQuestion = 0;
+           personalityAnswers = {};
+           displayPersonalityQuestion();
+       }
+
+
+       function displayPersonalityQuestion() {
+           const question = personalityQuestions[currentPersonalityQuestion];
+           const questionEl = document.getElementById('personalityQuestion');
+           const optionsEl = document.getElementById('personalityOptions');
+           const submitBtn = document.getElementById('personalitySubmit');
+
+
+           questionEl.textContent = `Question ${currentPersonalityQuestion + 1}/${personalityQuestions.length}: ${question.question}`;
+           questionEl.style.color = '#8b949e';
+           questionEl.style.fontSize = '1.1em';
+           questionEl.style.marginBottom = '20px';
+
+
+           optionsEl.innerHTML = '';
+
+
+           if (question.type === 'freeResponse') {
+               const textInput = document.createElement('textarea');
+               textInput.className = 'text-input';
+               textInput.placeholder = question.placeholder;
+               textInput.rows = 4;
+               textInput.style.resize = 'vertical';
+               textInput.value = personalityAnswers[question.id] || '';
+               textInput.oninput = () => {
+                   submitBtn.disabled = textInput.value.trim().length < 3;
+               };
+               optionsEl.appendChild(textInput);
+               submitBtn.disabled = textInput.value.trim().length < 3;
+               question.textInputElement = textInput;
+           } else {
+               question.options.forEach((option, index) => {
+                   const button = document.createElement('button');
+                   button.className = 'option-button';
+                   button.textContent = option.text;
+                   button.onclick = () => selectPersonalityOption(question.id, option.value, button);
+                   if (personalityAnswers[question.id] === option.value) {
+                       button.classList.add('selected');
+                   }
+                   optionsEl.appendChild(button);
+               });
+               submitBtn.disabled = !personalityAnswers[question.id];
+           }
+       }
+
+
+       function selectPersonalityOption(questionId, value, element) {
+           personalityAnswers[questionId] = value;
+
+
+           const buttons = document.querySelectorAll('#personalityOptions .option-button');
+           buttons.forEach(btn => btn.classList.remove('selected'));
+           element.classList.add('selected');
+
+
+           document.getElementById('personalitySubmit').disabled = false;
+       }
+
+
+       function submitPersonalityAnswer() {
+           const question = personalityQuestions[currentPersonalityQuestion];
+
+
+           if (question.type === 'freeResponse') {
+               const textInput = question.textInputElement;
+               if (textInput && textInput.value.trim().length >= 3) {
+                   personalityAnswers[question.id] = textInput.value.trim();
+               } else {
+                   alert('Please write at least a few words before continuing');
+                   return;
+               }
+           } else {
+               if (!personalityAnswers[question.id]) {
+                   alert('Please select an answer');
+                   return;
+               }
+           }
+
+
+           currentPersonalityQuestion++;
+           if (currentPersonalityQuestion < personalityQuestions.length) {
+               displayPersonalityQuestion();
+           } else {
+               completePersonalityQuiz();
+           }
+       }
+
+
+       async function savePersonalityToBackend(personalityData) {
+           const importedCfg = window._piiImportedConfig || {};
+           const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
+           const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
+
+
+           const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
+
+
+           const mergedHeaders = Object.assign({}, (globalFetchOptions.headers || {}), {
+               'Content-Type': 'application/json'
+           });
+
+
+           const payload = { profile_data: { personality_quiz: personalityData } };
+
+
+           console.log('=== SAVE PERSONALITY QUIZ DEBUG ===');
+           console.log('Saving personality quiz to:', endpoint);
+           console.log('Payload:', payload);
+
+
+           const options = Object.assign({}, globalFetchOptions, {
+               method: 'POST',
+               headers: mergedHeaders,
+               body: JSON.stringify(payload)
+           });
+
+
+           if (!options.credentials) options.credentials = 'include';
+
+
+           try {
+               const response = await fetch(endpoint, options);
+               console.log('Personality save response status:', response.status);
+
+
+               if (!response.ok) {
+                   console.error('Failed to save personality quiz:', response.status);
+                   return false;
+               }
+
+
+               const data = await response.json();
+               console.log('Personality quiz saved successfully:', data);
+               return true;
+           } catch (err) {
+               console.error('Error saving personality quiz:', err);
+               return false;
+           }
+       }
+
+
+       async function completePersonalityQuiz() {
+           // Save personality quiz responses to sessionStorage
+           sessionStorage.setItem('personalityQuizResponses', JSON.stringify(personalityAnswers));
+
+
+           // Save personality quiz to backend
+           await savePersonalityToBackend(personalityAnswers);
+
+
+           // Show completion message
+           document.getElementById('personalityQuizContent').innerHTML = `
+               <div class="breather-container">
+                   <div class="breather-message" style="color: #4caf50;">✅ PERSONALITY ASSESSMENT COMPLETE</div>
+                   <p style="color: #6e7681; margin: 20px 0; font-family: 'Courier New', monospace;">
+                       Assessment complete! Ready for AI personality analysis.
+                   </p>
+                   <div class="breather-buttons">
+                       <button id="goToAIAnalysis" class="option-button">View AI Analysis →</button>
+                       <button id="retakePersonality" class="option-button">Retake Personality Quiz</button>
+                   </div>
+               </div>
+           `;
+
+
+           document.getElementById('goToAIAnalysis').onclick = () => {
+               window.location.href = '/digitalmatchmaking/microb/';
+           };
+
+
+           document.getElementById('retakePersonality').onclick = () => {
+               startPersonalityQuiz();
+           };
+       }
+
+
+       // Attach personality quiz submit handler
+       document.addEventListener('click', (e) => {
+           if (e.target && e.target.id === 'personalitySubmit') {
+               submitPersonalityAnswer();
+           }
+       });
+
+
+       /* ========== INITIALIZE PROFILE QUIZ ON PAGE LOAD ========== */
+       // Automatically start checking for existing profile when page loads
+       window.addEventListener('DOMContentLoaded', async () => {
+           console.log('Profile quiz initializing...');
+
+
+           // Set up personality quiz button handler
+           const startPersonalityQuizBtn = document.getElementById('startPersonalityQuizBtn');
+           if (startPersonalityQuizBtn) {
+               startPersonalityQuizBtn.onclick = () => {
+                   console.log('Starting personality quiz...');
+                   startPersonalityQuiz();
+               };
+           }
+
+
+           await checkExistingProfile();
+       });
+   </script>
 </body>
 </html>
+
+
+

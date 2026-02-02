@@ -16,1653 +16,1084 @@ breadcrumb: true
 <title>Personality Matchmaking Quiz</title>
 
 
+
+
 <style>
 .back-button {
    display: inline-flex;
    align-items: center;
    gap: 0.5rem;
-   padding: 0.75rem 1.5rem;
-   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-   border: none;
-   border-radius: 50px;
-   color: white;
+   padding: 0.4rem 0.8rem;
+   background: #161b22;
+   border: 1px solid #30363d;
+   border-radius: 6px;
+   color: #8b949e;
    text-decoration: none;
-   font-size: 0.95rem;
-   font-weight: 500;
-   transition: all 0.3s ease;
-   margin: 1rem;
-   position: relative;
-   z-index: 1000;
+   font-size: 0.85rem;
+   transition: all 0.2s ease;
+   margin-bottom: 0.5rem;
 }
 
 
 .back-button:hover {
-   transform: translateY(-2px);
-   box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
-}
-
-
-/* ---------- OVERRIDE JEKYLL THEME ---------- */
-main, article, .content, .post-content {
- background: transparent !important;
-}
-
-
-div[class*="container"],
-div[class*="wrapper"],
-div[class*="content"] {
- background: transparent !important;
-}
-
-
-/* Hide Jekyll metadata boxes but keep title */
-.page-meta,
-.post-meta,
-[class*="breadcrumb"]:not(.progress-container):not(.quiz-card),
-[class*="Breadcrumb"]:not(.progress-container):not(.quiz-card),
-[class*="category"]:not(.progress-container):not(.quiz-card),
-[class*="Category"]:not(.progress-container):not(.quiz-card),
-[class*="categories"]:not(.progress-container):not(.quiz-card),
-[class*="Categories"]:not(.progress-container):not(.quiz-card),
-[class*="tag"]:not(.progress-container):not(.quiz-card),
-[class*="Tag"]:not(.progress-container):not(.quiz-card),
-[class*="author"]:not(.progress-container):not(.quiz-card),
-[class*="Author"]:not(.progress-container):not(.quiz-card),
-[class*="reading-time"],
-[class*="read-time"],
-.meta-info,
-.entry-meta,
-.breadcrumbs,
-.tags,
-.categories,
-nav[class*="bread"],
-.taxonomy,
-.post-info,
-.article-meta {
- display: none !important;
- visibility: hidden !important;
- height: 0 !important;
- overflow: hidden !important;
-}
-
-
-/* Only hide metadata in Jekyll-specific header containers, not our custom header */
-.page-header:not(header) > *:not(h1):not(.page-title):not([class*="title"]),
-.post-header:not(header) > *:not(h1):not(.post-title):not([class*="title"]) {
- display: none !important;
-}
-
-
-:root {
- --bg-dark: #1a1a2e;
- --bg-darker: #0f0f1e;
- --card-bg: #16213e;
- --card-hover: #1f2c4a;
- --accent: #ff6b9d;
- --accent-glow: rgba(255, 107, 157, 0.4);
- --accent-dark: #c2185b;
- --accent-light: #ff8fab;
- --border: #2d3561;
- --text: #f0f0f0;
- --text-dim: #a8a8b3;
- --success: #4caf50;
- --error: #ef4444;
- --guardian: #4caf50;
- --balanced: #ff6b9d;
- --open: #ffa726;
+   background: #21262d;
+   border-color: #30363d;
+   color: #c9d1d9;
 }
 
 
 * {
- box-sizing: border-box;
+   margin: 0;
+   padding: 0;
+   box-sizing: border-box;
 }
 
 
-/* ---------- ANIMATED BACKGROUND ---------- */
 body {
- margin: 0;
- font-family: 'Poppins', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
- background: linear-gradient(135deg, #1a1a2e 0%, #2d1b3d 50%, #1f1635 100%) !important;
- background-attachment: fixed;
- color: var(--text);
- display: flex;
- flex-direction: column;
- align-items: center;
- min-height: 100vh;
- position: relative;
- overflow-x: hidden;
- overflow-y: auto;
+   font-family: 'Courier New', monospace;
+   background: #0d1117 !important;
+   color: #8b949e;
+   padding: 12px 20px;
+   min-height: 100vh;
+   position: relative;
 }
 
 
 body::before {
- content: '💕';
- position: fixed;
- top: -50%;
- left: -50%;
- width: 200%;
- height: 200%;
- background:
-   radial-gradient(circle at 20% 50%, rgba(255, 107, 157, 0.08) 0%, transparent 50%),
-   radial-gradient(circle at 80% 80%, rgba(194, 24, 91, 0.1) 0%, transparent 50%);
- animation: gradientFloat 20s ease-in-out infinite;
- pointer-events: none;
- z-index: 0;
- font-size: 200px;
- opacity: 0.02;
-}
-
-
-@keyframes gradientFloat {
- 0%, 100% { transform: translate(0, 0) rotate(0deg); }
- 33% { transform: translate(-3%, -3%) rotate(3deg); }
- 66% { transform: translate(3%, -2%) rotate(-3deg); }
+   content: '';
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   background: repeating-linear-gradient(
+       0deg,
+       rgba(100, 120, 130, 0.03) 0px,
+       transparent 1px,
+       transparent 2px,
+       rgba(100, 120, 130, 0.03) 3px
+   );
+   pointer-events: none;
+   z-index: 1;
 }
 
 
 h1, h2, h3 {
- margin: 0;
- text-align: center;
+   margin: 0;
+   color: #8b949e;
+   font-family: 'Courier New', monospace;
 }
 
 
-/* ---------- HEADER WITH GLOW ---------- */
+/* ---------- HEADER ---------- */
 header {
- position: relative;
- width: 100%;
- padding: 16px 20px 12px;
- background: linear-gradient(135deg, rgba(255, 107, 157, 0.1) 0%, rgba(194, 24, 91, 0.05) 100%) !important;
- text-align: center;
- border-bottom: 2px solid var(--accent);
- box-shadow: 0 4px 20px rgba(255, 107, 157, 0.2);
- z-index: 1;
- backdrop-filter: blur(10px);
-}
-
-
-header::after {
- content: '💖';
- position: absolute;
- bottom: -12px;
- left: 50%;
- transform: translateX(-50%);
- font-size: 20px;
- filter: drop-shadow(0 0 10px var(--accent-glow));
-}
-
-
-header h1 {
- font-size: 28px;
- font-weight: 800;
- background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
- -webkit-background-clip: text;
- -webkit-text-fill-color: transparent;
- background-clip: text;
- letter-spacing: -0.5px;
- margin-bottom: 4px;
- animation: fadeInDown 0.8s ease-out;
-}
-
-
-header p {
- font-size: 13px;
- color: var(--text-dim);
- font-weight: 400;
- letter-spacing: 0.3px;
- animation: fadeInUp 0.8s ease-out 0.2s both;
-}
-
-
-@keyframes fadeInDown {
- from {
-   opacity: 0;
-   transform: translateY(-30px);
- }
- to {
-   opacity: 1;
-   transform: translateY(0);
- }
-}
-
-
-@keyframes fadeInUp {
- from {
-   opacity: 0;
-   transform: translateY(30px);
- }
- to {
-   opacity: 1;
-   transform: translateY(0);
- }
+   text-align: center;
+   margin-bottom: 16px;
 }
 
 
 /* ---------- CONTAINER ---------- */
 .container {
- position: relative;
- width: 100%;
- max-width: 600px;
- margin: 12px auto 16px;
- display: flex;
- flex-direction: column;
- align-items: center;
- gap: 12px;
- padding: 0 16px;
- z-index: 1;
- background: transparent !important;
+   position: relative;
+   width: 100%;
+   max-width: 800px;
+   margin: 0 auto;
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   gap: 12px;
+   padding: 0 16px;
+   z-index: 2;
 }
 
 
-.container > * {
- background: transparent !important;
-}
-
-
-/* ---------- ENHANCED INFO CARDS ---------- */
+/* ---------- INFO CARDS (Terminal Style) ---------- */
 .info-card {
- background: rgba(255, 255, 255, 0.03) !important;
- border: 1px solid rgba(255, 107, 157, 0.2) !important;
- border-radius: 24px !important;
- padding: 20px !important;
- width: 100%;
- max-width: 600px;
- text-align: center;
- cursor: pointer;
- transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
- position: relative;
- overflow: visible;
- animation: cardFadeIn 0.6s ease-out backwards;
- box-shadow:
-   0 4px 24px rgba(0, 0, 0, 0.4),
-   inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
- backdrop-filter: blur(20px);
-}
-
-
-.info-card:nth-child(1) { animation-delay: 0.1s; }
-.info-card:nth-child(2) { animation-delay: 0.2s; }
-.info-card:nth-child(3) { animation-delay: 0.3s; }
-
-
-@keyframes cardFadeIn {
- from {
-   opacity: 0;
-   transform: translateY(20px);
- }
- to {
-   opacity: 1;
-   transform: translateY(0);
- }
-}
-
-
-.info-card::before {
- content: '';
- position: absolute;
- top: 0;
- left: 0;
- right: 0;
- bottom: 0;
- border-radius: 24px;
- padding: 1px;
- background: linear-gradient(135deg, rgba(255, 107, 157, 0.4), rgba(255, 139, 171, 0.1));
- -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
- -webkit-mask-composite: xor;
- mask-composite: exclude;
- opacity: 0;
- transition: opacity 0.3s ease;
- pointer-events: none;
+   background: rgba(22, 27, 34, 0.85) !important;
+   border: 1px solid #30363d !important;
+   border-radius: 6px !important;
+   padding: 20px !important;
+   width: 100%;
+   max-width: 800px;
+   text-align: center;
+   cursor: default;
+   transition: all 0.2s ease;
+   position: relative;
+   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+   backdrop-filter: blur(10px);
 }
 
 
 .info-card:hover {
- transform: translateY(-2px) scale(1.01) !important;
- box-shadow:
-   0 8px 32px rgba(255, 107, 157, 0.25),
-   inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
- border-color: rgba(255, 107, 157, 0.4) !important;
-}
-
-
-.info-card:hover::before {
- opacity: 1;
+   border-color: #485662 !important;
+   box-shadow: 0 0 10px rgba(100, 120, 130, 0.2) !important;
 }
 
 
 .info-card h3 {
- color: var(--accent);
- margin-bottom: 12px;
- font-size: 24px;
- font-weight: 700;
- letter-spacing: -0.5px;
- position: relative;
- z-index: 1;
+   color: #8b949e;
+   margin-bottom: 12px;
+   font-size: 1.3em;
+   font-weight: 400;
+   text-shadow: 0 0 8px rgba(139, 148, 158, 0.2);
+   font-family: 'Courier New', monospace;
 }
 
 
 .info-card p {
- color: var(--text-dim);
- font-size: 16px;
- line-height: 1.6;
- position: relative;
- z-index: 1;
+   color: #6e7681;
+   font-size: 14px;
+   line-height: 1.6;
+   font-family: 'Courier New', monospace;
 }
 
 
-/* ---------- MODAL WITH BACKDROP BLUR ---------- */
-.visual-mode {
- display: none;
- position: fixed;
- inset: 0;
- background: rgba(0, 0, 0, 0.88);
- backdrop-filter: blur(8px);
- z-index: 9999;
- justify-content: center;
- align-items: center;
- animation: fadeIn 0.3s ease-out;
-}
-
-
-@keyframes fadeIn {
- from { opacity: 0; }
- to { opacity: 1; }
-}
-
-
-.visual-box {
- background: linear-gradient(135deg, #0e1622 0%, #1a2332 100%);
- border: 1px solid var(--border);
- border-radius: 24px;
- padding: 45px;
- width: 90%;
- max-width: 750px;
- max-height: 85vh;
- overflow-y: auto;
- text-align: center;
- box-shadow: 0 25px 60px rgba(0, 0, 0, 0.7), 0 0 40px var(--accent-glow);
- animation: modalSlideUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-
-@keyframes modalSlideUp {
- from {
-   opacity: 0;
-   transform: translateY(30px) scale(0.95);
- }
- to {
-   opacity: 1;
-   transform: translateY(0) scale(1);
- }
-}
-
-
-.visual-box h2 {
- color: var(--accent);
- margin-bottom: 24px;
- font-size: 32px;
- font-weight: 800;
- letter-spacing: -0.5px;
-}
-
-
-.visual-box p {
- white-space: pre-line;
- line-height: 1.8;
- color: var(--text);
- font-size: 16px;
-}
-
-
-/* ---------- ENHANCED FORM STYLING ---------- */
+/* ---------- FORM STYLING (Terminal Style) ---------- */
 label {
- margin-top: 24px;
- display: block;
- font-weight: 600;
- color: var(--accent);
- font-size: 15px;
- text-align: left;
- letter-spacing: 0.3px;
+   margin-top: 16px;
+   display: block;
+   font-weight: 400;
+   color: #7d8590;
+   font-size: 0.85em;
+   text-align: left;
+   text-transform: uppercase;
+   letter-spacing: 1px;
+   font-family: 'Courier New', monospace;
 }
 
 
 select, input {
- width: 100%;
- margin-top: 10px;
- padding: 14px 16px;
- background: rgba(17, 24, 38, 0.6);
- border-radius: 12px;
- border: 1px solid var(--border);
- color: var(--text);
- font-size: 15px;
- transition: all 0.3s ease;
- backdrop-filter: blur(10px);
+   width: 100%;
+   margin-top: 8px;
+   padding: 14px;
+   background: rgba(13, 17, 23, 0.8);
+   border-radius: 4px;
+   border: 1px solid #30363d;
+   color: #8b949e;
+   font-size: 16px;
+   transition: all 0.2s ease;
+   font-family: 'Courier New', monospace;
 }
 
 
 select:focus, input:focus {
- outline: none;
- border-color: var(--accent);
- background: rgba(17, 24, 38, 0.9);
- box-shadow: 0 0 0 3px var(--accent-glow);
+   outline: none;
+   border-color: #485662;
+   box-shadow: 0 0 8px rgba(72, 86, 98, 0.3);
+   background: rgba(13, 17, 23, 0.95);
 }
 
 
 select:hover, input:hover {
- border-color: var(--accent);
+   border-color: #485662;
+}
+
+
+select option {
+   background: #0d1117;
+   color: #8b949e;
 }
 
 
 input::placeholder {
- color: var(--text-dim);
- opacity: 0.6;
+   color: #484f58;
 }
 
 
-/* ---------- ENHANCED BUTTON ---------- */
+/* ---------- BUTTON (Terminal Style) ---------- */
 button {
- margin-top: 14px;
- padding: 13px 20px;
- width: 100%;
- border-radius: 30px;
- border: none;
- background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 100%);
- color: white;
- font-size: 14px;
- font-weight: 700;
- cursor: pointer;
- transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
- box-shadow:
-   0 4px 16px rgba(255, 107, 157, 0.4),
-   inset 0 1px 0 rgba(255, 255, 255, 0.2);
- letter-spacing: 0.5px;
- position: relative;
- overflow: hidden;
+   margin-top: 14px;
+   padding: 14px 20px;
+   width: 100%;
+   border-radius: 4px;
+   border: 1px solid #30363d;
+   background: rgba(48, 54, 61, 0.3);
+   color: #8b949e;
+   font-size: 16px;
+   font-weight: 400;
+   cursor: pointer;
+   transition: all 0.2s ease;
+   text-transform: uppercase;
+   letter-spacing: 2px;
+   font-family: 'Courier New', monospace;
+   position: relative;
+   overflow: hidden;
 }
 
 
 button::before {
- content: '';
- position: absolute;
- top: 0;
- left: -100%;
- width: 100%;
- height: 100%;
- background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
- transition: left 0.5s ease;
+   content: '';
+   position: absolute;
+   top: 0;
+   left: -100%;
+   width: 100%;
+   height: 100%;
+   background: linear-gradient(90deg, transparent, rgba(100, 120, 130, 0.1), transparent);
+   transition: left 0.6s;
 }
 
 
 button:hover::before {
- left: 100%;
+   left: 100%;
 }
 
 
-button:hover {
- transform: translateY(-2px) scale(1.02);
- box-shadow:
-   0 8px 24px rgba(255, 107, 157, 0.5),
-   inset 0 1px 0 rgba(255, 255, 255, 0.3);
- background: linear-gradient(135deg, #ff8fab 0%, #ffa3bb 100%);
-}
-
-
-button:active {
- transform: translateY(0) scale(0.98);
+button:hover:not(:disabled) {
+   background: rgba(48, 54, 61, 0.5);
+   border-color: #485662;
+   box-shadow: 0 0 10px rgba(100, 120, 130, 0.2);
 }
 
 
 button:disabled {
- opacity: 0.4;
- cursor: not-allowed;
- transform: none;
-}
-
-
-button:disabled:hover {
- transform: none;
- box-shadow: 0 4px 16px rgba(255, 107, 157, 0.4);
+   opacity: 0.4;
+   cursor: not-allowed;
 }
 
 
 /* ---------- RESULT BOX ---------- */
 #result-box {
- margin-top: 28px;
- padding-top: 28px;
- border-top: 2px solid var(--border);
- text-align: center;
- animation: slideDown 0.4s ease-out;
-}
-
-
-@keyframes slideDown {
- from {
-   opacity: 0;
-   transform: translateY(-10px);
- }
- to {
-   opacity: 1;
-   transform: translateY(0);
- }
-}
-
-
-#result-box h3 {
- color: var(--accent);
- margin-bottom: 14px;
- font-size: 22px;
+   text-align: center;
 }
 
 
 #server-status {
- color: var(--accent);
- margin-top: 12px;
- font-weight: 600;
- font-size: 16px;
- padding: 12px;
- border-radius: 8px;
- background: rgba(122, 215, 255, 0.1);
+   color: #8b949e;
+   margin-bottom: 16px;
+   font-weight: 400;
+   font-size: 14px;
+   padding: 10px;
+   border-radius: 4px;
+   background: rgba(48, 54, 61, 0.3);
+   font-family: 'Courier New', monospace;
 }
 
 
-/* ---------- PROFILE RESULT DISPLAY ---------- */
-.profile-result {
- margin-top: 20px;
- padding: 24px;
- background: rgba(17, 24, 38, 0.6);
- border-radius: 16px;
- border: 2px solid var(--border);
- animation: resultAppear 0.6s ease-out;
+/* ---------- PROFILE DISPLAY ---------- */
+#profile-display {
+   text-align: left;
 }
 
 
-@keyframes resultAppear {
- from {
-   opacity: 0;
-   transform: scale(0.95);
- }
- to {
-   opacity: 1;
-   transform: scale(1);
- }
+#profile-display h3 {
+   color: #8b949e;
+   font-size: 1em;
+   margin-bottom: 12px;
+   text-align: center;
 }
 
 
-.profile-badge {
- display: inline-block;
- padding: 12px 24px;
- border-radius: 50px;
- font-size: 20px;
- font-weight: 800;
- margin-bottom: 16px;
- text-transform: uppercase;
- letter-spacing: 1px;
+#profile-display h4 {
+   color: #7d8590;
+   font-size: 0.9em;
+   margin: 12px 0 8px 0;
+   font-family: 'Courier New', monospace;
 }
 
 
-.profile-badge.guardian {
- background: linear-gradient(135deg, var(--guardian), #059669);
- color: white;
- box-shadow: 0 8px 20px rgba(16, 185, 129, 0.3);
+#profile-display > div {
+   background: rgba(22, 27, 34, 0.6) !important;
+   padding: 12px !important;
+   margin-bottom: 10px !important;
+   border-radius: 4px !important;
+   border-left: 2px solid #30363d !important;
 }
 
 
-.profile-badge.balanced {
- background: linear-gradient(135deg, var(--balanced), #0ea5e9);
- color: white;
- box-shadow: 0 8px 20px rgba(122, 215, 255, 0.3);
-}
-
-
-.profile-badge.open {
- background: linear-gradient(135deg, var(--open), #f97316);
- color: white;
- box-shadow: 0 8px 20px rgba(245, 158, 11, 0.3);
-}
-
-
-.profile-badge.hacker {
- background: linear-gradient(135deg, #dc2626, #7f1d1d);
- color: white;
- box-shadow: 0 8px 20px rgba(220, 38, 38, 0.5);
- animation: pulse 2s infinite;
-}
-
-
-.profile-badge.ninja {
- background: linear-gradient(135deg, #6366f1, #312e81);
- color: white;
- box-shadow: 0 8px 20px rgba(99, 102, 241, 0.5);
- animation: pulse 2s infinite;
-}
-
-
-@keyframes pulse {
- 0%, 100% { transform: scale(1); }
- 50% { transform: scale(1.05); }
-}
-
-
-.profile-description {
- text-align: left;
- line-height: 1.8;
- color: var(--text);
- margin-top: 16px;
-}
-
-
-.profile-description h4 {
- color: var(--accent);
- margin-top: 16px;
- margin-bottom: 8px;
- font-size: 18px;
-}
-
-
-.profile-description ul {
- list-style: none;
- padding-left: 0;
-}
-
-
-.profile-description li {
- padding: 8px 0;
- padding-left: 24px;
- position: relative;
-}
-
-
-.profile-description li::before {
- content: '✓';
- position: absolute;
- left: 0;
- color: var(--accent);
- font-weight: bold;
-}
-
-
-/* ---------- ERROR STYLING WITH ANIMATION ---------- */
-.error {
- border-color: var(--error) !important;
- background: rgba(239, 68, 68, 0.1) !important;
- animation: shake 0.4s ease-in-out;
-}
-
-
-@keyframes shake {
- 0%, 100% { transform: translateX(0); }
- 25% { transform: translateX(-8px); }
- 75% { transform: translateX(8px); }
-}
-
-
-/* ---------- SCROLLBAR STYLING ---------- */
-::-webkit-scrollbar {
- width: 10px;
-}
-
-
-::-webkit-scrollbar-track {
- background: var(--bg-dark);
-}
-
-
-::-webkit-scrollbar-thumb {
- background: var(--border);
- border-radius: 5px;
-}
-
-
-::-webkit-scrollbar-thumb:hover {
- background: var(--accent-dark);
-}
-
-
-/* ---------- PROGRESS BAR ---------- */
-.progress-container {
- width: 100%;
- max-width: 600px;
- margin-bottom: 8px;
- text-align: center;
-}
-
-
-.progress-bar {
- width: 100%;
- height: 8px;
- background: rgba(255, 255, 255, 0.05);
- border-radius: 20px;
- overflow: hidden;
- border: none;
- position: relative;
- box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.3);
-}
-
-
-.progress-bar::after {
- content: '';
- position: absolute;
- left: 0;
- top: 0;
- height: 100%;
- width: var(--progress, 0%);
- background: linear-gradient(90deg, #ff6b9d 0%, #ff8fab 50%, #ffa3bb 100%);
- transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
- box-shadow:
-   0 0 20px rgba(255, 107, 157, 0.6),
-   inset 0 1px 0 rgba(255, 255, 255, 0.3);
- border-radius: 20px;
-}
-
-
-.progress-text {
- margin-top: 4px;
- color: var(--accent-light);
- font-size: 11px;
- font-weight: 600;
- letter-spacing: 0.5px;
-}
-
-
-/* ---------- QUIZ STYLING ---------- */
-.quiz-card {
- min-height: 280px;
- display: flex;
- flex-direction: column;
- justify-content: space-between;
-}
-
-
-#quiz-container {
- flex: 1;
- display: flex;
- flex-direction: column;
- justify-content: center;
-}
-
-
-.question-slide {
- animation: slideIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-
-@keyframes slideIn {
- from {
-   opacity: 0;
-   transform: translateX(30px);
- }
- to {
-   opacity: 1;
-   transform: translateX(0);
- }
-}
-
-
-.question-title {
- font-size: 16px;
- color: var(--accent-light);
- margin-bottom: 12px;
- font-weight: 700;
- text-align: center;
- line-height: 1.4;
-}
-
-
-.question-options {
- display: flex;
- flex-direction: column;
- gap: 8px;
- margin-top: 8px;
-}
-
-
-.option-btn {
- padding: 12px 16px;
- background: rgba(255, 255, 255, 0.02);
- border: 1px solid rgba(255, 107, 157, 0.2);
- border-radius: 16px;
- color: var(--text);
- font-size: 13px;
- cursor: pointer;
- transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
- text-align: left;
- width: 100%;
- margin: 0;
- font-weight: 500;
- position: relative;
- overflow: hidden;
- box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-.option-btn::before {
- content: '';
- position: absolute;
- top: 0;
- left: -100%;
- width: 100%;
- height: 100%;
- background: linear-gradient(90deg, transparent, rgba(255, 107, 157, 0.1), transparent);
- transition: left 0.5s ease;
-}
-
-
-.option-btn:hover::before {
- left: 100%;
-}
-
-
-.option-btn:hover {
- border-color: rgba(255, 107, 157, 0.5);
- background: rgba(255, 107, 157, 0.08);
- transform: translateX(4px);
- box-shadow: 0 4px 16px rgba(255, 107, 157, 0.2);
-}
-
-
-.option-btn.selected {
- border-color: var(--accent);
- background: linear-gradient(135deg, rgba(255, 107, 157, 0.2) 0%, rgba(255, 139, 171, 0.15) 100%);
- box-shadow:
-   0 4px 16px rgba(255, 107, 157, 0.3),
-   inset 0 1px 0 rgba(255, 255, 255, 0.1);
- color: var(--accent-light);
-}
-
-
-.option-btn.selected::after {
- content: '✓';
- position: absolute;
- right: 14px;
- top: 50%;
- transform: translateY(-50%);
- color: var(--accent);
- font-weight: bold;
- font-size: 16px;
-}
-
-
-/* ---------- FREE RESPONSE INPUT ---------- */
-.free-response-input {
- width: 100%;
- padding: 16px;
- background: rgba(255, 255, 255, 0.02);
- border: 1px solid rgba(255, 107, 157, 0.2);
- border-radius: 16px;
- color: var(--text);
- font-size: 14px;
- font-family: inherit;
- resize: vertical;
- min-height: 120px;
- transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
- box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
- line-height: 1.6;
-}
-
-
-.free-response-input::placeholder {
- color: var(--text-dim);
- opacity: 0.5;
-}
-
-
-.free-response-input:focus {
- outline: none;
- border-color: var(--accent);
- background: rgba(255, 107, 157, 0.05);
- box-shadow: 0 4px 16px rgba(255, 107, 157, 0.2);
-}
-
-
-.free-response-input:hover {
- border-color: rgba(255, 107, 157, 0.4);
-}
-
-
-.button-container {
- display: flex;
- gap: 10px;
- margin-top: 14px;
-}
-
-
-.button-container button {
- flex: 1;
- margin: 0;
-}
-
-
-#prev-btn {
- background: transparent;
- border: 2px solid rgba(255, 107, 157, 0.5);
- color: var(--accent-light);
- box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
-}
-
-
-#prev-btn:hover {
- background: rgba(255, 107, 157, 0.1);
- border-color: var(--accent);
- box-shadow: 0 4px 16px rgba(255, 107, 157, 0.3);
+#profile-display p {
+   font-size: 13px;
+   line-height: 1.5;
+   margin: 6px 0;
 }
 
 
 /* ---------- LOADING ANIMATION ---------- */
 .loading-dots {
- display: inline-block;
+   display: inline-block;
 }
 
 
 .loading-dots::after {
- content: '';
- animation: dots 1.5s steps(4, end) infinite;
+   content: '';
+   animation: dots 1.5s steps(4, end) infinite;
 }
 
 
 @keyframes dots {
- 0%, 20% { content: ''; }
- 40% { content: '.'; }
- 60% { content: '..'; }
- 80%, 100% { content: '...'; }
+   0%, 20% { content: ''; }
+   40% { content: '.'; }
+   60% { content: '..'; }
+   80%, 100% { content: '...'; }
+}
+
+
+@keyframes pulse {
+   0%, 100% { opacity: 1; }
+   50% { opacity: 0.6; }
+}
+
+
+.loading {
+   animation: pulse 1.5s infinite;
+}
+
+
+/* ---------- SCROLLBAR STYLING ---------- */
+::-webkit-scrollbar {
+   width: 6px;
+}
+
+
+::-webkit-scrollbar-track {
+   background: #0d1117;
+}
+
+
+::-webkit-scrollbar-thumb {
+   background: #30363d;
+   border-radius: 3px;
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+   background: #485662;
 }
 
 
 /* ---------- RESPONSIVE DESIGN ---------- */
 @media (max-width: 768px) {
- header h1 {
-   font-size: 36px;
- }
+   .container {
+       padding: 0 12px;
+   }
 
 
- header p {
-   font-size: 16px;
- }
+   .info-card {
+       padding: 16px !important;
+   }
 
 
- .info-card {
-   padding: 28px !important;
- }
-
-
- .visual-box {
-   padding: 32px;
- }
-
-
- .question-title {
-   font-size: 19px;
- }
-
-
- .option-btn {
-   padding: 16px 20px;
-   font-size: 15px;
- }
+   button {
+       padding: 12px 16px;
+       font-size: 14px;
+   }
 }
 </style>
 </head>
 
 
+
+
 <body>
+
+
 
 
 <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
 
 
+
+
 <header>
- <h1>💕 Find Your Perfect Match</h1>
- <p>Discover your unique personality type</p>
+<h1 style="font-size: 1.8em; font-weight: 600; margin-bottom: 4px; color: #c9d1d9;">💕 Find Your Perfect Match</h1>
+<p style="color: #8b949e; font-size: 14px; margin: 0;">Discover your unique personality type</p>
 </header>
 
 
-<!-- ---------- PERSONALITY QUIZ ---------- -->
+
+
+<!-- ---------- AI ANALYSIS INPUT ---------- -->
 <div class="container">
- <!-- Progress Bar -->
- <div class="progress-container">
-   <div class="progress-bar" id="progress-bar"></div>
-   <p class="progress-text" id="progress-text">Question 1 of 13</p>
- </div>
+<div class="info-card">
+  <h3>AI PERSONALITY ANALYSIS</h3>
 
 
- <!-- Quiz Card -->
- <div class="info-card quiz-card" style="cursor:default;">
-   <div id="quiz-container">
-     <!-- Questions will be injected here dynamically -->
-   </div>
+  <!-- Input Section (hidden after generating) -->
+  <div id="input-section">
+    <p style="margin-bottom: 16px;">
+      Customize your AI analysis based on both your profile and personality quiz results
+    </p>
 
 
-   <div class="button-container">
-     <button id="prev-btn" onclick="previousQuestion()" style="display:none;">← Previous</button>
-     <button id="next-btn" onclick="nextQuestion()">Next →</button>
-     <button id="submit-btn" onclick="submitQuiz()" style="display:none;">Get My Personality Type ✨</button>
-   </div>
- </div>
+    <label for="analysis-focus">Analysis Focus</label>
+    <select id="analysis-focus">
+      <option value="">Select focus area...</option>
+      <option value="compatibility">Relationship Compatibility Insights</option>
+      <option value="strengths">Personal Strengths & Growth Areas</option>
+      <option value="communication">Communication Style Analysis</option>
+      <option value="comprehensive">Comprehensive Analysis (All Above)</option>
+    </select>
 
 
- <!-- Result Display -->
- <div id="result-box" class="info-card" style="display:none; cursor:default;">
-   <h3>🎯 Your Personality Type</h3>
-   <p id="server-status">
-   </p>
-   <div id="profile-display"></div>
- </div>
+    <label for="analysis-depth">Detail Level</label>
+    <select id="analysis-depth">
+      <option value="">Select detail level...</option>
+      <option value="brief">Brief Overview (Key Points Only)</option>
+      <option value="moderate">Moderate Detail (Balanced)</option>
+      <option value="deep">Deep Dive (Comprehensive Analysis)</option>
+    </select>
+
+
+    <button id="generate-analysis-btn" onclick="generateAIAnalysis()" disabled>
+      Generate AI Analysis
+    </button>
+  </div>
+
+
+  <!-- Result Display (replaces input section) -->
+  <div id="result-box" style="display:none;">
+    <p id="server-status"></p>
+    <div id="profile-display"></div>
+    <button id="regenerate-btn" onclick="showInputSection()" style="margin-top: 20px;">
+      ← Generate New Analysis
+    </button>
+  </div>
 </div>
+</div>
+
+
 
 
 <script type="module">
 import { pythonURI } from '{{site.baseurl}}/assets/js/api/config.js';
 
 
-/* ========== PERSONALITY QUIZ QUESTIONS ========== */
-const quizQuestions = [
- {
-   id: 1,
-   question: "At a social gathering, you typically...",
-   options: [
-     { text: "Seek out new people and enjoy being the center of attention", value: "E_high" },
-     { text: "Talk to a few close friends and enjoy smaller conversations", value: "I_moderate" },
-     { text: "Prefer observing and only engage when approached", value: "I_high" },
-     { text: "Mix between groups and one-on-one conversations", value: "E_moderate" }
-   ]
- },
- {
-   id: 2,
-   question: "When making important decisions, you rely most on...",
-   options: [
-     { text: "Logic, facts, and objective analysis", value: "T_high" },
-     { text: "How it will affect people and relationships", value: "F_high" },
-     { text: "A balance of logic and emotional impact", value: "T_moderate" },
-     { text: "Gut feeling and personal values", value: "F_moderate" }
-   ]
- },
- {
-   id: 3,
-   question: "Your ideal weekend involves...",
-   options: [
-     { text: "Spontaneous adventures and seeing where the day takes you", value: "P_high" },
-     { text: "A well-planned itinerary of activities", value: "J_high" },
-     { text: "A loose plan with room for flexibility", value: "P_moderate" },
-     { text: "Structured activities with some downtime built in", value: "J_moderate" }
-   ]
- },
- {
-   id: 4,
-   question: "When learning something new, you prefer...",
-   options: [
-     { text: "Understanding the big picture and future possibilities", value: "N_high" },
-     { text: "Hands-on practice with concrete examples", value: "S_high" },
-     { text: "Starting with theory, then applying it practically", value: "N_moderate" },
-     { text: "Step-by-step instructions with clear outcomes", value: "S_moderate" }
-   ]
- },
- {
-   id: 5,
-   question: "Describe your ideal date or hangout. What would you do and why?",
-   type: "freeResponse",
-   placeholder: "Share your thoughts... (e.g., coffee shop chat, adventure activity, cozy movie night)"
- },
- {
-   id: 6,
-   question: "After a long day, you recharge by...",
-   options: [
-     { text: "Being alone with your thoughts or hobbies", value: "I_high" },
-     { text: "Calling friends or going out", value: "E_high" },
-     { text: "Quiet time first, then maybe socializing", value: "I_moderate" },
-     { text: "Light social interaction with close ones", value: "E_moderate" }
-   ]
- },
- {
-   id: 7,
-   question: "When someone shares a problem with you, you typically...",
-   options: [
-     { text: "Offer solutions and practical advice", value: "T_high" },
-     { text: "Listen empathetically and validate their feelings", value: "F_high" },
-     { text: "Ask questions to understand before responding", value: "T_moderate" },
-     { text: "Share similar experiences to show understanding", value: "F_moderate" }
-   ]
- },
- {
-   id: 8,
-   question: "What's something you're passionate about and why does it matter to you?",
-   type: "freeResponse",
-   placeholder: "Tell us about your passion... (e.g., art, helping others, solving problems)"
- },
- {
-   id: 9,
-   question: "When planning a trip, you...",
-   options: [
-     { text: "Research extensively and create detailed plans", value: "J_high" },
-     { text: "Book tickets and figure out the rest as you go", value: "P_high" },
-     { text: "Plan key activities but leave room for spontaneity", value: "P_moderate" },
-     { text: "Follow recommended itineraries from others", value: "S_moderate" }
-   ]
- },
- {
-   id: 10,
-   question: "In conversations, you tend to focus on...",
-   options: [
-     { text: "Abstract ideas, theories, and what could be", value: "N_high" },
-     { text: "Concrete facts, experiences, and what is", value: "S_high" },
-     { text: "Both practical details and underlying meanings", value: "N_moderate" },
-     { text: "Real-world applications and examples", value: "S_moderate" }
-   ]
- },
- {
-   id: 11,
-   question: "When facing conflict, you're more likely to...",
-   options: [
-     { text: "Address it directly with facts and logic", value: "T_high" },
-     { text: "Consider feelings and find a harmonious solution", value: "F_high" },
-     { text: "Avoid it unless absolutely necessary", value: "I_high" },
-     { text: "Seek mediation or a third-party perspective", value: "F_moderate" }
-   ]
- },
- {
-   id: 12,
-   question: "If you could change one thing about the world, what would it be and why?",
-   type: "freeResponse",
-   placeholder: "Share your vision for a better world..."
- },
- {
-   id: 13,
-   question: "Your approach to rules and deadlines is...",
-   options: [
-     { text: "Strict - rules exist for a reason and should be followed", value: "J_high" },
-     { text: "Flexible - guidelines that can bend based on context", value: "P_high" },
-     { text: "Respectful but willing to question when needed", value: "P_moderate" },
-     { text: "Depends on whether they make logical sense", value: "T_moderate" }
-   ]
- }
+
+
+/* ========== CHECK FOR QUIZ COMPLETION ========== */
+
+
+
+
+/**
+* Check if both quizzes have been completed
+*/
+function checkQuizzesCompleted() {
+console.log('🔍 Checking if both quizzes are completed...');
+
+
+// Check sessionStorage for personality quiz
+const personalityData = sessionStorage.getItem('personalityQuizResponses');
+
+
+// Check sessionStorage for profile quiz
+const profileData = sessionStorage.getItem('userQuizResponses');
+
+
+console.log('Personality quiz data:', personalityData ? 'Found' : 'Not found');
+console.log('Profile quiz data:', profileData ? 'Found' : 'Not found');
+
+
+if (!personalityData || !profileData) {
+  // Redirect back to Krishna's quiz page if not completed
+  alert('⚠️ Please complete both the profile quiz and personality quiz on Krishna\'s page first!');
+  window.location.href = '/digitalmatchmaking/mcq/';
+  return false;
+}
+
+
+return true;
+}
+
+
+
+
+/**
+* Enable analysis button when both dropdowns are selected
+*/
+function updateAnalysisButton() {
+const focusSelect = document.getElementById('analysis-focus');
+const depthSelect = document.getElementById('analysis-depth');
+const generateBtn = document.getElementById('generate-analysis-btn');
+
+
+if (focusSelect.value && depthSelect.value) {
+  generateBtn.disabled = false;
+} else {
+  generateBtn.disabled = true;
+}
+}
+
+
+
+
+/**
+* Main function to generate AI analysis
+*/
+/**
+* Show input section and hide results
+*/
+function showInputSection() {
+document.getElementById("input-section").style.display = "block";
+document.getElementById("result-box").style.display = "none";
+}
+
+
+async function generateAIAnalysis() {
+const focusSelect = document.getElementById('analysis-focus');
+const depthSelect = document.getElementById('analysis-depth');
+
+
+const focus = focusSelect.value;
+const depth = depthSelect.value;
+
+
+if (!focus || !depth) {
+  alert('Please select both focus area and detail level');
+  return;
+}
+
+
+// Hide input section, show result box with loading state
+document.getElementById("input-section").style.display = "none";
+document.getElementById("result-box").style.display = "block";
+document.getElementById("server-status").innerHTML = '⏳ Generating AI analysis<span class="loading-dots"></span>';
+document.getElementById("profile-display").innerHTML = '';
+
+
+// Fetch both quiz datasets (INPUT)
+const profileData = await fetchUserProfile();
+const personalityData = fetchPersonalityQuizData();
+
+
+console.log('📊 Profile data:', profileData);
+console.log('🧠 Personality data:', personalityData);
+
+
+// Generate comprehensive AI analysis (PROCEDURE with DIFFERENT INPUTS)
+const analysis = await generateComprehensiveAnalysis(profileData, personalityData, focus, depth);
+
+
+// Display the analysis (OUTPUT)
+setTimeout(async () => {
+  displayComprehensiveAnalysis(analysis, profileData, personalityData);
+
+
+  // Save analysis to backend for matchmaking
+  const saved = await saveAnalysisToBackend(analysis, personalityData);
+  if (saved) {
+    document.getElementById("server-status").textContent = "✅ Analysis saved! You're ready for matchmaking!";
+  } else {
+    document.getElementById("server-status").textContent = "✅ Your AI analysis is ready! (Save failed)";
+  }
+}, 500);
+}
+
+
+
+
+/* ========== FETCH BOTH QUIZ DATASETS (INPUT) ========== */
+
+
+/**
+* Fetch user's profile data from Krishna's quiz (backend)
+*/
+async function fetchUserProfile() {
+try {
+  const response = await fetch(`${pythonURI}/api/match/save`, {
+    method: 'GET',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' }
+  });
+
+
+  console.log('📊 Fetching profile from backend...');
+
+
+  if (!response.ok) {
+    console.log('⚠️ No profile found in backend, checking sessionStorage');
+    const sessionProfile = sessionStorage.getItem('userQuizResponses');
+    if (sessionProfile) {
+      return JSON.parse(sessionProfile);
+    }
+    return generateSampleProfile();
+  }
+
+
+  const data = await response.json();
+  console.log('✅ Profile fetched from backend:', data);
+
+
+  if (data && data.profile_quiz) {
+    return data.profile_quiz;
+  } else {
+    // Fallback to sessionStorage
+    const sessionProfile = sessionStorage.getItem('userQuizResponses');
+    if (sessionProfile) {
+      return JSON.parse(sessionProfile);
+    }
+    return generateSampleProfile();
+  }
+} catch (err) {
+  console.error('❌ Error fetching profile:', err);
+  // Try sessionStorage as fallback
+  const sessionProfile = sessionStorage.getItem('userQuizResponses');
+  if (sessionProfile) {
+    return JSON.parse(sessionProfile);
+  }
+  return generateSampleProfile();
+}
+}
+
+
+/**
+* Fetch personality quiz data from sessionStorage
+*/
+function fetchPersonalityQuizData() {
+const data = sessionStorage.getItem('personalityQuizResponses');
+if (data) {
+  return JSON.parse(data);
+}
+return {};
+}
+
+
+/**
+* Generate sample profile for demonstration
+*/
+function generateSampleProfile() {
+return {
+  "What is your favorite color?": "Blue",
+  "What do you want your username to be?": "tech_explorer",
+  "What's your favorite animal?": "Cats",
+  "What is your favorite genre of music?": "Rock",
+  "What is your favorite band/musical artist?": "The Beatles",
+  "What is your favorite subject?": "Math"
+};
+}
+
+
+/* ========== GENERATE COMPREHENSIVE AI ANALYSIS (PROCEDURE) ========== */
+
+
+/**
+* Generate comprehensive AI analysis using both profile + personality data
+* Different inputs produce different outputs based on user preferences
+*/
+async function generateComprehensiveAnalysis(profileData, personalityData, focus, depth) {
+console.log('🤖 Generating comprehensive AI analysis...');
+console.log('Focus:', focus, 'Depth:', depth);
+
+
+// Extract key insights from profile data using ITERATION
+const profileInsights = [];
+const attributeCategories = [
+  { key: "What is your favorite color?", label: "Color Preference" },
+  { key: "What's your favorite animal?", label: "Animal Preference" },
+  { key: "What is your favorite genre of music?", label: "Music Taste" },
+  { key: "What is your favorite subject?", label: "Academic Interest" }
 ];
 
 
-/* ========== QUIZ STATE ========== */
-let currentQuestion = 0;
-let answers = {};
+// ITERATION: Process each profile attribute
+attributeCategories.forEach(category => {
+  if (profileData[category.key]) {
+    profileInsights.push({
+      category: category.label,
+      value: profileData[category.key]
+    });
+  }
+});
 
 
-/* ========== QUIZ NAVIGATION FUNCTIONS ========== */
+// SELECTION: Count personality trait indicators
+let introversionScore = 0;
+let extroversionScore = 0;
+let thinkingScore = 0;
+let feelingScore = 0;
+let planningScore = 0;
+let spontaneousScore = 0;
 
 
-/**
-* Initialize and render the quiz
-*/
-function initQuiz() {
- renderQuestion();
- updateProgress();
+// ITERATION through personality responses
+Object.values(personalityData).forEach(answer => {
+  const answerStr = String(answer).toLowerCase();
+
+
+  // SELECTION: Categorize responses based on keywords
+  if (answerStr.includes('alone') || answerStr.includes('observ') || answerStr.includes('quiet') || answerStr.includes('i_high')) {
+    introversionScore++;
+  }
+  if (answerStr.includes('people') || answerStr.includes('social') || answerStr.includes('out') || answerStr.includes('e_high')) {
+    extroversionScore++;
+  }
+  if (answerStr.includes('logic') || answerStr.includes('fact') || answerStr.includes('analysis') || answerStr.includes('t_high')) {
+    thinkingScore++;
+  }
+  if (answerStr.includes('feeling') || answerStr.includes('empath') || answerStr.includes('emotion') || answerStr.includes('f_high')) {
+    feelingScore++;
+  }
+  if (answerStr.includes('plan') || answerStr.includes('structure') || answerStr.includes('j_high')) {
+    planningScore++;
+  }
+  if (answerStr.includes('spontaneous') || answerStr.includes('flexible') || answerStr.includes('p_high')) {
+    spontaneousScore++;
+  }
+});
+
+
+// Generate comprehensive analysis combining both datasets
+return {
+  focus: focus,
+  depth: depth,
+  profileInsights: profileInsights,
+  personalityTraits: {
+    social: extroversionScore > introversionScore ? 'Extroverted' : 'Introverted',
+    decision: thinkingScore > feelingScore ? 'Analytical' : 'Empathetic',
+    lifestyle: planningScore > spontaneousScore ? 'Structured' : 'Spontaneous',
+    socialScore: extroversionScore,
+    introversionScore: introversionScore,
+    thinkingScore: thinkingScore,
+    feelingScore: feelingScore
+  },
+  combinedInsights: generateCombinedInsights(profileData, personalityData, focus, depth)
+};
 }
 
 
 /**
-* Render current question
+* Generate combined insights based on focus area and depth
+* Shows how DIFFERENT INPUTS produce DIFFERENT OUTPUTS
 */
-function renderQuestion() {
- const question = quizQuestions[currentQuestion];
- const container = document.getElementById('quiz-container');
+function generateCombinedInsights(profile, personality, focus, depth) {
+const insights = [];
 
 
- let contentHTML = '';
+// Compatibility-focused insights
+if (focus === 'compatibility' || focus === 'comprehensive') {
+  const music = profile["What is your favorite genre of music?"];
+  if (music) {
+    if (music.toLowerCase() === 'rock') {
+      insights.push("🎸 <strong>Music Compatibility:</strong> Your love for Rock music suggests you appreciate authenticity and emotional depth. You'd connect well with partners who value genuine expression and aren't afraid to show their emotions.");
+    } else if (music.toLowerCase() === 'pop') {
+      insights.push("🎵 <strong>Music Compatibility:</strong> Your Pop music preference indicates you enjoy mainstream culture and social connection. You'd match well with outgoing partners who enjoy popular activities and staying current with trends.");
+    } else if (music.toLowerCase() === 'rap') {
+      insights.push("🎤 <strong>Music Compatibility:</strong> Your Rap preference shows you value lyrical complexity and cultural commentary. You'd connect with intellectually curious partners who appreciate depth and social awareness.");
+    }
+  }
+}
 
 
- if (question.type === 'freeResponse') {
-   // Free-response textarea
-   const savedAnswer = answers[question.id] || '';
-   contentHTML = `
-     <textarea
-       id="free-response-${question.id}"
-       class="free-response-input"
-       placeholder="${question.placeholder}"
-       oninput="saveFreeResponse(${question.id}, this.value)"
-       rows="5">${savedAnswer}</textarea>
-   `;
- } else {
-   // Multiple choice options
-   question.options.forEach((option, index) => {
-     const isSelected = answers[question.id] === option.value;
-     contentHTML += `
-       <button class="option-btn ${isSelected ? 'selected' : ''}"
-               onclick="selectOption(${question.id}, '${option.value}', this)">
-         ${option.text}
-       </button>
-     `;
-   });
- }
+// Strengths-focused insights
+if (focus === 'strengths' || focus === 'comprehensive') {
+  const subject = profile["What is your favorite subject?"];
+  if (subject) {
+    if (subject.toLowerCase() === 'math' || subject.toLowerCase() === 'science') {
+      insights.push("🧮 <strong>Cognitive Strength:</strong> Your interest in " + subject + " reveals strong analytical and problem-solving abilities. You excel at breaking down complex challenges and finding logical solutions.");
+    } else if (subject.toLowerCase() === 'english' || subject.toLowerCase() === 'history') {
+      insights.push("📚 <strong>Interpersonal Strength:</strong> Your " + subject + " preference indicates excellent communication skills and empathy. You understand context, nuance, and human motivations deeply.");
+    }
+  }
+}
 
 
- container.innerHTML = `
-   <div class="question-slide">
-     <h3 class="question-title">${question.question}</h3>
-     <div class="question-options">
-       ${contentHTML}
-     </div>
-   </div>
- `;
+// Communication-focused insights
+if (focus === 'communication' || focus === 'comprehensive') {
+  const animal = profile["What's your favorite animal?"];
+  if (animal) {
+    if (animal.toLowerCase() === 'dogs') {
+      insights.push("🐕 <strong>Communication Style:</strong> Like dogs, you value loyalty and direct, honest communication. You appreciate when others are straightforward with you and reciprocate with transparency.");
+    } else if (animal.toLowerCase() === 'cats') {
+      insights.push("🐱 <strong>Communication Style:</strong> Like cats, you value independence and selective engagement. You communicate when it matters and appreciate partners who respect your need for space.");
+    } else if (animal.toLowerCase() === 'birds') {
+      insights.push("🦜 <strong>Communication Style:</strong> Like birds, you're expressive and social. You communicate frequently and enjoy partners who engage in lively conversations.");
+    }
+  }
+}
 
 
- updateButtons();
+// Add depth-specific insights
+if (depth === 'deep' || depth === 'moderate') {
+  const color = profile["What is your favorite color?"];
+  if (color) {
+    const colorInsights = {
+      'red': '❤️ Your preference for Red suggests passionate energy and boldness in relationships.',
+      'blue': '💙 Your preference for Blue indicates a calm, trustworthy nature that provides stability.',
+      'green': '💚 Your preference for Green shows growth-oriented thinking and balance.',
+      'purple': '💜 Your preference for Purple reveals creativity and depth in emotional connections.'
+    };
+    const insight = colorInsights[color.toLowerCase()];
+    if (insight) {
+      insights.push("<strong>Personality Color:</strong> " + insight);
+    }
+  }
+}
+
+
+// Add comprehensive note if selected
+if (focus === 'comprehensive' && depth === 'deep') {
+  insights.push("✨ <strong>Holistic Analysis:</strong> Your unique combination of traits creates a multifaceted personality. You blend analytical thinking with emotional awareness, structured planning with spontaneous flexibility. This balance makes you adaptable and able to connect with diverse personality types.");
+}
+
+
+return insights;
+}
+
+
+/* ========== SAVE ANALYSIS TO BACKEND ========== */
+
+
+/**
+* Save the AI analysis and personality data to backend for matchmaking
+*/
+async function saveAnalysisToBackend(analysis, personalityData) {
+try {
+  console.log('💾 Saving analysis to backend for matchmaking...');
+
+
+  const payload = {
+    profile_data: {
+      personality_quiz: personalityData,
+      analysis: {
+        focus: analysis.focus,
+        depth: analysis.depth,
+        personalityTraits: analysis.personalityTraits,
+        profileInsights: analysis.profileInsights
+      }
+    }
+  };
+
+
+  console.log('Payload:', payload);
+
+
+  const response = await fetch(`${pythonURI}/api/match/save`, {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+
+
+  console.log('Save response status:', response.status);
+
+
+  if (!response.ok) {
+    console.error('Failed to save analysis:', response.status);
+    return false;
+  }
+
+
+  const data = await response.json();
+  console.log('✅ Analysis saved successfully:', data);
+  return true;
+} catch (err) {
+  console.error('❌ Error saving analysis:', err);
+  return false;
+}
+}
+
+
+/* ========== DISPLAY COMPREHENSIVE ANALYSIS (OUTPUT) ========== */
+
+
+/**
+* Display comprehensive AI analysis (compact terminal style)
+*/
+function displayComprehensiveAnalysis(analysis, profileData, personalityData) {
+const displayDiv = document.getElementById('profile-display');
+
+
+let html = `<p style="text-align: center; color: #6e7681; margin-bottom: 12px; font-size: 12px;">
+  Focus: ${getFocusLabel(analysis.focus)} | Detail: ${getDepthLabel(analysis.depth)}
+</p>`;
+
+
+// Profile Insights Section (compact)
+html += '<div style="background: rgba(22, 27, 34, 0.6); padding: 12px; border-radius: 4px; margin-bottom: 10px; border-left: 2px solid #30363d;">';
+html += '<div style="color: #7d8590; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">PROFILE DATA</div>';
+html += '<div style="display: flex; flex-wrap: wrap; gap: 8px;">';
+
+
+analysis.profileInsights.forEach(insight => {
+  html += `<span style="background: rgba(48, 54, 61, 0.5); padding: 4px 8px; border-radius: 3px; font-size: 12px; color: #8b949e;">${insight.category}: <strong>${insight.value}</strong></span>`;
+});
+
+
+html += '</div></div>';
+
+
+// Personality Traits Section (compact inline)
+html += '<div style="background: rgba(22, 27, 34, 0.6); padding: 12px; border-radius: 4px; margin-bottom: 10px; border-left: 2px solid #30363d;">';
+html += '<div style="color: #7d8590; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">PERSONALITY TRAITS</div>';
+html += `<div style="display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;">
+    <span style="background: rgba(48, 54, 61, 0.5); padding: 6px 10px; border-radius: 3px; font-size: 12px; color: #8b949e;">${analysis.personalityTraits.social === 'Extroverted' ? '👥' : '🧘'} ${analysis.personalityTraits.social}</span>
+    <span style="background: rgba(48, 54, 61, 0.5); padding: 6px 10px; border-radius: 3px; font-size: 12px; color: #8b949e;">${analysis.personalityTraits.decision === 'Analytical' ? '🧮' : '❤️'} ${analysis.personalityTraits.decision}</span>
+    <span style="background: rgba(48, 54, 61, 0.5); padding: 6px 10px; border-radius: 3px; font-size: 12px; color: #8b949e;">${analysis.personalityTraits.lifestyle === 'Structured' ? '📅' : '🌊'} ${analysis.personalityTraits.lifestyle}</span>
+  </div>`;
+html += '</div>';
+
+
+// Combined Insights Section (compact)
+if (analysis.combinedInsights.length > 0) {
+  html += '<div style="background: rgba(22, 27, 34, 0.6); padding: 12px; border-radius: 4px; border-left: 2px solid #30363d;">';
+  html += '<div style="color: #7d8590; font-size: 11px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px;">AI INSIGHTS</div>';
+
+
+  analysis.combinedInsights.forEach(insight => {
+    html += `<div style="padding: 8px; margin: 6px 0; background: rgba(48, 54, 61, 0.3); border-left: 2px solid #485662; border-radius: 2px; font-size: 12px; color: #8b949e; line-height: 1.5;">${insight}</div>`;
+  });
+
+
+  html += '</div>';
+}
+
+
+displayDiv.innerHTML = html;
 }
 
 
 /**
-* Select an option for current question
+* Helper functions to get readable labels
 */
-function selectOption(questionId, value, element) {
- answers[questionId] = value;
-
-
- // Update UI
- document.querySelectorAll('.option-btn').forEach(btn => {
-   btn.classList.remove('selected');
- });
- element.classList.add('selected');
-
-
- // Enable next/submit button
- updateButtons();
+function getFocusLabel(focus) {
+const labels = {
+  'compatibility': 'Relationship Compatibility',
+  'strengths': 'Personal Strengths & Growth',
+  'communication': 'Communication Style',
+  'comprehensive': 'Comprehensive Analysis'
+};
+return labels[focus] || focus;
 }
 
 
-/**
-* Save free-response answer
-*/
-function saveFreeResponse(questionId, value) {
- answers[questionId] = value.trim();
- updateButtons();
-}
-
-
-/**
-* Navigate to next question
-*/
-function nextQuestion() {
- const currentQ = quizQuestions[currentQuestion];
- const answer = answers[currentQ.id];
-
-
- // Validate answer based on question type
- if (!answer || (currentQ.type === 'freeResponse' && answer.length < 3)) {
-   if (currentQ.type === 'freeResponse') {
-     alert('Please write at least a few words before continuing');
-   } else {
-     alert('Please select an answer before continuing');
-   }
-   return;
- }
-
-
- if (currentQuestion < quizQuestions.length - 1) {
-   currentQuestion++;
-   renderQuestion();
-   updateProgress();
- }
-}
-
-
-/**
-* Navigate to previous question
-*/
-function previousQuestion() {
- if (currentQuestion > 0) {
-   currentQuestion--;
-   renderQuestion();
-   updateProgress();
- }
-}
-
-
-/**
-* Update button visibility and states
-*/
-function updateButtons() {
- const prevBtn = document.getElementById('prev-btn');
- const nextBtn = document.getElementById('next-btn');
- const submitBtn = document.getElementById('submit-btn');
-
-
- const currentQ = quizQuestions[currentQuestion];
- let hasAnswer = false;
-
-
- if (currentQ.type === 'freeResponse') {
-   // For free response, check if there's text (at least 3 characters)
-   hasAnswer = answers[currentQ.id] && answers[currentQ.id].length >= 3;
- } else {
-   // For multiple choice, just check if answered
-   hasAnswer = !!answers[currentQ.id];
- }
-
-
- // Show/hide previous button
- prevBtn.style.display = currentQuestion > 0 ? 'block' : 'none';
-
-
- // Show next or submit button
- if (currentQuestion === quizQuestions.length - 1) {
-   nextBtn.style.display = 'none';
-   submitBtn.style.display = 'block';
-   submitBtn.disabled = !hasAnswer;
- } else {
-   nextBtn.style.display = 'block';
-   submitBtn.style.display = 'none';
-   nextBtn.disabled = !hasAnswer;
- }
-}
-
-
-/**
-* Update progress bar
-*/
-function updateProgress() {
- const progress = ((currentQuestion + 1) / quizQuestions.length) * 100;
- const progressBar = document.getElementById('progress-bar');
- const progressText = document.getElementById('progress-text');
-
-
- progressBar.style.setProperty('--progress', `${progress}%`);
- progressText.textContent = `Question ${currentQuestion + 1} of ${quizQuestions.length}`;
-}
-
-
-/* ========== AI PERSONALITY ANALYSIS ========== */
-
-
-/**
-* Call backend API to analyze personality (proxies to Claude API)
-*/
-async function analyzePersonalityWithAI(responses) {
- console.log('📝 Calling backend AI analysis API...');
-
-
- try {
-   const response = await fetch(`${pythonURI}/api/analyze-personality`, {
-     method: 'POST',
-     headers: {
-       'Content-Type': 'application/json'
-     },
-     credentials: 'include',
-     body: JSON.stringify({
-       responses: responses
-     })
-   });
-
-
-   console.log('📡 Backend API Response Status:', response.status);
-
-
-   if (!response.ok) {
-     const errorData = await response.json().catch(() => ({}));
-     console.error('❌ API Error Details:', errorData);
-
-
-     // If backend returns fallback in error response, use it
-     if (errorData.fallback) {
-       console.log('✨ Using fallback from backend');
-       return errorData.fallback;
-     }
-
-
-     throw new Error(`API error: ${response.status} - ${JSON.stringify(errorData)}`);
-   }
-
-
-   const result = await response.json();
-   console.log('✅ AI Response received:', result);
-   console.log('✨ Personality type:', result.type_name);
-   return result;
-
-
- } catch (error) {
-   console.error('❌ AI Analysis Error:', error);
-   console.log('⚠️ Using fallback personality type');
-
-
-   // Return fallback personality
-   return {
-     type_name: "The Unique Individual",
-     emoji: "✨",
-     description: "You have a unique blend of traits that makes you special. Your personality combines elements of different types in interesting ways.",
-     strengths: [
-       "Adaptable to different situations",
-       "Open to new experiences",
-       "Thoughtful and reflective",
-       "Balanced perspective"
-     ],
-     recommendations: [
-       "Continue exploring what makes you unique",
-       "Connect with people who appreciate your complexity",
-       "Embrace your multifaceted nature"
-     ]
-   };
- }
-}
-
-
-/**
-* Display AI-generated personality result
-*/
-function displayPersonalityResult(personality) {
- const displayDiv = document.getElementById('profile-display');
-
-
- let strengthsHTML = '';
- personality.strengths.forEach(strength => {
-   strengthsHTML += `<li>${strength}</li>`;
- });
-
-
- let recommendationsHTML = '';
- personality.recommendations.forEach(rec => {
-   recommendationsHTML += `<li>${rec}</li>`;
- });
-
-
- displayDiv.innerHTML = `
-   <div class="profile-result">
-     <div class="profile-badge balanced">
-       ${personality.emoji} ${personality.type_name}
-     </div>
-     <div class="profile-description">
-       <p><strong>${personality.description}</strong></p>
-
-
-       <h4>Your Strengths:</h4>
-       <ul>${strengthsHTML}</ul>
-
-
-       <h4>Perfect Matches:</h4>
-       <ul>${recommendationsHTML}</ul>
-     </div>
-   </div>
- `;
-}
-
-
-/**
-* Submit quiz and get personality type
-*/
-async function submitQuiz() {
- // Check all questions answered
- if (Object.keys(answers).length !== quizQuestions.length) {
-   alert('Please answer all questions');
-   return;
- }
-
-
- // Show result box with loading state
- document.getElementById("result-box").style.display = "block";
- document.getElementById("server-status").innerHTML = '⏳ Analyzing your personality<span class="loading-dots"></span>';
- document.getElementById("profile-display").innerHTML = '';
-
-
- // Scroll to results
- document.getElementById("result-box").scrollIntoView({ behavior: 'smooth' });
-
-
- // Prepare response data
- const responseData = quizQuestions.map(q => {
-   if (q.type === 'freeResponse') {
-     // Free-response: send the user's text directly
-     return {
-       question: q.question,
-       answer: answers[q.id] || '',
-       type: 'freeResponse'
-     };
-   } else {
-     // Multiple choice: send the selected option text
-     return {
-       question: q.question,
-       answer: q.options.find(opt => opt.value === answers[q.id])?.text || '',
-       type: 'multipleChoice'
-     };
-   }
- });
-
-
- // Get AI analysis
- const personality = await analyzePersonalityWithAI(responseData);
-
-
- // Display result
- setTimeout(() => {
-   displayPersonalityResult(personality);
-   document.getElementById("server-status").textContent = "✅ Your personality type is ready!";
- }, 500);
-
-
- /* ---------- SAVE TO LOCAL STORAGE (NO AUTH REQUIRED) ---------- */
- try {
-   localStorage.setItem('personality_data', JSON.stringify({
-     personality_type: personality.type_name,
-     personality_emoji: personality.emoji,
-     personality_description: personality.description,
-     timestamp: new Date().toISOString()
-   }));
-   console.log("✅ Personality saved to local storage");
- } catch (err) {
-   console.error("❌ Local storage error:", err);
- }
-
-
- /* ---------- SAVE TO BACKEND ---------- */
- // Save personality_type only
- fetch(`${pythonURI}/api/match/add`, {
-   method: "POST",
-   credentials: "include",
-   headers: { "Content-Type": "application/json" },
-   body: JSON.stringify({
-     index: "personality_quiz_responses",
-     data: personality.type_name
-   })
- }).then(res => res.ok ? console.log("✅ personality_type saved") : console.log("ℹ️ personality save failed"));
-
-
- /* ---------- OPTIONAL: ALSO SAVE TO MICROBLOG ---------- */
- fetch(`${pythonURI}/api/microblog`, {
-   method: "POST",
-   credentials: "include",
-   headers: {
-     "Content-Type": "application/json",
-     "X-Origin": "client"
-   },
-   body: JSON.stringify({
-     content: `Personality Quiz: ${personality.type_name}`,
-     data: { personality_type: personality.type_name },
-     topicPath: "/digital-matchmaking/matchmaking/microb/"
-   })
- })
- .then(res => {
-   if (res.ok) console.log("✅ Microblog post created");
-   else console.log("ℹ️ Microblog post failed (login required)");
- })
- .catch(err => console.log("ℹ️ Microblog error:", err.message));
+function getDepthLabel(depth) {
+const labels = {
+  'brief': 'Brief Overview',
+  'moderate': 'Moderate Detail',
+  'deep': 'Deep Dive'
+};
+return labels[depth] || depth;
 }
 
 
 /* ========== REMOVE JEKYLL METADATA TEXT ========== */
 function removeJekyllMetadata() {
- // Find and remove any text nodes or elements containing metadata keywords
- const keywords = ['Categories:', 'Breadcrumb:', 'Author:', 'Tags:', 'Reading time:', 'min read'];
+// Find and remove any text nodes or elements containing metadata keywords
+const keywords = ['Categories:', 'Breadcrumb:', 'Author:', 'Tags:', 'Reading time:', 'min read'];
 
 
- function removeTextNodes(element) {
-   const walker = document.createTreeWalker(
-     element,
-     NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
-     null
-   );
 
 
-   const nodesToRemove = [];
-   let node;
+function removeTextNodes(element) {
+  const walker = document.createTreeWalker(
+    element,
+    NodeFilter.SHOW_TEXT | NodeFilter.SHOW_ELEMENT,
+    null
+  );
 
 
-   while (node = walker.nextNode()) {
-     if (node.nodeType === Node.TEXT_NODE) {
-       const text = node.textContent.trim();
-       if (keywords.some(keyword => text.includes(keyword))) {
-         nodesToRemove.push(node.parentElement || node);
-       }
-     } else if (node.nodeType === Node.ELEMENT_NODE) {
-       const text = node.textContent.trim();
-       // Only remove if it's a small element (likely metadata) and contains keywords
-       if (text.length < 200 && keywords.some(keyword => text.includes(keyword))) {
-         // Don't remove if it's our custom content
-         if (!node.closest('.container') && !node.closest('header') && !node.id) {
-           nodesToRemove.push(node);
-         }
-       }
-     }
-   }
 
 
-   nodesToRemove.forEach(node => {
-     if (node && node.parentNode) {
-       node.parentNode.removeChild(node);
-     }
-   });
- }
+  const nodesToRemove = [];
+  let node;
 
 
- // Remove from body but not our custom elements
- const body = document.body;
- const customContent = document.querySelector('.container');
- const customHeader = document.querySelector('header');
 
 
- // Process all elements before our custom content
- if (customContent) {
-   let sibling = body.firstChild;
-   while (sibling && sibling !== customContent && sibling !== customHeader) {
-     const next = sibling.nextSibling;
-     removeTextNodes(sibling);
-     sibling = next;
-   }
- }
+  while (node = walker.nextNode()) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      const text = node.textContent.trim();
+      if (keywords.some(keyword => text.includes(keyword))) {
+        nodesToRemove.push(node.parentElement || node);
+      }
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      const text = node.textContent.trim();
+      // Only remove if it's a small element (likely metadata) and contains keywords
+      if (text.length < 200 && keywords.some(keyword => text.includes(keyword))) {
+        // Don't remove if it's our custom content
+        if (!node.closest('.container') && !node.closest('header') && !node.id) {
+          nodesToRemove.push(node);
+        }
+      }
+    }
+  }
+
+
+
+
+  nodesToRemove.forEach(node => {
+    if (node && node.parentNode) {
+      node.parentNode.removeChild(node);
+    }
+  });
 }
 
 
+
+
+// Remove from body but not our custom elements
+const body = document.body;
+const customContent = document.querySelector('.container');
+const customHeader = document.querySelector('header');
+
+
+
+
+// Process all elements before our custom content
+if (customContent) {
+  let sibling = body.firstChild;
+  while (sibling && sibling !== customContent && sibling !== customHeader) {
+    const next = sibling.nextSibling;
+    removeTextNodes(sibling);
+    sibling = next;
+  }
+}
+}
+
+
+
+
 /* ========== EXPOSE FUNCTIONS FOR ONCLICK HANDLERS ========== */
-window.selectOption = selectOption;
-window.saveFreeResponse = saveFreeResponse;
-window.nextQuestion = nextQuestion;
-window.previousQuestion = previousQuestion;
-window.submitQuiz = submitQuiz;
+window.generateAIAnalysis = generateAIAnalysis;
+window.showInputSection = showInputSection;
 
 
-/* ========== INITIALIZE QUIZ ON PAGE LOAD. ========== */
+
+
+/* ========== INITIALIZE PAGE ON LOAD ========== */
 window.addEventListener('DOMContentLoaded', () => {
- // Remove Jekyll metadata first
- removeJekyllMetadata();
- // Then initialize quiz
- initQuiz();
+console.log('🚀 AI Analysis page loaded');
 
 
- // Also run metadata removal after a short delay in case Jekyll loads it dynamically
- setTimeout(removeJekyllMetadata, 100);
- setTimeout(removeJekyllMetadata, 500);
+// Remove Jekyll metadata first
+removeJekyllMetadata();
+
+
+// Check if both quizzes are completed
+if (!checkQuizzesCompleted()) {
+  return; // Will redirect to Krishna's quiz page
+}
+
+
+// Enable dropdown listeners
+const focusSelect = document.getElementById('analysis-focus');
+const depthSelect = document.getElementById('analysis-depth');
+
+
+if (focusSelect) {
+  focusSelect.addEventListener('change', updateAnalysisButton);
+}
+if (depthSelect) {
+  depthSelect.addEventListener('change', updateAnalysisButton);
+}
+
+
+console.log('✅ AI Analysis page ready');
+
+
+// Also run metadata removal after a short delay in case Jekyll loads it dynamically
+setTimeout(removeJekyllMetadata, 100);
+setTimeout(removeJekyllMetadata, 500);
 });
 </script>
 
 
+
+
 </body>
 </html>
+
+
+
+
 
