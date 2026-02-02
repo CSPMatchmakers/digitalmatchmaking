@@ -628,14 +628,19 @@ author: Adhav S
     }
 
     function buildComparisonTable(yourProfile, theirProfile) {
+        console.log(yourProfile);
+        var username = yourProfile.profile.profile_quiz[1].response; 
+        console.log(username)
+        console.log(theirProfile)
+        var theirusername = theirProfile.profile.profile_quiz[1].response;
         const rows = `
             <tr>
                 <td class="attribute-name">Username</td>
-                <td class="your-value">${formatValue(yourProfile.name || yourProfile.username || 'Not specified')}</td>
-                <td class="match-status ${yourProfile.name === theirProfile.name ? 'match' : 'mismatch'}">
-                    ${yourProfile.name === theirProfile.name ? '✓' : '→'}
+                <td class="your-value">${formatValue(username || 'Not specified')}</td>
+                <td class="match-status ${username === theirusername ? 'match' : 'mismatch'}">
+                    ${username === theirusername ? '✓' : '→'}
                 </td>
-                <td class="their-value">${formatValue(theirProfile.name || theirProfile.username || 'Not specified')}</td>
+                <td class="their-value">${formatValue(theirusername || 'Not specified')}</td>
             </tr>
             <tr>
                 <td class="attribute-name">Bio</td>
