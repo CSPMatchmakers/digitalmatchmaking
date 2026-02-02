@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: opencs
 title: "Personality Matchmaking Quiz"
 description: "Discover your personality type for better connections"
 permalink: /microb/
@@ -377,6 +377,105 @@ button:disabled {
        font-size: 14px;
    }
 }
+
+/* Navigation Nodes */
+.section-nav {
+   background: #1a1a1a;
+   border-bottom: 1px solid #262626;
+   padding: 0.75rem 2rem;
+   display: flex;
+   gap: 0.5rem;
+   justify-content: center;
+   align-items: center;
+   overflow-x: auto;
+   scrollbar-width: none;
+   flex-wrap: wrap;
+}
+
+.section-nav::-webkit-scrollbar {
+   display: none;
+}
+
+.nav-node {
+   width: 40px;
+   height: 40px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+   transition: all 0.3s ease;
+   flex-shrink: 0;
+   position: relative;
+   font-size: 0.75rem;
+   font-weight: 700;
+   text-decoration: none;
+   color: white;
+   border: 2px solid;
+}
+
+.nav-node.locked {
+   background: rgba(42, 42, 42, 0.4);
+   border-color: rgba(68, 68, 68, 0.6);
+   color: #71717a;
+   cursor: not-allowed;
+}
+
+.nav-node.unlocked {
+   background: rgba(0, 217, 255, 0.15);
+   border-color: rgba(0, 217, 255, 0.8);
+   color: #00d9ff;
+   box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+}
+
+.nav-node.unlocked:hover {
+   background: rgba(0, 217, 255, 0.25);
+   transform: scale(1.1);
+}
+
+.nav-node.visited {
+   background: rgba(76, 175, 80, 0.2);
+   border-color: rgba(102, 187, 106, 0.8);
+   color: #4caf50;
+   box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+}
+
+.nav-node.current {
+   background: #3b82f6;
+   border-color: #3b82f6;
+   color: #fff;
+   box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+   transform: scale(1.15);
+}
+
+.nav-connector {
+   width: 20px;
+   height: 2px;
+   background: #262626;
+   flex-shrink: 0;
+   transition: background 0.3s ease;
+}
+
+.nav-connector.visited {
+   background: rgba(102, 187, 106, 0.5);
+}
+
+@media (max-width: 768px) {
+   .section-nav {
+       padding: 0.6rem 1rem;
+       gap: 0.3rem;
+   }
+
+   .nav-node {
+       width: 38px;
+       height: 38px;
+       font-size: 0.7rem;
+   }
+
+   .nav-connector {
+       width: 15px;
+   }
+}
 </style>
 </head>
 
@@ -384,6 +483,22 @@ button:disabled {
 
 
 <body>
+
+
+
+
+<!-- Section Navigation -->
+<div class="section-nav" id="sectionNav">
+   <a class="nav-node unlocked" href="/digitalmatchmaking/api/" data-page="1" data-url="/digitalmatchmaking/api/" title="API Blog">1</a>
+   <div class="nav-connector"></div>
+   <a class="nav-node locked" href="javascript:void(0)" data-page="2" data-url="/digitalmatchmaking/mcq/" title="PII Quiz">2</a>
+   <div class="nav-connector"></div>
+   <a class="nav-node locked" href="javascript:void(0)" data-page="3" data-url="/digitalmatchmaking/microb/" title="Microblog">3</a>
+   <div class="nav-connector"></div>
+   <a class="nav-node locked" href="javascript:void(0)" data-page="4" data-url="/digitalmatchmaking/bio_create/" title="Bio Creation">4</a>
+   <div class="nav-connector"></div>
+   <a class="nav-node locked" href="javascript:void(0)" data-page="5" data-url="/digitalmatchmaking/matchmade/" title="Matchmade">5</a>
+</div>
 
 
 
@@ -1084,6 +1199,102 @@ console.log('✅ AI Analysis page ready');
 // Also run metadata removal after a short delay in case Jekyll loads it dynamically
 setTimeout(removeJekyllMetadata, 100);
 setTimeout(removeJekyllMetadata, 500);
+
+// Page Navigation System
+const VISITED_KEY = 'api_visited_pages';
+let visitedPages = {};
+
+const pages = [
+   { id: 1, url: '/digitalmatchmaking/api/' },
+   { id: 2, url: '/digitalmatchmaking/mcq/' },
+   { id: 3, url: '/digitalmatchmaking/microb/' },
+   { id: 4, url: '/digitalmatchmaking/bio_create/' },
+   { id: 5, url: '/digitalmatchmaking/matchmade/' }
+];
+
+function loadVisitedPages() {
+   try {
+       return JSON.parse(localStorage.getItem(VISITED_KEY)) || {};
+   } catch (e) {
+       return {};
+   }
+}
+
+function saveVisitedPages() {
+   try {
+       localStorage.setItem(VISITED_KEY, JSON.stringify(visitedPages));
+   } catch (e) {}
+}
+
+function isPageUnlocked(pageId) {
+   if (pageId === 1) return true;
+   if (!window.hasAccount) return false;
+   return visitedPages[pageId - 1];
+}
+
+function markPageVisited(pageId) {
+   visitedPages[pageId] = true;
+   saveVisitedPages();
+   updateNavigation();
+}
+
+function updateNavigation() {
+   const navNodes = document.querySelectorAll('.nav-node');
+   const navConnectors = document.querySelectorAll('.nav-connector');
+   
+   navNodes.forEach((node, idx) => {
+       const pageId = idx + 1;
+       node.classList.remove('locked', 'unlocked', 'visited', 'current');
+       
+       if (visitedPages[pageId]) {
+           node.classList.add('visited');
+           node.href = node.dataset.url;
+           node.style.cursor = 'pointer';
+           node.onclick = function() {
+               window.location.href = this.dataset.url;
+           };
+       } else if (isPageUnlocked(pageId)) {
+           node.classList.add('unlocked');
+           node.href = node.dataset.url;
+           node.style.cursor = 'pointer';
+           node.onclick = function() {
+               markPageVisited(pageId);
+               window.location.href = this.dataset.url;
+           };
+       } else {
+           node.classList.add('locked');
+           node.style.cursor = 'not-allowed';
+           node.href = 'javascript:void(0)';
+           node.onclick = null;
+       }
+   });
+
+   navConnectors.forEach((conn, idx) => {
+       if (visitedPages[idx + 1]) {
+           conn.classList.add('visited');
+       } else {
+           conn.classList.remove('visited');
+       }
+   });
+
+   const currentUrl = window.location.pathname;
+   navNodes.forEach((node, idx) => {
+       if (node.dataset.url === currentUrl) {
+           node.classList.add('current');
+       }
+   });
+}
+
+visitedPages = loadVisitedPages();
+
+const currentUrl = window.location.pathname;
+pages.forEach((page, idx) => {
+   if (page.url === currentUrl) {
+       markPageVisited(page.id);
+   }
+});
+
+updateNavigation();
 });
 </script>
 
