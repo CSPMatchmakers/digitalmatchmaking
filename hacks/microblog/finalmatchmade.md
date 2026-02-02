@@ -65,7 +65,7 @@ author: Adhav S
     }
 
     .matchmaking-container {
-        max-width: 900px;
+        max-width: 1200px;
         margin: 0 auto;
     }
 
@@ -95,189 +95,6 @@ author: Adhav S
         box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
     }
 
-    .profile-section {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 2em;
-        margin-bottom: 2em;
-    }
-
-    .profile-box {
-        background: linear-gradient(135deg, #2a2a40 0%, #1f1f35 100%);
-        border: 2px solid #667eea;
-        border-radius: 10px;
-        padding: 1.5em;
-    }
-
-    .profile-box h3 {
-        color: #8b9dff;
-        margin-top: 0;
-        font-size: 1.3em;
-        border-bottom: 2px solid #667eea;
-        padding-bottom: 0.5em;
-    }
-
-    .profile-field {
-        margin: 1em 0;
-        padding: 0.8em;
-        background: rgba(0, 0, 0, 0.3);
-        border-radius: 6px;
-        border-left: 3px solid #667eea;
-    }
-
-    .profile-field-label {
-        color: #8b9dff;
-        font-weight: bold;
-        font-size: 0.9em;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .profile-field-value {
-        color: #e0e0e0;
-        margin-top: 0.3em;
-        font-size: 1.05em;
-    }
-
-    .compatibility-section {
-        background: linear-gradient(135deg, #3a3a52 0%, #2d2d42 100%);
-        border: 2px solid #667eea;
-        border-radius: 10px;
-        padding: 2em;
-        margin-bottom: 2em;
-    }
-
-    .compatibility-score {
-        text-align: center;
-        margin-bottom: 2em;
-    }
-
-    .score-number {
-        font-size: 4em;
-        font-weight: bold;
-        color: #667eea;
-        margin: 0;
-    }
-
-    .score-label {
-        color: #b0b0b0;
-        font-size: 1.1em;
-        margin: 0;
-    }
-
-    .compatibility-bar {
-        width: 100%;
-        height: 12px;
-        background: #2a2a40;
-        border-radius: 6px;
-        overflow: hidden;
-        margin-bottom: 2em;
-    }
-
-    .compatibility-fill {
-        height: 100%;
-        background: linear-gradient(90deg, #667eea, #8b9dff);
-        transition: width 0.6s ease;
-        border-radius: 6px;
-    }
-
-    .compatibility-details {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 1.5em;
-    }
-
-    .detail-group h4 {
-        color: #8b9dff;
-        margin: 0 0 1em 0;
-        text-transform: uppercase;
-        font-size: 0.95em;
-        letter-spacing: 1px;
-    }
-
-    .detail-item {
-        background: rgba(0, 0, 0, 0.3);
-        padding: 1em;
-        border-radius: 6px;
-        margin-bottom: 0.8em;
-        display: flex;
-        align-items: center;
-        gap: 0.8em;
-        border-left: 4px solid;
-    }
-
-    .detail-item.match {
-        border-left-color: #27ae60;
-    }
-
-    .detail-item.mismatch {
-        border-left-color: #e74c3c;
-    }
-
-    .detail-icon {
-        font-size: 1.5em;
-    }
-
-    .detail-text {
-        flex: 1;
-    }
-
-    .detail-label {
-        color: #8b9dff;
-        font-weight: bold;
-        font-size: 0.9em;
-    }
-
-    .detail-value {
-        color: #c0c0c0;
-        font-size: 0.95em;
-        margin-top: 0.2em;
-    }
-
-    .button-group {
-        display: flex;
-        gap: 1em;
-        margin-top: 2em;
-    }
-
-    .btn {
-        flex: 1;
-        padding: 1.2em;
-        border: none;
-        border-radius: 8px;
-        font-size: 1.1em;
-        font-weight: bold;
-        cursor: pointer;
-        transition: all 0.3s;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-    }
-
-    .btn-match {
-        background: linear-gradient(135deg, #27ae60, #229954);
-        color: white;
-    }
-
-    .btn-match:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(39, 174, 96, 0.4);
-    }
-
-    .btn-skip {
-        background: linear-gradient(135deg, #667eea, #5568d3);
-        color: white;
-    }
-
-    .btn-skip:hover:not(:disabled) {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-    }
-
-    .btn:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-    }
-
     .stats-bar {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -303,6 +120,275 @@ author: Adhav S
         color: #b0b0b0;
         margin-top: 0.5em;
         font-size: 0.9em;
+    }
+
+    /* Comparison Table */
+    .comparison-table {
+        background: linear-gradient(135deg, rgba(26, 26, 62, 0.6), rgba(13, 27, 42, 0.6));
+        border: 2px solid #667eea;
+        border-radius: 12px;
+        padding: 1.5em;
+        margin-bottom: 2em;
+        overflow-x: auto;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    thead {
+        background: linear-gradient(135deg, #3a3a52, #2d2d42);
+    }
+
+    th {
+        color: #8b9dff;
+        padding: 1.2em;
+        text-align: left;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-size: 0.85em;
+        border-bottom: 3px solid #667eea;
+    }
+
+    tbody tr {
+        border-bottom: 1px solid rgba(102, 126, 234, 0.2);
+        transition: all 0.3s ease;
+    }
+
+    tbody tr:hover {
+        background: rgba(102, 126, 234, 0.15);
+    }
+
+    td {
+        padding: 1.2em;
+        color: #e0e0e0;
+    }
+
+    .attribute-name {
+        font-weight: bold;
+        color: #8b9dff;
+        min-width: 140px;
+    }
+
+    .your-value {
+        background: rgba(102, 126, 234, 0.1);
+        border-left: 3px solid #667eea;
+        padding: 1em;
+        border-radius: 4px;
+    }
+
+    .their-value {
+        background: rgba(102, 126, 234, 0.1);
+        border-left: 3px solid #667eea;
+        padding: 1em;
+        border-radius: 4px;
+    }
+
+    .match-status {
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.3em;
+    }
+
+    .match-status.match {
+        color: #27ae60;
+    }
+
+    .match-status.mismatch {
+        color: #e74c3c;
+    }
+
+    /* Compatibility Section */
+    .compatibility-section {
+        background: linear-gradient(135deg, #3a3a52 0%, #2d2d42 100%);
+        border: 2px solid #667eea;
+        border-radius: 12px;
+        padding: 2.5em;
+        margin-bottom: 2em;
+    }
+
+    .compatibility-header {
+        text-align: center;
+        margin-bottom: 2em;
+    }
+
+    .compatibility-score {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2em;
+        margin-bottom: 1.5em;
+    }
+
+    .score-circle {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: conic-gradient(#667eea 0%, #667eea var(--score), rgba(102, 126, 234, 0.2) var(--score), rgba(102, 126, 234, 0.2) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3); }
+        50% { box-shadow: 0 8px 40px rgba(102, 126, 234, 0.6); }
+    }
+
+    .score-number {
+        font-size: 2.8em;
+        font-weight: bold;
+        color: #667eea;
+    }
+
+    .score-label {
+        color: #b0b0b0;
+        font-size: 1em;
+        margin-top: 0.5em;
+        text-align: center;
+    }
+
+    .compatibility-bar {
+        width: 100%;
+        height: 16px;
+        background: #2a2a40;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 2em;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .compatibility-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #8b9dff);
+        transition: width 0.8s ease;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(102, 126, 234, 0.6);
+    }
+
+    .compatibility-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2em;
+    }
+
+    .detail-group {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        padding: 1.5em;
+        border-top: 4px solid #667eea;
+    }
+
+    .detail-group.matches {
+        border-top-color: #27ae60;
+    }
+
+    .detail-group.mismatches {
+        border-top-color: #e74c3c;
+    }
+
+    .detail-group h4 {
+        color: #8b9dff;
+        margin: 0 0 1.2em 0;
+        text-transform: uppercase;
+        font-size: 0.95em;
+        letter-spacing: 1px;
+    }
+
+    .detail-item {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 1em;
+        border-radius: 8px;
+        margin-bottom: 0.8em;
+        display: flex;
+        align-items: center;
+        gap: 0.8em;
+        border-left: 4px solid;
+        transition: all 0.3s ease;
+    }
+
+    .detail-item:hover {
+        background: rgba(0, 0, 0, 0.6);
+        transform: translateX(4px);
+    }
+
+    .detail-item.match {
+        border-left-color: #27ae60;
+    }
+
+    .detail-item.mismatch {
+        border-left-color: #e74c3c;
+    }
+
+    .detail-icon {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    .detail-text {
+        flex: 1;
+    }
+
+    .detail-label {
+        color: #8b9dff;
+        font-weight: bold;
+        font-size: 0.9em;
+        margin-bottom: 0.2em;
+    }
+
+    .detail-value {
+        color: #c0c0c0;
+        font-size: 0.95em;
+    }
+
+    /* Action Buttons */
+    .button-group {
+        display: flex;
+        gap: 1em;
+        margin-top: 2em;
+    }
+
+    .btn {
+        flex: 1;
+        padding: 1.3em;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.1em;
+        font-weight: bold;
+        cursor: pointer;
+        transition: all 0.3s;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    .btn-match {
+        background: linear-gradient(135deg, #27ae60, #229954);
+        color: white;
+    }
+
+    .btn-match:hover:not(:disabled) {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(39, 174, 96, 0.5);
+    }
+
+    .btn-skip {
+        background: linear-gradient(135deg, #667eea, #5568d3);
+        color: white;
+    }
+
+    .btn-skip:hover:not(:disabled) {
+        transform: translateY(-4px);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+    }
+
+    .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
     }
 
     .loading {
@@ -346,46 +432,62 @@ author: Adhav S
 
     .matches-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-        gap: 1.5em;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 2em;
         margin-top: 2em;
     }
 
     .match-card {
         background: linear-gradient(135deg, #2a2a40 0%, #1f1f35 100%);
         border: 2px solid #27ae60;
-        border-radius: 10px;
-        padding: 1.5em;
+        border-radius: 12px;
+        padding: 2em;
         transition: all 0.3s;
     }
 
     .match-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 25px rgba(39, 174, 96, 0.3);
+        transform: translateY(-6px);
+        box-shadow: 0 12px 35px rgba(39, 174, 96, 0.3);
+        border-color: #51cf66;
     }
 
     .match-card h4 {
         color: #8b9dff;
-        margin: 0 0 0.5em 0;
+        margin: 0 0 0.8em 0;
+        font-size: 1.2em;
     }
 
     .match-card .compatibility-percent {
         color: #27ae60;
         font-weight: bold;
-        font-size: 1.2em;
+        font-size: 1.3em;
     }
 
     @media (max-width: 768px) {
-        .profile-section {
-            grid-template-columns: 1fr;
-        }
-
         .compatibility-details {
             grid-template-columns: 1fr;
         }
 
         .stats-bar {
             grid-template-columns: 1fr;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+        }
+
+        .score-number {
+            font-size: 2em;
+        }
+
+        .comparison-table {
+            padding: 1em;
+        }
+
+        th, td {
+            padding: 0.8em;
+            font-size: 0.9em;
         }
     }
 </style>
@@ -421,7 +523,6 @@ author: Adhav S
 
     async function initMatchmaking() {
         try {
-            // Get current user's profile
             const userResponse = await fetch(`${pythonURI}/api/match/data`, {
                 method: 'GET',
                 credentials: 'include',
@@ -436,8 +537,9 @@ author: Adhav S
             if (!userData.data) {
                 throw new Error('No profile data found');
             }
-            state.currentUserProfile = userData.data;            state.currentUserUID = userData.uid || 'current_user';
-            // Get all other profiles
+            state.currentUserProfile = userData.data;
+            state.currentUserUID = userData.uid || 'current_user';
+
             const allResponse = await fetch(`${pythonURI}/api/match/all-data`, {
                 method: 'GET',
                 credentials: 'include',
@@ -454,7 +556,6 @@ author: Adhav S
                 throw new Error('Invalid profile data format');
             }
             
-            // Filter out current user and any empty profiles
             state.allProfiles = allData.users
                 .filter(p => p.uid !== state.currentUserUID && p.data && Object.keys(p.data).length > 0)
                 .map(p => ({ ...p, uid: p.uid }));
@@ -476,7 +577,7 @@ author: Adhav S
         const mismatches = [];
         let score = 0;
 
-        const fields = ['age', 'location', 'interests', 'hobbies', 'occupation', 'bio', 'relationship_type'];
+        const fields = ['age', 'location', 'interests', 'hobbies', 'occupation', 'bio', 'relationship_type', 'personality_type', 'mbti'];
 
         fields.forEach(field => {
             const val1 = profile1[field];
@@ -522,10 +623,30 @@ author: Adhav S
             }
         });
 
-        // Normalize score to 0-100
         const finalScore = Math.min(Math.round(score), 100);
-
         return { score: finalScore, matches, mismatches };
+    }
+
+    function buildComparisonTable(yourProfile, theirProfile) {
+        const rows = `
+            <tr>
+                <td class="attribute-name">Username</td>
+                <td class="your-value">${formatValue(yourProfile.name || yourProfile.username || 'Not specified')}</td>
+                <td class="match-status ${yourProfile.name === theirProfile.name ? 'match' : 'mismatch'}">
+                    ${yourProfile.name === theirProfile.name ? '✓' : '→'}
+                </td>
+                <td class="their-value">${formatValue(theirProfile.name || theirProfile.username || 'Not specified')}</td>
+            </tr>
+            <tr>
+                <td class="attribute-name">Bio</td>
+                <td class="your-value">${formatValue(yourProfile.bio || 'Not specified')}</td>
+                <td class="match-status ${yourProfile.bio === theirProfile.bio ? 'match' : 'mismatch'}">
+                    ${yourProfile.bio === theirProfile.bio ? '✓' : '→'}
+                </td>
+                <td class="their-value">${formatValue(theirProfile.bio || 'Not specified')}</td>
+            </tr>
+        `;
+        return rows;
     }
 
     function showCurrentProfile() {
@@ -536,6 +657,7 @@ author: Adhav S
 
         const profile = state.allProfiles[state.currentIndex];
         const compatibility = calculateCompatibility(state.currentUserProfile, profile.data);
+        const tableRows = buildComparisonTable(state.currentUserProfile, profile.data);
 
         const content = document.getElementById('mainContent');
         content.innerHTML = `
@@ -554,29 +676,40 @@ author: Adhav S
                 </div>
             </div>
 
-            <div class="profile-section">
-                <div class="profile-box">
-                    <h3>👤 Your Profile</h3>
-                    ${renderProfileFields(state.currentUserProfile)}
-                </div>
-                <div class="profile-box">
-                    <h3>⭐ Their Profile</h3>
-                    ${renderProfileFields(profile.data)}
-                </div>
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Attribute</th>
+                            <th>Your Profile</th>
+                            <th>Match</th>
+                            <th>${formatValue(profile.data.name || 'Their Profile')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${tableRows}
+                    </tbody>
+                </table>
             </div>
 
             <div class="compatibility-section">
-                <div class="compatibility-score">
-                    <p class="score-number">${compatibility.score}%</p>
-                    <p class="score-label">Compatibility Match</p>
-                </div>
-                <div class="compatibility-bar">
-                    <div class="compatibility-fill" style="width: ${compatibility.score}%"></div>
+                <div class="compatibility-header">
+                    <div class="compatibility-score">
+                        <div class="score-circle" style="--score: ${compatibility.score}%">
+                            <div>
+                                <div class="score-number">${compatibility.score}%</div>
+                            </div>
+                        </div>
+                        <div class="score-label" style="color: #8b9dff; font-size: 1.2em; font-weight: bold;">Compatibility Match</div>
+                    </div>
+                    <div class="compatibility-bar">
+                        <div class="compatibility-fill" style="width: ${compatibility.score}%"></div>
+                    </div>
                 </div>
 
                 <div class="compatibility-details">
-                    <div class="detail-group">
-                        <h4>✓ Compatibilities</h4>
+                    <div class="detail-group matches">
+                        <h4>Compatibilities</h4>
                         ${compatibility.matches.length > 0 
                             ? compatibility.matches.map(m => `
                                 <div class="detail-item match">
@@ -590,8 +723,8 @@ author: Adhav S
                             : '<p style="color: #b0b0b0;">No shared interests yet</p>'
                         }
                     </div>
-                    <div class="detail-group">
-                        <h4>✗ Differences</h4>
+                    <div class="detail-group mismatches">
+                        <h4>Differences</h4>
                         ${compatibility.mismatches.length > 0 
                             ? compatibility.mismatches.map(m => `
                                 <div class="detail-item mismatch">
@@ -609,27 +742,14 @@ author: Adhav S
             </div>
 
             <div class="button-group">
-                <button class="btn btn-skip" onclick="handleSkip()">
-                    ➜ Skip
+                <button class="btn btn-skip" onclick="window.handleSkip()">
+                    Skip
                 </button>
-                <button class="btn btn-match" onclick="handleMatch()">
+                <button class="btn btn-match" onclick="window.handleMatch()">
                     Match
                 </button>
             </div>
         `;
-    }
-
-    function renderProfileFields(profile) {
-        if (!profile) return '<p style="color: #b0b0b0;">No data available</p>';
-
-        return Object.entries(profile)
-            .filter(([key]) => key !== 'id' && key !== 'uid')
-            .map(([key, value]) => `
-                <div class="profile-field">
-                    <div class="profile-field-label">${formatFieldName(key)}</div>
-                    <div class="profile-field-value">${formatValue(value)}</div>
-                </div>
-            `).join('');
     }
 
     function formatFieldName(field) {
@@ -638,6 +758,11 @@ author: Adhav S
 
     function formatValue(value) {
         if (Array.isArray(value)) return value.join(', ');
+        if (value && typeof value === 'object') {
+            return Object.entries(value)
+                .map(([k, v]) => `${formatFieldName(k)}: ${formatValue(v)}`)
+                .join(', ');
+        }
         return value || 'Not specified';
     }
 
@@ -647,7 +772,6 @@ author: Adhav S
         
         state.matches.push({ ...profile, compatibility: compatibility.score });
 
-        // Save to backend
         try {
             const existingMatches = state.currentUserProfile.matched_with || [];
             const updated = Array.isArray(existingMatches) ? existingMatches : [existingMatches];
@@ -676,6 +800,9 @@ author: Adhav S
         showCurrentProfile();
     }
 
+    window.handleMatch = handleMatch;
+    window.handleSkip = handleSkip;
+
     function showResults() {
         const content = document.getElementById('mainContent');
         
@@ -689,7 +816,7 @@ author: Adhav S
         
         content.innerHTML = `
             <div class="finish-screen">
-                <h2>🎉 Matching Complete!</h2>
+                <h2>Matching Complete!</h2>
                 <p style="color: #8b9dff; font-size: 1.2em; font-weight: 500; margin: 1.5em 0;">
                     ${reviewedText}
                 </p>
@@ -731,7 +858,7 @@ author: Adhav S
 
                 <div class="button-group" style="margin-top: 2em;">
                     <button class="btn btn-skip" onclick="location.reload()">
-                        ↻ Start Over
+                        Start Over
                     </button>
                 </div>
             </div>
@@ -752,12 +879,11 @@ author: Adhav S
         const content = document.getElementById('mainContent');
         content.innerHTML = `
             <div class="error-message">
-                <h3>⚠️ Error</h3>
+                <h3>Error</h3>
                 <p>${message}</p>
             </div>
         `;
     }
 
-    // Initialize on load
     initMatchmaking();
 </script>
