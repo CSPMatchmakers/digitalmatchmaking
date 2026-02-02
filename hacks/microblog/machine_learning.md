@@ -1,5 +1,5 @@
 ---
-layout: post
+layout: opencs
 title: Bio Builder
 description: Create your matchmaking profile with AI-powered safety checking
 permalink: /bio_create/
@@ -9,29 +9,31 @@ author: Ethan W
 ---
 
 <style>
-    body {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
-            margin: 0;
-            padding: 1em 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
 
-        * {
-            box-sizing: border-box;
-        }
+    html, body {
+        width: 100%;
+        height: 100%;
+        background: #0d0d0d;
+        color: #e4e4e7;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', sans-serif;
+        line-height: 1.6;
+    }
 
-        .container {
-            max-width: 800px;
-            width: 95%;
-            background: #2d3748;
-            border-radius: 20px;
-            padding: 1.5em;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        }
+    .container {
+        max-width: 800px;
+        width: 95%;
+        background: #1a1a1a;
+        border-radius: 20px;
+        padding: 1.5em;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        margin: 1.5rem auto;
+        border: 1px solid #262626;
+    }
 
         .header {
             text-align: center;
@@ -40,19 +42,19 @@ author: Ethan W
 
         .header h1 {
             font-size: 2em;
-            color: #667eea;
+            color: #3b82f6;
             margin-bottom: 0.3em;
         }
 
         .header p {
-            color: #d1d5db;
+            color: #a1a1aa;
             font-size: 0.95em;
         }
 
         .progress-bar {
             width: 100%;
             height: 8px;
-            background: #374151;
+            background: #262626;
             border-radius: 10px;
             margin-bottom: 1.2em;
             overflow: hidden;
@@ -60,23 +62,23 @@ author: Ethan W
 
         .progress-fill {
             height: 100%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             transition: width 0.5s ease;
             border-radius: 10px;
         }
 
         .progress-text {
             text-align: center;
-            color: #9ca3af;
+            color: #71717a;
             font-size: 1em;
             margin-bottom: 0.8em;
         }
 
         .bio-section {
-            background: #374151;
+            background: #0d0d0d;
             border-radius: 12px;
             padding: 1em;
-            border: 2px solid #4b5563;
+            border: 1px solid #262626;
             transition: all 0.3s ease;
             display: none;
         }
@@ -95,7 +97,7 @@ author: Ethan W
 
         .section-title {
             font-size: 1.6em;
-            color: #f3f4f6;
+            color: #e4e4e7;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -147,25 +149,26 @@ author: Ethan W
         }
 
         .madlib-template {
-            background: #1f2937;
+            background: #0d0d0d;
             padding: 1.2em;
             border-radius: 10px;
             margin-bottom: 1em;
             line-height: 2;
+            border: 1px solid #262626;
         }
 
         .madlib-template p {
-            color: #f3f4f6;
+            color: #e4e4e7;
             font-size: 1.05em;
             margin: 0;
         }
 
         .madlib-input {
-            background: #374151;
-            border: 2px solid #4b5563;
+            background: #1a1a1a;
+            border: 1px solid #262626;
             border-radius: 6px;
             padding: 0.4em 0.8em;
-            color: #667eea;
+            color: #3b82f6;
             font-size: 1em;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -174,23 +177,23 @@ author: Ethan W
 
         .madlib-input:focus {
             outline: none;
-            border-color: #667eea;
-            background: #2d3748;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #3b82f6;
+            background: #0d0d0d;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .madlib-input::placeholder {
-            color: #9ca3af;
+            color: #71717a;
             font-weight: normal;
             font-style: italic;
         }
 
         .madlib-select {
-            background: #374151;
-            border: 2px solid #4b5563;
+            background: #1a1a1a;
+            border: 1px solid #262626;
             border-radius: 6px;
             padding: 0.4em 0.8em;
-            color: #667eea;
+            color: #3b82f6;
             font-size: 0.95em;
             font-weight: 600;
             transition: all 0.3s ease;
@@ -201,25 +204,25 @@ author: Ethan W
         }
 
         .madlib-select:hover {
-            border-color: #667eea;
-            background: #2d3748;
+            border-color: #3b82f6;
+            background: #0d0d0d;
         }
 
         .madlib-select:focus {
             outline: none;
-            border-color: #667eea;
-            background: #2d3748;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #3b82f6;
+            background: #0d0d0d;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
         }
 
         .madlib-select option {
-            background: #2d3748;
-            color: #f3f4f6;
+            background: #1a1a1a;
+            color: #e4e4e7;
             padding: 0.5em;
         }
 
         .madlib-select option:first-child {
-            color: #9ca3af;
+            color: #71717a;
             font-style: italic;
         }
 
@@ -254,7 +257,7 @@ author: Ethan W
             bottom: 0.5em;
             right: 0.5em;
             font-size: 0.9em;
-            color: #9ca3af;
+            color: #71717a;
         }
 
         .button-group {
@@ -266,7 +269,7 @@ author: Ethan W
 
         .ai-check-btn {
             padding: 1em 2.5em;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
             color: white;
             border: none;
             border-radius: 10px;
@@ -278,7 +281,7 @@ author: Ethan W
 
         .ai-check-btn:hover:not(:disabled) {
             transform: translateY(-2px);
-            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
         }
 
         .ai-check-btn:disabled {
@@ -446,22 +449,23 @@ author: Ethan W
         }
 
         .info-box {
-            background: #374151;
-            border-left: 4px solid #667eea;
+            background: #0d0d0d;
+            border: 1px solid #262626;
+            border-left: 4px solid #3b82f6;
             padding: 0.8em;
             border-radius: 8px;
             margin-bottom: 1em;
         }
 
         .info-box h3 {
-            color: #667eea;
+            color: #3b82f6;
             margin-top: 0;
             margin-bottom: 0.3em;
             font-size: 0.95em;
         }
 
         .info-box p {
-            color: #d1d5db;
+            color: #a1a1aa;
             line-height: 1.4;
             margin: 0;
             font-size: 0.85em;
@@ -514,8 +518,119 @@ author: Ethan W
                 max-width: 100%;
             }
         }
+
+    /* Navigation Nodes */
+    .section-nav {
+        background: #1a1a1a;
+        border-bottom: 1px solid #262626;
+        padding: 0.75rem 2rem;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
+        overflow-x: auto;
+        scrollbar-width: none;
+        flex-wrap: wrap;
+    }
+
+    .section-nav::-webkit-scrollbar {
+        display: none;
+    }
+
+    .nav-node {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        flex-shrink: 0;
+        position: relative;
+        font-size: 0.75rem;
+        font-weight: 700;
+        text-decoration: none;
+        color: white;
+        border: 2px solid;
+    }
+
+    .nav-node.locked {
+        background: rgba(42, 42, 42, 0.4);
+        border-color: rgba(68, 68, 68, 0.6);
+        color: #71717a;
+        cursor: not-allowed;
+    }
+
+    .nav-node.unlocked {
+        background: rgba(0, 217, 255, 0.15);
+        border-color: rgba(0, 217, 255, 0.8);
+        color: #00d9ff;
+        box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+    }
+
+    .nav-node.unlocked:hover {
+        background: rgba(0, 217, 255, 0.25);
+        transform: scale(1.1);
+    }
+
+    .nav-node.visited {
+        background: rgba(76, 175, 80, 0.2);
+        border-color: rgba(102, 187, 106, 0.8);
+        color: #4caf50;
+        box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
+    }
+
+    .nav-node.current {
+        background: #3b82f6;
+        border-color: #3b82f6;
+        color: #fff;
+        box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
+        transform: scale(1.15);
+    }
+
+    .nav-connector {
+        width: 20px;
+        height: 2px;
+        background: #262626;
+        flex-shrink: 0;
+        transition: background 0.3s ease;
+    }
+
+    .nav-connector.visited {
+        background: rgba(102, 187, 106, 0.5);
+    }
+
+    @media (max-width: 768px) {
+        .section-nav {
+            padding: 0.6rem 1rem;
+            gap: 0.3rem;
+        }
+
+        .nav-node {
+            width: 38px;
+            height: 38px;
+            font-size: 0.7rem;
+        }
+
+        .nav-connector {
+            width: 15px;
+        }
     }
 </style>
+
+<!-- Section Navigation -->
+<div class="section-nav" id="sectionNav">
+    <a class="nav-node unlocked" href="/digitalmatchmaking/api/" data-page="1" data-url="/digitalmatchmaking/api/" title="API Blog">1</a>
+    <div class="nav-connector"></div>
+    <a class="nav-node locked" href="javascript:void(0)" data-page="2" data-url="/digitalmatchmaking/mcq/" title="PII Quiz">2</a>
+    <div class="nav-connector"></div>
+    <a class="nav-node locked" href="javascript:void(0)" data-page="3" data-url="/digitalmatchmaking/microb/" title="Microblog">3</a>
+    <div class="nav-connector"></div>
+    <a class="nav-node locked" href="javascript:void(0)" data-page="4" data-url="/digitalmatchmaking/bio_create/" title="Bio Creation">4</a>
+    <div class="nav-connector"></div>
+    <a class="nav-node locked" href="javascript:void(0)" data-page="5" data-url="/digitalmatchmaking/matchmade/" title="Matchmade">5</a>
+</div>
 
 <div class="container">
         <div class="header">
@@ -1217,4 +1332,104 @@ author: Ethan W
             }
         `;
         document.head.appendChild(style);
+
+        // Page Navigation System
+        const VISITED_KEY = 'api_visited_pages';
+        let visitedPages = {};
+
+        const pages = [
+            { id: 1, url: '/digitalmatchmaking/api/' },
+            { id: 2, url: '/digitalmatchmaking/mcq/' },
+            { id: 3, url: '/digitalmatchmaking/microb/' },
+            { id: 4, url: '/digitalmatchmaking/bio_create/' },
+            { id: 5, url: '/digitalmatchmaking/matchmade/' }
+        ];
+
+        function loadVisitedPages() {
+            try {
+                return JSON.parse(localStorage.getItem(VISITED_KEY)) || {};
+            } catch (e) {
+                return {};
+            }
+        }
+
+        function saveVisitedPages() {
+            try {
+                localStorage.setItem(VISITED_KEY, JSON.stringify(visitedPages));
+            } catch (e) {}
+        }
+
+        function isPageUnlocked(pageId) {
+            if (pageId === 1) return true;
+            // Pages 2+ require visiting previous page
+            return visitedPages[pageId - 1];
+        }
+
+        function markPageVisited(pageId) {
+            visitedPages[pageId] = true;
+            saveVisitedPages();
+            updateNavigation();
+        }
+
+        function updateNavigation() {
+            const navNodes = document.querySelectorAll('.nav-node');
+            const navConnectors = document.querySelectorAll('.nav-connector');
+            
+            navNodes.forEach((node, idx) => {
+                const pageId = idx + 1;
+                node.classList.remove('locked', 'unlocked', 'visited', 'current');
+                
+                if (visitedPages[pageId]) {
+                    node.classList.add('visited');
+                    node.href = node.dataset.url;
+                    node.style.cursor = 'pointer';
+                    node.onclick = function() {
+                        window.location.href = this.dataset.url;
+                    };
+                } else if (isPageUnlocked(pageId)) {
+                    node.classList.add('unlocked');
+                    node.href = node.dataset.url;
+                    node.style.cursor = 'pointer';
+                    node.onclick = function() {
+                        markPageVisited(pageId);
+                        window.location.href = this.dataset.url;
+                    };
+                } else {
+                    node.classList.add('locked');
+                    node.style.cursor = 'not-allowed';
+                    node.href = 'javascript:void(0)';
+                    node.onclick = null;
+                }
+            });
+
+            // Update connectors
+            navConnectors.forEach((conn, idx) => {
+                if (visitedPages[idx + 1]) {
+                    conn.classList.add('visited');
+                } else {
+                    conn.classList.remove('visited');
+                }
+            });
+
+            // Highlight current page
+            const currentUrl = window.location.pathname;
+            navNodes.forEach((node, idx) => {
+                if (node.dataset.url === currentUrl) {
+                    node.classList.add('current');
+                }
+            });
+        }
+
+        // Initialize navigation on page load
+        visitedPages = loadVisitedPages();
+        
+        // Mark current page as visited
+        const currentUrl = window.location.pathname;
+        pages.forEach((page, idx) => {
+            if (page.url === currentUrl) {
+                markPageVisited(page.id);
+            }
+        });
+
+        updateNavigation();
 </script>
