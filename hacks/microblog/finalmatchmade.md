@@ -633,6 +633,10 @@ author: Adhav S
         console.log(username)
         console.log(theirProfile)
         var theirusername = theirProfile.profile.profile_quiz[1].response;
+        var bio = yourProfile.profile.bio
+        console.log(bio)
+        var theirbio = theirProfile.profile.bio
+        console.log(theirbio)
         const rows = `
             <tr>
                 <td class="attribute-name">Username</td>
@@ -644,11 +648,11 @@ author: Adhav S
             </tr>
             <tr>
                 <td class="attribute-name">Bio</td>
-                <td class="your-value">${formatValue(yourProfile.bio || 'Not specified')}</td>
-                <td class="match-status ${yourProfile.bio === theirProfile.bio ? 'match' : 'mismatch'}">
-                    ${yourProfile.bio === theirProfile.bio ? '✓' : '→'}
+                <td class="your-value">${formatValue(bio || 'Not specified')}</td>
+                <td class="match-status ${bio === theirbio ? 'match' : 'mismatch'}">
+                    ${bio === theirbio ? '✓' : '→'}
                 </td>
-                <td class="their-value">${formatValue(theirProfile.bio || 'Not specified')}</td>
+                <td class="their-value">${formatValue(theirbio || 'Not specified')}</td>
             </tr>
         `;
         return rows;
