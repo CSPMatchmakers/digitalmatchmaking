@@ -740,31 +740,27 @@ author: Adhav S
     }
 
     function buildComparisonTable(yourProfile, theirProfile) {
-        console.log(yourProfile);
-        var username = yourProfile.profile.profile_quiz[1].response; 
-        console.log(username)
-        console.log(theirProfile)
-        var theirusername = theirProfile.profile.profile_quiz[1].response;
-        var bio = yourProfile.profile.bio
-        console.log(bio)
-        var theirbio = theirProfile.profile.bio
-        console.log(theirbio)
+        // Use optional chaining and fallback values to avoid TypeError
+        const username = yourProfile?.profile?.profile_quiz?.[1]?.response || 'Not specified';
+        const theirusername = theirProfile?.profile?.profile_quiz?.[1]?.response || 'Not specified';
+        const bio = yourProfile?.profile?.bio || 'Not specified';
+        const theirbio = theirProfile?.profile?.bio || 'Not specified';
         const rows = `
             <tr>
                 <td class="attribute-name">Username</td>
-                <td class="your-value">${formatValue(username || 'Not specified')}</td>
+                <td class="your-value">${formatValue(username)}</td>
                 <td class="match-status ${username === theirusername ? 'match' : 'mismatch'}">
                     ${username === theirusername ? '✓' : '→'}
                 </td>
-                <td class="their-value">${formatValue(theirusername || 'Not specified')}</td>
+                <td class="their-value">${formatValue(theirusername)}</td>
             </tr>
             <tr>
                 <td class="attribute-name">Bio</td>
-                <td class="your-value">${formatValue(bio || 'Not specified')}</td>
+                <td class="your-value">${formatValue(bio)}</td>
                 <td class="match-status ${bio === theirbio ? 'match' : 'mismatch'}">
                     ${bio === theirbio ? '✓' : '→'}
                 </td>
-                <td class="their-value">${formatValue(theirbio || 'Not specified')}</td>
+                <td class="their-value">${formatValue(theirbio)}</td>
             </tr>
         `;
         return rows;
