@@ -1228,8 +1228,15 @@ function saveVisitedPages() {
 
 function isPageUnlocked(pageId) {
    if (pageId === 1) return true;
-   if (!window.hasAccount) return false;
-   return visitedPages[pageId - 1];
+   // Find the highest page visited so far
+   let maxVisitedPage = 0;
+   for (let i = 1; i <= 5; i++) {
+       if (visitedPages[i]) {
+           maxVisitedPage = i;
+       }
+   }
+   // Unlock page if user has visited this page or any higher page, or if it's the next page after highest
+   return pageId <= maxVisitedPage + 1;
 }
 
 function markPageVisited(pageId) {
