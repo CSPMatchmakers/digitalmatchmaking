@@ -656,6 +656,7 @@ date: 2025-10-21
    </div>
 
    <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
+   <button onclick="debugCheckProfile()" style="margin-left: 10px; padding: 0.5rem 1rem; background: #161b22; border: 1px solid #30363d; border-radius: 6px; color: #8b949e; cursor: pointer;">Debug: Check Profile API</button>
 
 
    <div class="quiz-container">
@@ -1009,8 +1010,8 @@ date: 2025-10-21
            const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
 
 
-           // Use /api/match/save which now has GET method
-           const endpoint = pythonURI ? `${pythonURI}/api/match/save` : '/api/match/save';
+           // Use /api/match/data which has GET method working
+           const endpoint = pythonURI ? `${pythonURI}/api/match/data` : '/api/match/data';
 
 
            console.log('=== PROFILE CHECK DEBUG ===');
@@ -1035,54 +1036,73 @@ date: 2025-10-21
                console.log('Response statusText:', response.statusText);
                console.log('Response headers:', Object.fromEntries([...response.headers.entries()]));
               
+               // Handle 404 - no profile exists yet
+               if (response.status === 404) {
+                   console.log('404 - Profile not found (expected for new users)');
+                   loadingCheckEl.style.display = 'none';
+                   newUserPromptEl.style.display = 'block';
+                   return null;
+               }
+               
+               // Handle other non-OK responses
+               if (!response.ok) {
+                   console.log(`Non-OK status code: ${response.status}`);
+                   loadingCheckEl.style.display = 'none';
+                   newUserPromptEl.style.display = 'block';
+                   return null;
+               }
+              
+               // Parse the response
                const responseText = await response.text();
                console.log('Response body (raw):', responseText);
+               
+               let data;
+               try {
+                   data = JSON.parse(responseText);
+               } catch (parseErr) {
+                   console.error('Failed to parse response as JSON:', parseErr);
+                   loadingCheckEl.style.display = 'none';
+                   newUserPromptEl.style.display = 'block';
+                   return null;
+               }
               
-               if (response.ok) {
-                   const data = JSON.parse(responseText);
-                   console.log('Parsed response data:', data);
-                   console.log('Type of data:', typeof data);
-                   console.log('data.profile_quiz:', data.profile_quiz);
-                   console.log('Type of data.profile_quiz:', typeof data.profile_quiz);
-                  
-                   if (data.profile_quiz) {
-                       console.log('Keys in profile_quiz:', Object.keys(data.profile_quiz));
-                       console.log('Number of keys:', Object.keys(data.profile_quiz).length);
-                   }
-                  
-                   // Check for profile_quiz (returned by the GET /api/match/save endpoint)
-                   if (data && data.profile_quiz && typeof data.profile_quiz === 'object' && Object.keys(data.profile_quiz).length > 0) {
+               console.log('Parsed response data:', data);
+               console.log('Type of data:', typeof data);
+               
+               // The /data endpoint returns: { message: "...", data: { profile: {...}, ...} }
+               // We need to extract profile_quiz from data.data.profile.profile_quiz
+               const profileData = data.data && data.data.profile ? data.data.profile : null;
+               console.log('profileData:', profileData);
+               
+               if (profileData && profileData.profile_quiz) {
+                   const profile_quiz = profileData.profile_quiz;
+                   console.log('profile_quiz:', profile_quiz);
+                   console.log('Type of profile_quiz:', typeof profile_quiz);
+                   console.log('Keys in profile_quiz:', Object.keys(profile_quiz));
+                   console.log('Number of keys:', Object.keys(profile_quiz).length);
+                   
+                   // Check if profile_quiz has actual data
+                   if (typeof profile_quiz === 'object' && Object.keys(profile_quiz).length > 0) {
                        // Store the profile data
-                       existingProfileData = data.profile_quiz;
+                       existingProfileData = profile_quiz;
                        console.log('✅ PROFILE FOUND! Stored existing profile data:', existingProfileData);
-                       console.log('Hiding loading, showing prompt...');
+                       console.log('Hiding loading, showing existing profile prompt...');
                       
                        loadingCheckEl.style.display = 'none';
                        existingProfilePromptEl.style.display = 'block';
                        console.log('loadingCheckEl display:', loadingCheckEl.style.display);
                        console.log('existingProfilePromptEl display:', existingProfilePromptEl.style.display);
-                       return data.profile_quiz;
-                   } else {
-                       console.log('❌ Profile quiz not found or empty');
-                       console.log('  - data exists?', !!data);
-                       console.log('  - data.profile_quiz exists?', !!data.profile_quiz);
-                       console.log('  - is object?', data.profile_quiz ? typeof data.profile_quiz === 'object' : 'N/A');
-                       console.log('  - has keys?', data.profile_quiz ? Object.keys(data.profile_quiz).length > 0 : 'N/A');
+                       return profile_quiz;
                    }
-               } else if (response.status === 404 || response.status === 405) {
-                   console.log(`${response.status} - Profile not found or GET not supported (expected for new users)`);
-                   // Show new user prompt with autofill option
-                   loadingCheckEl.style.display = 'none';
-                   newUserPromptEl.style.display = 'block';
-                   return null;
-               } else {
-                   console.log(`Unexpected status code: ${response.status}`);
                }
-              
-               console.log('No existing profile, showing new user prompt');
+               
+               // If we get here, profile_quiz is null, undefined, or empty
+               console.log('❌ Profile quiz not found or empty');
+               
                loadingCheckEl.style.display = 'none';
                newUserPromptEl.style.display = 'block';
                return null;
+               
            } catch (err) {
                console.error('Error checking profile:', err);
                console.error('Error stack:', err.stack);
@@ -1846,6 +1866,47 @@ date: 2025-10-21
 
 
        /* ========== INITIALIZE PROFILE QUIZ ON PAGE LOAD ========== */
+       
+       // Debug function to manually check profile
+       window.debugCheckProfile = async function() {
+           const importedCfg = window._piiImportedConfig || {};
+           const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
+           const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
+           const endpoint = pythonURI ? `${pythonURI}/api/match/data` : '/api/match/data';
+           
+           console.log('=== MANUAL DEBUG CHECK ===');
+           console.log('Endpoint:', endpoint);
+           
+           try {
+               const response = await fetch(endpoint, {
+                   method: 'GET',
+                   credentials: 'include',
+                   headers: globalFetchOptions.headers || {}
+               });
+               
+               console.log('Status:', response.status);
+               const text = await response.text();
+               console.log('Raw response:', text);
+               
+               try {
+                   const data = JSON.parse(text);
+                   console.log('Parsed data:', data);
+                   console.log('data.data:', data.data);
+                   if (data.data && data.data.profile) {
+                       console.log('Profile section:', data.data.profile);
+                       console.log('Profile quiz:', data.data.profile.profile_quiz);
+                   }
+                   alert('Check console for full response. Status: ' + response.status);
+               } catch (e) {
+                   console.log('Could not parse as JSON');
+                   alert('Response status: ' + response.status + '\nCheck console for details');
+               }
+           } catch (err) {
+               console.error('Error:', err);
+               alert('Error: ' + err.message);
+           }
+       };
+       
        // Automatically start checking for existing profile when page loads
        window.addEventListener('DOMContentLoaded', async () => {
            console.log('Profile quiz initializing...');
@@ -1891,8 +1952,9 @@ date: 2025-10-21
 
            function isPageUnlocked(pageId) {
                if (pageId === 1) return true;
-               // Pages 2+ require account to be created
-               if (!hasAccount) return false;
+               // Page 2 is always unlocked (this is the current page)
+               if (pageId === 2) return true;
+               // Other pages require previous page to be visited
                return visitedPages[pageId - 1];
            }
 
