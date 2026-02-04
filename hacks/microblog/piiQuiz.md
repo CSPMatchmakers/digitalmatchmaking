@@ -268,6 +268,7 @@ date: 2025-10-21
            border-radius: 4px;
            border-left: 2px solid #30363d;
            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+           position: relative;
        }
 
 
@@ -287,6 +288,47 @@ date: 2025-10-21
            word-break: break-word;
            font-size: 1em;
            font-family: 'Courier New', monospace;
+           display: flex;
+           align-items: center;
+           gap: 10px;
+       }
+
+       .profile-item-edit-btn {
+           padding: 6px 12px;
+           font-size: 0.85em;
+           background: rgba(48, 54, 61, 0.4);
+           border: 1px solid #30363d;
+           border-radius: 4px;
+           color: #8b949e;
+           cursor: pointer;
+           transition: all 0.2s ease;
+           font-family: 'Courier New', monospace;
+       }
+
+       .profile-item-edit-btn:hover {
+           background: rgba(72, 86, 98, 0.4);
+           border-color: #485662;
+       }
+
+       .profile-item-edit-input {
+           flex: 1;
+           padding: 8px;
+           font-size: 1em;
+           border: 1px solid #485662;
+           border-radius: 4px;
+           background: rgba(13, 17, 23, 0.95);
+           color: #8b949e;
+           font-family: 'Courier New', monospace;
+       }
+
+       .profile-item-edit-actions {
+           display: flex;
+           gap: 8px;
+       }
+
+       .profile-item-edit-actions button {
+           padding: 6px 12px;
+           font-size: 0.85em;
        }
 
 
@@ -740,20 +782,7 @@ date: 2025-10-21
            window.userQuizData = userDataJSON;
           
            // Display the autofilled profile
-           profileDataEl.innerHTML = '';
-           for (let [question, response] of Object.entries(autofillData)) {
-               const profileItem = document.createElement('div');
-               profileItem.className = 'profile-item';
-               const label = document.createElement('div');
-               label.className = 'profile-item-label';
-               label.textContent = question;
-               const value = document.createElement('div');
-               value.className = 'profile-item-value';
-               value.textContent = response;
-               profileItem.appendChild(label);
-               profileItem.appendChild(value);
-               profileDataEl.appendChild(profileItem);
-           }
+           displayProfileData(autofillData);
           
            // Show review section
            loadingCheckEl.style.display = 'none';
@@ -857,6 +886,121 @@ date: 2025-10-21
 
 
        let existingProfileData = null;
+       let editingProfileData = {}; // Track current profile data being edited
+
+       // Function to get question options (for dropdowns and multiple choice)
+       function getQuestionOptions(questionText) {
+           const question = questions.find(q => q.question === questionText);
+           return question ? question.options : null;
+       }
+
+       // Function to display profile data with edit buttons
+       function displayProfileData(profileData) {
+           profileDataEl.innerHTML = '';
+           editingProfileData = {...profileData}; // Make a copy for editing
+          
+           for (let [question, response] of Object.entries(profileData)) {
+               const profileItem = document.createElement('div');
+               profileItem.className = 'profile-item';
+               profileItem.dataset.question = question;
+               
+               const label = document.createElement('div');
+               label.className = 'profile-item-label';
+               label.textContent = question;
+               
+               const valueContainer = document.createElement('div');
+               valueContainer.className = 'profile-item-value';
+               
+               const value = document.createElement('span');
+               value.textContent = response;
+               value.className = 'profile-value-text';
+               
+               const editBtn = document.createElement('button');
+               editBtn.className = 'profile-item-edit-btn';
+               editBtn.textContent = 'Edit';
+               editBtn.onclick = () => enableEditMode(profileItem, question, response);
+               
+               valueContainer.appendChild(value);
+               valueContainer.appendChild(editBtn);
+               profileItem.appendChild(label);
+               profileItem.appendChild(valueContainer);
+               profileDataEl.appendChild(profileItem);
+           }
+       }
+
+       // Function to enable edit mode for a profile item
+       function enableEditMode(profileItem, question, currentValue) {
+           const valueContainer = profileItem.querySelector('.profile-item-value');
+           valueContainer.innerHTML = '';
+           
+           const questionOptions = getQuestionOptions(question);
+           let inputElement;
+           
+           if (questionOptions) {
+               // Create dropdown for questions with options
+               inputElement = document.createElement('select');
+               inputElement.className = 'profile-item-edit-input select-input';
+               
+               questionOptions.forEach((option) => {
+                   const optionEl = document.createElement('option');
+                   optionEl.value = option;
+                   optionEl.textContent = option;
+                   if (option === currentValue) {
+                       optionEl.selected = true;
+                   }
+                   inputElement.appendChild(optionEl);
+               });
+           } else {
+               // Create text input for free text questions
+               inputElement = document.createElement('input');
+               inputElement.type = 'text';
+               inputElement.className = 'profile-item-edit-input';
+               inputElement.value = currentValue;
+           }
+           
+           const actionsContainer = document.createElement('div');
+           actionsContainer.className = 'profile-item-edit-actions';
+           
+           const saveBtn = document.createElement('button');
+           saveBtn.textContent = 'Save';
+           saveBtn.onclick = () => saveEdit(profileItem, question, inputElement.value);
+           
+           const cancelBtn = document.createElement('button');
+           cancelBtn.textContent = 'Cancel';
+           cancelBtn.onclick = () => cancelEdit(profileItem, question, currentValue);
+           
+           actionsContainer.appendChild(saveBtn);
+           actionsContainer.appendChild(cancelBtn);
+           
+           valueContainer.appendChild(inputElement);
+           valueContainer.appendChild(actionsContainer);
+           
+           inputElement.focus();
+       }
+
+       // Function to save an edit
+       function saveEdit(profileItem, question, newValue) {
+           if (!newValue || newValue.trim() === '') {
+               alert('Please enter a value');
+               return;
+           }
+           
+           // Update the editing profile data
+           editingProfileData[question] = newValue;
+           
+           // Update session storage
+           sessionStorage.setItem('userQuizResponses', JSON.stringify(editingProfileData));
+           window.userQuizData = JSON.stringify(editingProfileData, null, 2);
+           
+           // Refresh the display
+           displayProfileData(editingProfileData);
+       }
+
+       // Function to cancel an edit
+       function cancelEdit(profileItem, question, originalValue) {
+           // Refresh the display to show original value
+           displayProfileData(editingProfileData);
+       }
 
 
        async function checkExistingProfile() {
@@ -993,23 +1137,7 @@ date: 2025-10-21
            quizEl.style.display = 'none';
            reviewEl.style.display = 'block';
 
-
-           profileDataEl.innerHTML = '';
-          
-           // profileData is now an object with question-response pairs
-           for (let [question, response] of Object.entries(profileData)) {
-               const profileItem = document.createElement('div');
-               profileItem.className = 'profile-item';
-               const label = document.createElement('div');
-               label.className = 'profile-item-label';
-               label.textContent = question;
-               const value = document.createElement('div');
-               value.className = 'profile-item-value';
-               value.textContent = response;
-               profileItem.appendChild(label);
-               profileItem.appendChild(value);
-               profileDataEl.appendChild(profileItem);
-           }
+           displayProfileData(profileData);
        }
 
 
@@ -1223,23 +1351,8 @@ date: 2025-10-21
            leakContinueBtn.disabled = false;
 
 
-           // Display profile data with questions for review (but only responses will be saved)
-           profileDataEl.innerHTML = '';
-          
-           // Display the saved data
-           for (let [question, response] of Object.entries(userDataResponses)) {
-               const profileItem = document.createElement('div');
-               profileItem.className = 'profile-item';
-               const label = document.createElement('div');
-               label.className = 'profile-item-label';
-               label.textContent = question;
-               const value = document.createElement('div');
-               value.className = 'profile-item-value';
-               value.textContent = response;
-               profileItem.appendChild(label);
-               profileItem.appendChild(value);
-               profileDataEl.appendChild(profileItem);
-           }
+           // Display profile data with edit buttons
+           displayProfileData(userDataResponses);
            reviewEl.style.display = 'block';
        }
 
@@ -1256,19 +1369,11 @@ date: 2025-10-21
 
 
        saveProfileBtn.onclick = async () => {
-           const userDataJSON = sessionStorage.getItem('userQuizResponses');
-           if (!userDataJSON) {
+           // Use editingProfileData instead of session storage, as it has the latest edits
+           const profileData = editingProfileData;
+           
+           if (!profileData || Object.keys(profileData).length === 0) {
                alert("No profile data found to save.");
-               return;
-           }
-
-
-           let profileData;
-           try {
-               profileData = JSON.parse(userDataJSON);
-           } catch (err) {
-               console.error('piiQuiz: invalid JSON in sessionStorage userQuizResponses', err, userDataJSON);
-               alert('Saved responses are not valid JSON. Please retake quiz.');
                return;
            }
 
@@ -1862,6 +1967,3 @@ date: 2025-10-21
    </script>
 </body>
 </html>
-
-
-
