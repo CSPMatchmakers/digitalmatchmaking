@@ -656,7 +656,6 @@ date: 2025-10-21
    </div>
 
    <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
-   <button onclick="debugCheckProfile()" style="margin-left: 10px; padding: 0.5rem 1rem; background: #161b22; border: 1px solid #30363d; border-radius: 6px; color: #8b949e; cursor: pointer;">Debug: Check Profile API</button>
 
 
    <div class="quiz-container">
@@ -1866,46 +1865,6 @@ date: 2025-10-21
 
 
        /* ========== INITIALIZE PROFILE QUIZ ON PAGE LOAD ========== */
-       
-       // Debug function to manually check profile
-       window.debugCheckProfile = async function() {
-           const importedCfg = window._piiImportedConfig || {};
-           const pythonURI = importedCfg.pythonURI || window.pythonURI || '';
-           const globalFetchOptions = importedCfg.fetchOptions || window.fetchOptions || {};
-           const endpoint = pythonURI ? `${pythonURI}/api/match/data` : '/api/match/data';
-           
-           console.log('=== MANUAL DEBUG CHECK ===');
-           console.log('Endpoint:', endpoint);
-           
-           try {
-               const response = await fetch(endpoint, {
-                   method: 'GET',
-                   credentials: 'include',
-                   headers: globalFetchOptions.headers || {}
-               });
-               
-               console.log('Status:', response.status);
-               const text = await response.text();
-               console.log('Raw response:', text);
-               
-               try {
-                   const data = JSON.parse(text);
-                   console.log('Parsed data:', data);
-                   console.log('data.data:', data.data);
-                   if (data.data && data.data.profile) {
-                       console.log('Profile section:', data.data.profile);
-                       console.log('Profile quiz:', data.data.profile.profile_quiz);
-                   }
-                   alert('Check console for full response. Status: ' + response.status);
-               } catch (e) {
-                   console.log('Could not parse as JSON');
-                   alert('Response status: ' + response.status + '\nCheck console for details');
-               }
-           } catch (err) {
-               console.error('Error:', err);
-               alert('Error: ' + err.message);
-           }
-       };
        
        // Automatically start checking for existing profile when page loads
        window.addEventListener('DOMContentLoaded', async () => {
