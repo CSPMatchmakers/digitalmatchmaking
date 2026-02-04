@@ -471,6 +471,47 @@ author: Ethan W
             font-size: 0.85em;
         }
 
+        /* Bio Preview Styles */
+        .bio-preview {
+            background: #0d0d0d;
+            border: 1px solid #262626;
+            border-radius: 12px;
+            padding: 1.5em;
+            margin-bottom: 1.5em;
+            text-align: left;
+        }
+
+        .bio-preview h3 {
+            color: #3b82f6;
+            margin-bottom: 1em;
+            text-align: center;
+            font-size: 1.3em;
+        }
+
+        .preview-section {
+            margin-bottom: 1.2em;
+        }
+
+        .preview-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .preview-section h4 {
+            color: #a1a1aa;
+            font-size: 0.9em;
+            margin-bottom: 0.5em;
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        .preview-section p {
+            color: #e4e4e7;
+            line-height: 1.8;
+            padding-left: 1.8em;
+            margin: 0;
+        }
+
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -970,7 +1011,32 @@ author: Ethan W
         </div>
 
         <div class="submit-section" id="submit-section">
-            <h2 style="color: #667eea; margin-bottom: 1em;">✅ All Questions Complete!</h2>
+            <h2 style="color: #3b82f6; margin-bottom: 1em;">✅ All Questions Complete!</h2>
+            
+            <div class="bio-preview" id="bio-preview">
+                <h3>📋 Your Bio Preview</h3>
+                
+                <div class="preview-section">
+                    <h4><span>👤</span> About Me</h4>
+                    <p id="preview-about"></p>
+                </div>
+                
+                <div class="preview-section">
+                    <h4><span>🎯</span> Interests & Hobbies</h4>
+                    <p id="preview-interests"></p>
+                </div>
+                
+                <div class="preview-section">
+                    <h4><span>💻</span> Skills & Expertise</h4>
+                    <p id="preview-skills"></p>
+                </div>
+                
+                <div class="preview-section">
+                    <h4><span>🎓</span> Goals & Looking For</h4>
+                    <p id="preview-goals"></p>
+                </div>
+            </div>
+            
             <button class="submit-btn" id="save-btn">💾 Save Bio to Profile</button>
             <div id="save-status"></div>
     </div>
@@ -1092,6 +1158,24 @@ author: Ethan W
             progressText.textContent = `Question ${currentQuestion} of ${totalQuestions}`;
         }
 
+        function generateBioPreview() {
+            // About section
+            const aboutText = `I'm a passionate ${document.getElementById('about-profession').value} who loves ${document.getElementById('about-hobby1').value} and ${document.getElementById('about-hobby2').value}. I enjoy ${document.getElementById('about-activity').value} and believe in ${document.getElementById('about-value').value}.`;
+            document.getElementById('preview-about').textContent = aboutText;
+
+            // Interests section
+            const interestsText = `In my free time, I enjoy ${document.getElementById('interests-hobby1').value}, ${document.getElementById('interests-hobby2').value}, and ${document.getElementById('interests-hobby3').value}. I'm also interested in learning more about ${document.getElementById('interests-topic').value}.`;
+            document.getElementById('preview-interests').textContent = interestsText;
+
+            // Skills section
+            const skillsText = `I'm skilled at ${document.getElementById('skills-skill1').value}, ${document.getElementById('skills-skill2').value}, and ${document.getElementById('skills-skill3').value}. I have ${document.getElementById('skills-experience').value} of experience and enjoy ${document.getElementById('skills-aspect').value}.`;
+            document.getElementById('preview-skills').textContent = skillsText;
+
+            // Goals section
+            const goalsText = `I'm looking to connect with people who are interested in ${document.getElementById('goals-interest').value}. My goal is to ${document.getElementById('goals-goal').value} and I'd love to ${document.getElementById('goals-activity').value}.`;
+            document.getElementById('preview-goals').textContent = goalsText;
+        }
+
         function nextQuestion(currentSection) {
             const currentSectionEl = document.querySelector(`[data-section="${currentSection}"]`);
             currentSectionEl.classList.remove('active');
@@ -1104,6 +1188,8 @@ author: Ethan W
                 const nextSectionEl = document.querySelector(`[data-section="${nextSection}"]`);
                 nextSectionEl.classList.add('active');
             } else {
+                // Generate the bio preview before showing submit section
+                generateBioPreview();
                 document.getElementById('submit-section').classList.add('visible');
                 document.getElementById('progress-text').textContent = 'All Questions Complete!';
             }
