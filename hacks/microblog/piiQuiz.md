@@ -710,7 +710,7 @@ date: 2025-10-21
        <div id="review" style="display: none;">
            <div class="result">Profile Data Summary</div>
            <div id="profileData"></div>
-           <div class="options">
+           <div class="options" style="border-top: 1px solid #30363d; padding-top: 20px; margin-top: 20px;">
                <button id="saveProfile" class="option-button">Save Profile</button>
                <button id="retakeQuiz" class="option-button">Retake Assessment</button>
            </div>
