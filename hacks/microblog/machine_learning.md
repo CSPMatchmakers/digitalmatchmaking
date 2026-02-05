@@ -529,6 +529,40 @@ author: Ethan W
             box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
         }
 
+        .save-edit-btn {
+            padding: 0.5em 1.2em;
+            background: linear-gradient(135deg, #27ae60 0%, #229954 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 0.5em;
+        }
+
+        .save-edit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(39, 174, 96, 0.4);
+        }
+
+        .display-mode p {
+            color: #e4e4e7;
+            line-height: 1.8;
+            padding-left: 1.8em;
+            margin: 0;
+        }
+
+        .edit-mode {
+            background: #0d0d0d;
+            padding: 1em;
+            border-radius: 8px;
+            margin-top: 0.5em;
+            border: 1px solid #3b82f6;
+            animation: slideIn 0.3s ease;
+        }
+
         .madlib-select-inline {
             background: #1a1a1a;
             border: 1px solid #3b82f6;
@@ -1072,11 +1106,16 @@ author: Ethan W
             
             <div class="bio-preview" id="bio-preview">
                 <h3>📋 Your Bio Preview</h3>
-                <p style="color: #a1a1aa; font-size: 0.9em; text-align: center; margin-bottom: 1.5em;">You can edit any field below before saving!</p>
                 
                 <div class="preview-section">
-                    <h4><span>👤</span> About Me</h4>
-                    <div class="editable-bio-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h4><span>👤</span> About Me</h4>
+                        <button class="edit-section-btn" data-section="about">✏️ Edit</button>
+                    </div>
+                    <div class="display-mode" id="display-about">
+                        <p id="preview-about"></p>
+                    </div>
+                    <div class="edit-mode" id="edit-about" style="display: none;">
                         <p style="color: #e4e4e7; padding-left: 1.8em; margin-bottom: 0.8em;">
                             I'm a passionate 
                             <select class="madlib-select-inline" id="final-about-profession"></select>
@@ -1090,12 +1129,21 @@ author: Ethan W
                             <select class="madlib-select-inline" id="final-about-value"></select>
                             .
                         </p>
+                        <div style="text-align: right; padding-right: 1.8em;">
+                            <button class="save-edit-btn" data-section="about">💾 Save Changes</button>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="preview-section">
-                    <h4><span>🎯</span> Interests & Hobbies</h4>
-                    <div class="editable-bio-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h4><span>🎯</span> Interests & Hobbies</h4>
+                        <button class="edit-section-btn" data-section="interests">✏️ Edit</button>
+                    </div>
+                    <div class="display-mode" id="display-interests">
+                        <p id="preview-interests"></p>
+                    </div>
+                    <div class="edit-mode" id="edit-interests" style="display: none;">
                         <p style="color: #e4e4e7; padding-left: 1.8em; margin-bottom: 0.8em;">
                             In my free time, I enjoy 
                             <select class="madlib-select-inline" id="final-interests-hobby1"></select>
@@ -1107,12 +1155,21 @@ author: Ethan W
                             <select class="madlib-select-inline" id="final-interests-topic"></select>
                             .
                         </p>
+                        <div style="text-align: right; padding-right: 1.8em;">
+                            <button class="save-edit-btn" data-section="interests">💾 Save Changes</button>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="preview-section">
-                    <h4><span>💻</span> Skills & Expertise</h4>
-                    <div class="editable-bio-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h4><span>💻</span> Skills & Expertise</h4>
+                        <button class="edit-section-btn" data-section="skills">✏️ Edit</button>
+                    </div>
+                    <div class="display-mode" id="display-skills">
+                        <p id="preview-skills"></p>
+                    </div>
+                    <div class="edit-mode" id="edit-skills" style="display: none;">
                         <p style="color: #e4e4e7; padding-left: 1.8em; margin-bottom: 0.8em;">
                             I'm skilled at 
                             <select class="madlib-select-inline" id="final-skills-skill1"></select>
@@ -1126,12 +1183,21 @@ author: Ethan W
                             <select class="madlib-select-inline" id="final-skills-aspect"></select>
                             .
                         </p>
+                        <div style="text-align: right; padding-right: 1.8em;">
+                            <button class="save-edit-btn" data-section="skills">💾 Save Changes</button>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="preview-section">
-                    <h4><span>🎓</span> Goals & Looking For</h4>
-                    <div class="editable-bio-section">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <h4><span>🎓</span> Goals & Looking For</h4>
+                        <button class="edit-section-btn" data-section="goals">✏️ Edit</button>
+                    </div>
+                    <div class="display-mode" id="display-goals">
+                        <p id="preview-goals"></p>
+                    </div>
+                    <div class="edit-mode" id="edit-goals" style="display: none;">
                         <p style="color: #e4e4e7; padding-left: 1.8em; margin-bottom: 0.8em;">
                             I'm looking to connect with people who are interested in 
                             <select class="madlib-select-inline" id="final-goals-interest"></select>
@@ -1141,6 +1207,9 @@ author: Ethan W
                             <select class="madlib-select-inline" id="final-goals-activity"></select>
                             .
                         </p>
+                        <div style="text-align: right; padding-right: 1.8em;">
+                            <button class="save-edit-btn" data-section="goals">💾 Save Changes</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1269,6 +1338,19 @@ author: Ethan W
         }
 
         function generateBioPreview() {
+            // Display the text preview first
+            const aboutText = `I'm a passionate ${document.getElementById('about-profession').value} who loves ${document.getElementById('about-hobby1').value} and ${document.getElementById('about-hobby2').value}. I enjoy ${document.getElementById('about-activity').value} and believe in ${document.getElementById('about-value').value}.`;
+            document.getElementById('preview-about').textContent = aboutText;
+
+            const interestsText = `In my free time, I enjoy ${document.getElementById('interests-hobby1').value}, ${document.getElementById('interests-hobby2').value}, and ${document.getElementById('interests-hobby3').value}. I'm also interested in learning more about ${document.getElementById('interests-topic').value}.`;
+            document.getElementById('preview-interests').textContent = interestsText;
+
+            const skillsText = `I'm skilled at ${document.getElementById('skills-skill1').value}, ${document.getElementById('skills-skill2').value}, and ${document.getElementById('skills-skill3').value}. I have ${document.getElementById('skills-experience').value} of experience and enjoy ${document.getElementById('skills-aspect').value}.`;
+            document.getElementById('preview-skills').textContent = skillsText;
+
+            const goalsText = `I'm looking to connect with people who are interested in ${document.getElementById('goals-interest').value}. My goal is to ${document.getElementById('goals-goal').value} and I'd love to ${document.getElementById('goals-activity').value}.`;
+            document.getElementById('preview-goals').textContent = goalsText;
+
             // Define all options for each dropdown
             const dropdownOptions = {
                 'final-about-profession': [
@@ -1372,6 +1454,51 @@ author: Ethan W
                     select.appendChild(optionElement);
                 });
             });
+        }
+
+        function toggleEditMode(section) {
+            const displayMode = document.getElementById(`display-${section}`);
+            const editMode = document.getElementById(`edit-${section}`);
+            
+            if (editMode.style.display === 'none') {
+                // Switch to edit mode
+                displayMode.style.display = 'none';
+                editMode.style.display = 'block';
+            } else {
+                // Switch back to display mode
+                displayMode.style.display = 'block';
+                editMode.style.display = 'none';
+            }
+        }
+
+        function saveEditChanges(section) {
+            // Update the preview text based on the edited dropdowns
+            const sectionMap = {
+                'about': () => {
+                    const text = `I'm a passionate ${document.getElementById('final-about-profession').value} who loves ${document.getElementById('final-about-hobby1').value} and ${document.getElementById('final-about-hobby2').value}. I enjoy ${document.getElementById('final-about-activity').value} and believe in ${document.getElementById('final-about-value').value}.`;
+                    document.getElementById('preview-about').textContent = text;
+                },
+                'interests': () => {
+                    const text = `In my free time, I enjoy ${document.getElementById('final-interests-hobby1').value}, ${document.getElementById('final-interests-hobby2').value}, and ${document.getElementById('final-interests-hobby3').value}. I'm also interested in learning more about ${document.getElementById('final-interests-topic').value}.`;
+                    document.getElementById('preview-interests').textContent = text;
+                },
+                'skills': () => {
+                    const text = `I'm skilled at ${document.getElementById('final-skills-skill1').value}, ${document.getElementById('final-skills-skill2').value}, and ${document.getElementById('final-skills-skill3').value}. I have ${document.getElementById('final-skills-experience').value} of experience and enjoy ${document.getElementById('final-skills-aspect').value}.`;
+                    document.getElementById('preview-skills').textContent = text;
+                },
+                'goals': () => {
+                    const text = `I'm looking to connect with people who are interested in ${document.getElementById('final-goals-interest').value}. My goal is to ${document.getElementById('final-goals-goal').value} and I'd love to ${document.getElementById('final-goals-activity').value}.`;
+                    document.getElementById('preview-goals').textContent = text;
+                }
+            };
+            
+            // Update the text
+            if (sectionMap[section]) {
+                sectionMap[section]();
+            }
+            
+            // Switch back to display mode
+            toggleEditMode(section);
         }
 
         function nextQuestion(currentSection) {
@@ -1600,6 +1727,18 @@ author: Ethan W
         });
 
         document.getElementById('save-btn').addEventListener('click', saveBio);
+
+        // Event listeners for edit and save edit buttons
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('edit-section-btn')) {
+                const section = e.target.getAttribute('data-section');
+                toggleEditMode(section);
+            }
+            if (e.target.classList.contains('save-edit-btn')) {
+                const section = e.target.getAttribute('data-section');
+                saveEditChanges(section);
+            }
+        });
 
         // Add loading dots animation
         const style = document.createElement('style');
