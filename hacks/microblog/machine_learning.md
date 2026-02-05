@@ -512,6 +512,63 @@ author: Ethan W
             margin: 0;
         }
 
+        .edit-section-btn {
+            padding: 0.4em 1em;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.85em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .edit-section-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+
+        .madlib-select-inline {
+            background: #1a1a1a;
+            border: 1px solid #3b82f6;
+            border-radius: 6px;
+            padding: 0.3em 0.6em;
+            color: #3b82f6;
+            font-size: 0.95em;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            min-width: 120px;
+            max-width: 200px;
+            display: inline-block;
+        }
+
+        .madlib-select-inline:hover {
+            background: #0d0d0d;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .madlib-select-inline:focus {
+            outline: none;
+            background: #0d0d0d;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3);
+        }
+
+        .madlib-select-inline option {
+            background: #1a1a1a;
+            color: #e4e4e7;
+            padding: 0.5em;
+        }
+
+        .editable-bio-section {
+            background: #0d0d0d;
+            padding: 1em;
+            border-radius: 8px;
+            margin-top: 0.5em;
+            border: 1px solid #262626;
+        }
+
         @keyframes slideIn {
             from {
                 opacity: 0;
@@ -1015,29 +1072,82 @@ author: Ethan W
             
             <div class="bio-preview" id="bio-preview">
                 <h3>📋 Your Bio Preview</h3>
+                <p style="color: #a1a1aa; font-size: 0.9em; text-align: center; margin-bottom: 1.5em;">You can edit any field below before saving!</p>
                 
                 <div class="preview-section">
                     <h4><span>👤</span> About Me</h4>
-                    <p id="preview-about"></p>
+                    <div class="editable-bio-section">
+                        <p style="color: #e4e4e7; padding-left: 1.8em; margin-bottom: 0.8em;">
+                            I'm a passionate 
+                            <select class="madlib-select-inline" id="final-about-profession"></select>
+                            who loves 
+                            <select class="madlib-select-inline" id="final-about-hobby1"></select>
+                            and 
+                            <select class="madlib-select-inline" id="final-about-hobby2"></select>
+                            . I enjoy 
+                            <select class="madlib-select-inline" id="final-about-activity"></select>
+                            and believe in 
+                            <select class="madlib-select-inline" id="final-about-value"></select>
+                            .
+                        </p>
+                    </div>
                 </div>
                 
                 <div class="preview-section">
                     <h4><span>🎯</span> Interests & Hobbies</h4>
-                    <p id="preview-interests"></p>
+                    <div class="editable-bio-section">
+                        <p style="color: #e4e4e7; padding-left: 1.8em; margin-bottom: 0.8em;">
+                            In my free time, I enjoy 
+                            <select class="madlib-select-inline" id="final-interests-hobby1"></select>
+                            , 
+                            <select class="madlib-select-inline" id="final-interests-hobby2"></select>
+                            , and 
+                            <select class="madlib-select-inline" id="final-interests-hobby3"></select>
+                            . I'm also interested in learning more about 
+                            <select class="madlib-select-inline" id="final-interests-topic"></select>
+                            .
+                        </p>
+                    </div>
                 </div>
                 
                 <div class="preview-section">
                     <h4><span>💻</span> Skills & Expertise</h4>
-                    <p id="preview-skills"></p>
+                    <div class="editable-bio-section">
+                        <p style="color: #e4e4e7; padding-left: 1.8em; margin-bottom: 0.8em;">
+                            I'm skilled at 
+                            <select class="madlib-select-inline" id="final-skills-skill1"></select>
+                            , 
+                            <select class="madlib-select-inline" id="final-skills-skill2"></select>
+                            , and 
+                            <select class="madlib-select-inline" id="final-skills-skill3"></select>
+                            . I have 
+                            <select class="madlib-select-inline" id="final-skills-experience"></select>
+                            of experience and enjoy 
+                            <select class="madlib-select-inline" id="final-skills-aspect"></select>
+                            .
+                        </p>
+                    </div>
                 </div>
                 
                 <div class="preview-section">
                     <h4><span>🎓</span> Goals & Looking For</h4>
-                    <p id="preview-goals"></p>
+                    <div class="editable-bio-section">
+                        <p style="color: #e4e4e7; padding-left: 1.8em; margin-bottom: 0.8em;">
+                            I'm looking to connect with people who are interested in 
+                            <select class="madlib-select-inline" id="final-goals-interest"></select>
+                            . My goal is to 
+                            <select class="madlib-select-inline" id="final-goals-goal"></select>
+                            and I'd love to 
+                            <select class="madlib-select-inline" id="final-goals-activity"></select>
+                            .
+                        </p>
+                    </div>
                 </div>
             </div>
             
-            <button class="submit-btn" id="save-btn">💾 Save Bio to Profile</button>
+            <div class="button-group">
+                <button class="submit-btn" id="save-btn">💾 Save Bio to Profile</button>
+            </div>
             <div id="save-status"></div>
     </div>
 </div>
@@ -1159,21 +1269,109 @@ author: Ethan W
         }
 
         function generateBioPreview() {
-            // About section
-            const aboutText = `I'm a passionate ${document.getElementById('about-profession').value} who loves ${document.getElementById('about-hobby1').value} and ${document.getElementById('about-hobby2').value}. I enjoy ${document.getElementById('about-activity').value} and believe in ${document.getElementById('about-value').value}.`;
-            document.getElementById('preview-about').textContent = aboutText;
+            // Define all options for each dropdown
+            const dropdownOptions = {
+                'final-about-profession': [
+                    'software developer', 'designer', 'student', 'teacher', 'engineer', 
+                    'artist', 'writer', 'entrepreneur', 'researcher', 'data scientist'
+                ],
+                'final-about-hobby1': [
+                    'learning new technologies', 'solving problems', 'creating art', 
+                    'reading books', 'exploring ideas', 'building things', 
+                    'helping others', 'discovering new things'
+                ],
+                'final-about-hobby2': [
+                    'building innovative solutions', 'creative expression', 'tackling challenges', 
+                    'meeting new people', 'trying new experiences', 'making a difference', 
+                    'continuous learning'
+                ],
+                'final-about-activity': [
+                    'collaborating with teams', 'working independently', 'mentoring others', 
+                    'exploring new ideas', 'creative problem solving', 'deep focused work', 
+                    'brainstorming sessions'
+                ],
+                'final-about-value': [
+                    'continuous improvement', 'lifelong learning', 'creativity and innovation', 
+                    'making an impact', 'collaboration', 'authenticity', 'perseverance'
+                ],
+                'final-interests-hobby1': [
+                    'hiking in nature', 'photography', 'playing music', 'cooking', 
+                    'gaming', 'reading', 'exercising', 'drawing', 'traveling'
+                ],
+                'final-interests-hobby2': [
+                    'watching movies', 'playing sports', 'crafting', 'gardening', 
+                    'writing', 'meditation', 'cycling', 'dancing'
+                ],
+                'final-interests-hobby3': [
+                    'reading science fiction', 'learning languages', 'volunteering', 
+                    'attending concerts', 'exploring museums', 'playing board games', 
+                    'practicing yoga'
+                ],
+                'final-interests-topic': [
+                    'artificial intelligence', 'sustainability', 'psychology', 'space exploration', 
+                    'history', 'philosophy', 'technology', 'art and design', 'health and wellness'
+                ],
+                'final-skills-skill1': [
+                    'Python', 'JavaScript', 'graphic design', 'writing', 'public speaking', 
+                    'project management', 'data analysis', 'video editing', 'photography'
+                ],
+                'final-skills-skill2': [
+                    'React', 'UI/UX design', 'communication', 'leadership', 'teaching', 
+                    'problem solving', 'research', 'marketing'
+                ],
+                'final-skills-skill3': [
+                    'machine learning', '3D modeling', 'critical thinking', 'teamwork', 
+                    'time management', 'creative thinking', 'strategic planning'
+                ],
+                'final-skills-experience': [
+                    'beginner level', '1 year', '2 years', '3 years', '5+ years', 
+                    'intermediate level', 'advanced level', 'expert level'
+                ],
+                'final-skills-aspect': [
+                    'solving complex problems', 'creating beautiful designs', 'mentoring others', 
+                    'learning new techniques', 'working on challenging projects', 
+                    'collaborating with others', 'pushing boundaries'
+                ],
+                'final-goals-interest': [
+                    'web development', 'artificial intelligence', 'creative projects', 
+                    'entrepreneurship', 'academic research', 'social impact', 'the arts', 
+                    'technology', 'learning together'
+                ],
+                'final-goals-goal': [
+                    'collaborate on open-source projects', 'learn new skills', 'build meaningful projects', 
+                    'share knowledge', 'grow professionally', 'make new connections', 
+                    'find study partners', 'start a creative venture'
+                ],
+                'final-goals-activity': [
+                    'work on coding projects together', 'brainstorm ideas', 'attend tech meetups', 
+                    'exchange feedback', 'collaborate on creative work', 'practice and learn together', 
+                    'build something meaningful'
+                ]
+            };
 
-            // Interests section
-            const interestsText = `In my free time, I enjoy ${document.getElementById('interests-hobby1').value}, ${document.getElementById('interests-hobby2').value}, and ${document.getElementById('interests-hobby3').value}. I'm also interested in learning more about ${document.getElementById('interests-topic').value}.`;
-            document.getElementById('preview-interests').textContent = interestsText;
-
-            // Skills section
-            const skillsText = `I'm skilled at ${document.getElementById('skills-skill1').value}, ${document.getElementById('skills-skill2').value}, and ${document.getElementById('skills-skill3').value}. I have ${document.getElementById('skills-experience').value} of experience and enjoy ${document.getElementById('skills-aspect').value}.`;
-            document.getElementById('preview-skills').textContent = skillsText;
-
-            // Goals section
-            const goalsText = `I'm looking to connect with people who are interested in ${document.getElementById('goals-interest').value}. My goal is to ${document.getElementById('goals-goal').value} and I'd love to ${document.getElementById('goals-activity').value}.`;
-            document.getElementById('preview-goals').textContent = goalsText;
+            // Populate all dropdowns with options and set selected values
+            Object.keys(dropdownOptions).forEach(dropdownId => {
+                const select = document.getElementById(dropdownId);
+                const options = dropdownOptions[dropdownId];
+                
+                // Clear existing options
+                select.innerHTML = '';
+                
+                // Get the original selected value from the question section
+                const originalId = dropdownId.replace('final-', '');
+                const originalValue = document.getElementById(originalId).value;
+                
+                // Add all options
+                options.forEach(option => {
+                    const optionElement = document.createElement('option');
+                    optionElement.value = option;
+                    optionElement.textContent = option;
+                    if (option === originalValue) {
+                        optionElement.selected = true;
+                    }
+                    select.appendChild(optionElement);
+                });
+            });
         }
 
         function nextQuestion(currentSection) {
@@ -1297,8 +1495,8 @@ author: Ethan W
             let hasContent = false;
 
             for (const section of sections) {
-                // Collect all Mad Libs select dropdowns for this section
-                const selects = document.querySelectorAll(`[data-section="${section}"] .madlib-select`);
+                // Collect all final editable dropdowns for this section
+                const selects = document.querySelectorAll(`[id^="final-${section}-"]`);
                 const sectionData = {};
                 let sectionHasContent = false;
                 
@@ -1307,8 +1505,8 @@ author: Ethan W
                     if (value) {
                         sectionHasContent = true;
                         hasContent = true;
-                        // Extract field name from ID (e.g., "about-profession" -> "profession")
-                        const fieldName = select.id.replace(`${section}-`, '');
+                        // Extract field name from ID (e.g., "final-about-profession" -> "profession")
+                        const fieldName = select.id.replace(`final-${section}-`, '');
                         sectionData[fieldName] = value;
                     }
                 });
