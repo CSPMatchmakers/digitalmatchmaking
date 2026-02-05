@@ -23,28 +23,45 @@ date: 2025-10-21
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Security Protocol Training</title>
    <style>
+       :root {
+           --primary-bg: #0d1117;
+           --secondary-bg: #161b22;
+           --tertiary-bg: #1a1a1a;
+           --border-color: #30363d;
+           --border-dark: #262626;
+           --text-primary: #8b949e;
+           --text-secondary: #6e7681;
+           --text-muted: #484f58;
+           --text-light: #7d8590;
+           --accent-cyan: #00d9ff;
+           --accent-cyan-dark: rgba(0, 217, 255, 0.15);
+           --accent-green: #4caf50;
+           --accent-green-light: rgba(76, 175, 80, 0.2);
+           --accent-blue: #3b82f6;
+           --text-light-grey: #c9d1d9;
+           --font-mono: 'Courier New', monospace;
+       }
+
        .back-button {
            display: inline-flex;
            align-items: center;
            gap: 0.5rem;
            padding: 0.5rem 1rem;
-           background: #161b22;
-           border: 1px solid #30363d;
+           background: var(--secondary-bg);
+           border: 1px solid var(--border-color);
            border-radius: 6px;
-           color: #8b949e;
+           color: var(--text-primary);
            text-decoration: none;
            font-size: 0.9rem;
            transition: all 0.2s ease;
            margin-bottom: 1rem;
        }
 
-
        .back-button:hover {
            background: #21262d;
-           border-color: #30363d;
-           color: #c9d1d9;
+           border-color: var(--border-color);
+           color: var(--text-light-grey);
        }
-
 
        * {
            margin: 0;
@@ -52,11 +69,10 @@ date: 2025-10-21
            box-sizing: border-box;
        }
 
-
        body {
-           font-family: 'Courier New', monospace;
-           background: #0d1117;
-           color: #8b949e;
+           font-family: var(--font-mono);
+           background: var(--primary-bg);
+           color: var(--text-primary);
            padding: 20px;
            min-height: 100vh;
            position: relative;
@@ -81,30 +97,27 @@ date: 2025-10-21
            z-index: 1;
        }
 
-
        .quiz-container {
            max-width: 800px;
            margin: 0 auto;
            background: rgba(22, 27, 34, 0.85);
            padding: 30px;
            border-radius: 6px;
-           border: 1px solid #30363d;
+           border: 1px solid var(--border-color);
            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
            backdrop-filter: blur(10px);
            position: relative;
            z-index: 2;
        }
 
-
        #question {
-           color: #8b949e;
+           color: var(--text-primary);
            font-size: 1.3em;
            font-weight: 400;
            margin-bottom: 25px;
            text-shadow: 0 0 8px rgba(139, 148, 158, 0.2);
-           font-family: 'Courier New', monospace;
+           font-family: var(--font-mono);
        }
-
 
        .options {
            display: grid;
@@ -112,22 +125,20 @@ date: 2025-10-21
            margin: 20px 0;
        }
 
-
        button {
            padding: 14px 20px;
            cursor: pointer;
-           border: 1px solid #30363d;
+           border: 1px solid var(--border-color);
            border-radius: 4px;
            background: rgba(48, 54, 61, 0.2);
-           color: #8b949e;
+           color: var(--text-primary);
            font-size: 16px;
            font-weight: 400;
            transition: all 0.2s ease;
            position: relative;
            overflow: hidden;
-           font-family: 'Courier New', monospace;
+           font-family: var(--font-mono);
        }
-
 
        button::before {
            content: '';
@@ -140,11 +151,9 @@ date: 2025-10-21
            transition: left 0.6s;
        }
 
-
        button:hover::before {
            left: 100%;
        }
-
 
        button:hover {
            background: rgba(48, 54, 61, 0.4);
@@ -152,32 +161,27 @@ date: 2025-10-21
            box-shadow: 0 0 10px rgba(100, 120, 130, 0.2);
        }
 
-
        button:disabled {
            opacity: 0.4;
            cursor: not-allowed;
            transform: none;
        }
 
-
        button:disabled:hover {
            background: rgba(48, 54, 61, 0.2);
            box-shadow: none;
-           border-color: #30363d;
+           border-color: var(--border-color);
        }
-
 
        .option-button {
            text-align: left;
        }
-
 
        .option-button.selected {
            background: rgba(72, 86, 98, 0.3);
            border-color: #6e7681;
            box-shadow: 0 0 8px rgba(110, 118, 129, 0.3);
        }
-
 
        #submit {
            width: 100%;
@@ -188,36 +192,22 @@ date: 2025-10-21
            letter-spacing: 2px;
        }
 
-
        #submit:hover:not(:disabled) {
            background: rgba(48, 54, 61, 0.5);
        }
 
-
-       .result {
-           margin-top: 20px;
-           font-weight: 400;
-           font-size: 1.5em;
-           color: #7d8590;
-           text-align: center;
-           text-shadow: 0 0 8px rgba(125, 133, 144, 0.2);
-           font-family: 'Courier New', monospace;
-       }
-
-
        .text-input {
            padding: 14px;
            font-size: 16px;
-           border: 1px solid #30363d;
+           border: 1px solid var(--border-color);
            border-radius: 4px;
            width: 100%;
            box-sizing: border-box;
            margin: 10px 0;
            background: rgba(13, 17, 23, 0.8);
-           color: #8b949e;
-           font-family: 'Courier New', monospace;
+           color: var(--text-primary);
+           font-family: var(--font-mono);
        }
-
 
        .text-input:focus {
            outline: none;
@@ -226,26 +216,23 @@ date: 2025-10-21
            background: rgba(13, 17, 23, 0.95);
        }
 
-
        .text-input::placeholder {
-           color: #484f58;
+           color: var(--text-muted);
        }
-
 
        .select-input {
            padding: 14px;
            font-size: 16px;
-           border: 1px solid #30363d;
+           border: 1px solid var(--border-color);
            border-radius: 4px;
            width: 100%;
            box-sizing: border-box;
            margin: 10px 0;
            background: rgba(13, 17, 23, 0.8);
-           color: #8b949e;
-           font-family: 'Courier New', monospace;
+           color: var(--text-primary);
+           font-family: var(--font-mono);
            cursor: pointer;
        }
-
 
        .select-input:focus {
            outline: none;
@@ -254,40 +241,36 @@ date: 2025-10-21
            background: rgba(13, 17, 23, 0.95);
        }
 
-
        .select-input option {
-           background: #0d1117;
-           color: #8b949e;
+           background: var(--primary-bg);
+           color: var(--text-primary);
        }
-
 
        .profile-item {
            background: rgba(22, 27, 34, 0.6);
            padding: 15px;
            margin: 12px 0;
            border-radius: 4px;
-           border-left: 2px solid #30363d;
+           border-left: 2px solid var(--border-color);
            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
            position: relative;
        }
 
-
        .profile-item-label {
            font-weight: 400;
-           color: #7d8590;
+           color: var(--text-light);
            margin-bottom: 8px;
            font-size: 0.85em;
            text-transform: uppercase;
            letter-spacing: 1px;
-           font-family: 'Courier New', monospace;
+           font-family: var(--font-mono);
        }
 
-
        .profile-item-value {
-           color: #8b949e;
+           color: var(--text-primary);
            word-break: break-word;
            font-size: 1em;
-           font-family: 'Courier New', monospace;
+           font-family: var(--font-mono);
            display: flex;
            align-items: center;
            gap: 10px;
@@ -297,12 +280,12 @@ date: 2025-10-21
            padding: 6px 12px;
            font-size: 0.85em;
            background: rgba(48, 54, 61, 0.4);
-           border: 1px solid #30363d;
+           border: 1px solid var(--border-color);
            border-radius: 4px;
-           color: #8b949e;
+           color: var(--text-primary);
            cursor: pointer;
            transition: all 0.2s ease;
-           font-family: 'Courier New', monospace;
+           font-family: var(--font-mono);
        }
 
        .profile-item-edit-btn:hover {
@@ -317,8 +300,8 @@ date: 2025-10-21
            border: 1px solid #485662;
            border-radius: 4px;
            background: rgba(13, 17, 23, 0.95);
-           color: #8b949e;
-           font-family: 'Courier New', monospace;
+           color: var(--text-primary);
+           font-family: var(--font-mono);
        }
 
        .profile-item-edit-actions {
@@ -331,28 +314,25 @@ date: 2025-10-21
            font-size: 0.85em;
        }
 
-
        .breather-container {
            text-align: center;
            padding: 30px;
            margin: 20px 0;
            background: rgba(22, 27, 34, 0.8);
            border-radius: 4px;
-           border: 1px solid #30363d;
+           border: 1px solid var(--border-color);
            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
        }
 
-
        .breather-message {
-           color: #8b949e;
+           color: var(--text-primary);
            font-size: 1.2em;
            margin-bottom: 20px;
            font-weight: 400;
            text-shadow: 0 0 8px rgba(139, 148, 158, 0.2);
            line-height: 1.6;
-           font-family: 'Courier New', monospace;
+           font-family: var(--font-mono);
        }
-
 
        .breather-buttons {
            display: flex;
@@ -360,7 +340,6 @@ date: 2025-10-21
            justify-content: center;
            flex-wrap: wrap;
        }
-
 
        .warning-message {
            background: rgba(60, 30, 30, 0.3);
@@ -374,177 +353,25 @@ date: 2025-10-21
            box-shadow: 0 0 12px rgba(110, 64, 64, 0.2);
        }
 
-
        #leakContinue:disabled {
            background: rgba(30, 35, 40, 0.2);
-           border-color: #30363d;
-           color: #484f58;
+           border-color: var(--border-color);
+           color: var(--text-muted);
        }
-
 
        @keyframes pulse {
            0%, 100% { opacity: 1; }
            50% { opacity: 0.6; }
        }
 
-
        .loading {
            animation: pulse 1.5s infinite;
        }
 
-
-       /* Stats Table Styling */
-       .stats-table {
-           width: 100%;
-           border-collapse: collapse;
-           margin: 15px 0;
-           background: rgba(22, 27, 34, 0.6);
-           border-radius: 4px;
-           overflow: hidden;
-       }
-
-
-       .stats-table th,
-       .stats-table td {
-           padding: 12px 15px;
-           text-align: left;
-           border-bottom: 1px solid #30363d;
-           font-family: 'Courier New', monospace;
-       }
-
-
-       .stats-table th {
-           background: rgba(48, 54, 61, 0.4);
-           color: #8b949e;
-           font-weight: 600;
-           text-transform: uppercase;
-           font-size: 0.85em;
-           letter-spacing: 1px;
-       }
-
-
-       .stats-table td {
-           color: #8b949e;
-       }
-
-
-       .stats-table tr:hover {
-           background: rgba(48, 54, 61, 0.3);
-       }
-
-
-       .stats-category {
-           margin: 20px 0;
-           padding: 15px;
-           background: rgba(22, 27, 34, 0.4);
-           border-radius: 4px;
-           border-left: 2px solid #485662;
-       }
-
-
-       .stats-category-title {
-           color: #8b949e;
-           font-size: 1.1em;
-           margin-bottom: 10px;
-           font-weight: 600;
-           font-family: 'Courier New', monospace;
-       }
-
-
-       .stats-bar {
-           display: flex;
-           align-items: center;
-           margin: 8px 0;
-       }
-
-
-       .stats-bar-label {
-           width: 120px;
-           color: #6e7681;
-           font-size: 0.9em;
-           font-family: 'Courier New', monospace;
-       }
-
-
-       .stats-bar-fill {
-           height: 20px;
-           background: linear-gradient(90deg, #485662, #6e7681);
-           border-radius: 3px;
-           transition: width 0.5s ease;
-           min-width: 2px;
-       }
-
-
-       .stats-bar-count {
-           margin-left: 10px;
-           color: #8b949e;
-           font-size: 0.9em;
-           font-family: 'Courier New', monospace;
-       }
-
-
-       .stats-total {
-           text-align: center;
-           padding: 20px;
-           background: rgba(48, 54, 61, 0.3);
-           border-radius: 4px;
-           margin-bottom: 20px;
-       }
-
-
-       .stats-total-number {
-           font-size: 2.5em;
-           color: #8b949e;
-           font-weight: bold;
-           font-family: 'Courier New', monospace;
-       }
-
-
-       .stats-total-label {
-           color: #6e7681;
-           font-size: 0.9em;
-           margin-top: 5px;
-           font-family: 'Courier New', monospace;
-       }
-
-
-       @media (max-width: 768px) {
-           .quiz-container {
-               padding: 20px;
-           }
-
-
-           #question {
-               font-size: 1.1em;
-           }
-
-
-           button {
-               padding: 12px 16px;
-               font-size: 14px;
-           }
-
-
-           .breather-buttons {
-               flex-direction: column;
-           }
-
-
-           .breather-buttons button {
-               width: 100%;
-           }
-
-
-           .stats-bar-label {
-               width: 80px;
-               font-size: 0.8em;
-           }
-       }
-
        /* Navigation Nodes */
        .section-nav {
-           background: #1a1a1a;
-           border-bottom: 1px solid #262626;
+           background: var(--tertiary-bg);
+           border-bottom: 1px solid var(--border-dark);
            padding: 0.75rem 2rem;
            display: flex;
            gap: 0.5rem;
@@ -585,9 +412,9 @@ date: 2025-10-21
        }
 
        .nav-node.unlocked {
-           background: rgba(0, 217, 255, 0.15);
+           background: var(--accent-cyan-dark);
            border-color: rgba(0, 217, 255, 0.8);
-           color: #00d9ff;
+           color: var(--accent-cyan);
            box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
        }
 
@@ -597,15 +424,15 @@ date: 2025-10-21
        }
 
        .nav-node.visited {
-           background: rgba(76, 175, 80, 0.2);
+           background: var(--accent-green-light);
            border-color: rgba(102, 187, 106, 0.8);
-           color: #4caf50;
+           color: var(--accent-green);
            box-shadow: 0 0 15px rgba(76, 175, 80, 0.4);
        }
 
        .nav-node.current {
-           background: #3b82f6;
-           border-color: #3b82f6;
+           background: var(--accent-blue);
+           border-color: var(--accent-blue);
            color: #fff;
            box-shadow: 0 0 20px rgba(59, 130, 246, 0.6);
            transform: scale(1.15);
@@ -614,7 +441,7 @@ date: 2025-10-21
        .nav-connector {
            width: 20px;
            height: 2px;
-           background: #262626;
+           background: var(--border-dark);
            flex-shrink: 0;
            transition: background 0.3s ease;
        }
