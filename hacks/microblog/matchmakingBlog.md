@@ -92,7 +92,7 @@ header {
 }
 
 
-/* ---------- CONTAINER ---------- */
+/* ---------- CONTAINER ----------- */
 .container {
    position: relative;
    width: 100%;
