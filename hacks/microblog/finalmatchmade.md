@@ -741,10 +741,16 @@ author: Adhav S
 
     function buildComparisonTable(yourProfile, theirProfile) {
         // Use optional chaining and fallback values to avoid TypeError
-        const username = yourProfile?.profile?.profile_quiz?.[1]?.response || 'Not specified';
-        const theirusername = theirProfile?.profile?.profile_quiz?.[1]?.response || 'Not specified';
-        const bio = yourProfile?.profile?.bio || 'Not specified';
-        const theirbio = theirProfile?.profile?.bio || 'Not specified';
+        // Username from login (assume .username field), personality from profile_quiz (assume last or specific index)
+        const username = yourProfile?.username || 'Not specified';
+        const theirusername = theirProfile?.username || 'Not specified';
+        // Find personality answer in profile_quiz (look for question or use a specific index)
+        const yourPersonality = Array.isArray(yourProfile?.profile?.profile_quiz)
+            ? (yourProfile.profile.profile_quiz.find(q => (q.question && q.question.toLowerCase().includes('personality')))?.response || 'Not specified')
+            : 'Not specified';
+        const theirPersonality = Array.isArray(theirProfile?.profile?.profile_quiz)
+            ? (theirProfile.profile.profile_quiz.find(q => (q.question && q.question.toLowerCase().includes('personality')))?.response || 'Not specified')
+            : 'Not specified';
         const rows = `
             <tr>
                 <td class="attribute-name">Username</td>
@@ -755,12 +761,12 @@ author: Adhav S
                 <td class="their-value">${formatValue(theirusername)}</td>
             </tr>
             <tr>
-                <td class="attribute-name">Bio</td>
-                <td class="your-value">${formatValue(bio)}</td>
-                <td class="match-status ${bio === theirbio ? 'match' : 'mismatch'}">
-                    ${bio === theirbio ? '✓' : '→'}
+                <td class="attribute-name">Personality</td>
+                <td class="your-value">${formatValue(yourPersonality)}</td>
+                <td class="match-status ${yourPersonality === theirPersonality ? 'match' : 'mismatch'}">
+                    ${yourPersonality === theirPersonality ? '✓' : '→'}
                 </td>
-                <td class="their-value">${formatValue(theirbio)}</td>
+                <td class="their-value">${formatValue(theirPersonality)}</td>
             </tr>
         `;
         return rows;
