@@ -1,7 +1,7 @@
 ---
 layout: opencs
 title: "Personality Matchmaking Quiz"
-description: "Discover your personality type for better connections"
+description: "Discover your personality type for better connections with other people"
 permalink: /microb/
 submodule: 4
 categories: [CSP, Submodule, Microblogging]
