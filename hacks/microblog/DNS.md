@@ -90,7 +90,7 @@ backend_api: "/api"
 </head>
 <body class="bg-slate-900 text-slate-100 min-h-screen flex flex-col">
     
-    <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
+    
 
     <!-- Header -->
     <header class="bg-slate-800 border-b border-slate-700 p-4 shadow-lg sticky top-0 z-50">

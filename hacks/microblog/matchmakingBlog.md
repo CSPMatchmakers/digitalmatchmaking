@@ -503,7 +503,7 @@ button:disabled {
 
 
 
-<a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
+
 
 
 
@@ -583,29 +583,6 @@ import { pythonURI } from '{{site.baseurl}}/assets/js/api/config.js';
 * Check if both quizzes have been completed
 */
 function checkQuizzesCompleted() {
-console.log('🔍 Checking if both quizzes are completed...');
-
-
-// Check sessionStorage for personality quiz
-const personalityData = sessionStorage.getItem('personalityQuizResponses');
-
-
-// Check sessionStorage for profile quiz
-const profileData = sessionStorage.getItem('userQuizResponses');
-
-
-console.log('Personality quiz data:', personalityData ? 'Found' : 'Not found');
-console.log('Profile quiz data:', profileData ? 'Found' : 'Not found');
-
-
-if (!personalityData || !profileData) {
-  // Redirect back to Krishna's quiz page if not completed
-  alert('⚠️ Please complete both the profile quiz and personality quiz on Krishna\'s page first!');
-  window.location.href = '/digitalmatchmaking/mcq/';
-  return false;
-}
-
-
 return true;
 }
 

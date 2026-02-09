@@ -482,7 +482,7 @@ date: 2025-10-21
        <a class="nav-node locked" href="javascript:void(0)" data-page="5" data-url="/digitalmatchmaking/matchmade/" title="Matchmade">5</a>
    </div>
 
-   <a href="/digitalmatchmaking/home/" class="back-button">← Back</a>
+   
 
 
    <div class="quiz-container">
