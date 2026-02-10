@@ -768,9 +768,7 @@ author: Adhav S
             <tr>
                 <td class="attribute-name">Username</td>
                 <td class="your-value">${formatValue(username)}</td>
-                <td class="match-status ${username === theirusername ? 'match' : 'mismatch'}">
-                    ${username === theirusername ? '✓' : '→'}
-                </td>
+                <td class="match-status username-match" style="color:#ffd700; font-size:1.5em;">~</td>
                 <td class="their-value">${formatValue(theirusername)}</td>
             </tr>
         `;
@@ -789,8 +787,8 @@ author: Adhav S
                 <tr>
                     <td class="attribute-name">${formatFieldName(trait)}</td>
                     <td class="your-value">${formatValue(yourVal)}</td>
-                    <td class="match-status ${yourVal === theirVal ? 'match' : 'mismatch'}">
-                        ${yourVal === theirVal ? '✓' : '→'}
+                    <td class="match-status ${yourVal === theirVal ? 'match' : 'mismatch'}" style="font-size:1.5em;">
+                        ${yourVal === theirVal ? '<span style="color:#27ae60;">✓</span>' : '<span style="color:#e74c3c;">✗</span>'}
                     </td>
                     <td class="their-value">${formatValue(theirVal)}</td>
                 </tr>
