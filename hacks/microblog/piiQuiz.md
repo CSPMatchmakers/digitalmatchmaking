@@ -1134,27 +1134,42 @@ date: 2025-10-21
 
 
        function showResults() {
-           quizEl.style.display = 'none';
-           resultsEl.style.display = 'none';
-           reviewEl.style.display = 'none';
-          
-           // MODIFIED: Collect only non-personal, non-null responses
-           const userDataResponses = {};
-           const startIndex = 3;
-          
-           // Define which questions are safe to save (by index relative to startIndex)
-           const safeQuestionIndices = [0, 1, 2, 4, 5, 8]; // favorite color, username, favorite animal, genre, band/artist, favorite subject
-          
-           for (let i = startIndex; i < questions.length; i++) {
-               const q = questions[i];
-               const response = q.userResponse !== undefined ? q.userResponse : null;
-               const relativeIndex = i - startIndex;
-              
-               // Only save if it's a safe question and response is not null
-               if (safeQuestionIndices.includes(relativeIndex) && response !== null && response !== undefined && String(response).trim() !== '') {
-                   userDataResponses[q.question] = response;
-               }
-           }
+            quizEl.style.display = 'none';
+            resultsEl.style.display = 'none';
+            reviewEl.style.display = 'none';
+            
+            // Collect only non-personal, non-null responses
+            const userDataResponses = {};
+            const startIndex = 3;
+            
+            const safeQuestionIndices = [0, 1, 2, 4, 5, 8];
+            
+            // NEW: Count declined answers
+            function isEqual(value1, value2) {
+                return value1 === value2;
+            }
+            
+            let declinedCount = 0;
+            
+            for (let i = startIndex; i < questions.length; i++) {
+                const q = questions[i];
+                const response = q.userResponse !== undefined ? q.userResponse : null;
+                const relativeIndex = i - startIndex;
+                
+                // Count if user declined (null response) for safe questions
+                if (safeQuestionIndices.includes(relativeIndex)) {
+                    if (isEqual(response, null) || response === undefined || String(response).trim() === '') {
+                        declinedCount++;
+                    }
+                }
+                
+                // Only save if it's a safe question and response is not null
+                if (safeQuestionIndices.includes(relativeIndex) && response !== null && response !== undefined && String(response).trim() !== '') {
+                    userDataResponses[q.question] = response;
+                }
+            }
+            
+            console.log(`User declined to answer ${declinedCount} question(s)`);            
 
 
            // Check for PII leaks by examining sensitive questions
