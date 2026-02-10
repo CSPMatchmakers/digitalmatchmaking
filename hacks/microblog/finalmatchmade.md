@@ -740,18 +740,37 @@ author: Adhav S
     }
 
     function buildComparisonTable(yourProfile, theirProfile) {
-        // Use optional chaining and fallback values to avoid TypeError
-        // Username from login (assume .username field), personality from profile_quiz (assume last or specific index)
-        const username = yourProfile?.username || 'Not specified';
-        const theirusername = theirProfile?.username || 'Not specified';
-        // Find personality answer in profile_quiz (look for question or use a specific index)
-        const yourPersonality = Array.isArray(yourProfile?.profile?.profile_quiz)
-            ? (yourProfile.profile.profile_quiz.find(q => (q.question && q.question.toLowerCase().includes('personality')))?.response || 'Not specified')
-            : 'Not specified';
-        const theirPersonality = Array.isArray(theirProfile?.profile?.profile_quiz)
-            ? (theirProfile.profile.profile_quiz.find(q => (q.question && q.question.toLowerCase().includes('personality')))?.response || 'Not specified')
-            : 'Not specified';
-        const rows = `
+        // Debug logs to help identify backend structure
+        console.log('yourProfile:', yourProfile);
+        console.log('theirProfile:', theirProfile);
+        // Username extraction (update if you know the exact field)
+        const username = yourProfile?.username
+            || yourProfile?.profile?.username
+            || yourProfile?.profile?.name
+            || yourProfile?.name
+            || yourProfile?.data?.username
+            || yourProfile?.data?.name
+            || 'Not specified';
+        const theirusername = theirProfile?.username
+            || theirProfile?.profile?.username
+            || theirProfile?.profile?.name
+            || theirProfile?.name
+            || theirProfile?.data?.username
+            || theirProfile?.data?.name
+            || 'Not specified';
+
+        // Personality traits comparison
+        const yourTraits = yourProfile?.personalityTraits || yourProfile?.data?.personalityTraits || {};
+        const theirTraits = theirProfile?.personalityTraits || theirProfile?.data?.personalityTraits || {};
+        // List of all keys to compare
+        const allTraitKeys = Array.from(new Set([
+            ...Object.keys(yourTraits),
+            ...Object.keys(theirTraits)
+        ]));
+
+        let rows = '';
+        // Always show username row first
+        rows += `
             <tr>
                 <td class="attribute-name">Username</td>
                 <td class="your-value">${formatValue(username)}</td>
@@ -760,15 +779,31 @@ author: Adhav S
                 </td>
                 <td class="their-value">${formatValue(theirusername)}</td>
             </tr>
-            <tr>
-                <td class="attribute-name">Personality</td>
-                <td class="your-value">${formatValue(yourPersonality)}</td>
-                <td class="match-status ${yourPersonality === theirPersonality ? 'match' : 'mismatch'}">
-                    ${yourPersonality === theirPersonality ? '✓' : '→'}
-                </td>
-                <td class="their-value">${formatValue(theirPersonality)}</td>
-            </tr>
         `;
+        // Then show all personality traits as their own rows
+        if (allTraitKeys.length > 0) {
+            allTraitKeys.forEach(trait => {
+                const yourVal = yourTraits[trait] !== undefined ? yourTraits[trait] : 'Not specified';
+                const theirVal = theirTraits[trait] !== undefined ? theirTraits[trait] : 'Not specified';
+                rows += `
+                    <tr>
+                        <td class="attribute-name">${formatFieldName(trait)}</td>
+                        <td class="your-value">${formatValue(yourVal)}</td>
+                        <td class="match-status ${yourVal === theirVal ? 'match' : 'mismatch'}">
+                            ${yourVal === theirVal ? '✓' : '→'}
+                        </td>
+                        <td class="their-value">${formatValue(theirVal)}</td>
+                    </tr>
+                `;
+            });
+        } else {
+            // If no traits, show a message row
+            rows += `
+                <tr>
+                    <td class="attribute-name" colspan="4" style="text-align:center; color:#b0b0b0;">No personality traits found.</td>
+                </tr>
+            `;
+        }
         return rows;
     }
 
