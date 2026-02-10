@@ -759,17 +759,11 @@ author: Adhav S
             || theirProfile?.data?.name
             || 'Not specified';
 
-        // Personality traits comparison
+        // Personality traits: only show decision, lifestyle, social
         const yourTraits = yourProfile?.personalityTraits || yourProfile?.data?.personalityTraits || {};
         const theirTraits = theirProfile?.personalityTraits || theirProfile?.data?.personalityTraits || {};
-        // List of all keys to compare
-        const allTraitKeys = Array.from(new Set([
-            ...Object.keys(yourTraits),
-            ...Object.keys(theirTraits)
-        ]));
-
         let rows = '';
-        // Always show username row first
+        // Username row
         rows += `
             <tr>
                 <td class="attribute-name">Username</td>
@@ -780,30 +774,28 @@ author: Adhav S
                 <td class="their-value">${formatValue(theirusername)}</td>
             </tr>
         `;
-        // Then show all personality traits as their own rows
-        if (allTraitKeys.length > 0) {
-            allTraitKeys.forEach(trait => {
-                const yourVal = yourTraits[trait] !== undefined ? yourTraits[trait] : 'Not specified';
-                const theirVal = theirTraits[trait] !== undefined ? theirTraits[trait] : 'Not specified';
-                rows += `
-                    <tr>
-                        <td class="attribute-name">${formatFieldName(trait)}</td>
-                        <td class="your-value">${formatValue(yourVal)}</td>
-                        <td class="match-status ${yourVal === theirVal ? 'match' : 'mismatch'}">
-                            ${yourVal === theirVal ? '✓' : '→'}
-                        </td>
-                        <td class="their-value">${formatValue(theirVal)}</td>
-                    </tr>
-                `;
-            });
-        } else {
-            // If no traits, show a message row
+        // Personality section title row
+        rows += `
+            <tr>
+                <td colspan="4" style="text-align:center; font-weight:bold; color:#8b9dff; background:rgba(102,126,234,0.08);">Personality</td>
+            </tr>
+        `;
+        // Only show decision, lifestyle, social
+        const traitList = ['decision', 'lifestyle', 'social'];
+        traitList.forEach(trait => {
+            const yourVal = yourTraits[trait] !== undefined ? yourTraits[trait] : 'Not specified';
+            const theirVal = theirTraits[trait] !== undefined ? theirTraits[trait] : 'Not specified';
             rows += `
                 <tr>
-                    <td class="attribute-name" colspan="4" style="text-align:center; color:#b0b0b0;">No personality traits found.</td>
+                    <td class="attribute-name">${formatFieldName(trait)}</td>
+                    <td class="your-value">${formatValue(yourVal)}</td>
+                    <td class="match-status ${yourVal === theirVal ? 'match' : 'mismatch'}">
+                        ${yourVal === theirVal ? '✓' : '→'}
+                    </td>
+                    <td class="their-value">${formatValue(theirVal)}</td>
                 </tr>
             `;
-        }
+        });
         return rows;
     }
 
