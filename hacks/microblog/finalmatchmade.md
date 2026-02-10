@@ -744,6 +744,7 @@ author: Adhav S
         console.log('yourProfile:', yourProfile);
         console.log('theirProfile:', theirProfile);
         // Username extraction (update if you know the exact field)
+        // Username: login name for yourProfile, matched_with[0] for theirProfile
         const username = yourProfile?.username
             || yourProfile?.profile?.username
             || yourProfile?.profile?.name
@@ -751,13 +752,9 @@ author: Adhav S
             || yourProfile?.data?.username
             || yourProfile?.data?.name
             || 'Not specified';
-        const theirusername = theirProfile?.username
-            || theirProfile?.profile?.username
-            || theirProfile?.profile?.name
-            || theirProfile?.name
-            || theirProfile?.data?.username
-            || theirProfile?.data?.name
-            || 'Not specified';
+        const theirusername = Array.isArray(yourProfile?.profile?.matched_with) && yourProfile.profile.matched_with.length > 0
+            ? yourProfile.profile.matched_with[0]
+            : 'Not specified';
 
     // Personality traits: only show decision, lifestyle, social
     const yourTraits = yourProfile?.profile?.profile_quiz?.analysis?.personalityTraits || {};
