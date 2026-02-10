@@ -101,7 +101,7 @@ author: Ethan W
 
         .section-title {
             font-size: 1.6em;
-            color: #e4e4e7;
+            color: #3b82f6;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -112,17 +112,32 @@ author: Ethan W
             font-size: 1.2em;
         }
 
+        .preview-section-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5em;
+        }
+
+        .preview-header {
+            color: #a1a1aa;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-align: right;
+        }
+
         .autofill-buttons {
             display: flex;
             gap: 0.8em;
+            align-items: center;
         }
 
         .autofill-btn {
-            padding: 0.6em 1.3em;
+            padding: 0.6em 1em;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.95em;
+            font-size: 1.2em;
             font-weight: 600;
             transition: all 0.3s ease;
         }
@@ -145,6 +160,30 @@ author: Ethan W
         .autofill-bad:hover {
             background: #c0392b;
             transform: translateY(-2px);
+        }
+
+        .ai-check-btn-header {
+            padding: 0.5em 0.9em;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.75em;
+            white-space: nowrap;
+            align-self: flex-end;
+        }
+
+        .ai-check-btn-header:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .ai-check-btn-header:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .input-container {
@@ -501,12 +540,13 @@ author: Ethan W
         }
 
         .preview-section h4 {
-            color: #a1a1aa;
-            font-size: 0.9em;
+            color: #3b82f6;
+            font-size: 1.1em;
             margin-bottom: 0.5em;
             display: flex;
             align-items: center;
             gap: 0.5em;
+            font-weight: 600;
         }
 
         .preview-section p {
@@ -634,12 +674,27 @@ author: Ethan W
                 gap: 1em;
             }
 
-            .autofill-buttons {
+            .preview-section-container {
+                align-items: flex-start;
                 width: 100%;
             }
 
+            .preview-header {
+                text-align: left;
+            }
+
+            .autofill-buttons {
+                width: 100%;
+                justify-content: flex-start;
+                flex-wrap: wrap;
+            }
+
             .autofill-btn {
-                flex: 1;
+                flex: 0;
+            }
+
+            .ai-check-btn-header {
+                align-self: flex-start;
             }
 
             .button-group {
@@ -790,9 +845,13 @@ author: Ethan W
                     <span class="section-icon">👤</span>
                     About Me
                 </div>
-                <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" id="about-good-btn">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" id="about-bad-btn">⚠️ Bad Example</button>
+                <div class="preview-section-container">
+                    <button class="ai-check-btn-header" id="about-check-btn">Check</button>
+                    <div class="preview-header">Preview Examples</div>
+                    <div class="autofill-buttons">
+                        <button class="autofill-btn autofill-good" id="about-good-btn">✅</button>
+                        <button class="autofill-btn autofill-bad" id="about-bad-btn">❌</button>
+                    </div>
                 </div>
             </div>
             <div class="madlib-template">
@@ -869,7 +928,6 @@ author: Ethan W
             </div>
             <div id="about-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" id="about-check-btn">🤖 AI Safety Check</button>
                 <button class="next-btn" id="about-next">Next Question →</button>
             </div>
         </div>
@@ -880,9 +938,13 @@ author: Ethan W
                     <span class="section-icon">🔍</span>
                     Interests & Hobbies
                 </div>
-                <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" id="interests-good-btn">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" id="interests-bad-btn">⚠️ Bad Example</button>
+                <div class="preview-section-container">
+                    <button class="ai-check-btn-header" id="interests-check-btn">Check</button>
+                    <div class="preview-header">Preview Examples</div>
+                    <div class="autofill-buttons">
+                        <button class="autofill-btn autofill-good" id="interests-good-btn">✅</button>
+                        <button class="autofill-btn autofill-bad" id="interests-bad-btn">❌</button>
+                    </div>
                 </div>
             </div>
             <div class="madlib-template">
@@ -947,7 +1009,6 @@ author: Ethan W
             </div>
             <div id="interests-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" id="interests-check-btn">🤖 AI Safety Check</button>
                 <button class="next-btn" id="interests-next">Next Question →</button>
             </div>
         </div>
@@ -958,9 +1019,13 @@ author: Ethan W
                     <span class="section-icon">💻</span>
                     Skills & Expertise
                 </div>
-                <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" id="skills-good-btn">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" id="skills-bad-btn">⚠️ Bad Example</button>
+                <div class="preview-section-container">
+                    <button class="ai-check-btn-header" id="skills-check-btn">Check</button>
+                    <div class="preview-header">Preview Examples</div>
+                    <div class="autofill-buttons">
+                        <button class="autofill-btn autofill-good" id="skills-good-btn">✅</button>
+                        <button class="autofill-btn autofill-bad" id="skills-bad-btn">❌</button>
+                    </div>
                 </div>
             </div>
             <div class="madlib-template">
@@ -1037,7 +1102,6 @@ author: Ethan W
             </div>
             <div id="skills-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" id="skills-check-btn">🤖 AI Safety Check</button>
                 <button class="next-btn" id="skills-next">Next Question →</button>
             </div>
         </div>
@@ -1048,9 +1112,13 @@ author: Ethan W
                     <span class="section-icon">🎓</span>
                     Goals & Looking For
                 </div>
-                <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" id="goals-good-btn">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" id="goals-bad-btn">⚠️ Bad Example</button>
+                <div class="preview-section-container">
+                    <button class="ai-check-btn-header" id="goals-check-btn">Check</button>
+                    <div class="preview-header">Preview Examples</div>
+                    <div class="autofill-buttons">
+                        <button class="autofill-btn autofill-good" id="goals-good-btn">✅</button>
+                        <button class="autofill-btn autofill-bad" id="goals-bad-btn">❌</button>
+                    </div>
                 </div>
             </div>
             <div class="madlib-template">
@@ -1100,7 +1168,6 @@ author: Ethan W
             </div>
             <div id="goals-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" id="goals-check-btn">🤖 AI Safety Check</button>
                 <button class="next-btn" id="goals-next">Finish →</button>
             </div>
         </div>
