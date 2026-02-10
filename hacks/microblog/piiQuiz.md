@@ -1144,7 +1144,7 @@ date: 2025-10-21
             
             const safeQuestionIndices = [0, 1, 2, 4, 5, 8];
             
-            // NEW: Count declined answers
+            // Count declined answers
             function isEqual(value1, value2) {
                 return value1 === value2;
             }
@@ -1163,7 +1163,7 @@ date: 2025-10-21
                     }
                 }
                 
-                // Only save if it's a safe question and response is not null
+                // Only save if it's a safe non null responses
                 if (safeQuestionIndices.includes(relativeIndex) && response !== null && response !== undefined && String(response).trim() !== '') {
                     userDataResponses[q.question] = response;
                 }
