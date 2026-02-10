@@ -142,7 +142,7 @@ show_reading_time: false
                 return response.json();
             })
             .then(data => {
-                window.location.href = '{{site.baseurl}}/profile';
+                window.location.href = '{{site.baseurl}}/api';
             })
             .catch(error => {
                 document.getElementById("message").textContent = `Error: ${error.message}`;
@@ -181,7 +181,7 @@ show_reading_time: false
             .then(data => {
                 document.getElementById("signupMessage").textContent = "Signup successful!";
                 // Optionally redirect to login page or handle as needed
-                // window.location.href = '{{site.baseurl}}/profile';
+                // window.location.href = '{{site.baseurl}}/api';
             })
             .catch(error => {
                 console.error("Signup Error:", error);

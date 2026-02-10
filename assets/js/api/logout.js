@@ -27,4 +27,7 @@ export async function handleLogout() {
         console.error('java logout failed:', e);
     }
 
+    // clear all local storage
+    localStorage.clear();
+
 }
