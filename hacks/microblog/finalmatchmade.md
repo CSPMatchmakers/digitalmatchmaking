@@ -759,9 +759,9 @@ author: Adhav S
             || theirProfile?.data?.name
             || 'Not specified';
 
-        // Personality traits: only show decision, lifestyle, social
-        const yourTraits = yourProfile?.personalityTraits || yourProfile?.data?.personalityTraits || {};
-        const theirTraits = theirProfile?.personalityTraits || theirProfile?.data?.personalityTraits || {};
+    // Personality traits: only show decision, lifestyle, social
+    const yourTraits = yourProfile?.profile?.profile_quiz?.analysis?.personalityTraits || {};
+    const theirTraits = theirProfile?.profile?.profile_quiz?.analysis?.personalityTraits || {};
         let rows = '';
         // Username row
         rows += `
