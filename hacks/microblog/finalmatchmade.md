@@ -82,7 +82,17 @@ author: Adhav S
 
     .header p {
         color: #b0b0b0;
-        font-size: 1.1em;
+        font-size: 2em;
+        font-weight: 600;
+        margin-bottom: 0.5em;
+    }
+    .header-bar {
+        width: 100%;
+        height: 6px;
+        background: linear-gradient(90deg, #667eea 0%, #8b9dff 100%);
+        border-radius: 3px;
+        margin-bottom: 2em;
+        box-shadow: 0 2px 8px rgba(102,126,234,0.15);
     }
 
     .card {
@@ -608,6 +618,7 @@ author: Adhav S
     <div class="header">
         <h1>Profile Matcher</h1>
         <p>Discover Compatible Connections</p>
+        <div class="header-bar"></div>
     </div>
 
     <div class="card">
@@ -745,16 +756,13 @@ author: Adhav S
         console.log('theirProfile:', theirProfile);
         // Username extraction (update if you know the exact field)
         // Username: login name for yourProfile, username for theirProfile
-        const username = yourProfile?.username
-            || yourProfile?.profile?.username
-            || yourProfile?.profile?.name
-            || yourProfile?.name
-            || yourProfile?.data?.username
-            || yourProfile?.data?.name
-            || 'Not specified';
+        // Username: always 'You' for yourProfile, best guess for theirProfile
+        const username = 'You';
         const theirusername = theirProfile?.username
             || theirProfile?.profile?.username
             || theirProfile?.profile?.name
+            || theirProfile?.profile?.profile_quiz?.name
+            || theirProfile?.profile?.bio?.name
             || theirProfile?.name
             || theirProfile?.data?.username
             || theirProfile?.data?.name
@@ -805,7 +813,6 @@ author: Adhav S
         }
 
         const profile = state.allProfiles[state.currentIndex];
-        const compatibility = calculateCompatibility(state.currentUserProfile, profile.data);
         const tableRows = buildComparisonTable(state.currentUserProfile, profile.data);
 
         const content = document.getElementById('mainContent');
@@ -839,55 +846,6 @@ author: Adhav S
                         ${tableRows}
                     </tbody>
                 </table>
-            </div>
-
-            <div class="compatibility-section">
-                <div class="compatibility-header">
-                    <div class="compatibility-score">
-                        <div class="score-circle" style="--score: ${compatibility.score}%">
-                            <div>
-                                <div class="score-number">${compatibility.score}%</div>
-                            </div>
-                        </div>
-                        <div class="score-label" style="color: #8b9dff; font-size: 1.2em; font-weight: bold;">Compatibility Match</div>
-                    </div>
-                    <div class="compatibility-bar">
-                        <div class="compatibility-fill" style="width: ${compatibility.score}%"></div>
-                    </div>
-                </div>
-
-                <div class="compatibility-details">
-                    <div class="detail-group matches">
-                        <h4>Compatibilities</h4>
-                        ${compatibility.matches.length > 0 
-                            ? compatibility.matches.map(m => `
-                                <div class="detail-item match">
-                                    <div class="detail-icon">✓</div>
-                                    <div class="detail-text">
-                                        <div class="detail-label">${formatFieldName(m.field)}</div>
-                                        <div class="detail-value">${m.value1}</div>
-                                    </div>
-                                </div>
-                            `).join('')
-                            : '<p style="color: #b0b0b0;">No shared interests yet</p>'
-                        }
-                    </div>
-                    <div class="detail-group mismatches">
-                        <h4>Differences</h4>
-                        ${compatibility.mismatches.length > 0 
-                            ? compatibility.mismatches.map(m => `
-                                <div class="detail-item mismatch">
-                                    <div class="detail-icon">→</div>
-                                    <div class="detail-text">
-                                        <div class="detail-label">${formatFieldName(m.field)}</div>
-                                        <div class="detail-value">You: ${m.value1} / They: ${m.value2}</div>
-                                    </div>
-                                </div>
-                            `).join('')
-                            : '<p style="color: #b0b0b0;">Great match all around!</p>'
-                        }
-                    </div>
-                </div>
             </div>
 
             <div class="button-group">
