@@ -101,7 +101,7 @@ author: Ethan W
 
         .section-title {
             font-size: 1.6em;
-            color: #e4e4e7;
+            color: #3b82f6;
             font-weight: 600;
             display: flex;
             align-items: center;
@@ -112,19 +112,38 @@ author: Ethan W
             font-size: 1.2em;
         }
 
+        .autofill-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 0.5em;
+        }
+
+        .autofill-label {
+            font-size: 0.85em;
+            color: #a1a1aa;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
         .autofill-buttons {
             display: flex;
-            gap: 0.8em;
+            gap: 0.5em;
         }
 
         .autofill-btn {
-            padding: 0.6em 1.3em;
+            width: 40px;
+            height: 40px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
-            font-size: 0.95em;
+            font-size: 1.3em;
             font-weight: 600;
             transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .autofill-good {
@@ -134,7 +153,7 @@ author: Ethan W
 
         .autofill-good:hover {
             background: #229954;
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.1);
         }
 
         .autofill-bad {
@@ -144,7 +163,7 @@ author: Ethan W
 
         .autofill-bad:hover {
             background: #c0392b;
-            transform: translateY(-2px);
+            transform: translateY(-2px) scale(1.1);
         }
 
         .input-container {
@@ -501,7 +520,7 @@ author: Ethan W
         }
 
         .preview-section h4 {
-            color: #a1a1aa;
+            color: #3b82f6;
             font-size: 0.9em;
             margin-bottom: 0.5em;
             display: flex;
@@ -634,12 +653,14 @@ author: Ethan W
                 gap: 1em;
             }
 
-            .autofill-buttons {
+            .autofill-container {
+                align-items: flex-start;
                 width: 100%;
             }
 
-            .autofill-btn {
-                flex: 1;
+            .autofill-buttons {
+                width: 100%;
+                justify-content: flex-start;
             }
 
             .button-group {
@@ -790,9 +811,12 @@ author: Ethan W
                     <span class="section-icon">👤</span>
                     About Me
                 </div>
-                <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" id="about-good-btn">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" id="about-bad-btn">⚠️ Bad Example</button>
+                <div class="autofill-container">
+                    <div class="autofill-label">Prefill</div>
+                    <div class="autofill-buttons">
+                        <button class="autofill-btn autofill-good" id="about-good-btn">✓</button>
+                        <button class="autofill-btn autofill-bad" id="about-bad-btn">✕</button>
+                    </div>
                 </div>
             </div>
             <div class="madlib-template">
@@ -880,9 +904,12 @@ author: Ethan W
                     <span class="section-icon">🔍</span>
                     Interests & Hobbies
                 </div>
-                <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" id="interests-good-btn">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" id="interests-bad-btn">⚠️ Bad Example</button>
+                <div class="autofill-container">
+                    <div class="autofill-label">Prefill</div>
+                    <div class="autofill-buttons">
+                        <button class="autofill-btn autofill-good" id="interests-good-btn">✓</button>
+                        <button class="autofill-btn autofill-bad" id="interests-bad-btn">✕</button>
+                    </div>
                 </div>
             </div>
             <div class="madlib-template">
@@ -958,9 +985,12 @@ author: Ethan W
                     <span class="section-icon">💻</span>
                     Skills & Expertise
                 </div>
-                <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" id="skills-good-btn">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" id="skills-bad-btn">⚠️ Bad Example</button>
+                <div class="autofill-container">
+                    <div class="autofill-label">Prefill</div>
+                    <div class="autofill-buttons">
+                        <button class="autofill-btn autofill-good" id="skills-good-btn">✓</button>
+                        <button class="autofill-btn autofill-bad" id="skills-bad-btn">✕</button>
+                    </div>
                 </div>
             </div>
             <div class="madlib-template">
@@ -1048,9 +1078,12 @@ author: Ethan W
                     <span class="section-icon">🎓</span>
                     Goals & Looking For
                 </div>
-                <div class="autofill-buttons">
-                    <button class="autofill-btn autofill-good" id="goals-good-btn">✅ Good Example</button>
-                    <button class="autofill-btn autofill-bad" id="goals-bad-btn">⚠️ Bad Example</button>
+                <div class="autofill-container">
+                    <div class="autofill-label">Prefill</div>
+                    <div class="autofill-buttons">
+                        <button class="autofill-btn autofill-good" id="goals-good-btn">✓</button>
+                        <button class="autofill-btn autofill-bad" id="goals-bad-btn">✕</button>
+                    </div>
                 </div>
             </div>
             <div class="madlib-template">
