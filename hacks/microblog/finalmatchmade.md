@@ -754,18 +754,14 @@ author: Adhav S
         // Debug logs to help identify backend structure
         console.log('yourProfile:', yourProfile);
         console.log('theirProfile:', theirProfile);
-        // Username extraction (update if you know the exact field)
-        // Username: login name for yourProfile, username for theirProfile
-        // Username: always 'You' for yourProfile, best guess for theirProfile
+        // Username extraction: always 'You' for yourProfile, best guess for theirProfile (prefer theirProfile.profile)
         const username = 'You';
-        const theirusername = theirProfile?.username
-            || theirProfile?.profile?.username
+        const theirusername = theirProfile?.profile?.username
             || theirProfile?.profile?.name
             || theirProfile?.profile?.profile_quiz?.name
             || theirProfile?.profile?.bio?.name
+            || theirProfile?.username
             || theirProfile?.name
-            || theirProfile?.data?.username
-            || theirProfile?.data?.name
             || 'Not specified';
 
     // Personality traits: only show decision, lifestyle, social
