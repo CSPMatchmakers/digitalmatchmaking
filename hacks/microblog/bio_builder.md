@@ -93,12 +93,11 @@ author: Ethan W
         }
 
         .section-header {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
             align-items: center;
-            justify-content: center;
-            gap: 2em;
             margin-bottom: 1em;
-            flex-wrap: wrap;
+            gap: 1em;
         }
 
         .section-title {
@@ -108,6 +107,8 @@ author: Ethan W
             display: flex;
             align-items: center;
             gap: 0.5em;
+            flex-wrap: wrap;
+            justify-self: start;
         }
 
         .section-icon {
@@ -116,9 +117,9 @@ author: Ethan W
 
         .autofill-container {
             display: flex;
-            flex-direction: column;
             align-items: center;
-            gap: 0.5em;
+            gap: 0.8em;
+            justify-self: center;
         }
 
         .autofill-label {
@@ -127,11 +128,18 @@ author: Ethan W
             font-weight: 600;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            white-space: nowrap;
         }
 
         .autofill-buttons {
             display: flex;
             gap: 0.5em;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            justify-self: end;
         }
 
         .ai-check-header-btn {
@@ -673,18 +681,22 @@ author: Ethan W
             }
 
             .section-header {
-                flex-direction: column;
-                align-items: center;
-                gap: 0.8em;
+                grid-template-columns: 1fr;
+                gap: 1em;
+            }
+
+            .section-title {
+                justify-self: center;
+                text-align: center;
             }
 
             .autofill-container {
-                align-items: center;
-                width: 100%;
+                justify-self: center;
             }
 
-            .autofill-buttons {
-                width: auto;
+            .header-right {
+                justify-self: center;
+                width: 100%;
                 justify-content: center;
             }
 
@@ -848,7 +860,9 @@ author: Ethan W
                         <button class="autofill-btn autofill-bad" id="about-bad-btn">✕</button>
                     </div>
                 </div>
-                <button class="ai-check-header-btn" id="about-check-btn">🤖 AI Safety Check</button>
+                <div class="header-right">
+                    <button class="ai-check-header-btn" id="about-check-btn">Check</button>
+                </div>
             </div>
             <div class="madlib-template">
                 <p>I'm a passionate 
@@ -924,7 +938,7 @@ author: Ethan W
             </div>
             <div id="about-result"></div>
             <div class="button-group">
-                <button class="next-btn" id="about-next">Next Question →</button>
+                <button class="next-btn" id="about-next">→</button>
             </div>
         </div>
 
@@ -941,7 +955,9 @@ author: Ethan W
                         <button class="autofill-btn autofill-bad" id="interests-bad-btn">✕</button>
                     </div>
                 </div>
-                <button class="ai-check-header-btn" id="interests-check-btn">🤖 AI Safety Check</button>
+                <div class="header-right">
+                    <button class="ai-check-header-btn" id="interests-check-btn">Check</button>
+                </div>
             </div>
             <div class="madlib-template">
                 <p>In my free time, I enjoy 
@@ -1005,7 +1021,7 @@ author: Ethan W
             </div>
             <div id="interests-result"></div>
             <div class="button-group">
-                <button class="next-btn" id="interests-next">Next Question →</button>
+                <button class="next-btn" id="interests-next">→</button>
             </div>
         </div>
 
@@ -1022,7 +1038,9 @@ author: Ethan W
                         <button class="autofill-btn autofill-bad" id="skills-bad-btn">✕</button>
                     </div>
                 </div>
-                <button class="ai-check-header-btn" id="skills-check-btn">🤖 AI Safety Check</button>
+                <div class="header-right">
+                    <button class="ai-check-header-btn" id="skills-check-btn">Check</button>
+                </div>
             </div>
             <div class="madlib-template">
                 <p>I'm skilled at 
@@ -1098,7 +1116,7 @@ author: Ethan W
             </div>
             <div id="skills-result"></div>
             <div class="button-group">
-                <button class="next-btn" id="skills-next">Next Question →</button>
+                <button class="next-btn" id="skills-next">→</button>
             </div>
         </div>
 
@@ -1115,7 +1133,9 @@ author: Ethan W
                         <button class="autofill-btn autofill-bad" id="goals-bad-btn">✕</button>
                     </div>
                 </div>
-                <button class="ai-check-header-btn" id="goals-check-btn">🤖 AI Safety Check</button>
+                <div class="header-right">
+                    <button class="ai-check-header-btn" id="goals-check-btn">Check</button>
+                </div>
             </div>
             <div class="madlib-template">
                 <p>I'm looking to connect with people who are interested in 
@@ -1164,7 +1184,7 @@ author: Ethan W
             </div>
             <div id="goals-result"></div>
             <div class="button-group">
-                <button class="next-btn" id="goals-next">Finish →</button>
+                <button class="next-btn" id="goals-next">→</button>
             </div>
         </div>
 
