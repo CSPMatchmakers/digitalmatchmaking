@@ -95,8 +95,10 @@ author: Ethan W
         .section-header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            justify-content: center;
+            gap: 2em;
             margin-bottom: 1em;
+            flex-wrap: wrap;
         }
 
         .section-title {
@@ -115,7 +117,7 @@ author: Ethan W
         .autofill-container {
             display: flex;
             flex-direction: column;
-            align-items: flex-end;
+            align-items: center;
             gap: 0.5em;
         }
 
@@ -130,6 +132,29 @@ author: Ethan W
         .autofill-buttons {
             display: flex;
             gap: 0.5em;
+        }
+
+        .ai-check-header-btn {
+            padding: 0.6em 1.3em;
+            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            font-size: 0.95em;
+            white-space: nowrap;
+        }
+
+        .ai-check-header-btn:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+        }
+
+        .ai-check-header-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         .autofill-btn {
@@ -649,18 +674,23 @@ author: Ethan W
 
             .section-header {
                 flex-direction: column;
-                align-items: flex-start;
-                gap: 1em;
+                align-items: center;
+                gap: 0.8em;
             }
 
             .autofill-container {
-                align-items: flex-start;
+                align-items: center;
                 width: 100%;
             }
 
             .autofill-buttons {
+                width: auto;
+                justify-content: center;
+            }
+
+            .ai-check-header-btn {
                 width: 100%;
-                justify-content: flex-start;
+                max-width: 300px;
             }
 
             .button-group {
@@ -818,6 +848,7 @@ author: Ethan W
                         <button class="autofill-btn autofill-bad" id="about-bad-btn">✕</button>
                     </div>
                 </div>
+                <button class="ai-check-header-btn" id="about-check-btn">🤖 AI Safety Check</button>
             </div>
             <div class="madlib-template">
                 <p>I'm a passionate 
@@ -893,7 +924,6 @@ author: Ethan W
             </div>
             <div id="about-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" id="about-check-btn">🤖 AI Safety Check</button>
                 <button class="next-btn" id="about-next">Next Question →</button>
             </div>
         </div>
@@ -911,6 +941,7 @@ author: Ethan W
                         <button class="autofill-btn autofill-bad" id="interests-bad-btn">✕</button>
                     </div>
                 </div>
+                <button class="ai-check-header-btn" id="interests-check-btn">🤖 AI Safety Check</button>
             </div>
             <div class="madlib-template">
                 <p>In my free time, I enjoy 
@@ -974,7 +1005,6 @@ author: Ethan W
             </div>
             <div id="interests-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" id="interests-check-btn">🤖 AI Safety Check</button>
                 <button class="next-btn" id="interests-next">Next Question →</button>
             </div>
         </div>
@@ -992,6 +1022,7 @@ author: Ethan W
                         <button class="autofill-btn autofill-bad" id="skills-bad-btn">✕</button>
                     </div>
                 </div>
+                <button class="ai-check-header-btn" id="skills-check-btn">🤖 AI Safety Check</button>
             </div>
             <div class="madlib-template">
                 <p>I'm skilled at 
@@ -1067,7 +1098,6 @@ author: Ethan W
             </div>
             <div id="skills-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" id="skills-check-btn">🤖 AI Safety Check</button>
                 <button class="next-btn" id="skills-next">Next Question →</button>
             </div>
         </div>
@@ -1085,6 +1115,7 @@ author: Ethan W
                         <button class="autofill-btn autofill-bad" id="goals-bad-btn">✕</button>
                     </div>
                 </div>
+                <button class="ai-check-header-btn" id="goals-check-btn">🤖 AI Safety Check</button>
             </div>
             <div class="madlib-template">
                 <p>I'm looking to connect with people who are interested in 
@@ -1133,7 +1164,6 @@ author: Ethan W
             </div>
             <div id="goals-result"></div>
             <div class="button-group">
-                <button class="ai-check-btn" id="goals-check-btn">🤖 AI Safety Check</button>
                 <button class="next-btn" id="goals-next">Finish →</button>
             </div>
         </div>
