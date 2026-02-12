@@ -1351,7 +1351,7 @@ author: Ethan W
             </div>
             
             <div class="button-group">
-                <button class="submit-btn" id="save-btn">📥 Save to Bio</button>
+                <button class="submit-btn" id="save-btn">📥 Save</button>
             </div>
             <div id="save-status"></div>
     </div>
