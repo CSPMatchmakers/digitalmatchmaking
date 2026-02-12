@@ -115,21 +115,32 @@ author: Adhav S
     .stat-box {
         background: linear-gradient(135deg, #2a2a40, #1f1f35);
         border: 2px solid #667eea;
-        border-radius: 8px;
-        padding: 1.5em;
+        border-radius: 12px;
+        padding: 1.8em 1.2em;
         text-align: center;
+        min-width: 140px;
+        min-height: 90px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1em;
+        box-shadow: 0 4px 16px rgba(102, 126, 234, 0.10);
     }
 
     .stat-value {
-        font-size: 2em;
+        font-size: 2.2em;
         font-weight: bold;
         color: #8b9dff;
+        margin-bottom: 0.2em;
     }
 
     .stat-label {
         color: #b0b0b0;
-        margin-top: 0.5em;
-        font-size: 0.9em;
+        margin-top: 0.3em;
+        font-size: 1em;
+        font-weight: 600;
+        letter-spacing: 1px;
     }
 
     /* Comparison Table */
@@ -928,7 +939,7 @@ author: Adhav S
                     ${congratsMessage}
                 </p>
 
-                <div class="stats-bar" style="margin: 2em 0;">
+                <div class="stats-bar" style="margin: 2em 0; justify-content: center; display: flex; gap: 2em;">
                     <div class="stat-box">
                         <div class="stat-value">${state.matches.length}</div>
                         <div class="stat-label">Total Matches</div>
@@ -936,10 +947,6 @@ author: Adhav S
                     <div class="stat-box">
                         <div class="stat-value">${state.skipped.length}</div>
                         <div class="stat-label">Skipped</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-value">${state.matches.length > 0 ? Math.round(state.matches.reduce((sum, m) => sum + m.compatibility, 0) / state.matches.length) : 0}%</div>
-                        <div class="stat-label">Avg Compatibility</div>
                     </div>
                 </div>
 
@@ -949,8 +956,7 @@ author: Adhav S
                         ${state.matches.map(m => `
                             <div class="match-card">
                                 <h4>${formatValue(m.data.name || m.uid)}</h4>
-                                <p style="color: #c0c0c0; margin: 0.5em 0;">${formatValue(m.data.location || 'Location unknown')}</p>
-                                <div class="compatibility-percent">Match: ${m.compatibility}%</div>
+                                <p style="color: #c0c0c0; margin: 0.5em 0;">Somewhere on Earth</p>
                             </div>
                         `).join('')}
                     </div>
