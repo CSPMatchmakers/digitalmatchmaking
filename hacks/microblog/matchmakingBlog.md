@@ -519,7 +519,24 @@ button:disabled {
 <!-- ---------- AI ANALYSIS INPUT ---------- -->
 <div class="container">
 <div class="info-card">
-  <h3>AI PERSONALITY ANALYSIS</h3>
+  <h3 style="display: flex; align-items: center; justify-content: center; gap: 10px;">
+    Get To Know Yourself
+    <span id="help-btn" onclick="document.getElementById('help-modal').style.display='flex'" style="width: 24px; height: 24px; border-radius: 50%; border: 1px solid #30363d; background: rgba(48,54,61,0.3); color: #8b949e; font-size: 14px; display: inline-flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;">?</span>
+  </h3>
+
+  <!-- How It Works Modal -->
+  <div id="help-modal" onclick="if(event.target===this)this.style.display='none'" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:999; align-items:center; justify-content:center;">
+    <div style="background:#161b22; border:1px solid #30363d; border-radius:8px; padding:24px; max-width:420px; width:90%; position:relative; box-shadow:0 8px 24px rgba(0,0,0,0.6);">
+      <span onclick="document.getElementById('help-modal').style.display='none'" style="position:absolute; top:12px; right:16px; color:#8b949e; cursor:pointer; font-size:18px;">&times;</span>
+      <h3 style="color:#c9d1d9; font-size:1.1em; margin-bottom:12px;">How It Works</h3>
+      <p style="color:#8b949e; font-size:13px; line-height:1.6;">
+        1. Your quiz answers are pulled from the previous page.<br><br>
+        2. Pick a <strong>focus</strong> (compatibility, strengths, communication, or all) and a <strong>detail level</strong>.<br><br>
+        3. The AI scores your personality traits (social style, decision-making, lifestyle) and generates insights based on your unique combination.<br><br>
+        4. Your analysis is saved to the backend so it can be used for matchmaking on the next few pages.
+      </p>
+    </div>
+  </div>
 
 
   <!-- Input Section (hidden after generating) -->

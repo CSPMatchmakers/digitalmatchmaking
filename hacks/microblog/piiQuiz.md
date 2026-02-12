@@ -1491,6 +1491,17 @@ date: 2025-10-21
        let personalityAnswers = {};
 
 
+       function autofillPersonalityQuiz() {
+           // Pick a random option for each personality question
+           personalityAnswers = {};
+           personalityQuestions.forEach(q => {
+               const randomOption = q.options[Math.floor(Math.random() * q.options.length)];
+               personalityAnswers[q.id] = randomOption.value;
+           });
+           document.getElementById('personalityQuizContent').style.display = 'block';
+           completePersonalityQuiz();
+       }
+
        function startPersonalityQuiz() {
            // Hide review section and show personality quiz
            reviewEl.style.display = 'none';
@@ -1504,8 +1515,12 @@ date: 2025-10-21
                    <p style="color: #6e7681; margin: 20px 0; font-family: 'Courier New', monospace;">
                        Now let's understand your personality traits for better matchmaking
                    </p>
+                   <div class="breather-buttons">
+                       <button id="personalityManual" class="option-button">Fill Out Manually</button>
+                       <button id="personalityAutofill" class="option-button">Use Autofill (Random)</button>
+                   </div>
                </div>
-               <div id="personalityQuizContent" style="margin-top: 20px;">
+               <div id="personalityQuizContent" style="margin-top: 20px; display: none;">
                    <div id="personalityQuestion"></div>
                    <div class="options" id="personalityOptions"></div>
                    <button id="personalitySubmit" type="button">Submit Answer</button>
@@ -1519,7 +1534,14 @@ date: 2025-10-21
 
            currentPersonalityQuestion = 0;
            personalityAnswers = {};
-           displayPersonalityQuestion();
+
+           document.getElementById('personalityManual').onclick = () => {
+               document.getElementById('personalityQuizContent').style.display = 'block';
+               displayPersonalityQuestion();
+           };
+           document.getElementById('personalityAutofill').onclick = () => {
+               autofillPersonalityQuiz();
+           };
        }
 
 
