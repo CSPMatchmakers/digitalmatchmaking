@@ -94,10 +94,10 @@ author: Ethan W
 
         .section-header {
             display: grid;
-            grid-template-columns: 1fr auto 1fr;
+            grid-template-columns: minmax(auto, max-content) auto 1fr;
             align-items: center;
             margin-bottom: 1em;
-            gap: 1em;
+            gap: 1.5em;
         }
 
         .section-title {
@@ -105,14 +105,23 @@ author: Ethan W
             color: #3b82f6;
             font-weight: 600;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             gap: 0.5em;
-            flex-wrap: wrap;
             justify-self: start;
+            max-width: 100%;
         }
 
         .section-icon {
             font-size: 1.2em;
+            flex-shrink: 0;
+            line-height: 1;
+            margin-top: 0.1em;
+        }
+
+        .section-title-text {
+            flex: 1;
+            word-wrap: break-word;
+            line-height: 1.2;
         }
 
         .autofill-container {
@@ -511,6 +520,12 @@ author: Ethan W
             padding: 0.8em;
             border-radius: 8px;
             margin-bottom: 1em;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .info-box.visible {
+            display: block;
         }
 
         .info-box h3 {
@@ -525,6 +540,34 @@ author: Ethan W
             line-height: 1.4;
             margin: 0;
             font-size: 0.85em;
+        }
+
+        .help-button {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1em;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(59, 130, 246, 0.3);
+        }
+
+        .help-button:hover {
+            background: #2563eb;
+            transform: scale(1.1);
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.5);
+        }
+
+        .help-button.active {
+            background: #2563eb;
         }
 
         /* Bio Preview Styles */
@@ -553,12 +596,16 @@ author: Ethan W
         }
 
         .preview-section h4 {
-            color: #3b82f6;
+            color: #3b82f6 !important;
             font-size: 0.9em;
             margin-bottom: 0.5em;
             display: flex;
             align-items: center;
             gap: 0.5em;
+        }
+
+        .preview-section h4 span {
+            color: #3b82f6 !important;
         }
 
         .preview-section p {
@@ -842,16 +889,17 @@ author: Ethan W
             <div class="progress-fill" id="progress-fill" style="width: 25%;"></div>
         </div>
 
-        <div class="info-box">
+        <button class="help-button" id="help-toggle" title="Click for help">?</button>
+        <div class="info-box" id="info-box">
             <h3>🛡️ AI Privacy Protection</h3>
-            <p>Our advanced AI system detects personal information like phone numbers, addresses, specific locations, routines, and sensitive data. Click "AI Safety Check" and pass the check to continue!</p>
+            <p>Our advanced AI system detects personal information like phone numbers, addresses, specific locations, routines, and sensitive data. Click "Check" and pass the check to continue!</p>
         </div>
 
         <div class="bio-section active" data-section="about" data-question="1">
             <div class="section-header">
                 <div class="section-title">
                     <span class="section-icon">👤</span>
-                    About Me
+                    <span class="section-title-text">About Me</span>
                 </div>
                 <div class="autofill-container">
                     <div class="autofill-label">Prefill</div>
@@ -946,7 +994,7 @@ author: Ethan W
             <div class="section-header">
                 <div class="section-title">
                     <span class="section-icon">🔍</span>
-                    Interests & Hobbies
+                    <span class="section-title-text">Interests & Hobbies</span>
                 </div>
                 <div class="autofill-container">
                     <div class="autofill-label">Prefill</div>
@@ -1029,7 +1077,7 @@ author: Ethan W
             <div class="section-header">
                 <div class="section-title">
                     <span class="section-icon">💻</span>
-                    Skills & Expertise
+                    <span class="section-title-text">Skills & Expertise</span>
                 </div>
                 <div class="autofill-container">
                     <div class="autofill-label">Prefill</div>
@@ -1124,7 +1172,7 @@ author: Ethan W
             <div class="section-header">
                 <div class="section-title">
                     <span class="section-icon">🎓</span>
-                    Goals & Looking For
+                    <span class="section-title-text">Goals & Looking For</span>
                 </div>
                 <div class="autofill-container">
                     <div class="autofill-label">Prefill</div>
@@ -1197,7 +1245,7 @@ author: Ethan W
                 
                 <div class="preview-section">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h4><span>👤</span> About Me</h4>
+                        <h4 style="color: #3b82f6;"><span style="color: #3b82f6;">👤</span> About Me</h4>
                         <button class="edit-section-btn" data-section="about">✏️ Edit</button>
                     </div>
                     <div class="display-mode" id="display-about">
@@ -1225,7 +1273,7 @@ author: Ethan W
                 
                 <div class="preview-section">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h4><span>🔍</span> Interests & Hobbies</h4>
+                        <h4 style="color: #3b82f6;"><span style="color: #3b82f6;">🔍</span> Interests & Hobbies</h4>
                         <button class="edit-section-btn" data-section="interests">✏️ Edit</button>
                     </div>
                     <div class="display-mode" id="display-interests">
@@ -1251,7 +1299,7 @@ author: Ethan W
                 
                 <div class="preview-section">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h4><span>💻</span> Skills & Expertise</h4>
+                        <h4 style="color: #3b82f6;"><span style="color: #3b82f6;">💻</span> Skills & Expertise</h4>
                         <button class="edit-section-btn" data-section="skills">✏️ Edit</button>
                     </div>
                     <div class="display-mode" id="display-skills">
@@ -1279,7 +1327,7 @@ author: Ethan W
                 
                 <div class="preview-section">
                     <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h4><span>🎓</span> Goals & Looking For</h4>
+                        <h4 style="color: #3b82f6;"><span style="color: #3b82f6;">🎓</span> Goals & Looking For</h4>
                         <button class="edit-section-btn" data-section="goals">✏️ Edit</button>
                     </div>
                     <div class="display-mode" id="display-goals">
@@ -1303,7 +1351,7 @@ author: Ethan W
             </div>
             
             <div class="button-group">
-                <button class="submit-btn" id="save-btn">📥 Save Bio to Profile</button>
+                <button class="submit-btn" id="save-btn">📥 Save to Bio</button>
             </div>
             <div id="save-status"></div>
     </div>
@@ -1324,6 +1372,15 @@ author: Ethan W
         let currentQuestion = 1;
         const totalQuestions = 4;
         const questionOrder = ['about', 'interests', 'skills', 'goals'];
+
+        // Help button toggle
+        const helpToggle = document.getElementById('help-toggle');
+        const infoBox = document.getElementById('info-box');
+        
+        helpToggle.addEventListener('click', () => {
+            infoBox.classList.toggle('visible');
+            helpToggle.classList.toggle('active');
+        });
 
         // Examples
         const examples = {
