@@ -641,7 +641,8 @@ author: Adhav S
         currentIndex: 0,
         matches: [],
         skipped: [],
-        initialized: false
+        initialized: false,
+        usernameCycleIndex: 0
     };
 
     async function initMatchmaking() {
@@ -754,15 +755,13 @@ author: Adhav S
         // Debug logs to help identify backend structure
         console.log('yourProfile:', yourProfile);
         console.log('theirProfile:', theirProfile);
-        // Username extraction: always 'You' for yourProfile, best guess for theirProfile (prefer theirProfile.profile)
+        // Username extraction: always 'You' for yourProfile, cycle through fixed list for theirProfile
         const username = 'You';
-        const theirusername = theirProfile?.profile?.username
-            || theirProfile?.profile?.name
-            || theirProfile?.profile?.profile_quiz?.name
-            || theirProfile?.profile?.bio?.name
-            || theirProfile?.username
-            || theirProfile?.name
-            || 'Not specified';
+        const usernameCycle = [
+            'indy', 'salem', 'phoenix', 'cody', 'pixel', 'cadence', 'ace', 'marco', 'libra', 'nikola', 'isaac', 'madam', 'flash', 'parker', 'merlin',
+            'sky', 'toby', 'hop', 'niko', 'K9', 'thisisasupercooluser', 'Obama', 'JSN', 'Darnold', 'Walker', 'Mountbatten', 'Windsor'
+        ];
+        const theirusername = usernameCycle[state.usernameCycleIndex % usernameCycle.length];
 
     // Personality traits: only show decision, lifestyle, social
     const yourTraits = yourProfile?.profile?.profile_quiz?.analysis?.personalityTraits || {};
@@ -893,14 +892,16 @@ author: Adhav S
             console.error('Error saving match:', error);
         }
 
-        state.currentIndex++;
-        showCurrentProfile();
+    state.currentIndex++;
+    state.usernameCycleIndex++;
+    showCurrentProfile();
     }
 
     function handleSkip() {
-        state.skipped.push(state.allProfiles[state.currentIndex]);
-        state.currentIndex++;
-        showCurrentProfile();
+    state.skipped.push(state.allProfiles[state.currentIndex]);
+    state.currentIndex++;
+    state.usernameCycleIndex++;
+    showCurrentProfile();
     }
 
     window.handleMatch = handleMatch;
