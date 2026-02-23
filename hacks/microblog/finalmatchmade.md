@@ -6,6 +6,14 @@ permalink: /matchmade/
 author: Adhav S
 ---
 
+---
+layout: opencs
+title: Matchmade
+description: The final module where the additions to your profile link you up to people with similar tastes.
+permalink: /matchmade/
+author: Adhav S
+---
+
 <style>
     body {
         min-height: 100vh;
@@ -772,12 +780,13 @@ author: Adhav S
         if (isOpen) {
             panel.classList.remove('open');
         } else {
-            // Pre-fill selects from saved state
-            if (state.userPreferences) {
-                document.getElementById('prefDecision').value  = state.userPreferences.decision  || '';
-                document.getElementById('prefLifestyle').value = state.userPreferences.lifestyle || '';
-                document.getElementById('prefSocial').value    = state.userPreferences.social    || '';
-            }
+            // Pre-fill from override if set, otherwise from assigned profile traits
+            const source = state.userPreferences
+                || state.currentUserProfile?.profile_quiz?.analysis?.personalityTraits
+                || {};
+            document.getElementById('prefDecision').value  = source.decision  || '';
+            document.getElementById('prefLifestyle').value = source.lifestyle || '';
+            document.getElementById('prefSocial').value    = source.social    || '';
             panel.classList.add('open');
         }
     };
@@ -797,15 +806,22 @@ author: Adhav S
         }
 
         state.userPreferences = { decision, lifestyle, social };
-        document.getElementById('prefStatus').textContent = 'Active';
-        document.getElementById('prefStatus').style.background = 'rgba(39,174,96,0.25)';
-        document.getElementById('prefStatus').style.borderColor = 'rgba(39,174,96,0.5)';
-        document.getElementById('prefStatus').style.color = '#27ae60';
+        document.getElementById('prefStatus').textContent = 'Customized';
+        document.getElementById('prefStatus').style.background = 'rgba(243,156,18,0.25)';
+        document.getElementById('prefStatus').style.borderColor = 'rgba(243,156,18,0.5)';
+        document.getElementById('prefStatus').style.color = '#f39c12';
         document.getElementById('preferencesPanel').classList.remove('open');
 
         // Re-render current card so score updates immediately
         if (state.initialized) showCurrentProfile();
     };
+
+    // Helper: get the effective "your" personality traits —
+    // user overrides take priority, otherwise use assigned profile traits
+    function getYourTraits() {
+        if (state.userPreferences) return state.userPreferences;
+        return state.currentUserProfile?.profile_quiz?.analysis?.personalityTraits || {};
+    }
 
     // ============================================================
     //  INIT
@@ -912,16 +928,8 @@ author: Adhav S
         const cappedFieldScore = Math.min(fieldScore, 40);
 
         // ---- Personality trait scoring (60 pts max) ----
-        // Determine whose personality to compare:
-        //   - "Your" side: userPreferences if set, else profile1.profile_quiz traits
-        //   - "Their" side: profile2.profile_quiz traits
-        const yourTraits  = state.userPreferences
-            ? {
-                decision:  state.userPreferences.decision,
-                lifestyle: state.userPreferences.lifestyle,
-                social:    state.userPreferences.social
-              }
-            : (profile1.profile_quiz?.analysis?.personalityTraits || {});
+        // Your traits: assigned from profile quiz, overridable via Edit Preferences
+        const yourTraits  = getYourTraits();
 
         const theirTraits = profile2.profile_quiz?.analysis?.personalityTraits || {};
 
@@ -972,7 +980,7 @@ author: Adhav S
 
         const traitNote = compat.traitTotal > 0
             ? `${compat.traitMatchCount}/${compat.traitTotal} personality traits match`
-            : 'No personality data yet — set preferences above';
+            : 'No personality data from quiz yet — edit to set manually';
 
         return `
             <div class="compat-banner">
@@ -1001,14 +1009,8 @@ author: Adhav S
         ];
         const theirusername = usernameCycle[state.usernameCycleIndex % usernameCycle.length];
 
-        // Decide which personality values to show for "your" side
-        const yourTraits = state.userPreferences
-            ? {
-                decision:  state.userPreferences.decision,
-                lifestyle: state.userPreferences.lifestyle,
-                social:    state.userPreferences.social
-              }
-            : (yourProfile?.profile_quiz?.analysis?.personalityTraits || {});
+        // Your traits: assigned from profile quiz, overridable via Edit Preferences
+        const yourTraits = getYourTraits();
 
         const theirTraits = theirProfile?.profile_quiz?.analysis?.personalityTraits || {};
 
@@ -1027,7 +1029,9 @@ author: Adhav S
             <tr>
                 <td colspan="4" style="text-align:center; font-weight:bold; color:#8b9dff; background:rgba(102,126,234,0.08);">
                     Personality Traits
-                    ${state.userPreferences ? '<span style="font-size:0.75em; color:#27ae60; margin-left:0.5em;">(from your preferences)</span>' : ''}
+                    ${state.userPreferences
+                        ? '<span style="font-size:0.75em; color:#f39c12; margin-left:0.5em;">(customized)</span>'
+                        : '<span style="font-size:0.75em; color:#27ae60; margin-left:0.5em;">(assigned from quiz)</span>'}
                 </td>
             </tr>
         `;
