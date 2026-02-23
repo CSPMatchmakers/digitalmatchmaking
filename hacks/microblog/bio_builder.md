@@ -629,6 +629,12 @@ author: Ethan W
             color: #721c24;
         }
 
+        .status-info {
+            background: #d1ecf1;
+            border: 2px solid #17a2b8;
+            color: #0c5460;
+        }
+
         .info-box {
             background: #0d0d0d;
             border: 1px solid #262626;
@@ -1935,65 +1941,83 @@ author: Ethan W
         }
 
         async function saveBio() {
-            const sections = ['about', 'interests', 'skills', 'goals'];
+            const saveBtn = document.getElementById('save-btn');
+
+            // Build bioData using getSectionText() which reads the correct source per mode
             const bioData = {};
             let hasContent = false;
 
-            for (const section of sections) {
-                const selects = document.querySelectorAll(`[id^="final-${section}-"]`);
-                const sectionData = {};
-                let sectionHasContent = false;
-                selects.forEach(select => {
-                    const value = select.value.trim();
-                    if (value) {
-                        sectionHasContent = true;
-                        hasContent = true;
-                        const fieldName = select.id.replace(`final-${section}-`, '');
-                        sectionData[fieldName] = value;
-                    }
-                });
-                if (sectionHasContent) bioData[section] = sectionData;
+            questionOrder.forEach(section => {
+                const text = getSectionText(section);
+                if (text) {
+                    hasContent = true;
+                    bioData[section] = { text, mode: sectionModes[section] };
+                }
+            });
+
+            if (!hasContent) {
+                showStatus('❌ Please fill in at least one section before saving!', 'error');
+                return;
             }
 
-            if (!hasContent) { showStatus('❌ Please fill in at least one section!', 'error'); return; }
-
+            // Check login
             try {
                 const idResponse = await fetch(`${pythonURI}/api/id`, { method: 'GET', credentials: 'include' });
-                if (!idResponse.ok) { showStatus('❌ Please log in to save your bio', 'error'); return; }
+                if (!idResponse.ok) { showStatus('❌ Please log in to save your bio.', 'error'); return; }
                 const userData = await idResponse.json();
-                if (!userData?.id) { showStatus('❌ Please log in to save your bio', 'error'); return; }
+                if (!userData?.id) { showStatus('❌ Please log in to save your bio.', 'error'); return; }
             } catch (error) {
-                showStatus('❌ Please log in to save your bio', 'error'); return;
+                showStatus('❌ Could not verify login. Please make sure you are logged in.', 'error');
+                return;
             }
 
+            // Disable button and show saving state
+            saveBtn.disabled = true;
+            saveBtn.textContent = '⏳ Saving...';
+            showStatus('💾 Saving your bio to your profile...', 'info');
+
             try {
-                showStatus('💾 Saving your bio...', 'success');
                 const response = await fetch(`${pythonURI}/api/match/add`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     credentials: 'include',
                     body: JSON.stringify({
                         index: 'bio',
-                        data: { ...bioData, last_updated: new Date().toISOString(), safety_checked: true, ai_verified: true }
+                        data: {
+                            ...bioData,
+                            last_updated: new Date().toISOString(),
+                            safety_checked: true,
+                            ai_verified: true
+                        }
                     })
                 });
-                const data = await response.json();
+
+                let data = {};
+                try { data = await response.json(); } catch (_) {}
+
                 if (response.ok || response.status === 201) {
+                    saveBtn.textContent = '✅ Saved!';
+                    saveBtn.style.background = 'linear-gradient(135deg, #27ae60 0%, #229954 100%)';
                     showStatus('✅ Bio saved successfully! Your profile is ready for matchmaking.', 'success');
                 } else {
-                    showStatus(`❌ Error: ${data.message || 'Failed to save'}`, 'error');
+                    saveBtn.disabled = false;
+                    saveBtn.textContent = '📥 Save';
+                    showStatus(`❌ Save failed: ${data.message || 'Server returned ' + response.status}`, 'error');
                 }
             } catch (error) {
-                showStatus(`❌ Failed to save: ${error.message}`, 'error');
+                console.error('Save error:', error);
+                saveBtn.disabled = false;
+                saveBtn.textContent = '📥 Save';
+                showStatus(`❌ Could not reach the server. Check your connection and try again.`, 'error');
             }
         }
 
         function showStatus(message, type) {
             const statusDiv = document.getElementById('save-status');
-            statusDiv.className = `status-message status-${type}`;
+            statusDiv.className = 'status-message status-' + (type === 'info' ? 'info' : type);
             statusDiv.textContent = message;
             statusDiv.style.display = 'block';
-            if (type === 'success') setTimeout(() => { statusDiv.style.display = 'none'; }, 5000);
+            // Do NOT auto-hide — user must see the result
         }
 
         // ── Event listeners ──
