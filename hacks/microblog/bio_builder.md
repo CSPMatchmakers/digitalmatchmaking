@@ -239,16 +239,17 @@ author: Ethan W
         }
 
         .mode-btn {
-            padding: 0.35em 0.9em;
+            padding: 0.35em 0.6em;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 0.82em;
+            font-size: 1.1em;
             font-weight: 600;
             transition: all 0.25s ease;
             background: transparent;
             color: #71717a;
             white-space: nowrap;
+            line-height: 1;
         }
 
         .mode-btn.active {
@@ -1040,8 +1041,8 @@ author: Ethan W
             <div class="mode-toggle-bar">
                 <span class="mode-toggle-label">Answer style</span>
                 <div class="mode-toggle-group">
-                    <button class="mode-btn active" data-section="about" data-mode="madlibs">🔽 Dropdown</button>
-                    <button class="mode-btn" data-section="about" data-mode="freewrite">✏️ Free Write</button>
+                    <button class="mode-btn active" data-section="about" data-mode="madlibs">🔽</button>
+                    <button class="mode-btn" data-section="about" data-mode="freewrite">✏️</button>
                 </div>
             </div>
 
@@ -1156,8 +1157,8 @@ author: Ethan W
             <div class="mode-toggle-bar">
                 <span class="mode-toggle-label">Answer style</span>
                 <div class="mode-toggle-group">
-                    <button class="mode-btn active" data-section="interests" data-mode="madlibs">🔽 Dropdown</button>
-                    <button class="mode-btn" data-section="interests" data-mode="freewrite">✏️ Free Write</button>
+                    <button class="mode-btn active" data-section="interests" data-mode="madlibs">🔽</button>
+                    <button class="mode-btn" data-section="interests" data-mode="freewrite">✏️</button>
                 </div>
             </div>
 
@@ -1258,8 +1259,8 @@ author: Ethan W
             <div class="mode-toggle-bar">
                 <span class="mode-toggle-label">Answer style</span>
                 <div class="mode-toggle-group">
-                    <button class="mode-btn active" data-section="skills" data-mode="madlibs">🔽 Dropdown</button>
-                    <button class="mode-btn" data-section="skills" data-mode="freewrite">✏️ Free Write</button>
+                    <button class="mode-btn active" data-section="skills" data-mode="madlibs">🔽</button>
+                    <button class="mode-btn" data-section="skills" data-mode="freewrite">✏️</button>
                 </div>
             </div>
 
@@ -1372,8 +1373,8 @@ author: Ethan W
             <div class="mode-toggle-bar">
                 <span class="mode-toggle-label">Answer style</span>
                 <div class="mode-toggle-group">
-                    <button class="mode-btn active" data-section="goals" data-mode="madlibs">🔽 Dropdown</button>
-                    <button class="mode-btn" data-section="goals" data-mode="freewrite">✏️ Free Write</button>
+                    <button class="mode-btn active" data-section="goals" data-mode="madlibs">🔽</button>
+                    <button class="mode-btn" data-section="goals" data-mode="freewrite">✏️</button>
                 </div>
             </div>
 
