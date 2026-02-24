@@ -1012,7 +1012,19 @@ author: Adhav S
         // Your traits: assigned from profile quiz, overridable via Edit Preferences
         const yourTraits = getYourTraits();
 
-        const theirTraits = theirProfile?.profile_quiz?.analysis?.personalityTraits || {};
+        // Robust extraction for theirTraits, similar to getYourTraits
+        let theirTraits = {};
+        if (theirProfile) {
+            if (theirProfile.profile_quiz?.analysis?.personalityTraits) {
+                theirTraits = theirProfile.profile_quiz.analysis.personalityTraits;
+            } else if (theirProfile.analysis?.personalityTraits) {
+                theirTraits = theirProfile.analysis.personalityTraits;
+            } else if (theirProfile.personalityTraits) {
+                theirTraits = theirProfile.personalityTraits;
+            }
+        }
+        // fallback to empty object if nothing found
+        theirTraits = theirTraits || {};
 
         let rows = '';
 
