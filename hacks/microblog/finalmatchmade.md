@@ -807,9 +807,26 @@ author: Adhav S
         const theirusername = usernameCycle[state.usernameCycleIndex % usernameCycle.length];
 
     // Personality traits: only show decision, lifestyle, social
-    // Use user-edited preferences if set, else backend
-    const yourTraits = state.userPreferences || (yourProfile?.profile?.profile_quiz?.analysis?.personalityTraits || {});
-    const theirTraits = theirProfile?.profile?.profile_quiz?.analysis?.personalityTraits || {};
+    // Use user-edited preferences if set, else robust backend extraction
+    function extractTraits(profile) {
+        if (!profile) return {};
+        if (profile.profile_quiz?.analysis?.personalityTraits) {
+            return profile.profile_quiz.analysis.personalityTraits;
+        } else if (profile.analysis?.personalityTraits) {
+            return profile.analysis.personalityTraits;
+        } else if (profile.personalityTraits) {
+            return profile.personalityTraits;
+        } else if (profile.profile?.profile_quiz?.analysis?.personalityTraits) {
+            return profile.profile.profile_quiz.analysis.personalityTraits;
+        } else if (profile.profile?.analysis?.personalityTraits) {
+            return profile.profile.analysis.personalityTraits;
+        } else if (profile.profile?.personalityTraits) {
+            return profile.profile.personalityTraits;
+        }
+        return {};
+    }
+    const yourTraits = state.userPreferences || extractTraits(yourProfile);
+    const theirTraits = extractTraits(theirProfile);
         let rows = '';
         // Username row
         rows += `
