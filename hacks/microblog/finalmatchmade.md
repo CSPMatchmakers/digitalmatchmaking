@@ -931,7 +931,18 @@ author: Adhav S
         // Your traits: assigned from profile quiz, overridable via Edit Preferences
         const yourTraits  = getYourTraits();
 
-        const theirTraits = profile2.profile_quiz?.analysis?.personalityTraits || {};
+        // Robust extraction for theirTraits, matching buildComparisonTable
+        let theirTraits = {};
+        if (profile2) {
+            if (profile2.profile_quiz?.analysis?.personalityTraits) {
+                theirTraits = profile2.profile_quiz.analysis.personalityTraits;
+            } else if (profile2.analysis?.personalityTraits) {
+                theirTraits = profile2.analysis.personalityTraits;
+            } else if (profile2.personalityTraits) {
+                theirTraits = profile2.personalityTraits;
+            }
+        }
+        theirTraits = theirTraits || {};
 
         const traitKeys      = ['decision', 'lifestyle', 'social'];
         let traitMatchCount  = 0;
@@ -1008,18 +1019,27 @@ author: Adhav S
             'thisisasupercooluser', 'testuser2', 'testuser67676767', 'testusersixtyseven', 'Matching', 'aoisfoi', 'Timothee Chalamat', 'Drake "Drake Maye" Maye', 'shreksswamp', 'StinkyJoe', 'dr pooglarth', 'tester', 'Morttt', 'Elamkulam Manakkal Sankaran Namboodiripad', 'george washington'
         ];
         const theirusername = usernameCycle[state.usernameCycleIndex % usernameCycle.length];
-
-        // Your traits: assigned from profile quiz, overridable via Edit Preferences
-        const yourTraits = getYourTraits();
-
-        // Robust extraction for theirTraits, similar to getYourTraits
-        let theirTraits = {};
-        if (theirProfile) {
-            if (theirProfile.profile_quiz?.analysis?.personalityTraits) {
-                theirTraits = theirProfile.profile_quiz.analysis.personalityTraits;
-            } else if (theirProfile.analysis?.personalityTraits) {
-                theirTraits = theirProfile.analysis.personalityTraits;
-            } else if (theirProfile.personalityTraits) {
+        // Robust personality trait extraction for both profiles
+        function extractTraits(profile) {
+            if (!profile) return {};
+            // Try all likely paths for personalityTraits
+            if (profile.profile_quiz?.analysis?.personalityTraits) {
+                return profile.profile_quiz.analysis.personalityTraits;
+            } else if (profile.analysis?.personalityTraits) {
+                return profile.analysis.personalityTraits;
+            } else if (profile.personalityTraits) {
+                return profile.personalityTraits;
+            } else if (profile.profile?.profile_quiz?.analysis?.personalityTraits) {
+                return profile.profile.profile_quiz.analysis.personalityTraits;
+            } else if (profile.profile?.analysis?.personalityTraits) {
+                return profile.profile.analysis.personalityTraits;
+            } else if (profile.profile?.personalityTraits) {
+                return profile.profile.personalityTraits;
+            }
+            return {};
+        }
+        const yourTraits = extractTraits(yourProfile);
+        const theirTraits = extractTraits(theirProfile);
                 theirTraits = theirProfile.personalityTraits;
             }
         }
