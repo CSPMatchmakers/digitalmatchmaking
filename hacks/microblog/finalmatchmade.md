@@ -5,15 +5,6 @@ description: The final module where the additions to your profile link you up to
 permalink: /matchmade/
 author: Adhav S
 ---
-
----
-layout: opencs
-title: Matchmade
-description: The final module where the additions to your profile link you up to people with similar tastes.
-permalink: /matchmade/
-author: Adhav S
----
-
 <style>
     body {
         min-height: 100vh;
@@ -104,213 +95,6 @@ author: Adhav S
         box-shadow: 0 2px 8px rgba(102,126,234,0.15);
     }
 
-    /* ====== Edit Button & Preferences Panel ====== */
-    .edit-btn-wrapper {
-        display: flex;
-        justify-content: flex-end;
-        margin-bottom: 1em;
-    }
-
-    .btn-edit {
-        background: linear-gradient(135deg, #4a4a6a, #3a3a5a);
-        color: #8b9dff;
-        border: 2px solid rgba(102, 126, 234, 0.5);
-        border-radius: 8px;
-        padding: 0.6em 1.4em;
-        font-size: 0.95em;
-        font-weight: bold;
-        cursor: pointer;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        transition: all 0.3s;
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
-    }
-
-    .btn-edit:hover {
-        background: linear-gradient(135deg, #667eea, #5568d3);
-        color: white;
-        border-color: #667eea;
-        box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
-        transform: translateY(-2px);
-    }
-
-    .preferences-panel {
-        background: rgba(20, 20, 40, 0.97);
-        border: 2px solid rgba(102, 126, 234, 0.5);
-        border-radius: 12px;
-        padding: 1.8em;
-        margin-bottom: 1.5em;
-        display: none;
-        animation: slideDown 0.3s ease;
-        box-shadow: 0 8px 32px rgba(0,0,0,0.4);
-    }
-
-    .preferences-panel.open {
-        display: block;
-    }
-
-    @keyframes slideDown {
-        from { opacity: 0; transform: translateY(-10px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-
-    .preferences-panel h3 {
-        color: #8b9dff;
-        font-size: 1.15em;
-        margin: 0 0 1.2em 0;
-        border-bottom: 2px solid rgba(102, 126, 234, 0.3);
-        padding-bottom: 0.5em;
-    }
-
-    .prefs-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1em;
-        margin-bottom: 1.2em;
-    }
-
-    @media (max-width: 768px) {
-        .prefs-grid { grid-template-columns: 1fr; }
-    }
-
-    .pref-group label {
-        display: block;
-        color: #b0b0b0;
-        font-weight: 600;
-        margin-bottom: 0.4em;
-        font-size: 0.9em;
-    }
-
-    .pref-group select {
-        width: 100%;
-        padding: 0.7em;
-        background: rgba(20, 20, 35, 0.8);
-        border: 2px solid rgba(102, 126, 234, 0.3);
-        border-radius: 8px;
-        color: #e0e0e0;
-        font-size: 0.95em;
-        transition: all 0.3s;
-    }
-
-    .pref-group select:focus {
-        outline: none;
-        border-color: #667eea;
-        box-shadow: 0 0 10px rgba(102, 126, 234, 0.3);
-    }
-
-    .prefs-actions {
-        display: flex;
-        gap: 0.8em;
-        justify-content: flex-end;
-    }
-
-    .btn-save-prefs {
-        background: linear-gradient(135deg, #667eea, #8b9dff);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 0.65em 1.5em;
-        font-size: 0.95em;
-        font-weight: bold;
-        cursor: pointer;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: all 0.3s;
-    }
-
-    .btn-save-prefs:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
-    }
-
-    .btn-cancel-prefs {
-        background: transparent;
-        color: #888;
-        border: 2px solid rgba(102,126,234,0.2);
-        border-radius: 8px;
-        padding: 0.65em 1.5em;
-        font-size: 0.95em;
-        font-weight: bold;
-        cursor: pointer;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        transition: all 0.3s;
-    }
-
-    .btn-cancel-prefs:hover {
-        color: #e0e0e0;
-        border-color: rgba(102,126,234,0.5);
-    }
-
-    /* Preferences indicator badge */
-    .pref-badge {
-        display: inline-block;
-        background: rgba(102, 126, 234, 0.2);
-        border: 1px solid rgba(102, 126, 234, 0.4);
-        border-radius: 12px;
-        padding: 0.25em 0.7em;
-        font-size: 0.75em;
-        color: #8b9dff;
-        margin-left: 0.5em;
-        font-weight: normal;
-        vertical-align: middle;
-    }
-
-    /* ====== Compatibility Score Banner ====== */
-    .compat-banner {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        background: linear-gradient(135deg, rgba(26,26,62,0.9), rgba(13,27,42,0.9));
-        border: 2px solid #667eea;
-        border-radius: 12px;
-        padding: 1.2em 1.8em;
-        margin-bottom: 1.5em;
-        gap: 1.5em;
-    }
-
-    .compat-label {
-        color: #b0b0b0;
-        font-weight: 600;
-        font-size: 1em;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        white-space: nowrap;
-    }
-
-    .compat-bar-wrap {
-        flex: 1;
-        height: 14px;
-        background: rgba(42, 42, 64, 0.8);
-        border-radius: 7px;
-        overflow: hidden;
-        box-shadow: inset 0 2px 4px rgba(0,0,0,0.5);
-    }
-
-    .compat-bar-fill {
-        height: 100%;
-        border-radius: 7px;
-        transition: width 0.8s ease;
-        box-shadow: 0 0 10px rgba(102, 126, 234, 0.6);
-    }
-
-    .compat-pct {
-        font-size: 1.8em;
-        font-weight: bold;
-        min-width: 70px;
-        text-align: right;
-        white-space: nowrap;
-    }
-
-    .compat-breakdown {
-        font-size: 0.82em;
-        color: #888;
-        white-space: nowrap;
-    }
-
-    /* ====== Card ====== */
     .card {
         background: rgba(30, 30, 46, 0.95);
         border: 2px solid rgba(102, 126, 234, 0.4);
@@ -437,7 +221,158 @@ author: Adhav S
         color: #e74c3c;
     }
 
+    /* Compatibility Section */
+    .compatibility-section {
+        background: linear-gradient(135deg, #3a3a52 0%, #2d2d42 100%);
+        border: 2px solid #667eea;
+        border-radius: 12px;
+        padding: 2.5em;
+        margin-bottom: 2em;
+    }
+
+    .compatibility-header {
+        text-align: center;
+        margin-bottom: 2em;
+    }
+
+    .compatibility-score {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 2em;
+        margin-bottom: 1.5em;
+    }
+
+    .score-circle {
+        width: 140px;
+        height: 140px;
+        border-radius: 50%;
+        background: conic-gradient(#667eea 0%, #667eea var(--score), rgba(102, 126, 234, 0.2) var(--score), rgba(102, 126, 234, 0.2) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3);
+        animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+        0%, 100% { box-shadow: 0 8px 30px rgba(102, 126, 234, 0.3); }
+        50% { box-shadow: 0 8px 40px rgba(102, 126, 234, 0.6); }
+    }
+
+    .score-number {
+        font-size: 2.8em;
+        font-weight: bold;
+        color: #667eea;
+    }
+
+    .score-label {
+        color: #b0b0b0;
+        font-size: 1em;
+        margin-top: 0.5em;
+        text-align: center;
+    }
+
+    .compatibility-bar {
+        width: 100%;
+        height: 16px;
+        background: #2a2a40;
+        border-radius: 8px;
+        overflow: hidden;
+        margin-bottom: 2em;
+        box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+
+    .compatibility-fill {
+        height: 100%;
+        background: linear-gradient(90deg, #667eea, #8b9dff);
+        transition: width 0.8s ease;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(102, 126, 234, 0.6);
+    }
+
+    .compatibility-details {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 2em;
+    }
+
+    .detail-group {
+        background: rgba(0, 0, 0, 0.3);
+        border-radius: 10px;
+        padding: 1.5em;
+        border-top: 4px solid #667eea;
+    }
+
+    .detail-group.matches {
+        border-top-color: #27ae60;
+    }
+
+    .detail-group.mismatches {
+        border-top-color: #e74c3c;
+    }
+
+    .detail-group h4 {
+        color: #8b9dff;
+        margin: 0 0 1.2em 0;
+        text-transform: uppercase;
+        font-size: 0.95em;
+        letter-spacing: 1px;
+    }
+
+    .detail-item {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 1em;
+        border-radius: 8px;
+        margin-bottom: 0.8em;
+        display: flex;
+        align-items: center;
+        gap: 0.8em;
+        border-left: 4px solid;
+        transition: all 0.3s ease;
+    }
+
+    .detail-item:hover {
+        background: rgba(0, 0, 0, 0.6);
+        transform: translateX(4px);
+    }
+
+    .detail-item.match {
+        border-left-color: #27ae60;
+    }
+
+    .detail-item.mismatch {
+        border-left-color: #e74c3c;
+    }
+
+    .detail-icon {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+
+    .detail-text {
+        flex: 1;
+    }
+
+    .detail-label {
+        color: #8b9dff;
+        font-weight: bold;
+        font-size: 0.9em;
+        margin-bottom: 0.2em;
+    }
+
+    .detail-value {
+        color: #c0c0c0;
+        font-size: 0.95em;
+    }
+
     /* Action Buttons */
+    .button-group {
+        display: flex;
+        gap: 1em;
+        margin-top: 2em;
+    }
+
     .btn {
         flex: 1;
         padding: 1.3em;
@@ -450,16 +385,6 @@ author: Adhav S
         text-transform: uppercase;
         letter-spacing: 1.5px;
         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    }
-
-    .btn-primary {
-        background: linear-gradient(135deg, #667eea, #8b9dff);
-        color: white;
-    }
-
-    .btn-primary:hover:not(:disabled) {
-        transform: translateY(-4px);
-        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
     }
 
     .btn-match {
@@ -485,12 +410,6 @@ author: Adhav S
     .btn:disabled {
         opacity: 0.5;
         cursor: not-allowed;
-    }
-
-    .button-group {
-        display: flex;
-        gap: 1em;
-        margin-top: 2em;
     }
 
     .loading {
@@ -566,8 +485,21 @@ author: Adhav S
     }
 
     @media (max-width: 768px) {
+        .compatibility-details {
+            grid-template-columns: 1fr;
+        }
+
         .stats-bar {
             grid-template-columns: 1fr;
+        }
+
+        .score-circle {
+            width: 100px;
+            height: 100px;
+        }
+
+        .score-number {
+            font-size: 2em;
         }
 
         .comparison-table {
@@ -577,10 +509,6 @@ author: Adhav S
         th, td {
             padding: 0.8em;
             font-size: 0.9em;
-        }
-
-        .compat-banner {
-            flex-wrap: wrap;
         }
     }
 
@@ -702,52 +630,40 @@ author: Adhav S
         <h1>Profile Matcher</h1>
         <p>Discover Compatible Connections</p>
         <div class="header-bar"></div>
-    </div>
-
-    <!-- ====== EDIT BUTTON & PREFERENCES PANEL ====== -->
-    <div class="edit-btn-wrapper">
-        <button class="btn-edit" id="editPrefsBtn" onclick="window.togglePreferences()">
-            ✏️ Edit Preferences
-        </button>
-    </div>
-
-    <div class="preferences-panel" id="preferencesPanel">
-        <h3>🧠 Matching Preferences <span class="pref-badge" id="prefStatus">Not Set</span></h3>
-        <div class="prefs-grid">
-            <div class="pref-group">
-                <label>Decision-making style</label>
-                <select id="prefDecision">
-                    <option value="">Select...</option>
-                    <option value="Logical">Logical — Data-driven</option>
-                    <option value="Intuitive">Intuitive — Feeling-based</option>
-                </select>
-            </div>
-            <div class="pref-group">
-                <label>Lifestyle preference</label>
-                <select id="prefLifestyle">
-                    <option value="">Select...</option>
-                    <option value="Organized">Organized — Structured</option>
-                    <option value="Spontaneous">Spontaneous — Flexible</option>
-                </select>
-            </div>
-            <div class="pref-group">
-                <label>Social style</label>
-                <select id="prefSocial">
-                    <option value="">Select...</option>
-                    <option value="Introvert">Introvert — Small groups</option>
-                    <option value="Extrovert">Extrovert — Enjoy crowds</option>
-                </select>
-            </div>
-        </div>
-        <div class="prefs-actions">
-            <button class="btn-cancel-prefs" onclick="window.cancelPreferences()">Cancel</button>
-            <button class="btn-save-prefs" onclick="window.savePreferences()">Save &amp; Apply</button>
+        <div style="text-align:right; margin-top:1em;">
+            <button id="editPersonalityBtn" class="btn" style="background:#222; color:#8b9dff; border:1px solid #8b9dff; font-size:1em; padding:0.5em 1.2em; border-radius:8px; cursor:pointer;">Edit Personality</button>
         </div>
     </div>
-    <!-- ====== END PREFERENCES PANEL ====== -->
 
     <div class="card">
         <div id="mainContent">
+            <div id="editPersonalityPanel" style="display:none; background:rgba(20,20,40,0.97); border:2px solid #8b9dff; border-radius:12px; padding:2em; margin-bottom:1.5em; max-width:400px; margin:auto;">
+                <h3 style="color:#8b9dff; margin-top:0;">Edit Your Personality Traits</h3>
+                <div style="display:grid; gap:1em;">
+                    <label>Decision
+                        <select id="editDecision" style="width:100%;padding:0.5em;">
+                            <option value="Analytical">Analytical</option>
+                            <option value="Empathetic">Empathetic</option>
+                        </select>
+                    </label>
+                    <label>Lifestyle
+                        <select id="editLifestyle" style="width:100%;padding:0.5em;">
+                            <option value="Structured">Structured</option>
+                            <option value="Spontaneous">Spontaneous</option>
+                        </select>
+                    </label>
+                    <label>Social
+                        <select id="editSocial" style="width:100%;padding:0.5em;">
+                            <option value="Introverted">Introverted</option>
+                            <option value="Extroverted">Extroverted</option>
+                        </select>
+                    </label>
+                </div>
+                <div style="margin-top:1.5em; text-align:right;">
+                    <button id="savePersonalityBtn" class="btn" style="background:#27ae60; color:white; margin-right:0.5em;">Save</button>
+                    <button id="cancelPersonalityBtn" class="btn" style="background:#e74c3c; color:white;">Cancel</button>
+                </div>
+            </div>
             <div class="loading">
                 <div class="spinner"></div>
                 <p>Loading profiles...</p>
@@ -768,64 +684,9 @@ author: Adhav S
         skipped: [],
         initialized: false,
         usernameCycleIndex: 0,
-        userPreferences: null
+        userPreferences: null // holds user-edited personality traits
     };
 
-    // ============================================================
-    //  PREFERENCES PANEL TOGGLE
-    // ============================================================
-    window.togglePreferences = function() {
-        const panel = document.getElementById('preferencesPanel');
-        const isOpen = panel.classList.contains('open');
-        if (isOpen) {
-            panel.classList.remove('open');
-        } else {
-            // Pre-fill from override if set, otherwise from assigned profile traits
-            const source = state.userPreferences
-                || state.currentUserProfile?.profile_quiz?.analysis?.personalityTraits
-                || {};
-            document.getElementById('prefDecision').value  = source.decision  || '';
-            document.getElementById('prefLifestyle').value = source.lifestyle || '';
-            document.getElementById('prefSocial').value    = source.social    || '';
-            panel.classList.add('open');
-        }
-    };
-
-    window.cancelPreferences = function() {
-        document.getElementById('preferencesPanel').classList.remove('open');
-    };
-
-    window.savePreferences = function() {
-        const decision  = document.getElementById('prefDecision').value;
-        const lifestyle = document.getElementById('prefLifestyle').value;
-        const social    = document.getElementById('prefSocial').value;
-
-        if (!decision || !lifestyle || !social) {
-            alert('Please fill in all three preferences before saving.');
-            return;
-        }
-
-        state.userPreferences = { decision, lifestyle, social };
-        document.getElementById('prefStatus').textContent = 'Customized';
-        document.getElementById('prefStatus').style.background = 'rgba(243,156,18,0.25)';
-        document.getElementById('prefStatus').style.borderColor = 'rgba(243,156,18,0.5)';
-        document.getElementById('prefStatus').style.color = '#f39c12';
-        document.getElementById('preferencesPanel').classList.remove('open');
-
-        // Re-render current card so score updates immediately
-        if (state.initialized) showCurrentProfile();
-    };
-
-    // Helper: get the effective "your" personality traits —
-    // user overrides take priority, otherwise use assigned profile traits
-    function getYourTraits() {
-        if (state.userPreferences) return state.userPreferences;
-        return state.currentUserProfile?.profile_quiz?.analysis?.personalityTraits || {};
-    }
-
-    // ============================================================
-    //  INIT
-    // ============================================================
     async function initMatchmaking() {
         try {
             const userResponse = await fetch(`${pythonURI}/api/match/data`, {
@@ -834,10 +695,14 @@ author: Adhav S
                 headers: { 'Content-Type': 'application/json' }
             });
 
-            if (!userResponse.ok) throw new Error(`User profile error: ${userResponse.status}`);
+            if (!userResponse.ok) {
+                throw new Error(`User profile error: ${userResponse.status}`);
+            }
 
             const userData = await userResponse.json();
-            if (!userData.data) throw new Error('No profile data found');
+            if (!userData.data) {
+                throw new Error('No profile data found');
+            }
             state.currentUserProfile = userData.data;
             state.currentUserUID = userData.uid || 'current_user';
 
@@ -847,11 +712,16 @@ author: Adhav S
                 headers: { 'Content-Type': 'application/json' }
             });
 
-            if (!allResponse.ok) throw new Error(`Profiles error: ${allResponse.status}`);
+            if (!allResponse.ok) {
+                throw new Error(`Profiles error: ${allResponse.status}`);
+            }
 
             const allData = await allResponse.json();
-            if (!allData.users || !Array.isArray(allData.users)) throw new Error('Invalid profile data format');
-
+            
+            if (!allData.users || !Array.isArray(allData.users)) {
+                throw new Error('Invalid profile data format');
+            }
+            
             state.allProfiles = allData.users
                 .filter(p => p.uid !== state.currentUserUID && p.data && Object.keys(p.data).length > 0)
                 .map(p => ({ ...p, uid: p.uid }));
@@ -868,23 +738,17 @@ author: Adhav S
         }
     }
 
-    // ============================================================
-    //  COMPATIBILITY ALGORITHM
-    //  Personality score: based on how many of the 3 trait pairs
-    //  match — gives 0%, 33%, 67%, or 100% of the personality
-    //  portion (60 pts max).  Remaining 40 pts from profile fields.
-    // ============================================================
     function calculateCompatibility(profile1, profile2) {
-        const matches    = [];
+        const matches = [];
         const mismatches = [];
-        let fieldScore   = 0;
+        let score = 0;
 
-        // ---- Profile-field scoring (40 pts max) ----
-        const fields = ['age', 'location', 'interests', 'hobbies', 'occupation', 'relationship_type', 'mbti'];
+        const fields = ['age', 'location', 'interests', 'hobbies', 'occupation', 'bio', 'relationship_type', 'personality_type', 'mbti'];
 
         fields.forEach(field => {
             const val1 = profile1[field];
             const val2 = profile2[field];
+
             if (!val1 || !val2) return;
 
             const v1 = String(val1).toLowerCase().trim();
@@ -892,7 +756,7 @@ author: Adhav S
 
             if (v1 === v2) {
                 matches.push({ field, value1: val1, value2: val2 });
-                fieldScore += 5;
+                score += 20;
             } else if (field === 'age') {
                 const age1 = parseInt(v1);
                 const age2 = parseInt(v2);
@@ -900,10 +764,10 @@ author: Adhav S
                     const diff = Math.abs(age1 - age2);
                     if (diff <= 3) {
                         matches.push({ field, value1: val1, value2: val2 });
-                        fieldScore += 4;
+                        score += 15;
                     } else if (diff <= 8) {
                         matches.push({ field, value1: val1, value2: val2 });
-                        fieldScore += 2;
+                        score += 8;
                     } else {
                         mismatches.push({ field, value1: val1, value2: val2 });
                     }
@@ -911,12 +775,12 @@ author: Adhav S
             } else if (field === 'interests' || field === 'hobbies') {
                 const arr1 = Array.isArray(val1) ? val1 : [val1];
                 const arr2 = Array.isArray(val2) ? val2 : [val2];
-                const commonCount = arr1.filter(i =>
-                    arr2.some(j => String(i).toLowerCase() === String(j).toLowerCase())
-                ).length;
+                const commonCount = arr1.filter(i => arr2.some(j => 
+                    String(i).toLowerCase() === String(j).toLowerCase()
+                )).length;
                 if (commonCount > 0) {
                     matches.push({ field, value1: commonCount, value2: `shared ${field}` });
-                    fieldScore += Math.min(commonCount * 3, 5);
+                    score += commonCount * 10;
                 } else {
                     mismatches.push({ field, value1: arr1[0], value2: arr2[0] });
                 }
@@ -925,185 +789,126 @@ author: Adhav S
             }
         });
 
-        const cappedFieldScore = Math.min(fieldScore, 40);
-
-        // ---- Personality trait scoring (60 pts max) ----
-        // Your traits: assigned from profile quiz, overridable via Edit Preferences
-        const yourTraits  = getYourTraits();
-
-        // Robust extraction for theirTraits, matching buildComparisonTable
-        let theirTraits = {};
-        if (profile2) {
-            if (profile2.profile_quiz?.analysis?.personalityTraits) {
-                theirTraits = profile2.profile_quiz.analysis.personalityTraits;
-            } else if (profile2.analysis?.personalityTraits) {
-                theirTraits = profile2.analysis.personalityTraits;
-            } else if (profile2.personalityTraits) {
-                theirTraits = profile2.personalityTraits;
-            }
-        }
-        theirTraits = theirTraits || {};
-
-        const traitKeys      = ['decision', 'lifestyle', 'social'];
-        let traitMatchCount  = 0;
-        let traitTotal       = 0;
-
-        traitKeys.forEach(trait => {
-            const yourVal  = yourTraits[trait];
-            const theirVal = theirTraits[trait];
-            if (!yourVal || !theirVal) return;
-            traitTotal++;
-            if (String(yourVal).toLowerCase() === String(theirVal).toLowerCase()) {
-                traitMatchCount++;
-                matches.push({ field: `${trait}_personality`, value1: yourVal, value2: theirVal });
-            } else {
-                mismatches.push({ field: `${trait}_personality`, value1: yourVal, value2: theirVal });
-            }
-        });
-
-        // Personality score: proportion of matched traits × 60
-        const personalityScore = traitTotal > 0
-            ? Math.round((traitMatchCount / traitTotal) * 60)
-            : 0;
-
-        const finalScore = Math.min(cappedFieldScore + personalityScore, 100);
-
-        return {
-            score: finalScore,
-            matches,
-            mismatches,
-            traitMatchCount,
-            traitTotal,
-            personalityScore,
-            fieldScore: cappedFieldScore
-        };
+        const finalScore = Math.min(Math.round(score), 100);
+        return { score: finalScore, matches, mismatches };
     }
 
-    // ============================================================
-    //  COMPATIBILITY BANNER
-    // ============================================================
-    function buildCompatBanner(compat) {
-        const pct   = compat.score;
-        let color;
-        if (pct >= 70)      color = '#27ae60';
-        else if (pct >= 40) color = '#f39c12';
-        else                color = '#e74c3c';
-
-        const traitNote = compat.traitTotal > 0
-            ? `${compat.traitMatchCount}/${compat.traitTotal} personality traits match`
-            : 'No personality data from quiz yet — edit to set manually';
-
-        return `
-            <div class="compat-banner">
-                <span class="compat-label">Compatibility</span>
-                <div class="compat-bar-wrap">
-                    <div class="compat-bar-fill"
-                         style="width:${pct}%; background: linear-gradient(90deg, ${color}, ${color}cc);"></div>
-                </div>
-                <div>
-                    <div class="compat-pct" style="color:${color};">${pct}%</div>
-                    <div class="compat-breakdown">${traitNote}</div>
-                </div>
-            </div>
-        `;
-    }
-
-    // ============================================================
-    //  BUILD COMPARISON TABLE ROWS
-    // ============================================================
     function buildComparisonTable(yourProfile, theirProfile) {
+        // Debug logs to help identify backend structure
+        console.log('yourProfile:', yourProfile);
+        console.log('theirProfile:', theirProfile);
+        // Username extraction: always 'You' for yourProfile, cycle through fixed list for theirProfile
         const username = 'You';
         const usernameCycle = [
             'indy', 'salem', 'phoenix', 'cody', 'pixel', 'cadence', 'ace', 'marco', 'libra', 'nikola', 'isaac', 'madam', 'flash', 'parker', 'merlin',
-            'sky', 'toby', 'hop', 'niko', 'K9',
-            'thisisasupercooluser', 'testuser2', 'testuser67676767', 'testusersixtyseven', 'Matching', 'aoisfoi', 'Timothee Chalamat', 'Drake "Drake Maye" Maye', 'shreksswamp', 'StinkyJoe', 'dr pooglarth', 'tester', 'Morttt', 'Elamkulam Manakkal Sankaran Namboodiripad', 'george washington'
+            'hisisasupercooluser', 'testuser2', 'testuser67676767', 'testusersixtyseven', 'Matching', 'aoisfoi', 'Timothee Chalamat',
+            'Drake "Drake Maye" Maye', 'shreksswamp', 'StinkyJoe', 'dr pooglarth', 'tester', 'Morttt', 'Elamkulam Manakkal Sankaran Namboodiripad', 'Jake'
         ];
         const theirusername = usernameCycle[state.usernameCycleIndex % usernameCycle.length];
-        // Robust personality trait extraction for both profiles
-        function extractTraits(profile) {
-            if (!profile) return {};
-            // Try all likely paths for personalityTraits
-            if (profile.profile_quiz?.analysis?.personalityTraits) {
-                return profile.profile_quiz.analysis.personalityTraits;
-            } else if (profile.analysis?.personalityTraits) {
-                return profile.analysis.personalityTraits;
-            } else if (profile.personalityTraits) {
-                return profile.personalityTraits;
-            } else if (profile.profile?.profile_quiz?.analysis?.personalityTraits) {
-                return profile.profile.profile_quiz.analysis.personalityTraits;
-            } else if (profile.profile?.analysis?.personalityTraits) {
-                return profile.profile.analysis.personalityTraits;
-            } else if (profile.profile?.personalityTraits) {
-                return profile.profile.personalityTraits;
-            }
-            return {};
-        }
-        const yourTraits = extractTraits(yourProfile);
-        const theirTraits = extractTraits(theirProfile);
-                theirTraits = theirProfile.personalityTraits;
-            }
-        }
-        // fallback to empty object if nothing found
-        theirTraits = theirTraits || {};
 
+    // Personality traits: only show decision, lifestyle, social
+    // Use user-edited preferences if set, else backend
+    const yourTraits = state.userPreferences || (yourProfile?.profile?.profile_quiz?.analysis?.personalityTraits || {});
+    const theirTraits = theirProfile?.profile?.profile_quiz?.analysis?.personalityTraits || {};
         let rows = '';
-
+        // Username row
         rows += `
             <tr>
                 <td class="attribute-name">Username</td>
                 <td class="your-value">${formatValue(username)}</td>
-                <td class="match-status" style="color:#ffd700; font-size:1.5em;">~</td>
+                <td class="match-status username-match" style="color:#ffd700; font-size:1.5em;">~</td>
                 <td class="their-value">${formatValue(theirusername)}</td>
             </tr>
         `;
-
+        // Personality section title row
         rows += `
             <tr>
-                <td colspan="4" style="text-align:center; font-weight:bold; color:#8b9dff; background:rgba(102,126,234,0.08);">
-                    Personality Traits
-                    ${state.userPreferences
-                        ? '<span style="font-size:0.75em; color:#f39c12; margin-left:0.5em;">(customized)</span>'
-                        : '<span style="font-size:0.75em; color:#27ae60; margin-left:0.5em;">(assigned from quiz)</span>'}
-                </td>
+                <td colspan="4" style="text-align:center; font-weight:bold; color:#8b9dff; background:rgba(102,126,234,0.08);">Personality</td>
             </tr>
         `;
-
+        // Only show decision, lifestyle, social
         const traitList = ['decision', 'lifestyle', 'social'];
+        let matchCount = 0;
         traitList.forEach(trait => {
-            const yourVal  = yourTraits[trait]  !== undefined ? yourTraits[trait]  : 'Not specified';
+            const yourVal = yourTraits[trait] !== undefined ? yourTraits[trait] : 'Not specified';
             const theirVal = theirTraits[trait] !== undefined ? theirTraits[trait] : 'Not specified';
-            const isMatch  = yourVal !== 'Not specified' && theirVal !== 'Not specified'
-                          && String(yourVal).toLowerCase() === String(theirVal).toLowerCase();
+            const isMatch = (yourVal !== 'Not specified' && theirVal !== 'Not specified' && yourVal === theirVal);
+            if (isMatch) matchCount++;
             rows += `
                 <tr>
                     <td class="attribute-name">${formatFieldName(trait)}</td>
                     <td class="your-value">${formatValue(yourVal)}</td>
                     <td class="match-status ${isMatch ? 'match' : 'mismatch'}" style="font-size:1.5em;">
-                        ${isMatch
-                            ? '<span style="color:#27ae60;">✓</span>'
-                            : '<span style="color:#e74c3c;">✗</span>'}
+                        ${isMatch ? '<span style="color:#27ae60;">✓</span>' : '<span style="color:#e74c3c;">✗</span>'}
                     </td>
                     <td class="their-value">${formatValue(theirVal)}</td>
                 </tr>
             `;
         });
-
+        // Add percent compatibility row for personality
+        const percent = Math.round((matchCount / traitList.length) * 100);
+        rows += `
+            <tr>
+                <td class="attribute-name">Personality Compatibility</td>
+                <td colspan="3" style="text-align:center; font-weight:bold; color:#27ae60; font-size:1.2em;">
+                    ${percent}%
+                </td>
+            </tr>
+        `;
         return rows;
     }
 
-    // ============================================================
-    //  SHOW CURRENT PROFILE
-    // ============================================================
     function showCurrentProfile() {
         if (state.currentIndex >= state.allProfiles.length) {
             showResults();
             return;
         }
 
-        const profile    = state.allProfiles[state.currentIndex];
-        const compat     = calculateCompatibility(state.currentUserProfile, profile.data);
-        const tableRows  = buildComparisonTable(state.currentUserProfile, profile.data);
-        const compatHTML = buildCompatBanner(compat);
+        const profile = state.allProfiles[state.currentIndex];
+        const tableRows = buildComparisonTable(state.currentUserProfile, profile.data);
+        // If edit panel is open, prefill with current values
+        if (document.getElementById('editPersonalityPanel')) {
+            const panel = document.getElementById('editPersonalityPanel');
+            if (panel.style.display !== 'none') {
+                const traits = state.userPreferences || (state.currentUserProfile && (state.currentUserProfile.profile_quiz?.analysis?.personalityTraits || {})) || {};
+                document.getElementById('editDecision').value = traits.decision || 'Analytical';
+                document.getElementById('editLifestyle').value = traits.lifestyle || 'Structured';
+                document.getElementById('editSocial').value = traits.social || 'Introverted';
+            }
+        }
+    // Edit Personality Button logic
+    document.addEventListener('DOMContentLoaded', () => {
+        const editBtn = document.getElementById('editPersonalityBtn');
+        const panel = document.getElementById('editPersonalityPanel');
+        if (editBtn && panel) {
+            editBtn.onclick = () => {
+                // Prefill with current values
+                const traits = state.userPreferences || (state.currentUserProfile && (state.currentUserProfile.profile_quiz?.analysis?.personalityTraits || {})) || {};
+                document.getElementById('editDecision').value = traits.decision || 'Analytical';
+                document.getElementById('editLifestyle').value = traits.lifestyle || 'Structured';
+                document.getElementById('editSocial').value = traits.social || 'Introverted';
+                panel.style.display = 'block';
+            };
+        }
+        const saveBtn = document.getElementById('savePersonalityBtn');
+        if (saveBtn) {
+            saveBtn.onclick = () => {
+                state.userPreferences = {
+                    decision: document.getElementById('editDecision').value,
+                    lifestyle: document.getElementById('editLifestyle').value,
+                    social: document.getElementById('editSocial').value
+                };
+                document.getElementById('editPersonalityPanel').style.display = 'none';
+                showCurrentProfile();
+            };
+        }
+        const cancelBtn = document.getElementById('cancelPersonalityBtn');
+        if (cancelBtn) {
+            cancelBtn.onclick = () => {
+                document.getElementById('editPersonalityPanel').style.display = 'none';
+            };
+        }
+    });
 
         const content = document.getElementById('mainContent');
         content.innerHTML = `
@@ -1122,8 +927,6 @@ author: Adhav S
                 </div>
             </div>
 
-            ${compatHTML}
-
             <div class="comparison-table">
                 <table>
                     <thead>
@@ -1141,15 +944,16 @@ author: Adhav S
             </div>
 
             <div class="button-group">
-                <button class="btn btn-skip" onclick="window.handleSkip()">Skip</button>
-                <button class="btn btn-match" onclick="window.handleMatch()">Match</button>
+                <button class="btn btn-skip" onclick="window.handleSkip()">
+                    Skip
+                </button>
+                <button class="btn btn-match" onclick="window.handleMatch()">
+                    Match
+                </button>
             </div>
         `;
     }
 
-    // ============================================================
-    //  HELPERS
-    // ============================================================
     function formatFieldName(field) {
         return field.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase());
     }
@@ -1164,18 +968,19 @@ author: Adhav S
         return value || 'Not specified';
     }
 
-    // ============================================================
-    //  MATCH / SKIP
-    // ============================================================
     async function handleMatch() {
-        const profile    = state.allProfiles[state.currentIndex];
-        const compat     = calculateCompatibility(state.currentUserProfile, profile.data);
-        state.matches.push({ ...profile, compatibility: compat.score });
+        const profile = state.allProfiles[state.currentIndex];
+        const compatibility = calculateCompatibility(state.currentUserProfile, profile.data);
+        
+        state.matches.push({ ...profile, compatibility: compatibility.score });
 
         try {
             const existingMatches = state.currentUserProfile.matched_with || [];
             const updated = Array.isArray(existingMatches) ? existingMatches : [existingMatches];
-            if (!updated.includes(profile.uid)) updated.push(profile.uid);
+            
+            if (!updated.includes(profile.uid)) {
+                updated.push(profile.uid);
+            }
 
             await fetch(`${pythonURI}/api/match/add`, {
                 method: 'POST',
@@ -1187,45 +992,43 @@ author: Adhav S
             console.error('Error saving match:', error);
         }
 
-        state.currentIndex++;
-        state.usernameCycleIndex++;
-        showCurrentProfile();
+    state.currentIndex++;
+    state.usernameCycleIndex++;
+    showCurrentProfile();
     }
 
     function handleSkip() {
-        state.skipped.push(state.allProfiles[state.currentIndex]);
-        state.currentIndex++;
-        state.usernameCycleIndex++;
-        showCurrentProfile();
+    state.skipped.push(state.allProfiles[state.currentIndex]);
+    state.currentIndex++;
+    state.usernameCycleIndex++;
+    showCurrentProfile();
     }
 
     window.handleMatch = handleMatch;
-    window.handleSkip  = handleSkip;
+    window.handleSkip = handleSkip;
 
-    // ============================================================
-    //  RESULTS SCREEN
-    // ============================================================
     function showResults() {
         const content = document.getElementById('mainContent');
-
-        const reviewedText = state.allProfiles.length === 1
+        
+        const reviewedText = state.allProfiles.length === 1 
             ? `You've reviewed the only available profile`
-            : `You've completed reviewing all ${state.allProfiles.length} available profiles`;
-
+            : `You've completed reviewing all ${state.allProfiles.length} available profiles in the database`;
+        
         const congratsMessage = state.matches.length > 0
             ? `Congratulations! You found <strong>${state.matches.length}</strong> potential connection${state.matches.length !== 1 ? 's' : ''}!`
-            : `You've reached the end of all available profiles. No matches this round — don't give up!`;
-
+            : `You've reached the end of all available profiles. No matches this round, but don't give up!`;
+        
         content.innerHTML = `
             <div class="finish-screen">
                 <h2>Matching Complete!</h2>
-                <p style="color:#8b9dff; font-size:1.2em; font-weight:500; margin:1.5em 0;">${reviewedText}</p>
-                <p style="color:#27ae60; font-size:1.3em; font-weight:bold; margin:1.5em 0; padding:1.5em;
-                          background:rgba(39,174,96,0.1); border-radius:8px; border:2px solid #27ae60;">
+                <p style="color: #8b9dff; font-size: 1.2em; font-weight: 500; margin: 1.5em 0;">
+                    ${reviewedText}
+                </p>
+                <p style="color: #27ae60; font-size: 1.3em; font-weight: bold; margin: 1.5em 0; padding: 1.5em; background: rgba(39, 174, 96, 0.1); border-radius: 8px; border: 2px solid #27ae60;">
                     ${congratsMessage}
                 </p>
 
-                <div class="stats-bar" style="margin:2em 0; justify-content:center; display:flex; gap:2em;">
+                <div class="stats-bar" style="margin: 2em 0; justify-content: center; display: flex; gap: 2em;">
                     <div class="stat-box">
                         <div class="stat-value">${state.matches.length}</div>
                         <div class="stat-label">Total Matches</div>
@@ -1237,55 +1040,55 @@ author: Adhav S
                 </div>
 
                 ${state.matches.length > 0 ? `
-                    <h3 style="color:#8b9dff; margin-top:2em;">Your Matches</h3>
+                    <h3 style="color: #8b9dff; margin-top: 2em;">Your Matches</h3>
                     <div class="matches-grid">
                         ${state.matches.map(m => `
                             <div class="match-card">
                                 <h4>${formatValue(m.data.name || m.uid)}</h4>
-                                <p style="color:#c0c0c0; margin:0.5em 0;">Somewhere on Earth</p>
-                                <p class="compatibility-percent">${m.compatibility}% Compatible</p>
+                                <p style="color: #c0c0c0; margin: 0.5em 0;">Somewhere on Earth</p>
                             </div>
                         `).join('')}
                     </div>
                 ` : `
-                    <div style="background:rgba(102,126,234,0.1); padding:2em; border-radius:8px; margin-top:2em; border:2px dashed #667eea;">
-                        <p style="color:#b0b0b0;">No matches this round. Try again to find your perfect match!</p>
+                    <div style="background: rgba(102, 126, 234, 0.1); padding: 2em; border-radius: 8px; margin-top: 2em; border: 2px dashed #667eea;">
+                        <p style="color: #b0b0b0;">No matches this round. Try again to find your perfect match!</p>
                     </div>
                 `}
 
-                <div class="button-group" style="margin-top:2em;">
-                    <button class="btn btn-skip" onclick="location.reload()">Start Over</button>
+                <div class="button-group" style="margin-top: 2em;">
+                    <button class="btn btn-skip" onclick="location.reload()">
+                        Start Over
+                    </button>
                 </div>
             </div>
         `;
     }
 
     function showNoProfiles() {
-        document.getElementById('mainContent').innerHTML = `
+        const content = document.getElementById('mainContent');
+        content.innerHTML = `
             <div class="error-message">
                 <h3>No Profiles Available</h3>
                 <p>Complete your profile first before matching with others!</p>
-            </div>`;
+            </div>
+        `;
     }
 
     function showError(message) {
-        document.getElementById('mainContent').innerHTML = `
+        const content = document.getElementById('mainContent');
+        content.innerHTML = `
             <div class="error-message">
                 <h3>Error</h3>
                 <p>${message}</p>
-            </div>`;
+            </div>
+        `;
     }
 
-    // ============================================================
-    //  BOOTSTRAP — load profiles immediately (no gate form)
-    // ============================================================
     initMatchmaking();
 
-    // ============================================================
-    //  PAGE NAVIGATION SYSTEM
-    // ============================================================
+    // Page Navigation System
     const VISITED_KEY = 'api_visited_pages';
-    let visitedPages  = {};
+    let visitedPages = {};
 
     const pages = [
         { id: 1, url: '/digitalmatchmaking/api/' },
@@ -1296,13 +1099,17 @@ author: Adhav S
     ];
 
     function loadVisitedPages() {
-        try { return JSON.parse(localStorage.getItem(VISITED_KEY)) || {}; }
-        catch (e) { return {}; }
+        try {
+            return JSON.parse(localStorage.getItem(VISITED_KEY)) || {};
+        } catch (e) {
+            return {};
+        }
     }
 
     function saveVisitedPages() {
-        try { localStorage.setItem(VISITED_KEY, JSON.stringify(visitedPages)); }
-        catch (e) {}
+        try {
+            localStorage.setItem(VISITED_KEY, JSON.stringify(visitedPages));
+        } catch (e) {}
     }
 
     function isPageUnlocked(pageId) {
@@ -1318,23 +1125,28 @@ author: Adhav S
     }
 
     function updateNavigation() {
-        const navNodes      = document.querySelectorAll('.nav-node');
+        const navNodes = document.querySelectorAll('.nav-node');
         const navConnectors = document.querySelectorAll('.nav-connector');
-
+        
         navNodes.forEach((node, idx) => {
             const pageId = idx + 1;
             node.classList.remove('locked', 'unlocked', 'visited', 'current');
-
+            
             if (visitedPages[pageId]) {
                 node.classList.add('visited');
                 node.href = node.dataset.url;
                 node.style.cursor = 'pointer';
-                node.onclick = function() { window.location.href = this.dataset.url; };
+                node.onclick = function() {
+                    window.location.href = this.dataset.url;
+                };
             } else if (isPageUnlocked(pageId)) {
                 node.classList.add('unlocked');
                 node.href = node.dataset.url;
                 node.style.cursor = 'pointer';
-                node.onclick = function() { markPageVisited(pageId); window.location.href = this.dataset.url; };
+                node.onclick = function() {
+                    markPageVisited(pageId);
+                    window.location.href = this.dataset.url;
+                };
             } else {
                 node.classList.add('locked');
                 node.style.cursor = 'not-allowed';
@@ -1344,19 +1156,29 @@ author: Adhav S
         });
 
         navConnectors.forEach((conn, idx) => {
-            if (visitedPages[idx + 1]) conn.classList.add('visited');
-            else conn.classList.remove('visited');
+            if (visitedPages[idx + 1]) {
+                conn.classList.add('visited');
+            } else {
+                conn.classList.remove('visited');
+            }
         });
 
         const currentUrl = window.location.pathname;
-        navNodes.forEach(node => {
-            if (node.dataset.url === currentUrl) node.classList.add('current');
+        navNodes.forEach((node, idx) => {
+            if (node.dataset.url === currentUrl) {
+                node.classList.add('current');
+            }
         });
     }
 
     visitedPages = loadVisitedPages();
-    pages.forEach(page => {
-        if (page.url === window.location.pathname) markPageVisited(page.id);
+
+    const currentUrl = window.location.pathname;
+    pages.forEach((page, idx) => {
+        if (page.url === currentUrl) {
+            markPageVisited(page.id);
+        }
     });
+
     updateNavigation();
 </script>
